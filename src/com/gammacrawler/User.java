@@ -1,4 +1,4 @@
-package com.jeromierand.gammapos;
+package com.gammapos;
 
 class User extends Character {
 
