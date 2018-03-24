@@ -1,10 +1,12 @@
-package com.gammacrawler.generator;
+package com.gammacrawler.generator.test;
 
 import javax.swing.JFrame;
 
-public class Test {
+import com.gammacrawler.generator.GamePanel;
+
+public class GeneratorTest {
 	public static JFrame frame; 
-	public static OrthelloPanel panel = new OrthelloPanel();
+	public static GamePanel panel = new GamePanel();
 
 	public static void main(String[] args) {
 		frame = new JFrame();

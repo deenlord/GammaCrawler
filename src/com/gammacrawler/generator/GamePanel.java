@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 import com.gammacrawler.generator.math.DunMath;
 
-public class OrthelloPanel extends JPanel {
+public class GamePanel extends JPanel {
 	/**
 	 * Default ID it wanted me to add.
 	 */
@@ -15,7 +15,7 @@ public class OrthelloPanel extends JPanel {
 	int[][] array = new int[301][301];
 	Board board;
 
-	public OrthelloPanel() {
+	public GamePanel() {
 		initArray();
 
 		board = new Board(array);
