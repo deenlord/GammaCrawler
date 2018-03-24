@@ -12,10 +12,11 @@ public class GamePanel extends JPanel {
 	 * Default ID it wanted me to add.
 	 */
 	private static final long serialVersionUID = 1L;
-	int[][] array = new int[301][301];
+	int[][] array;
 	Board board;
 
-	public GamePanel() {
+	public GamePanel(int width, int height) {
+		array = new int[width][height];
 		initArray();
 
 		board = new Board(array);
