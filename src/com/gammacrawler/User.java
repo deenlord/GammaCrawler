@@ -1,39 +1,71 @@
 package com.gammacrawler;
 
-import javafx.geometry.Point2D; 
+import java.io.Serializable;
 
+/**
+ * @author deenlord
+ * 3/24
+ */
+public class User extends Character implements Serializable {
 
-
-class User extends Character {
 	
-	Point2D coords;
+	private int exp;
+	
+	public User() {
+		new User("Dartanian");
+	}
 
+	/**
+	 * @param name
+	 */
 	public User(String name) {
 		this.setName(name);
-		this.setHP(100);
-		coords = new Point2D(0, 0);
+		this.setMaxHP(100);
+		this.setHP(this.getMaxHP());
+		this.setInitialLocation(0, 0);
+		this.exp = 0;
+		
 //		inv = new Inventory();
 //		main = new Weapon("Wooden Sword", 1);
 //		shield = new Shield("Wooden Shield", 1);
 
 	}
 	
-	public Point2D getCoords() {
-		return this.coords;
+//	public increaseEXP(Enemy en) {
+//		this.exp+= en.maxHP *0.5;
+//	}
+//	
+	
+	/**
+	 * @return experience points
+	 */
+	public int getExp() {
+		return this.exp;
 	}
 	
-	public void moveUser(Direction dir) {
-		if (dir == Direction.NORTH) {
-			this.coords.add(0, 1);
-		}
-		else if (dir == Direction.SOUTH) {
-			this.coords.add(0, -1);
-		}
-		else if (dir == Direction.WEST) {
-			this.coords.add(-1, 0);
-		}
-		else if (dir == Direction.EAST) {
-			this.coords.add(1, 0);
-		}
+	/**
+	 * @param increment - amount to increment exp by
+	 */
+	public void increaseExp(int increment) {
+		this.exp += increment;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Name: " + this.getName() + "\n");
+		str.append("Max HP: " + this.getMaxHP() + "\n");
+		str.append("Current HP: " + this.getHP() + "\n");
+		str.append("Experience: " + this.exp + "\n");
+		str.append("Location: " + this.getLocation()[0] + this.getLocation()[1] + "\n");
+		
+		return str.toString();
+		
+	}
+	
+	
+	
+	
 }
