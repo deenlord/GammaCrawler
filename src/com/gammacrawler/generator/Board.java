@@ -6,133 +6,162 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Board {
+import com.gammacrawler.generator.math.DunMath;
 
-	MazeMapTile[][] tileArray;
-	ArrayList<MazeMapTile> tileList = new ArrayList<>();
+public class Board {
+	private int[][] array;
 	ArrayList<Point> connectors = new ArrayList<>();
 	private int regionCounter = 1;
 	private int[][] regionArray;
+	MazeMap mazeMap;
 
-	public Board(int[][] array) {
-		tileArray = new MazeMapTile[(array.length - 1) / 2][(array[0].length - 1) / 2];
+	public Board(int width, int height) {
+		this.array = new int[width][height];
 		regionArray = new int[array.length][array[0].length];
+		fillIntegerArray(array, 1);
 		fillIntegerArray(regionArray, 0);
-		intMapToCellMap(array);
+		attemptPlaceRooms(10, 3, 20, 3, 20);
+		mazeMap = new MazeMap(array);
+		addMaze();
+		fillRegions();
 	}
 
 	private void fillIntegerArray(int[][] array, int fillInt) {
 		for (int x = 0; x < array.length; x++) {
 			for (int y = 0; y < array[0].length; y++) {
-				array[x][y] = 0;
+				array[x][y] = fillInt;
 			}
 		}
 	}
 
-	/**
-	 * Takes an int array and clears the tiles on it corresponding to the maze
-	 * map.
-	 * 
-	 * @param array
-	 *            The array to operate on.
-	 */
-	public void clearArray(int[][] array) {
-		for (int x = 0; x < tileArray.length; x++) {
-			for (int y = 0; y < tileArray[0].length; y++) {
-				int nX = (x * 2) + 1;
-				int nY = (y * 2) + 1;
-
-				array[nX][nY] = 0;
-
-				if (tileArray[x][y].hasLeft()) {
-					array[nX - 1][nY] = 0;
-					regionArray[nX - 1][nY] = tileArray[x][y].getRegionID();
-				}
-				if (tileArray[x][y].hasRight()) {
-					array[nX + 1][nY] = 0;
-					regionArray[nX + 1][nY] = tileArray[x][y].getRegionID();
-				}
-				if (tileArray[x][y].hasUp()) {
-					array[nX][nY - 1] = 0;
-					regionArray[nX][nY - 1] = tileArray[x][y].getRegionID();
-				}
-				if (tileArray[x][y].hasDown()) {
-					array[nX][nY + 1] = 0;
-					regionArray[nX][nY + 1] = tileArray[x][y].getRegionID();
+	private void fillRegions() {
+		for (int x = 0; x < array.length; x++) {
+			for (int y = 0; y < array[0].length; y++) {
+				if (array[x][y] == 0 && regionArray[x][y] == 0) {
+					floodFillRegion(x, y, regionCounter);
+					regionCounter++;
 				}
 			}
 		}
 	}
 
+	private void floodFillRegion(int x, int y, int regionID) {
+		if (array[x][y] == 1 || regionArray[x][y] == regionID) {
+			return;
+		}
+
+		regionArray[x][y] = regionCounter;
+		System.out.println("HI");
+
+		if (x > 0) {
+			floodFillRegion(x - 1, y, regionID);
+		}
+		if (x < array.length - 1) {
+			floodFillRegion(x + 1, y, regionID);
+		}
+		if (y > 0) {
+			floodFillRegion(x, y - 1, regionID);
+		}
+		if (y < array[0].length - 1) {
+			floodFillRegion(x, y + 1, regionID);
+		}
+	}
+
+	// TODO: This javadoc
 	/**
-	 * Takes an array of 0 or 1 integers and puts the odd ints in a new array.
+	 * Attempt to place randomized white rooms. Size parameters will be made odd
+	 * by adding 1 if they are even.
 	 * 
-	 * @param array
+	 * @param attempts
+	 * @param minRoomWidth
+	 * @param maxRoomWidth
+	 * @param minRoomHeight
+	 * @param maxRoomHeight
 	 */
-	private void intMapToCellMap(int[][] array) {
+	public void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight,
+			int maxRoomHeight) {
+		int xPointMin;
+		int xPointMax;
+		int yPointMin;
+		int yPointMax;
+		int xPoint;
+		int yPoint;
+		int thisRoomWidth;
+		int thisRoomHeight;
 
-		// Add all the odd cells, so that we can remove the even ones between
-		// them.
-		for (int x = 1; x < array.length; x += 2) {
-			for (int y = 1; y < array[0].length; y += 2) {
+		xPointMin = 1;
+		yPointMin = 1;
 
-				MazeMapTile c = new MazeMapTile((x - 1) / 2, (y - 1) / 2);
+		// Make any even numbers odd.
+		minRoomWidth = (minRoomWidth % 2 == 0 ? minRoomWidth + 1 : minRoomWidth);
+		maxRoomWidth = (maxRoomWidth % 2 == 0 ? maxRoomWidth + 1 : maxRoomWidth);
+		minRoomHeight = (minRoomHeight % 2 == 0 ? minRoomHeight + 1 : minRoomHeight);
+		maxRoomHeight = (maxRoomHeight % 2 == 0 ? maxRoomHeight + 1 : maxRoomHeight);
 
-				// Process the tiles such that we don't place mazes on already
-				// clear tiles.
-				if (array[x][y] == 1) {
-					tileList.add(c);
-				} else {
-					c.setVisited(true);
-				}
-				tileArray[(x - 1) / 2][(y - 1) / 2] = c;
-			}
+		for (int i = 0; i < attempts; i++) {
+			thisRoomWidth = DunMath.randomOdd(minRoomWidth, maxRoomWidth);
+			thisRoomHeight = DunMath.randomOdd(minRoomHeight, maxRoomHeight);
+
+			// Account for room width
+			xPointMax = array.length - thisRoomWidth - 1;
+			yPointMax = array[0].length - thisRoomHeight - 1;
+
+			xPoint = DunMath.randomOdd(xPointMin, xPointMax);
+			yPoint = DunMath.randomOdd(yPointMin, yPointMax);
+
+			makeRoom(xPoint, yPoint, thisRoomWidth, thisRoomHeight);
 		}
 	}
 
 	/**
-	 * 0: Left 1: Right 2: Up 3: Down
+	 * Fills in a rectangle with empty space.
 	 * 
-	 * @param direction
-	 *            The direction to check
-	 * @param x
-	 *            The x coordinate
-	 * @param y
-	 *            The y coordinate
-	 * @return If this direction is valid
+	 * @param pointX
+	 *            Rectangle x point.
+	 * @param pointY
+	 *            Rectangle y point.
+	 * @param width
+	 *            Rectangle width.
+	 * @param height
+	 *            Rectangle height.
 	 */
-	private boolean thisDirectionValid(int direction, int x, int y) {
-		boolean flag = true;
+	private void makeRoom(int pointX, int pointY, int width, int height) {
 
-		if (direction == 0) {
-			if (x < 1)
-				return false;
-			if (tileArray[x - 1][y].isVisited())
-				return false;
+		// Check to make sure no intersection with existing open spaces
+		if (isSpace(pointX, pointY, width, height)) {
+			for (int x = pointX; x < pointX + width; x++) {
+				for (int y = pointY; y < pointY + height; y++) {
+					array[x][y] = 0;
+				}
+			}
 		}
+	}
 
-		if (direction == 1) {
-			if (x > tileArray.length - 2)
-				return false;
-			if (tileArray[x + 1][y].isVisited())
-				return false;
+	private boolean isSpace(int pointX, int pointY, int width, int height) {
+		for (int x = pointX; x < pointX + width; x++) {
+			for (int y = pointY; y < pointY + height; y++) {
+				if (array[x][y] == 0 || octNeighborCount(0, x, y) > 0)
+					return false;
+			}
 		}
-
-		if (direction == 2) {
-			if (y < 1)
-				return false;
-			if (tileArray[x][y - 1].isVisited())
-				return false;
-		}
-
-		if (direction == 3) {
-			if (y > tileArray[0].length - 2)
-				return false;
-			if (tileArray[x][y + 1].isVisited())
-				return false;
-		}
-
 		return true;
+	}
+
+	private int octNeighborCount(int num, int x, int y) {
+		int count = 0;
+
+		for (int cx = x - 1; cx < x + 2; cx++) {
+			for (int cy = y - 1; cy < y + 2; cy++) {
+
+				// If out of bounds count as a neighbor
+				if (cx < 0 || cx >= array.length) {
+					count++;
+				} else if (array[cx][cy] == num) {
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 
 	/**
@@ -160,124 +189,41 @@ public class Board {
 		return true;
 	}
 
-	private ArrayList<MazeMapTile> getAdjacentTiles(int x, int y) {
-		ArrayList<MazeMapTile> adjacent = new ArrayList<>();
-
-		if (x > 0) {
-			adjacent.add(tileArray[x - 1][y]);
-		}
-		if (x < tileArray.length - 1) {
-			adjacent.add(tileArray[x + 1][y]);
-		}
-		if (y > 0) {
-			adjacent.add(tileArray[x][y - 1]);
-		}
-		if (y < tileArray[0].length - 1) {
-			adjacent.add(tileArray[x][y + 1]);
-		}
-
-		return adjacent;
+	public void addMaze() {
+		mazeMap.makeMaze();
+		mazeMap.clearArray(array);
 	}
 
-	public void makeMaze() {
-//		Iterator<MazeMapTile> itr = tileList.iterator();
-
-		if (tileList.size() > 0) {
-			for (MazeMapTile tile : tileList) {
-				if (!tile.isVisited()) {
-					expandMaze(tile, regionCounter);
-					regionCounter++;
-				}
-			}
-		}
-
-//	
-//		// This must use an Iterator because it will fail otherwise. This is
-//		// because we cannot access the implicit Iterator in the for each loop,
-//		// and it will fail if modified in ways other than with the Iterator's
-//		// methods.
-//		int iterations = 0;
-//		while (itr.hasNext()) {
-//			expandMaze(itr.next(), regionCounter);
-//			iterations++;
-//	
-//			// We want to remove tiles from the list as we get to them to
-//			// improve performance.
-//			// Having a list makes sure there are no islands of tiles not
-//			// reached by the algorithm.
-//			itr.remove();
+//	/**
+//	 * Returns all the tiles around the tile at (x, y)
+//	 * 
+//	 * @param x
+//	 *            The x coord of the tile
+//	 * @param y
+//	 *            The y coord of the tile
+//	 * @return ArrayList of MazeMapTile length 0-4
+//	 */
+//	private ArrayList<MazeMapTile> getAdjacentTiles(int x, int y) {
+//		ArrayList<MazeMapTile> adjacent = new ArrayList<>();
 //
-//			// We increment the region counter here so that each room and each maze
-//			// section is a separate region.
-//			regionCounter++;
+//		if (x > 0) {
+//			adjacent.add(tileArray[x - 1][y]);
 //		}
-//		System.out.println("ITERATIONS " + iterations);
-	}
+//		if (x < tileArray.length - 1) {
+//			adjacent.add(tileArray[x + 1][y]);
+//		}
+//		if (y > 0) {
+//			adjacent.add(tileArray[x][y - 1]);
+//		}
+//		if (y < tileArray[0].length - 1) {
+//			adjacent.add(tileArray[x][y + 1]);
+//		}
+//
+//		return adjacent;
+//	}
 
-	/**
-	 * A recursive method to create the Map, which is a randomized
-	 * spanning-tree. Google it.
-	 * 
-	 * @param tile
-	 *            The tile to operate on
-	 * @param region
-	 *            The ID of the region that this cell is part of
-	 * @param itr 
-	 */
-	private void expandMaze(MazeMapTile tile, int region) {
-
-		/** The direction we are checking, will be chosen randomly */
-		int direction = 0;
-
-		/** The directions we have checked on this tile */
-		boolean[] dirs = new boolean[] { false, false, false, false };
-
-		// We have visited this tile, so it is not a valid direction to carve
-		// to.
-		tile.setVisited(true);
-
-		// Also set the region this tile is part of.
-		regionArray[tile.getFullX()][tile.getFullY()] = regionCounter;
-		System.out.println("Region " + tile.getFullX() + " " + tile.getFullY() + " " + regionCounter);
-
-		while (!dirs[0] || !dirs[1] || !dirs[2] || !dirs[3]) {
-			do {
-				direction = (int) (Math.random() * 4);
-			} while (dirs[direction] == true);
-			dirs[direction] = true;
-
-			// If this direction is valid, open the pathways and expand the maze
-			// there.
-			if (thisDirectionValid(direction, tile.getCompX(), tile.getCompY())) {
-				MazeMapTile otherTile;
-				switch (direction) {
-				case 0:
-					otherTile = tileArray[tile.getCompX() - 1][tile.getCompY()];
-					tile.setHasLeft(true);
-					otherTile.setHasRight(true);
-					expandMaze(otherTile, region);
-					break;
-				case 1:
-					otherTile = tileArray[tile.getCompX() + 1][tile.getCompY()];
-					tile.setHasRight(true);
-					otherTile.setHasLeft(true);
-					expandMaze(otherTile, region);
-					break;
-				case 2:
-					otherTile = tileArray[tile.getCompX()][tile.getCompY() - 1];
-					tile.setHasUp(true);
-					otherTile.setHasDown(true);
-					expandMaze(otherTile, region);
-					break;
-				case 3:
-					otherTile = tileArray[tile.getCompX()][tile.getCompY() + 1];
-					tile.setHasDown(true);
-					otherTile.setHasUp(true);
-					expandMaze(otherTile, region);
-					break;
-				}
-			}
-		}
+	public void paint(Graphics g) {
+		paintArray(g, 800 / array.length, array);		
 	}
 
 	public void paintArray(Graphics g, int tileSize, int[][] array) {
@@ -285,51 +231,20 @@ public class Board {
 			for (int y = 0; y < array[0].length; y++) {
 				int xPos = x * tileSize;
 				int yPos = y * tileSize;
-				g.setColor((array[x][y] == 0) ? Color.white : Color.red);
+				g.setColor((array[x][y] == 0) ? Color.white : Color.black);
 				g.fillRect(xPos, yPos, tileSize, tileSize);
-				
+
 				float hue = regionArray[x][y] * (1.0f / regionCounter);
-				System.out.println("HUE " + hue);
+				System.out.println("G " + regionArray[x][y]);
 				Color c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
+				System.out.println("HUE " + hue);
 				g.setColor(c);
-				g.fillRect(xPos + 2, yPos + 2, tileSize - 4, tileSize - 4);
+				int b = 2;
+				g.fillRect(xPos + b, yPos + b, tileSize - b * 2, tileSize - b * 2);
 			}
 		}
-	}
-
-	public void paint(Graphics g, int tileSize) {
-		for (int x = 0; x < tileArray.length; x++) {
-			for (int y = 0; y < tileArray[0].length; y++) {
-				int xPos = x * tileSize;
-				int yPos = y * tileSize;
-				int xPosH = xPos + (tileSize / 2);
-				int yPosH = yPos + (tileSize / 2);
-				MazeMapTile tile = tileArray[x][y];
-
-				g.setColor(Color.BLACK);
-				g.fillOval(xPosH - 4, yPosH - 4, 8, 8);
-
-				if (!tile.hasLeft())
-					g.setColor(Color.green);
-				g.drawLine(xPosH, yPosH, xPosH - tileSize / 2, yPosH);
-				g.setColor(Color.black);
-
-				if (!tile.hasRight())
-					g.setColor(Color.green);
-				g.drawLine(xPosH, yPosH, xPosH + tileSize / 2, yPosH);
-				g.setColor(Color.black);
-
-				if (!tile.hasUp())
-					g.setColor(Color.green);
-				g.drawLine(xPosH, yPosH, xPosH, yPosH - tileSize / 2);
-				g.setColor(Color.black);
-
-				if (!tile.hasDown())
-					g.setColor(Color.green);
-				g.drawLine(xPosH, yPosH, xPosH, yPosH + tileSize / 2);
-				g.setColor(Color.black);
-			}
-		}
+		
+		//mazeMap.paint(g, tileSize);
 	}
 
 }
