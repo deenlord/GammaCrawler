@@ -2,30 +2,35 @@ package com.gammacrawler.generator;
 
 public class MazeMapTile {
 
-	private int x;
-	private int y;
+	private int compressedX;
+	private int compressedY;
+	private int fullX;
+	private int fullY;
+	private int regionID; // Used for determining if a tile connects two separate regions.
 	private boolean visited = false;
 	private boolean hasLeft = false;
 	private boolean hasRight = false;
 	private boolean hasUp = false;
 	private boolean hasDown = false;
 
-	public MazeMapTile(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public MazeMapTile(int compressedX, int compressedY) {
+		this.compressedX = compressedX;
+		this.compressedY = compressedY;
+		this.fullX = (compressedX + 1) * 2;
+		this.fullY = (compressedY + 1) * 2;
 	}
 
-	public MazeMapTile(int x, int y, boolean visited) {
-		this(x, y);
+	public MazeMapTile(int compressedX, int compressedY, boolean visited) {
+		this(compressedX, compressedY);
 		this.visited = visited;
 	}
 
-	public int getX() {
-		return x;
+	public int getCompX() {
+		return compressedX;
 	}
 
-	public int getY() {
-		return y;
+	public int getCompY() {
+		return compressedY;
 	}
 
 	public boolean isVisited() {
@@ -66,6 +71,22 @@ public class MazeMapTile {
 
 	public void setHasDown(boolean hasDown) {
 		this.hasDown = hasDown;
+	}
+
+	public int getRegionID() {
+		return regionID;
+	}
+
+	public void setRegionID(int regionID) {
+		this.regionID = regionID;
+	}
+
+	public int getFullX() {
+		return fullX;
+	}
+
+	public int getFullY() {
+		return fullY;
 	}
 
 }

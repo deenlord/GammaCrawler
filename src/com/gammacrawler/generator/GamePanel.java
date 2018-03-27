@@ -38,6 +38,7 @@ public class GamePanel extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		board.paintArray(g, 800 / array.length, array);
+		//board.paint(g, 800 / array.length);
 	}
 
 	// TODO: This javadoc
