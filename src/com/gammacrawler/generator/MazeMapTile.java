@@ -16,8 +16,9 @@ public class MazeMapTile {
 	public MazeMapTile(int compressedX, int compressedY) {
 		this.compressedX = compressedX;
 		this.compressedY = compressedY;
-		this.fullX = (compressedX + 1) * 2;
-		this.fullY = (compressedY + 1) * 2;
+		this.fullX = ((compressedX + 1) * 2) - 1;
+		this.fullY = ((compressedY + 1) * 2) - 1;
+		System.out.println("TILE " + compressedX + " " + fullX);
 	}
 
 	public MazeMapTile(int compressedX, int compressedY, boolean visited) {

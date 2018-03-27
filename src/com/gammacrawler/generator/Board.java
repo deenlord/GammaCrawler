@@ -180,28 +180,38 @@ public class Board {
 	}
 
 	public void makeMaze() {
-		Iterator<MazeMapTile> itr = tileList.iterator();
-	
-		// This must use an Iterator because it will fail otherwise. This is
-		// because we cannot access the implicit Iterator in the for each loop,
-		// and it will fail if modified in ways other than with the Iterator's
-		// methods.
-		int iterations = 0;
-		while (itr.hasNext()) {
-			expandMaze(itr.next(), regionCounter);
-			iterations++;
-	
-			// We want to remove tiles from the list as we get to them to
-			// improve performance.
-			// Having a list makes sure there are no islands of tiles not
-			// reached by the algorithm.
-			itr.remove();
+//		Iterator<MazeMapTile> itr = tileList.iterator();
 
-			// We increment the region counter here so that each room and each maze
-			// section is a separate region.
-			regionCounter++;
+		if (tileList.size() > 0) {
+			for (MazeMapTile tile : tileList) {
+				if (!tile.isVisited()) {
+					expandMaze(tile, regionCounter);
+					regionCounter++;
+				}
+			}
 		}
-		System.out.println("ITERATIONS " + iterations);
+
+//	
+//		// This must use an Iterator because it will fail otherwise. This is
+//		// because we cannot access the implicit Iterator in the for each loop,
+//		// and it will fail if modified in ways other than with the Iterator's
+//		// methods.
+//		int iterations = 0;
+//		while (itr.hasNext()) {
+//			expandMaze(itr.next(), regionCounter);
+//			iterations++;
+//	
+//			// We want to remove tiles from the list as we get to them to
+//			// improve performance.
+//			// Having a list makes sure there are no islands of tiles not
+//			// reached by the algorithm.
+//			itr.remove();
+//
+//			// We increment the region counter here so that each room and each maze
+//			// section is a separate region.
+//			regionCounter++;
+//		}
+//		System.out.println("ITERATIONS " + iterations);
 	}
 
 	/**
@@ -277,7 +287,11 @@ public class Board {
 				int yPos = y * tileSize;
 				g.setColor((array[x][y] == 0) ? Color.white : Color.red);
 				g.fillRect(xPos, yPos, tileSize, tileSize);
-				g.setColor(new Color(Color.HSBtoRGB(regionArray[x][y] * 10, 1, 0.9f)));
+				
+				float hue = regionArray[x][y] * (1.0f / regionCounter);
+				System.out.println("HUE " + hue);
+				Color c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
+				g.setColor(c);
 				g.fillRect(xPos + 2, yPos + 2, tileSize - 4, tileSize - 4);
 			}
 		}
@@ -314,10 +328,6 @@ public class Board {
 					g.setColor(Color.green);
 				g.drawLine(xPosH, yPosH, xPosH, yPosH + tileSize / 2);
 				g.setColor(Color.black);
-
-				Color c = new Color(Color.HSBtoRGB(tile.getRegionID() * 10, 1, (float) 0.6));
-				g.setColor(c);
-				g.drawRect(xPos, yPos, tileSize, tileSize);
 			}
 		}
 	}
