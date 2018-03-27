@@ -51,7 +51,6 @@ public class Board {
 		}
 
 		regionArray[x][y] = regionCounter;
-		System.out.println("HI");
 
 		if (x > 0) {
 			floodFillRegion(x - 1, y, regionID);
@@ -235,9 +234,7 @@ public class Board {
 				g.fillRect(xPos, yPos, tileSize, tileSize);
 
 				float hue = regionArray[x][y] * (1.0f / regionCounter);
-				System.out.println("G " + regionArray[x][y]);
 				Color c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
-				System.out.println("HUE " + hue);
 				g.setColor(c);
 				int b = 2;
 				g.fillRect(xPos + b, yPos + b, tileSize - b * 2, tileSize - b * 2);
