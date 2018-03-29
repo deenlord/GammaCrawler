@@ -9,6 +9,10 @@ import java.io.Serializable;
 public class User extends Character implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -44045989840014924L;
 	private int exp;
 	
 	public User() {
