@@ -12,17 +12,17 @@ public class ArrayToSprite {
 		this.sp0 = new Sprite(0);
 		this.sp1 = new Sprite(1);
 		
-		this.initArray();
+		this.initArray(ar, sp0, sp1);
 		this.getSprites();
 	}
 	
-	public void initArray() {
+	public void initArray(int[][] array, Sprite sp0, Sprite sp1) {
 		int counter = 0;
-		for (int i=0; i<=intArray[0].length; i++) {
-			if (intArray[i][counter] == 0) {
-				sprArray[i][counter] = sp0;
+		for (int i=0; i<=array[0].length; i++) {
+			if (array[i][counter] == 0) {
+				this.sprArray[i][counter] = sp0;
 			}
-			else if (intArray[i][counter] == 1) {
+			else if (array[i][counter] == 1) {
 					sprArray[i][counter] = sp1;
 			}
 			else {
