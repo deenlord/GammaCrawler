@@ -164,7 +164,7 @@ public class MazeMap {
 	 * @param array
 	 *            The array to operate on.
 	 */
-	public void clearArray(int[][] array) {
+	public void carveArray(int[][] array) {
 		for (int x = 0; x < tileArray.length; x++) {
 			for (int y = 0; y < tileArray[0].length; y++) {
 				int nX = (x * 2) + 1;
