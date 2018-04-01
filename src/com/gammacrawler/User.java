@@ -1,22 +1,20 @@
 package com.gammacrawler;
 
-import java.io.Serializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * @author deenlord
  * 3/24
  */
-public class User extends Character implements Serializable {
-
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -44045989840014924L;
+public class User extends Character {
 	private int exp;
+	private Image img;
+	private ImageView imgView;
 	
 	public User() {
 		new User("Dartanian");
+		
 	}
 
 	/**
@@ -28,6 +26,12 @@ public class User extends Character implements Serializable {
 		this.setHP(this.getMaxHP());
 		this.setInitialLocation(0, 0);
 		this.exp = 0;
+		this.img = new Image("https://cdn3.iconfinder.com/data/icons/food-set-3/91/Food_C230-128.png");
+		this.imgView = new ImageView();
+		this.imgView.setImage(this.img);
+		imgView.setFitWidth(25);
+		imgView.setPreserveRatio(true);
+		imgView.setCache(true);
 		
 //		inv = new Inventory();
 //		main = new Weapon("Wooden Sword", 1);
@@ -52,6 +56,10 @@ public class User extends Character implements Serializable {
 	 */
 	public void increaseExp(int increment) {
 		this.exp += increment;
+	}
+	
+	public ImageView getImageView() {
+		return this.imgView;
 	}
 	
 	/* (non-Javadoc)

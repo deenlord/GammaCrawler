@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.image.*;
@@ -38,19 +39,19 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		label.setFont(Font.font("Veranda", 22));
 		label.setY(100);
 		label.setX(80);
-		
+		// create the button
 		launchButton = new Button();
 		launchButton.setText("Enter the Dungeon");
 		launchButton.setOnAction(this);
 		launchButton.setLayoutY(125);
 		launchButton.setLayoutX(95);
-		
+		// add the label and launchButton to a Pane
 		Pane menuLayout = new Pane();
 		menuLayout.getChildren().add(label);
 		menuLayout.getChildren().add(launchButton);
-		
+		// create the Scene
 		Scene launcher = new Scene(menuLayout, 300, 300);
-		
+		// launch
 		mainStage.setScene(launcher);
 		mainStage.show();
 		
@@ -68,23 +69,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			// add the map to the gameBoard
 			Map newMap = new Map();
 			createSwingContent(gameBoard, newMap);
-
+			gameBoard.setCache(true);
 			// add the map to the pane
 			gamePane.getChildren().add(gameBoard);
 			
-			
-			// Create an image - representative of a character for now.
-			// no license for this image, I couldn't figure
-			// out how to add an image from the file system, this works fine, but we need to replace before deployment.
-			Image playerImage = new Image("https://cdn3.iconfinder.com/data/icons/food-set-3/91/Food_C230-128.png");
-			ImageView p1 = new ImageView();
-			p1.setImage(playerImage);
-			p1.setFitWidth(25);
-			p1.setPreserveRatio(true);
-			p1.setCache(true);
+			// add user to game
+			User p1 = new User("Player1");
 			
 			// add the player image to the pane
-			gamePane.getChildren().add(p1);
+			gamePane.getChildren().add(p1.getImageView());
 			
 			// Create a new scene, add the pane to the scene
 			// Create a Stage, add the Scene to the Stage.
