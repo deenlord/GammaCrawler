@@ -37,9 +37,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 		TilePane tile = new TilePane();
 	    tile.setHgap(gapSize);
 	    tile.setVgap(gapSize);
-	    // Set the number of columns #important
-	    tile.setPrefColumns(7); // need to get the number of columns in the array our map is based on.
-	    
+	    // Set the number of columns
+	    tile.setPrefColumns(ar[0].length);
 	    // iterate through the array and convert Image to appropriate ImageView
 	    // and add it, as a tile, to the TilePane
 	    for (int i=0; i < (ar.length); i++ ) {
@@ -79,6 +78,8 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 				{1,1,1,1,1,1,1}
 				
 		};
+		
+		// #wolfiewaffle replace my array with yours.
 		return array;
 	}
 	
