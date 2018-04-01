@@ -3,7 +3,10 @@ package spritetest;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
@@ -24,47 +27,39 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		Group root = new Group();
 		// Create the array
 		int[][] ar = setupArray();
 		// import images to use as tiles
 		Image wall = new Image("https://www.shareicon.net/data/256x256/2016/07/29/803375_brick_512x512.png");
 		Image floor = new Image("https://cdn4.iconfinder.com/data/icons/design-and-development-bold-line-1/48/40-128.png");
 		// Control var for size of tile
-		Double tileSize = 64.0;
-		Double gapSize = 0.0;
+		double tileSize = 64.0;
+		double x;
+		double y;
+		Canvas cv = new Canvas(600, 600);
+		GraphicsContext gc = cv.getGraphicsContext2D();
 		
-		// Create a tilePane
-		TilePane tile = new TilePane();
-	    tile.setHgap(gapSize);
-	    tile.setVgap(gapSize);
-	    // Set the number of columns
-	    tile.setPrefColumns(ar[0].length);
 	    // iterate through the array and convert Image to appropriate ImageView
 	    // and add it, as a tile, to the TilePane
 	    for (int i=0; i < (ar.length); i++ ) {
 		    for (int j=0; j<ar[i].length; j++) {
 		        // for each j
+		    	y = (i + 1) * tileSize;
+	        	x = (j + 1) * tileSize;
+	        	
 		        if (ar[i][j] == 1) {
-		        	iv = new ImageView(wall);
-		        	iv.setFitWidth(tileSize);
-		        	iv.setPreserveRatio(true);
-		        	
-		        	// add it as a Tile
-		        	tile.getChildren().add(iv);
-		        	
+		        	gc.drawImage(wall, x, y, tileSize, tileSize);		        	
 		        }
 		        else  {
-		        	iv2 = new ImageView(floor);
-		        	iv2.setFitWidth(tileSize);
-		        	iv2.setPreserveRatio(true);
-		        	
-		        	tile.getChildren().add(iv2);
+		        	gc.drawImage(floor, x, y, tileSize, tileSize);
 		        }
 		    }
 		}
 	    
 	    //set the scene, stage, and launch app
-	    Scene sc = new Scene(tile);
+	    root.getChildren().add(cv);
+	    Scene sc = new Scene(root);
 	    stage.setScene(sc);
 	    stage.show();
 	    
