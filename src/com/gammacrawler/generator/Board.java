@@ -4,28 +4,90 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.gammacrawler.generator.math.DunMath;
 
 public class Board {
+	ArrayList<ConnectorBucket> connectors;
 	private int[][] array;
-	ArrayList<Point> connectors = new ArrayList<>();
 	private int regionCounter = 1;
 	private int[][] regionArray;
 	MazeMap mazeMap;
+	HashMap<Integer, ArrayList<DungeonConnector>> connectorMap = new HashMap<>();
+
+	private int extraDoorChance = 100;
+	private int sparseTries = 100000;
 
 	public Board(int width, int height) {
 		this.array = new int[width][height];
 		regionArray = new int[array.length][array[0].length];
 		fillIntegerArray(array, 1);
 		fillIntegerArray(regionArray, 0);
-		attemptPlaceRooms(10, 3, 20, 3, 20);
-		mazeMap = new MazeMap(array);
-		addMaze();
-		fillRegions();
+
+
+
+		System.out.println("RESULT" + array[1][1]);
 	}
 
+	public void addMaze() {
+		attemptPlaceRooms(500, 3, 20, 3, 20);
+		
+		mazeMap = new MazeMap(array);
+		mazeMap.makeMaze();
+		mazeMap.carveArray(array);
+	
+		fillRegions();
+		connectors = ConnectorBucket.getSortedList(DungeonConnectorMaker.getConnectors(regionArray));
+		carveConnectors();
+		makeSparse();
+	}
+
+	public void makeSparse() {
+		System.out.println("MAKESPARSECALLED");
+		for (int i = 0; i < sparseTries; i++) {
+			int x = (int) (Math.random() * array.length);
+			int y = (int) (Math.random() * array[0].length);
+			if (adjacentOpenCount(x, y) < 2) {
+				array[x][y] = 1;
+				regionArray[x][y] = 0;
+				System.out.println("DIDATHING");
+			}
+		}
+	}
+
+	private void carveConnectors() {
+		for (ConnectorBucket bucket : connectors) {
+
+			// Open some of the connectors
+			for (DungeonConnector c : bucket.getConnectors()) {
+				int random = (int) (Math.random() * extraDoorChance) + 1;
+				if (random == 1) {
+					array[c.getX()][c.getY()] = 2;
+					regionArray[c.getX()][c.getY()] = 1;
+				}
+			}
+
+			// Make sure there is at least one connector
+			if (bucket.getConnectors().size() > 0) {
+				int random = (int) (Math.random() * bucket.getConnectors().size());
+				DungeonConnector c = bucket.getConnectors().get(random);
+				array[c.getX()][c.getY()] = 2;
+				regionArray[c.getX()][c.getY()] = 1;
+			}
+		}
+	}
+
+	/**
+	 * Fills an int[][] with a single value.
+	 * 
+	 * @param array
+	 *            The array to fill.
+	 * @param fillInt
+	 *            The integer to fill with.
+	 */
 	private void fillIntegerArray(int[][] array, int fillInt) {
 		for (int x = 0; x < array.length; x++) {
 			for (int y = 0; y < array[0].length; y++) {
@@ -34,6 +96,9 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Sets every section of connected tiles to a new region ID.
+	 */
 	private void fillRegions() {
 		for (int x = 0; x < array.length; x++) {
 			for (int y = 0; y < array[0].length; y++) {
@@ -146,14 +211,41 @@ public class Board {
 		return true;
 	}
 
+	private int adjacentOpenCount(int x, int y) {
+		int count = 0;
+
+		if (x > 0) {
+			if (array[x - 1][y] == 0 || array[x - 1][y] == 2) {
+				count++;
+			}
+		}
+		if (x < array.length - 1) {
+			if (array[x + 1][y] == 0 || array[x + 1][y] == 2) {
+				count++;
+			}
+		}
+		if (y > 0) {
+			if (array[x][y - 1] == 0 || array[x][y - 1] == 2) {
+				count++;
+			}
+		}
+		if (y < array[0].length - 1) {
+			if (array[x][y + 1] == 0 || array[x][y + 1] == 2) {
+				count++;
+			}
+		}
+
+		return count;
+	}
+
 	private int octNeighborCount(int num, int x, int y) {
 		int count = 0;
 
-		for (int cx = x - 1; cx < x + 2; cx++) {
-			for (int cy = y - 1; cy < y + 2; cy++) {
+		for (int cx = x - 1; cx < x + 3; cx++) {
+			for (int cy = y - 1; cy < y + 3; cy++) {
 
 				// If out of bounds count as a neighbor
-				if (cx < 0 || cx >= array.length) {
+				if (cx < 0 || cx >= array.length || cy < 0 || cy >= array[0].length) {
 					count++;
 				} else if (array[cx][cy] == num) {
 					count++;
@@ -188,60 +280,85 @@ public class Board {
 		return true;
 	}
 
-	public void addMaze() {
-		mazeMap.makeMaze();
-		mazeMap.clearArray(array);
-	}
-
-//	/**
-//	 * Returns all the tiles around the tile at (x, y)
-//	 * 
-//	 * @param x
-//	 *            The x coord of the tile
-//	 * @param y
-//	 *            The y coord of the tile
-//	 * @return ArrayList of MazeMapTile length 0-4
-//	 */
-//	private ArrayList<MazeMapTile> getAdjacentTiles(int x, int y) {
-//		ArrayList<MazeMapTile> adjacent = new ArrayList<>();
-//
-//		if (x > 0) {
-//			adjacent.add(tileArray[x - 1][y]);
-//		}
-//		if (x < tileArray.length - 1) {
-//			adjacent.add(tileArray[x + 1][y]);
-//		}
-//		if (y > 0) {
-//			adjacent.add(tileArray[x][y - 1]);
-//		}
-//		if (y < tileArray[0].length - 1) {
-//			adjacent.add(tileArray[x][y + 1]);
-//		}
-//
-//		return adjacent;
-//	}
-
 	public void paint(Graphics g) {
-		paintArray(g, 800 / array.length, array);		
+		paintArray(g, 800 / array.length);
 	}
 
-	public void paintArray(Graphics g, int tileSize, int[][] array) {
+	public void paintArray(Graphics g, int tileSize) {
+		float doorHue = ((int) (Math.random() * regionCounter) + 1) * (1.0f / regionCounter);
+		System.out.println("PAINTARRAYCALLED");
+
 		for (int x = 0; x < array.length; x++) {
 			for (int y = 0; y < array[0].length; y++) {
 				int xPos = x * tileSize;
 				int yPos = y * tileSize;
 				g.setColor((array[x][y] == 0) ? Color.white : Color.black);
+				if (array[x][y] == 2) g.setColor(Color.white);
 				g.fillRect(xPos, yPos, tileSize, tileSize);
 
-				float hue = regionArray[x][y] * (1.0f / regionCounter);
-				Color c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
-				g.setColor(c);
-				int b = 2;
-				g.fillRect(xPos + b, yPos + b, tileSize - b * 2, tileSize - b * 2);
+				int b1 = 0;
+				if (array[x][y] == 0) {
+					System.out.println("p " + x + " " + y + "> " + array[x][y]);
+					float hue = regionArray[x][y] * (1.0f / regionCounter);
+					Color c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
+					g.setColor(c);
+					//g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize - b1 * 2);
+				} else if (array[x][y] == 2) {
+					b1 = tileSize / 4;
+					int b2 = tileSize / 8;
+					// doorHue = ((int) (Math.random() * regionCounter) + 1) *
+					// (1.0f / regionCounter);
+					Color c = new Color(Color.HSBtoRGB(doorHue, 0.8f, 0.8f));
+					g.setColor(blendRegion(x, y));
+//					g.fillRect(xPos, yPos, tileSize, tileSize);
+//					g.setColor(Color.black);
+//					g.fillRect(xPos + b2, yPos + b2, tileSize - b2 * 2, tileSize - b2 * 2);
+//					g.setColor(blendRegion(x, y));
+//					g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize - b1 * 2);
+
+				}
+				//g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize - b1 * 2);
+				
+				g.setColor(Color.black);
+				if (array[x][y] == 2) {
+					if (array[x - 1][y] == 1) {
+						g.fillRect(xPos, yPos + (tileSize / 2) - 2, tileSize, 4);
+					} else {
+						g.fillRect(xPos + (tileSize / 2) - 2, yPos, 4, tileSize);
+					}
+				}
 			}
 		}
-		
-		//mazeMap.paint(g, tileSize);
+
+		// mazeMap.paint(g, tileSize);
+	}
+
+	private Color blendRegion(int x, int y) {
+		int c1 = 0;
+		int c2 = 0;
+
+		if (c1 == 0 && regionArray[x - 1][y] != 0)
+			c1 = regionArray[x - 1][y];
+		if (c1 == 0 && regionArray[x - 1][y] != 0)
+			c1 = regionArray[x + 1][y];
+		if (c1 == 0 && regionArray[x][y + 1] != 0)
+			c1 = regionArray[x][y + 1];
+		if (c1 == 0 && regionArray[x][y - 1] != 0)
+			c1 = regionArray[x][y - 1];
+
+		if (c2 == 0 && regionArray[x][y - 1] != 0 && regionArray[x][y - 1] != c1)
+			c2 = regionArray[x][y - 1];
+		if (c2 == 0 && regionArray[x][y + 1] != 0 && regionArray[x][y - 1] != c1)
+			c2 = regionArray[x][y + 1];
+		if (c2 == 0 && regionArray[x - 1][y] != 0 && regionArray[x][y - 1] != c1)
+			c2 = regionArray[x + 1][y];
+		if (c2 == 0 && regionArray[x - 1][y] != 0 && regionArray[x][y - 1] != c1)
+			c2 = regionArray[x - 1][y];
+
+		Color color1 = new Color(Color.HSBtoRGB(c1 * (1.0f / regionCounter), 0.8f, 0.8f));
+		Color color2 = new Color(Color.HSBtoRGB(c2 * (1.0f / regionCounter), 0.8f, 0.8f));
+
+		return (c1 < c2 ? color1 : color2);
 	}
 
 }
