@@ -2,6 +2,8 @@ package com.gammacrawler;
 
 import javax.swing.SwingUtilities;
 import com.gammacrawler.generator.*;
+import com.gammacrawler.generator.map.Map;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;

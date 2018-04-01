@@ -5,8 +5,6 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import com.gammacrawler.generator.math.DunMath;
-
 public class GamePanel extends JPanel {
 	/**
 	 * Default ID it wanted me to add.
@@ -14,11 +12,9 @@ public class GamePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Board board;
 
-	public GamePanel(int width, int height) {
-		board = new Board(width, height);
+	public GamePanel(Board board) {
+		this.board = board;
 		this.setPreferredSize(new Dimension(800, 800));
-
-		board.addMaze();
 	}
 
 	@Override
