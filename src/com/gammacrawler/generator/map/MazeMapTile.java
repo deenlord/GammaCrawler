@@ -1,4 +1,4 @@
-package com.gammacrawler.generator;
+package com.gammacrawler.generator.map;
 
 public class MazeMapTile {
 

@@ -1,4 +1,4 @@
-package com.gammacrawler.generator;
+package com.gammacrawler.generator.map;
 
 import java.awt.Color;
 import java.awt.Graphics;

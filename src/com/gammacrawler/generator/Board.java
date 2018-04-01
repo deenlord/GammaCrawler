@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.gammacrawler.generator.map.MazeMap;
+import com.gammacrawler.generator.map.MazeMapTile;
 import com.gammacrawler.generator.math.DunMath;
 
 public class Board {
@@ -26,34 +28,32 @@ public class Board {
 		regionArray = new int[array.length][array[0].length];
 		fillIntegerArray(array, 1);
 		fillIntegerArray(regionArray, 0);
+	}
 
-
-
-		System.out.println("RESULT" + array[1][1]);
+	public int[][] getArray() {
+		return array;
 	}
 
 	public void addMaze() {
 		attemptPlaceRooms(500, 3, 20, 3, 20);
-		
+
 		mazeMap = new MazeMap(array);
 		mazeMap.makeMaze();
 		mazeMap.carveArray(array);
-	
+
 		fillRegions();
 		connectors = ConnectorBucket.getSortedList(DungeonConnectorMaker.getConnectors(regionArray));
 		carveConnectors();
 		makeSparse();
 	}
 
-	public void makeSparse() {
-		System.out.println("MAKESPARSECALLED");
+	private void makeSparse() {
 		for (int i = 0; i < sparseTries; i++) {
 			int x = (int) (Math.random() * array.length);
 			int y = (int) (Math.random() * array[0].length);
 			if (adjacentOpenCount(x, y) < 2) {
 				array[x][y] = 1;
 				regionArray[x][y] = 0;
-				System.out.println("DIDATHING");
 			}
 		}
 	}
@@ -142,7 +142,7 @@ public class Board {
 	 * @param minRoomHeight
 	 * @param maxRoomHeight
 	 */
-	public void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight,
+	private void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight,
 			int maxRoomHeight) {
 		int xPointMin;
 		int xPointMax;
@@ -280,59 +280,6 @@ public class Board {
 		return true;
 	}
 
-	public void paint(Graphics g) {
-		paintArray(g, 800 / array.length);
-	}
-
-	public void paintArray(Graphics g, int tileSize) {
-		float doorHue = ((int) (Math.random() * regionCounter) + 1) * (1.0f / regionCounter);
-		System.out.println("PAINTARRAYCALLED");
-
-		for (int x = 0; x < array.length; x++) {
-			for (int y = 0; y < array[0].length; y++) {
-				int xPos = x * tileSize;
-				int yPos = y * tileSize;
-				g.setColor((array[x][y] == 0) ? Color.white : Color.black);
-				if (array[x][y] == 2) g.setColor(Color.white);
-				g.fillRect(xPos, yPos, tileSize, tileSize);
-
-				int b1 = 0;
-				if (array[x][y] == 0) {
-					System.out.println("p " + x + " " + y + "> " + array[x][y]);
-					float hue = regionArray[x][y] * (1.0f / regionCounter);
-					Color c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
-					g.setColor(c);
-					//g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize - b1 * 2);
-				} else if (array[x][y] == 2) {
-					b1 = tileSize / 4;
-					int b2 = tileSize / 8;
-					// doorHue = ((int) (Math.random() * regionCounter) + 1) *
-					// (1.0f / regionCounter);
-					Color c = new Color(Color.HSBtoRGB(doorHue, 0.8f, 0.8f));
-					g.setColor(blendRegion(x, y));
-//					g.fillRect(xPos, yPos, tileSize, tileSize);
-//					g.setColor(Color.black);
-//					g.fillRect(xPos + b2, yPos + b2, tileSize - b2 * 2, tileSize - b2 * 2);
-//					g.setColor(blendRegion(x, y));
-//					g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize - b1 * 2);
-
-				}
-				//g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize - b1 * 2);
-				
-				g.setColor(Color.black);
-				if (array[x][y] == 2) {
-					if (array[x - 1][y] == 1) {
-						g.fillRect(xPos, yPos + (tileSize / 2) - 2, tileSize, 4);
-					} else {
-						g.fillRect(xPos + (tileSize / 2) - 2, yPos, 4, tileSize);
-					}
-				}
-			}
-		}
-
-		// mazeMap.paint(g, tileSize);
-	}
-
 	private Color blendRegion(int x, int y) {
 		int c1 = 0;
 		int c2 = 0;
@@ -359,6 +306,74 @@ public class Board {
 		Color color2 = new Color(Color.HSBtoRGB(c2 * (1.0f / regionCounter), 0.8f, 0.8f));
 
 		return (c1 < c2 ? color1 : color2);
+	}
+
+	public void paint(Graphics g) {
+		paintArray(g, 800 / Math.max(array.length, array[0].length));
+	}
+
+	public void paintArray(Graphics g, int tileSize) {
+		float doorHue = ((int) (Math.random() * regionCounter) + 1) * (1.0f / regionCounter);
+
+		for (int x = 0; x < array.length; x++) {
+			for (int y = 0; y < array[0].length; y++) {
+				int xPos = x * tileSize;
+				int yPos = y * tileSize;
+
+				float hue = x * (1.0f / array.length) + (System.nanoTime() % 10) / 10;
+				Color c = new Color(Color.HSBtoRGB(hue, 1.0f, 1.0f));
+				g.setColor(c);
+
+				g.fillRect(xPos, yPos, tileSize, tileSize);
+
+				int b1 = 0;
+				if (array[x][y] == 0) {
+					hue = regionArray[x][y] * (1.0f / regionCounter);
+					c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
+					g.setColor(c);
+					// g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2,
+					// tileSize - b1 * 2);
+				} else if (array[x][y] == 2) {
+					b1 = tileSize / 4;
+					int b2 = tileSize / 8;
+					// doorHue = ((int) (Math.random() * regionCounter) + 1) *
+					// (1.0f / regionCounter);
+					c = new Color(Color.HSBtoRGB(doorHue, 0.8f, 0.8f));
+					g.setColor(blendRegion(x, y));
+					// g.fillRect(xPos, yPos, tileSize, tileSize);
+					// g.setColor(Color.black);
+					// g.fillRect(xPos + b2, yPos + b2, tileSize - b2 * 2,
+					// tileSize - b2 * 2);
+					// g.setColor(blendRegion(x, y));
+					// g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2,
+					// tileSize - b1 * 2);
+
+				}
+				// g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize
+				// - b1 * 2);
+
+				g.setColor(Color.black);
+				if (array[x][y] == 2) {
+					g.fillRect(xPos, yPos, tileSize, tileSize);
+					g.setColor(Color.white);
+					if (array[x - 1][y] == 1 || array[x + 1][y] == 1) {
+						g.fillRect(xPos, yPos + (tileSize / 2) - 2, tileSize, 4);
+						// g.fillRect(xPos, yPos, tileSize, (tileSize / 2) - 2);
+						// g.fillRect(xPos, yPos + (tileSize / 2) + 2, tileSize,
+						// (tileSize / 2) - 2);
+					} else {
+						g.fillRect(xPos + (tileSize / 2) - 2, yPos, 4, tileSize);
+						// g.fillRect(xPos, yPos, (tileSize / 2) - 2, tileSize);
+						// g.fillRect(xPos + (tileSize / 2) + 2, yPos, (tileSize
+						// / 2) - 2, tileSize);
+					}
+				} else if (array[x][y] == 0) {
+					g.fillRect(xPos, yPos, tileSize, tileSize);
+				}
+			}
+		}
+
+		// mazeMap.paint(g, tileSize);
 	}
 
 }
