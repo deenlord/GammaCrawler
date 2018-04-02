@@ -1,7 +1,6 @@
 package com.gammacrawler;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * @author deenlord
@@ -10,12 +9,6 @@ import javafx.scene.image.ImageView;
 public class User extends Character {
 	private int exp;
 	private Image img;
-	private ImageView imgView;
-	
-	public User() {
-		new User("Dartanian");
-		
-	}
 
 	/**
 	 * @param name
@@ -26,12 +19,7 @@ public class User extends Character {
 		this.setHP(this.getMaxHP());
 		this.setInitialLocation(0, 0);
 		this.exp = 0;
-		this.img = new Image("https://cdn3.iconfinder.com/data/icons/food-set-3/91/Food_C230-128.png");
-		this.imgView = new ImageView();
-		this.imgView.setImage(this.img);
-		imgView.setFitWidth(25);
-		imgView.setPreserveRatio(true);
-		imgView.setCache(true);
+		this.img = new Image("file:src/com/gammacrawler/images/user.png");
 		
 //		inv = new Inventory();
 //		main = new Weapon("Wooden Sword", 1);
@@ -58,9 +46,7 @@ public class User extends Character {
 		this.exp += increment;
 	}
 	
-	public ImageView getImageView() {
-		return this.imgView;
-	}
+
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -75,6 +61,10 @@ public class User extends Character {
 		
 		return str.toString();
 		
+	}
+
+	public Image getImage() {
+		return this.img;
 	}
 	
 	

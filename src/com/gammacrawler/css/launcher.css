@@ -42,3 +42,8 @@
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color,30%);
 }
+
+#title {
+	font-family: "Console";
+	font-size: 46px;
+}
