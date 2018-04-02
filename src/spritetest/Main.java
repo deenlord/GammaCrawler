@@ -1,5 +1,7 @@
 package spritetest;
 
+import com.gammacrawler.generator.Board;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,17 +29,18 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		stage.setTitle("GammaCrawler!");
 		Group root = new Group();
 		// Create the array
 		int[][] ar = setupArray();
 		// import images to use as tiles
-		Image wall = new Image("https://www.shareicon.net/data/256x256/2016/07/29/803375_brick_512x512.png");
-		Image floor = new Image("https://cdn4.iconfinder.com/data/icons/design-and-development-bold-line-1/48/40-128.png");
+		Image wall = new Image("file:src/spritetest/wall.png");
+		Image floor = new Image("file:src/spritetest/floor.png");
 		// Control var for size of tile
-		double tileSize = 64.0;
+		double tileSize = 32.0;
 		double x;
 		double y;
-		Canvas cv = new Canvas(600, 600);
+		Canvas cv = new Canvas(960,720);
 		GraphicsContext gc = cv.getGraphicsContext2D();
 		
 	    // iterate through the array and convert Image to appropriate ImageView
@@ -67,12 +70,11 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 	
 	
 	public int[][] setupArray() {
-		int[][] array= { 
-				{1,1,1,1,1,1,1},
-				{1,0,0,0,0,0,1},
-				{1,1,1,1,1,1,1}
-				
-		};
+		
+		Board board = new Board(51, 51);
+		board.addMaze();
+		
+		int[][] array= board.getArray();
 		
 		// #wolfiewaffle replace my array with yours.
 		return array;
