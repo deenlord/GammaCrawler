@@ -1,22 +1,18 @@
 package com.gammacrawler;
 
-import javax.swing.SwingUtilities;
 import com.gammacrawler.generator.*;
-import com.gammacrawler.generator.map.Map;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.embed.swing.SwingNode;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 
 
@@ -38,9 +34,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		mainStage.setTitle("GammaCrawler!");
 		Text label = new Text();
 		label.setText("GammaCrawler!");
-		label.setFont(Font.font("Veranda", 22));
-		label.setY(100);
-		label.setX(80);
+		label.setId("title");
+		label.setLayoutY(125);
+		label.setLayoutX(95);
+		
 		// create the button
 		launchButton = new Button();
 		launchButton.setText("Enter the Dungeon");
@@ -53,6 +50,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		menuLayout.getChildren().add(launchButton);
 		// create the Scene
 		Scene launcher = new Scene(menuLayout, 300, 300);
+		launcher.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
 		// launch
 		mainStage.setScene(launcher);
 		mainStage.show();
@@ -61,57 +59,60 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
+		
 		// if "Launch" button clicked
 		if(event.getSource() == launchButton ) {
-			// create a pane to add map and players to.
-			Pane gamePane = new Pane();
+			Stage stg = new Stage();
+			Group root = new Group();
+			// Create the array
+			int[][] ar = setupArray();
+			// import images to use as tiles
+			Image wall = new Image("file:src/com/gammacrawler/images/wall.png");
+			Image floor = new Image("file:src/com/gammacrawler/images/floor.png");
+			// Control var for size of tile
+			double tileSize = 32.0;
+			double x;
+			double y;
+			Canvas cv = new Canvas(960,720);
+			GraphicsContext gc = cv.getGraphicsContext2D();
 			
-			// create a SwingNode - this lets us use Swing elements in JavaFX
-			SwingNode gameBoard = new SwingNode();
-			// add the map to the gameBoard
-			Map newMap = new Map();
-			createSwingContent(gameBoard, newMap);
-			gameBoard.setCache(true);
-			// add the map to the pane
-			gamePane.getChildren().add(gameBoard);
-			
-			// add user to game
-			User p1 = new User("Player1");
-			
-			// add the player image to the pane
-			gamePane.getChildren().add(p1.getImageView());
-			
-			// Create a new scene, add the pane to the scene
-			// Create a Stage, add the Scene to the Stage.
-			Scene gameScene = new Scene(gamePane, 300, 300);
-			Stage gameStage = new Stage();
-			gameStage.setTitle("Gamma Crawler - Level 1");
-			gameStage.setScene(gameScene);
-			// Launch
-			gameStage.show();
-			
+		    // iterate through the array and convert Image to appropriate ImageView
+		    // and add it, as a tile, to the TilePane
+		    for (int i=0; i < (ar.length); i++ ) {
+			    for (int j=0; j<ar[i].length; j++) {
+			        // for each j
+			    	y = (i + 1) * tileSize;
+		        	x = (j + 1) * tileSize;
+		        	
+			        if (ar[i][j] == 1) {
+			        	gc.drawImage(wall, x, y, tileSize, tileSize);		        	
+			        }
+			        else  {
+			        	gc.drawImage(floor, x, y, tileSize, tileSize);
+			        }
+			    }
+			}
+		    
+		    //set the scene, stage, and launch app
+		    root.getChildren().add(cv);
+		    Scene sc = new Scene(root);
+		    stg.setScene(sc);
+		    stg.show();
 		}
+		    
 	}
-	
-	
-
-	 /**
-	 * @param swingNode - a SwingNode
-	 * @param map - a Map
-	 * invokes swing, creates a GamePanel out of the map
-	 * sets the content of the swingNode to the GamePanel
-	 */
-	private void createSwingContent(final SwingNode swingNode, Map map) {
-	        SwingUtilities.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	    			GamePanel frame = map.getMap();
-	                swingNode.setContent(frame);
-	            }
-	        });
-	 }
-	 
-
+		
+		
+	public int[][] setupArray() {
+		
+		Board board = new Board(51, 51);
+		board.addMaze();
+		
+		int[][] array= board.getArray();
+		
+		// #wolfiewaffle replace my array with yours.
+		return array;
+	}
 	 
 
 }
