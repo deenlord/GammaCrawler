@@ -65,7 +65,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// Create the array
 		int[][] ar = setupArray();
 		// Control variable for size of tile
-		final double tileSize = 64;
+		final double tileSize = 16;
 		// import images to use as tiles
 		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
 		
@@ -102,6 +102,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 	    // create a User
 		User player = new User("Player1");
+		player.setTileSize((int) tileSize);
 		// only add them once...
 	    int counter = 0;
 	    Image playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
@@ -116,6 +117,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    			y = (z + 1) * tileSize; // avoid z/0
 		        	x = (j + 1) * tileSize;
 		        	player.setInitialLocation((int) y, (int) x);
+		        	piView.setLayoutX(x);
+		        	piView.setLayoutY(y);
 		        	counter++;
 	    		}
 	    		
@@ -141,7 +144,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	                    case S:  System.out.println("South"); player.move(Direction.SOUTH); break;
 	                    case A:  System.out.println("West"); player.move(Direction.WEST); break;
 	                    case D: System.out.println("East"); player.move(Direction.EAST); break;
+	                    case I: System.out.println(player); break;
+	                    default: break;
 	                }
+		        	piView.setLayoutX(player.getLocation()[0]);
+		        	piView.setLayoutY(player.getLocation()[1]);
 	            }
 	        });
 	    

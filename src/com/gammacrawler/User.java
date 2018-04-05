@@ -53,7 +53,7 @@ public class User extends Character implements Moveable {
 		str.append("Max HP: " + this.getMaxHP() + "\n");
 		str.append("Current HP: " + this.getHP() + "\n");
 		str.append("Experience: " + this.exp + "\n");
-		str.append("Location: " + this.getLocation()[0] + this.getLocation()[1] + "\n");
+		str.append("Location: " + this.getLocation()[0] + " " + this.getLocation()[1] + "\n");
 		
 		return str.toString();
 		
