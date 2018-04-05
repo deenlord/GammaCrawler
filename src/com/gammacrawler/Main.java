@@ -105,9 +105,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		player.setTileSize((int) tileSize);
 		// only add them once...
 	    int counter = 0;
-	    Image playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
-	    ImageView piView = new ImageView(playerImage);
-	    
 	    
 	    // iterate through the array to find the first zero location,
 	    // draw the User there. ... only once.
@@ -116,9 +113,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    		if ( ar[z][j] == 0 & counter == 0 ) {
 	    			y = (z + 1) * tileSize; // avoid z/0
 		        	x = (j + 1) * tileSize;
-		        	player.setInitialLocation((int) y, (int) x);
-		        	piView.setLayoutX(x);
-		        	piView.setLayoutY(y);
+		        	player.setLocation((int) x, (int) y);
+		        	player.getPlayerImageView().setLayoutX(x);
+		        	player.getPlayerImageView().setLayoutY(y);
 		        	counter++;
 	    		}
 	    		
@@ -134,21 +131,35 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	    //set the scene and return it
 	    root.getChildren().add(cv);
-	    root.getChildren().add(piView);
+	    root.getChildren().add(player.getPlayerImageView());
 	    Scene sc = new Scene(root);
 	      sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	            @Override
 	            public void handle(KeyEvent event) {
 	                switch (event.getCode()) {
-	                    case W:    System.out.println("North"); player.move(Direction.NORTH); break;
-	                    case S:  System.out.println("South"); player.move(Direction.SOUTH); break;
-	                    case A:  System.out.println("West"); player.move(Direction.WEST); break;
-	                    case D: System.out.println("East"); player.move(Direction.EAST); break;
-	                    case I: System.out.println(player); break;
+	                    case W:  
+	                    	System.out.println("North"); 
+	                    	player.move(Direction.NORTH); 
+	                    	break;
+	                    case S:  
+	                    	System.out.println("South"); 
+	                    	player.move(Direction.SOUTH); 
+	                    	break;
+	                    case A:  
+	                    	System.out.println("West"); 
+	                    	player.move(Direction.WEST); 
+	                    	break;
+	                    case D: 
+	                    	System.out.println("East"); 
+	                    	player.move(Direction.EAST); 
+	                    	break;
+	                    case I: 
+	                    	System.out.println(player); 
+	                    	break;
 	                    default: break;
 	                }
-		        	piView.setLayoutX(player.getLocation()[0]);
-		        	piView.setLayoutY(player.getLocation()[1]);
+		        	player.getPlayerImageView().setLayoutX(player.getLocation()[0]);
+		        	player.getPlayerImageView().setLayoutY(player.getLocation()[1]);
 	            }
 	        });
 	    
@@ -183,29 +194,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			
 		}
 		
-		else if (event.getClass().equals(KeyEvent.KEY_PRESSED)) { 
-			
-			if (KeyEvent.KEY_PRESSED.equals(KeyCode.W)) {
-				this.player.move(Direction.NORTH);
-				System.out.println("North");
-				event.consume();
-				
-			}
-			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.S)) {
-				this.player.move(Direction.SOUTH);
-				this.player.setInitialLocation(this.player.getLocation()[0], this.player.getLocation()[1]);
-				event.consume();
-			
-			}
-			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.A)) {
-				this.player.move(Direction.WEST);
-				
-			}
-			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.D)) {
-				this.player.move(Direction.EAST);
-				
-			}
-		}
+		
 	}
 	
 	@Override
