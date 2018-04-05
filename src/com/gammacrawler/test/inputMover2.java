@@ -1,5 +1,6 @@
 package com.gammacrawler.test;
 
+import com.gammacrawler.Direction;
 import com.gammacrawler.User;
 
 import javafx.application.Application;
@@ -20,64 +21,60 @@ public class inputMover2 extends Application
 	User user=new User("Richard");//(Goes by Dick)
 	public static boolean keepGoing=true;
 	Stage MainStage;
-	
+	String msg=new String("WSAD to move, ESC to close\n"+user.getName()+"'s coordinates are\nKey Pressed: ");
+	Text label=new Text(msg);
+	Text location=new Text("\n"+user.getLocation()[0]+", "+user.getLocation()[1]);
 	/**
 	 * 
-	 * @return Direction based on WSAD input from console.
+	 * @param scene - the scene in which the user is placed
 	 */
-
-	public Text label=new Text();
-	private void moveIn(Scene scene)
+	private void move(Scene scene)
 	{
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override public void handle(KeyEvent e) {
 				switch(e.getCode()){
 				case W:
-					//code for NORTH
-					label.setText("W");
-					System.out.println("It works...");
+					user.move(Direction.NORTH);
+					label.setText(msg+"W");
 					break;
 				case S:
-					//code for SOUTH
-					label.setText("S");
-					System.out.println("It works...");
+					user.move(Direction.SOUTH);
+					label.setText(msg+"S");
 					break;
 				case A:
-					//code for WEST
-					label.setText("A");
-					System.out.println("It works...");
+					user.move(Direction.WEST);
+					label.setText(msg+"A");
 					break;
 				case D:
-					//code for EAST
-					label.setText("D");
-					System.out.println("It works...");
+					user.move(Direction.EAST);
+					label.setText(msg+"D");
 					break;
+				case ESCAPE:
+					stop();
 				default:
-					System.out.println("It doesn't works...");
+					System.out.println("Standard WSAD controls");
 					break;
 				}
-				
+				location.setText("\n"+user.getLocation()[0]+", "+user.getLocation()[1]);
 			}
 		});
 	}
 	
+	public void stop()
+	{
+		MainStage.close();
+	}
+	
 	public void start(Stage stage)
 	{
-		Pane pane=new Pane();
-		label.setText("Default");
-		Text testLabel=new Text("Defacto");
 		HBox hb=new HBox();
-		pane.getChildren().add(label);
-		pane.getChildren().add(testLabel);
-		hb.getChildren().add(testLabel);
-		hb.getChildren().add(label);
-	//	this.MainStage=stage;
 		Scene scene=new Scene(hb, 500, 500);
-		moveIn(scene);
+		this.MainStage=stage;
+		hb.getChildren().addAll(label,location);
+		move(scene);
 		stage.setScene(scene);
 		stage.setTitle("InputMover 2.0");
 		stage.show();
-		
 	}
 	
 	public static void main(String[] args) 

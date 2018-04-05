@@ -81,13 +81,17 @@ public abstract class Character implements Moveable{
 	public void move(Direction dir) {
 		switch(dir) {
 			case NORTH:
-				this.location[1]+=1;
+				location[1]+=1;
+				break;
 			case SOUTH:
 				location[1]-=1;
+				break;
 			case EAST:
 				location[0]+=1;
+				break;
 			case WEST:
 				location[0]-=1;
+				break;
 		}
 		
 	}
