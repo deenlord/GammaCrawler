@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 public class User extends Character {
 	private int exp;
 	private Image img;
+	private double tileSize;
 
 	/**
 	 * @param name
@@ -19,7 +20,8 @@ public class User extends Character {
 		this.setHP(this.getMaxHP());
 		this.setInitialLocation(0, 0);
 		this.exp = 0;
-		this.img = new Image("file:src/com/gammacrawler/images/user.png");
+		this.tileSize = 64;
+		this.img = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
 		
 //		inv = new Inventory();
 //		main = new Weapon("Wooden Sword", 1);
