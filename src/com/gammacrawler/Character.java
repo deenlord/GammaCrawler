@@ -66,7 +66,7 @@ public abstract class Character implements Moveable{
 	/**
 	 * @return current location
 	 */
-	public int[] getLocation() {
+	protected int[] getLocation() {
 		return this.location;
 	}
 	
@@ -74,10 +74,11 @@ public abstract class Character implements Moveable{
 	 * @param x -  x coordinate
 	 * @param y -  y coordinate
 	 */
-	protected void setInitialLocation(int x, int y) {
+	protected void setLocation(int x, int y) {
 		location[0] = x;
 		location[1] = y;
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see com.gammacrawler.Moveable#move(com.gammacrawler.Direction)
@@ -85,6 +86,7 @@ public abstract class Character implements Moveable{
 	 */
 	public void move(Direction dir) {
 		System.out.println("Trying to move");
+		this.location = this.getLocation();
 		switch(dir) {
 			case NORTH:
 				this.location[1]-=tileSize;

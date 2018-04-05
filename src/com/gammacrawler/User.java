@@ -1,6 +1,7 @@
 package com.gammacrawler;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * @author deenlord
@@ -8,6 +9,9 @@ import javafx.scene.image.Image;
  */
 public class User extends Character implements Moveable {
 	private int exp;
+	private int tileSize;
+	private Image playerImage;
+	private ImageView playerImageView;
 
 
 	/**
@@ -17,8 +21,10 @@ public class User extends Character implements Moveable {
 		this.setName(name);
 		this.setMaxHP(100);
 		this.setHP(this.getMaxHP());
-		this.setInitialLocation(0, 0);
 		this.exp = 0;
+		this.tileSize = 16;
+		this.playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
+	    this.setPlayerImageView(playerImage);
 
 		
 //		inv = new Inventory();
@@ -57,6 +63,14 @@ public class User extends Character implements Moveable {
 		
 		return str.toString();
 		
+	}
+
+	public ImageView getPlayerImageView() {
+		return playerImageView;
+	}
+
+	public void setPlayerImageView(Image playerImage) {
+		this.playerImageView = new ImageView(playerImage);
 	}
 	
 	
