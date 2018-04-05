@@ -104,6 +104,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		User player = new User("Player1");
 		// only add them once...
 	    int counter = 0;
+	    Image playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
+	    ImageView piView = new ImageView(playerImage);
+	    
 	    
 	    // iterate through the array to find the first zero location,
 	    // draw the User there. ... only once.
@@ -112,7 +115,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    		if ( ar[z][j] == 0 & counter == 0 ) {
 	    			y = (z + 1) * tileSize; // avoid z/0
 		        	x = (j + 1) * tileSize;
-		        	gc.drawImage(player.getImage(), x, y, tileSize, tileSize);
+		        	player.setInitialLocation((int) y, (int) x);
 		        	counter++;
 	    		}
 	    		
@@ -128,6 +131,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	    //set the scene and return it
 	    root.getChildren().add(cv);
+	    root.getChildren().add(piView);
 	    Scene sc = new Scene(root);
 	      sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	            @Override
@@ -140,31 +144,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	                }
 	            }
 	        });
-	    
-	    
-//	    sc.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-//			public void handle(KeyEvent event) {
-//				System.out.println("Handle key event");
-//				if (event.getCharacter().equals('W')) {
-//					player.move(Direction.NORTH);
-//					System.out.println("North");
-//					
-//				}
-//				else if (event.getCharacter().equals('S')) {
-//					player.move(Direction.SOUTH);
-//					player.setInitialLocation(player.getLocation()[0], player.getLocation()[1]);
-//				
-//				}
-//				else if (event.getCharacter().equals('A')) {
-//					player.move(Direction.WEST);
-//					
-//				}
-//				else if (event.getCharacter().equals('D')) {
-//					player.move(Direction.EAST);
-//					
-//				}
-//			}
-//	    });
 	    
 	    return sc;
 	}
