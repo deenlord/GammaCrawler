@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 
 /**
@@ -24,37 +26,7 @@ import javafx.scene.image.*;
 public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// Don't add anything else here, create a method that returns a Scene
-		// and add an event handler in the handle method to call it.
-		// Nothing else can go here!
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage mainStage) throws Exception {
-		// make the Stage usable throughout the Class
-		this.mainStage = mainStage;
-		// This is the main game menu screen.
-		mainStage.setTitle("GammaCrawler!");
-		
-		// launch the start menu
-		mainStage.setScene(getMenu());
-		mainStage.show();
-		
-	}
-
-	@Override
-	public void handle(ActionEvent event) {
-		// if "Launch" button clicked
-		if(event.getSource() == launchButton ) {
-			this.mainStage.setScene(gameLoop());
-			// I think this is where we can update the game animations.
-		}	    
-	}
+	User player;
 	
 	/**
 	 * @return the start menu Scene
@@ -87,6 +59,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	 * with a character since 4/1
 	 */
 	public Scene gameLoop() {
+		
 		// Canvas goes in a Group
 		Group root = new Group();
 		// Create the array
@@ -156,6 +129,29 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    //set the scene and return it
 	    root.getChildren().add(cv);
 	    Scene sc = new Scene(root);
+	    sc.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {
+				if (event.getCharacter().equals('W')) {
+					player.move(Direction.NORTH);
+					System.out.println("North");
+					
+				}
+				else if (event.getCharacter().equals('S')) {
+					player.move(Direction.SOUTH);
+					player.setInitialLocation(player.getLocation()[0], player.getLocation()[1]);
+				
+				}
+				else if (event.getCharacter().equals('A')) {
+					player.move(Direction.WEST);
+					
+				}
+				else if (event.getCharacter().equals('D')) {
+					player.move(Direction.EAST);
+					
+				}
+			}
+	    });
+	    
 	    return sc;
 	}
 		
@@ -168,6 +164,75 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		int[][] array= board.getArray();
 		
 		return array;
+	}
+	
+	
+	@Override
+	public void handle(ActionEvent event) {
+		// if "Launch" button clicked
+		if(event.getSource() == launchButton ) {
+			this.mainStage.setScene(gameLoop());
+			// I think this is where we can update the game animations.
+			
+			new AnimationTimer() {
+				@Override
+				public void handle(long now) {
+					mainStage.setAlwaysOnTop(true);
+				}
+			}.start();
+			
+		}
+		
+		else if (event.getClass().equals(KeyEvent.KEY_PRESSED)) { 
+			
+			if (KeyEvent.KEY_PRESSED.equals(KeyCode.W)) {
+				this.player.move(Direction.NORTH);
+				System.out.println("North");
+				event.consume();
+				
+			}
+			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.S)) {
+				this.player.move(Direction.SOUTH);
+				this.player.setInitialLocation(this.player.getLocation()[0], this.player.getLocation()[1]);
+				event.consume();
+			
+			}
+			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.A)) {
+				this.player.move(Direction.WEST);
+				
+			}
+			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.D)) {
+				this.player.move(Direction.EAST);
+				
+			}
+		}
+	}
+	
+	@Override
+	public void start(Stage mainStage) throws Exception {
+		// make the Stage usable throughout the Class
+		this.mainStage = mainStage;
+		// This is the main game menu screen.
+		mainStage.setTitle("GammaCrawler!");
+		
+		// launch the start menu
+		mainStage.setScene(getMenu());
+		mainStage.show();
+		new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				mainStage.setAlwaysOnTop(true);
+			}
+		}.start();
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		// Don't add anything else here, create a method that returns a Scene
+		// and add an event handler in the handle method to call it.
+		// Nothing else can go here!
+		launch(args);
 	}
 	 
 

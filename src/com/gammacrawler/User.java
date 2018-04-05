@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
  * @author deenlord
  * 3/24
  */
-public class User extends Character {
+public class User extends Character implements Moveable {
 	private int exp;
 	private Image img;
 	private double tileSize;
@@ -47,12 +47,12 @@ public class User extends Character {
 	public void increaseExp(int increment) {
 		this.exp += increment;
 	}
-	
 
+
+	public Image getImage() {
+		return this.img;
+	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append("Name: " + this.getName() + "\n");
@@ -63,10 +63,6 @@ public class User extends Character {
 		
 		return str.toString();
 		
-	}
-
-	public Image getImage() {
-		return this.img;
 	}
 	
 	

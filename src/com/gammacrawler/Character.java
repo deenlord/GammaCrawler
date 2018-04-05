@@ -83,11 +83,11 @@ public abstract class Character implements Moveable{
 			case NORTH:
 				this.location[1]+=1;
 			case SOUTH:
-				location[1]-=1;
+				this.location[1]-=1;
 			case EAST:
-				location[0]+=1;
+				this.location[0]+=1;
 			case WEST:
-				location[0]-=1;
+				this.location[0]-=1;
 		}
 		
 	}
