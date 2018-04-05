@@ -1,6 +1,8 @@
 package com.gammacrawler;
 
 import com.gammacrawler.generator.*;
+
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
@@ -49,7 +51,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public void handle(ActionEvent event) {
 		// if "Launch" button clicked
 		if(event.getSource() == launchButton ) {
-			this.mainStage.setScene(gameLoop());	
+			this.mainStage.setScene(gameLoop());
+			// I think this is where we can update the game animations.
 		}	    
 	}
 	
@@ -88,18 +91,20 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Group root = new Group();
 		// Create the array
 		int[][] ar = setupArray();
+		// Control variable for size of tile
+		final double tileSize = 64;
 		// import images to use as tiles
-		Image wall = new Image("file:src/com/gammacrawler/images/wall.png");
-		Image floor = new Image("file:src/com/gammacrawler/images/floor.png");
-		// Control var for size of tile
-		final double tileSize = 32;
+		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
+		
+		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", tileSize, tileSize, false, false);
+		
 		
 		// to use as coordinates
 		double x;
 		double y;
 		
 		// create the Canvas (feel free to resize)
-		Canvas cv = new Canvas(960,720);
+		Canvas cv = new Canvas(855,860);
 		GraphicsContext gc = cv.getGraphicsContext2D();
 		
 	    // iterate through the array and draw the appropriate sprite
@@ -157,7 +162,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 	public int[][] setupArray() {
 		
-		Board board = new Board(23, 23);
+		Board board = new Board(43,51);
 		board.addMaze();
 		
 		int[][] array= board.getArray();
