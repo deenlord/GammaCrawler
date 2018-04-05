@@ -36,7 +36,7 @@ public abstract class Character implements Moveable{
 	}
 
 	/**
-	 * @return currrent HP
+	 * @return current HP
 	 */
 	public int getHP() {
 		return curHP;
