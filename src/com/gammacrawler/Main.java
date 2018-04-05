@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 
 /**
@@ -24,37 +26,7 @@ import javafx.scene.image.*;
 public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// Don't add anything else here, create a method that returns a Scene
-		// and add an event handler in the handle method to call it.
-		// Nothing else can go here!
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage mainStage) throws Exception {
-		// make the Stage usable throughout the Class
-		this.mainStage = mainStage;
-		// This is the main game menu screen.
-		mainStage.setTitle("GammaCrawler!");
-		
-		// launch the start menu
-		mainStage.setScene(getMenu());
-		mainStage.show();
-		
-	}
-
-	@Override
-	public void handle(ActionEvent event) {
-		// if "Launch" button clicked
-		if(event.getSource() == launchButton ) {
-			this.mainStage.setScene(gameLoop());
-			// I think this is where we can update the game animations.
-		}	    
-	}
+	User player;
 	
 	/**
 	 * @return the start menu Scene
@@ -87,12 +59,13 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	 * with a character since 4/1
 	 */
 	public Scene gameLoop() {
+		
 		// Canvas goes in a Group
 		Group root = new Group();
 		// Create the array
 		int[][] ar = setupArray();
 		// Control variable for size of tile
-		final double tileSize = 64;
+		final double tileSize = 16;
 		// import images to use as tiles
 		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
 		
@@ -129,8 +102,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 	    // create a User
 		User player = new User("Player1");
+		player.setTileSize((int) tileSize);
 		// only add them once...
 	    int counter = 0;
+	    Image playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
+	    ImageView piView = new ImageView(playerImage);
+	    
 	    
 	    // iterate through the array to find the first zero location,
 	    // draw the User there. ... only once.
@@ -139,7 +116,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    		if ( ar[z][j] == 0 & counter == 0 ) {
 	    			y = (z + 1) * tileSize; // avoid z/0
 		        	x = (j + 1) * tileSize;
-		        	gc.drawImage(player.getImage(), x, y, tileSize, tileSize);
+		        	player.setInitialLocation((int) y, (int) x);
+		        	piView.setLayoutX(x);
+		        	piView.setLayoutY(y);
 		        	counter++;
 	    		}
 	    		
@@ -155,7 +134,24 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	    //set the scene and return it
 	    root.getChildren().add(cv);
+	    root.getChildren().add(piView);
 	    Scene sc = new Scene(root);
+	      sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
+	            @Override
+	            public void handle(KeyEvent event) {
+	                switch (event.getCode()) {
+	                    case W:    System.out.println("North"); player.move(Direction.NORTH); break;
+	                    case S:  System.out.println("South"); player.move(Direction.SOUTH); break;
+	                    case A:  System.out.println("West"); player.move(Direction.WEST); break;
+	                    case D: System.out.println("East"); player.move(Direction.EAST); break;
+	                    case I: System.out.println(player); break;
+	                    default: break;
+	                }
+		        	piView.setLayoutX(player.getLocation()[0]);
+		        	piView.setLayoutY(player.getLocation()[1]);
+	            }
+	        });
+	    
 	    return sc;
 	}
 		
@@ -168,6 +164,75 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		int[][] array= board.getArray();
 		
 		return array;
+	}
+	
+	
+	@Override
+	public void handle(ActionEvent event) {
+		// if "Launch" button clicked
+		if(event.getSource() == launchButton ) {
+			this.mainStage.setScene(gameLoop());
+			// I think this is where we can update the game animations.
+			
+			new AnimationTimer() {
+				@Override
+				public void handle(long now) {
+					mainStage.setAlwaysOnTop(true);
+				}
+			}.start();
+			
+		}
+		
+		else if (event.getClass().equals(KeyEvent.KEY_PRESSED)) { 
+			
+			if (KeyEvent.KEY_PRESSED.equals(KeyCode.W)) {
+				this.player.move(Direction.NORTH);
+				System.out.println("North");
+				event.consume();
+				
+			}
+			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.S)) {
+				this.player.move(Direction.SOUTH);
+				this.player.setInitialLocation(this.player.getLocation()[0], this.player.getLocation()[1]);
+				event.consume();
+			
+			}
+			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.A)) {
+				this.player.move(Direction.WEST);
+				
+			}
+			else if (KeyEvent.KEY_PRESSED.equals(KeyCode.D)) {
+				this.player.move(Direction.EAST);
+				
+			}
+		}
+	}
+	
+	@Override
+	public void start(Stage mainStage) throws Exception {
+		// make the Stage usable throughout the Class
+		this.mainStage = mainStage;
+		// This is the main game menu screen.
+		mainStage.setTitle("GammaCrawler!");
+		
+		// launch the start menu
+		mainStage.setScene(getMenu());
+		mainStage.show();
+		new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				mainStage.setAlwaysOnTop(true);
+			}
+		}.start();
+		
+		
+	}
+	
+	public static void main(String[] args) {
+		// Don't add anything else here, create a method that returns a Scene
+		// and add an event handler in the handle method to call it.
+		// Nothing else can go here!
+		launch(args);
 	}
 	 
 

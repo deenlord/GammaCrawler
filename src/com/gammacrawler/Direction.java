@@ -5,7 +5,5 @@ package com.gammacrawler;
  * 3/24
  */
 public enum Direction {
-	NORTH, SOUTH, EAST, WEST;
-	
-	
+	NORTH, SOUTH, EAST, WEST
 }

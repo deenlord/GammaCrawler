@@ -11,6 +11,7 @@ public abstract class Character implements Moveable{
 	private int curHP;
 	private int maxHP;
 	private int[] location = new int[2];
+	private int tileSize;
 //	private ArrayList<Item> inventory;
 //	private Weapon main;
 //	private Shield shield;
@@ -21,6 +22,10 @@ public abstract class Character implements Moveable{
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	public void setTileSize(int tileSize) {
+		this.tileSize = tileSize;
 	}
 
 	/**
@@ -79,18 +84,19 @@ public abstract class Character implements Moveable{
 	 * Move your player the direction (sets this.location)
 	 */
 	public void move(Direction dir) {
+		System.out.println("Trying to move");
 		switch(dir) {
 			case NORTH:
-				location[1]+=1;
+				this.location[1]-=tileSize;
 				break;
 			case SOUTH:
-				location[1]-=1;
+				this.location[1]+=tileSize;
 				break;
 			case EAST:
-				location[0]+=1;
+				this.location[0]+=tileSize;
 				break;
 			case WEST:
-				location[0]-=1;
+				this.location[0]-=tileSize;
 				break;
 		}
 		
