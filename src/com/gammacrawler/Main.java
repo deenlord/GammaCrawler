@@ -129,28 +129,42 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    //set the scene and return it
 	    root.getChildren().add(cv);
 	    Scene sc = new Scene(root);
-	    sc.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event) {
-				if (event.getCharacter().equals('W')) {
-					player.move(Direction.NORTH);
-					System.out.println("North");
-					
-				}
-				else if (event.getCharacter().equals('S')) {
-					player.move(Direction.SOUTH);
-					player.setInitialLocation(player.getLocation()[0], player.getLocation()[1]);
-				
-				}
-				else if (event.getCharacter().equals('A')) {
-					player.move(Direction.WEST);
-					
-				}
-				else if (event.getCharacter().equals('D')) {
-					player.move(Direction.EAST);
-					
-				}
-			}
-	    });
+	      sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
+	            @Override
+	            public void handle(KeyEvent event) {
+	                switch (event.getCode()) {
+	                    case W:    System.out.println("North"); player.move(Direction.NORTH); break;
+	                    case S:  System.out.println("South"); player.move(Direction.SOUTH); break;
+	                    case A:  System.out.println("West"); player.move(Direction.WEST); break;
+	                    case D: System.out.println("East"); player.move(Direction.EAST); break;
+	                }
+	            }
+	        });
+	    
+	    
+//	    sc.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+//			public void handle(KeyEvent event) {
+//				System.out.println("Handle key event");
+//				if (event.getCharacter().equals('W')) {
+//					player.move(Direction.NORTH);
+//					System.out.println("North");
+//					
+//				}
+//				else if (event.getCharacter().equals('S')) {
+//					player.move(Direction.SOUTH);
+//					player.setInitialLocation(player.getLocation()[0], player.getLocation()[1]);
+//				
+//				}
+//				else if (event.getCharacter().equals('A')) {
+//					player.move(Direction.WEST);
+//					
+//				}
+//				else if (event.getCharacter().equals('D')) {
+//					player.move(Direction.EAST);
+//					
+//				}
+//			}
+//	    });
 	    
 	    return sc;
 	}
