@@ -1,7 +1,5 @@
 package com.gammacrawler;
 
-import com.gammacrawler.generator.*;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -9,13 +7,14 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
@@ -33,25 +32,50 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	 * @return the start menu Scene
 	 */
 	public Scene getMenu()  {
+		// a little setup
+		Group menu = new Group();
+		menu.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		menu.getStyleClass().add("menu");
+		Pane pane = new Pane();
+		pane.getStyleClass().add("menuPane");
+		pane.setPrefSize(300, 300);
+		
+		
+		// create the game name label
 		Text label = new Text();
 		label.setText("GammaCrawler!");
-		label.setId("title");
-		label.setLayoutY(125);
-		label.setLayoutX(95);
+		label.setLayoutY(85);
+		label.setLayoutX(45);
+		label.setFill(Color.RED);
+		label.getStyleClass().add("menuLabel");
 		
 		// create the button
 		launchButton = new Button();
 		launchButton.setText("Enter the Dungeon");
 		launchButton.setOnAction(this);
 		launchButton.setLayoutY(125);
-		launchButton.setLayoutX(95);
+		launchButton.setLayoutX(70);
+		
+		// create authors label
+		Text authors = new Text();
+		authors.setText("By: Nathaniel Butterfield \n      Christian Rathke\n      JakobVendegna");
+		authors.setLayoutY(200);
+		authors.setLayoutX(90);
+		authors.setFill(Color.WHITESMOKE);
+		authors.getStyleClass().add("authorLabel");
+		
+		
+		
 		// add the label and launchButton to a Pane
-		Pane menuLayout = new Pane();
-		menuLayout.getChildren().add(label);
-		menuLayout.getChildren().add(launchButton);
+		pane.getChildren().add(label);
+		pane.getChildren().add(launchButton);
+		pane.getChildren().add(authors);
+		
+		// add the pane to the group
+		menu.getChildren().add(pane);
+		
 		// create the Scene
-		Scene launcher = new Scene(menuLayout, 300, 300);
-		launcher.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		Scene launcher = new Scene(menu);
 		return launcher;
 	}
 	
@@ -162,10 +186,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	                    	break;
 	                    case I: 
 	                    	System.out.println(player); 
-	                    	System.out.println("North: " +  ar[y-1][x]);
-	                    	System.out.println("South: " + ar[y+1][x]);
-	                    	System.out.println("East: " + ar[y][x+1]);
-	                    	System.out.println("West: " + ar[y][x-1]);
+//	                    	System.out.println("North: " +  ar[y-1][x]);
+//	                    	System.out.println("South: " + ar[y+1][x]);
+//	                    	System.out.println("East: " + ar[y][x+1]);
+//	                    	System.out.println("West: " + ar[y][x-1]);
 	                    	break;
 	                    default: break;
 	                }
