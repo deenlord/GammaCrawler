@@ -1,22 +1,21 @@
 package com.gammacrawler;
 
-import com.gammacrawler.generator.*;
+import com.gammacrawler.generator.Board;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
-import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 /**
@@ -65,7 +64,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// Create the array
 		int[][] ar = setupArray();
 		// Control variable for size of tile
-		final double tileSize = 16;
+		final double tileSize = 32;
 		// import images to use as tiles
 		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
 		
@@ -169,7 +168,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 	public int[][] setupArray() {
 		
-		Board board = new Board(43,51);
+		Board board = new Board(21, 21);
 		board.addMaze();
 		
 		int[][] array= board.getArray();

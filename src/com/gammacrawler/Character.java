@@ -66,7 +66,7 @@ public abstract class Character implements Moveable{
 	/**
 	 * @return current location
 	 */
-	protected int[] getLocation() {
+	public int[] getLocation() {
 		return this.location;
 	}
 	

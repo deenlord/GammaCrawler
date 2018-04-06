@@ -2,11 +2,8 @@ package com.gammacrawler.generator;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.gammacrawler.generator.map.MazeMap;
 import com.gammacrawler.generator.map.MazeMapTile;
@@ -24,6 +21,8 @@ public class Board {
 	private int sparseTries = 100000;
 
 	public Board(int width, int height) {
+		width = (width % 2 == 0 ? width + 1 : width);
+		height = (height % 2 == 0 ? height + 1 : height);
 		this.array = new int[width][height];
 		regionArray = new int[array.length][array[0].length];
 		fillIntegerArray(array, 1);
@@ -35,7 +34,7 @@ public class Board {
 	}
 
 	public void addMaze() {
-		attemptPlaceRooms(500, 3, 20, 3, 20);
+		attemptPlaceRooms(500, 2, 20, 2, 20);
 
 		mazeMap = new MazeMap(array);
 		mazeMap.makeMaze();
@@ -142,8 +141,10 @@ public class Board {
 	 * @param minRoomHeight
 	 * @param maxRoomHeight
 	 */
-	private void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight,
-			int maxRoomHeight) {
+	private void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight, int maxRoomHeight) {
+		int snipWidth = array.length - 2;
+		int snipHeight = array[0].length - 2;
+		int border = 1;
 		int xPointMin;
 		int xPointMax;
 		int yPointMin;
@@ -156,21 +157,30 @@ public class Board {
 		xPointMin = 1;
 		yPointMin = 1;
 
+		// Make sure we don't have rooms bigger than the floor
+		minRoomWidth = Math.min(snipWidth, minRoomWidth);
+		minRoomHeight = Math.min(snipHeight, minRoomHeight);
+		maxRoomWidth = Math.min(snipWidth, maxRoomWidth);
+		maxRoomHeight = Math.min(snipHeight, maxRoomHeight);
+
+
 		// Make any even numbers odd.
 		minRoomWidth = (minRoomWidth % 2 == 0 ? minRoomWidth + 1 : minRoomWidth);
-		maxRoomWidth = (maxRoomWidth % 2 == 0 ? maxRoomWidth + 1 : maxRoomWidth);
+		maxRoomWidth = (maxRoomWidth % 2 == 0 ? maxRoomWidth - 1 : maxRoomWidth);
 		minRoomHeight = (minRoomHeight % 2 == 0 ? minRoomHeight + 1 : minRoomHeight);
-		maxRoomHeight = (maxRoomHeight % 2 == 0 ? maxRoomHeight + 1 : maxRoomHeight);
-
+		maxRoomHeight = (maxRoomHeight % 2 == 0 ? maxRoomHeight - 1 : maxRoomHeight);
+		
 		for (int i = 0; i < attempts; i++) {
 			thisRoomWidth = DunMath.randomOdd(minRoomWidth, maxRoomWidth);
 			thisRoomHeight = DunMath.randomOdd(minRoomHeight, maxRoomHeight);
 
 			// Account for room width
-			xPointMax = array.length - thisRoomWidth - 1;
-			yPointMax = array[0].length - thisRoomHeight - 1;
-
+			xPointMax = Math.max(1, snipWidth - thisRoomWidth + 2);
+			xPointMax = (xPointMax % 2 == 0 ? xPointMax - 1 : xPointMax);
 			xPoint = DunMath.randomOdd(xPointMin, xPointMax);
+
+			yPointMax = Math.max(1, snipHeight - thisRoomHeight + 2);
+			yPointMax = (yPointMax % 2 == 0 ? yPointMax - 1 : yPointMax);
 			yPoint = DunMath.randomOdd(yPointMin, yPointMax);
 
 			makeRoom(xPoint, yPoint, thisRoomWidth, thisRoomHeight);
@@ -204,7 +214,7 @@ public class Board {
 	private boolean isSpace(int pointX, int pointY, int width, int height) {
 		for (int x = pointX; x < pointX + width; x++) {
 			for (int y = pointY; y < pointY + height; y++) {
-				if (array[x][y] == 0 || octNeighborCount(0, x, y) > 0)
+				if (array[x][y] == 0)
 					return false;
 			}
 		}
