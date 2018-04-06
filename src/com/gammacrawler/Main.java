@@ -67,6 +67,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// Create the array
 		int[][] ar = gen.getBoard().getArray();
 		// import images to use as tiles
+		
 		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
 		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", tileSize, tileSize, false, false);
 		
@@ -141,26 +142,30 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	                switch (event.getCode()) {
 	                    case W:  
 	                    	System.out.println("North");
-	                    	if (ar[y-1][x] == 0) 
+	                    	if (ar[y-1][x] == 0 || ar[y-1][x] == 2) 
 	                    		player.move(Direction.NORTH); 
 	                    	break;
 	                    case S:  
 	                    	System.out.println("South"); 
-	                    	if (ar[y+1][x] == 0) 
+	                    	if (ar[y+1][x] == 0 || ar[y+1][x] == 2) 
 	                    		player.move(Direction.SOUTH); 
 	                    	break;
 	                    case A:  
 	                    	System.out.println("West"); 
-	                    	if (ar[y][x-1] == 0)
+	                    	if (ar[y][x-1] == 0 || ar[y][x-1] == 2)
 	                    		player.move(Direction.WEST); 
 	                    	break;
 	                    case D: 
 	                    	System.out.println("East"); 
-	                    	if (ar[y][x+1] == 0)
+	                    	if (ar[y][x+1] == 0 || ar[y][x+1] == 2)
 	                    		player.move(Direction.EAST); 
 	                    	break;
 	                    case I: 
 	                    	System.out.println(player); 
+	                    	System.out.println("North: " +  ar[y-1][x]);
+	                    	System.out.println("South: " + ar[y+1][x]);
+	                    	System.out.println("East: " + ar[y][x+1]);
+	                    	System.out.println("West: " + ar[y][x-1]);
 	                    	break;
 	                    default: break;
 	                }
