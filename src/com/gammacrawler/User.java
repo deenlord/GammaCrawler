@@ -9,9 +9,6 @@ import javafx.scene.image.ImageView;
  */
 public class User extends Character implements Moveable {
 	private int exp;
-	private int tileSize;
-	private Image playerImage;
-	private ImageView playerImageView;
 
 
 	/**
@@ -22,21 +19,9 @@ public class User extends Character implements Moveable {
 		this.setMaxHP(100);
 		this.setHP(this.getMaxHP());
 		this.exp = 0;
-		this.tileSize = 16;
-		this.playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
-	    this.setPlayerImageView(playerImage);
-
-		
-//		inv = new Inventory();
-//		main = new Weapon("Wooden Sword", 1);
-//		shield = new Shield("Wooden Shield", 1);
-
+		this.setTileSize((int)Main.tileSize);
+		this.setSprite(new Sprite("file:src/com/gammacrawler/images/user.png", (int)Main.tileSize));
 	}
-	
-//	public increaseEXP(Enemy en) {
-//		this.exp+= en.maxHP *0.5;
-//	}
-//	
 	
 	/**
 	 * @return experience points
@@ -45,13 +30,9 @@ public class User extends Character implements Moveable {
 		return this.exp;
 	}
 	
-	/**
-	 * @param increment - amount to increment exp by
-	 */
-	public void increaseExp(int increment) {
-		this.exp += increment;
+	public void setExp(int xp) {
+		this.exp += xp;
 	}
-
 	
 	public String toString() {
 		StringBuilder str = new StringBuilder();
@@ -65,13 +46,7 @@ public class User extends Character implements Moveable {
 		
 	}
 
-	public ImageView getPlayerImageView() {
-		return playerImageView;
-	}
 
-	public void setPlayerImageView(Image playerImage) {
-		this.playerImageView = new ImageView(playerImage);
-	}
 	
 	
 	

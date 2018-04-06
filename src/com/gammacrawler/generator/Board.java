@@ -27,6 +27,7 @@ public class Board {
 		regionArray = new int[array.length][array[0].length];
 		fillIntegerArray(array, 1);
 		fillIntegerArray(regionArray, 0);
+		this.addMaze();
 	}
 
 	public int[][] getArray() {

@@ -1,5 +1,7 @@
 package com.gammacrawler;
 
+import javafx.scene.image.ImageView;
+
 // import java.util.ArrayList;
 
 /**
@@ -12,10 +14,7 @@ public abstract class Character implements Moveable{
 	private int maxHP;
 	private int[] location = new int[2];
 	private int tileSize;
-//	private ArrayList<Item> inventory;
-//	private Weapon main;
-//	private Shield shield;
-
+	private Sprite sprite;
 	
 	/**
 	 * @return name of Character
@@ -23,11 +22,6 @@ public abstract class Character implements Moveable{
 	public String getName() {
 		return name;
 	}
-	
-	public void setTileSize(int tileSize) {
-		this.tileSize = tileSize;
-	}
-
 	/**
 	 * @param newName - name your Character
 	 */
@@ -79,6 +73,22 @@ public abstract class Character implements Moveable{
 		location[1] = y;
 	}
 	
+	public void setTileSize() {
+		this.tileSize = (int) Main.tileSize;
+	}
+	
+	public void setTileSize(int tileSize) {
+		this.tileSize = tileSize;
+	}
+	
+	public void setSprite(Sprite spr) {
+		this.sprite = spr;
+	}
+	
+	public ImageView getSprite() {
+		return this.sprite.getSprite();
+	}
+	
 	
 	/* (non-Javadoc)
 	 * @see com.gammacrawler.Moveable#move(com.gammacrawler.Direction)
@@ -103,31 +113,6 @@ public abstract class Character implements Moveable{
 		}
 		
 	}
-//	public Inventory getInventory() {
-//		return inv;
-//	}
-//
-//	public void setInventory(Inventory newinv) {
-//		inv = newinv;
-//	}
-//
-//	public Weapon getWeapon() {
-//		return main;
-//	}
-//
-//	public void setWeapon(Weapon newWeapon) {
-//		inv.add(main);
-//		main = newWeapon;
-//	}
-//
-//	public Shield getShield() {
-//		return shield;
-//	}
-//
-//	public void setShield(Shield newShield) {
-//		inv.add(shield);
-//		shield = newShield;
-//	}
 
 	/**
 	 * @return true or false (can use as exit condition for game state)

@@ -20,13 +20,14 @@ import javafx.scene.input.KeyEvent;
 
 
 /**
- * @author jakev
+ * @author jake, nathaniel, jeromie
  *
  */
 public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
 	User player;
+	public final static double tileSize = 32;
 	
 	/**
 	 * @return the start menu Scene
@@ -59,13 +60,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	 * with a character since 4/1
 	 */
 	public Scene gameLoop() {
-		
+
+		Generator gen = new Generator(); // creates board and user procedurally...
 		// Canvas goes in a Group
 		Group root = new Group();
 		// Create the array
-		int[][] ar = setupArray();
-		// Control variable for size of tile
-		final double tileSize = 16;
+		int[][] ar = gen.getBoard().getArray();
 		// import images to use as tiles
 		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
 		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", tileSize, tileSize, false, false);
@@ -100,8 +100,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    }
 		
 	    // create a User
-		User player = new User("Player1");
-		player.setTileSize((int) tileSize);
+	    User player = gen.getPlayer();
 		// only add them once...
 	    int counter = 0;
 	    
@@ -113,8 +112,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    			y = (z + 1) * tileSize; // avoid z/0
 		        	x = (j + 1) * tileSize;
 		        	player.setLocation((int) x, (int) y);
-		        	player.getPlayerImageView().setLayoutX(x);
-		        	player.getPlayerImageView().setLayoutY(y);
+		        	player.getSprite().setLayoutX(x);
+		        	player.getSprite().setLayoutY(y); 
 		        	counter++;
 	    		}
 	    		
@@ -130,7 +129,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	    //set the scene and return it
 	    root.getChildren().add(cv);
-	    root.getChildren().add(player.getPlayerImageView());
+	    root.getChildren().add(player.getSprite());
 	    Scene sc = new Scene(root);
 	      sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	            @Override
@@ -165,23 +164,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	                    	break;
 	                    default: break;
 	                }
-		        	player.getPlayerImageView().setLayoutX(player.getLocation()[0]);
-		        	player.getPlayerImageView().setLayoutY(player.getLocation()[1]);
+		        	player.getSprite().setLayoutX(player.getLocation()[0]);
+		        	player.getSprite().setLayoutY(player.getLocation()[1]);
 	            }
 	        });
 	    
 	    return sc;
-	}
-		
-		
-	public int[][] setupArray() {
-		
-		Board board = new Board(43,51);
-		board.addMaze();
-		
-		int[][] array= board.getArray();
-		
-		return array;
 	}
 	
 	
