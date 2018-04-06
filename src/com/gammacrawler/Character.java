@@ -1,8 +1,5 @@
 package com.gammacrawler;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 // import java.util.ArrayList;
 
 /**
@@ -15,16 +12,11 @@ public abstract class Character implements Moveable{
 	private int maxHP;
 	private int[] location = new int[2];
 	private int tileSize;
-	private ImageView imageView;
 //	private ArrayList<Item> inventory;
 //	private Weapon main;
 //	private Shield shield;
 
-	public Character(String name, Image image) {
-		this.setName(name);
-	    this.setImageView(image);
-	}
-
+	
 	/**
 	 * @return name of Character
 	 */
@@ -82,7 +74,7 @@ public abstract class Character implements Moveable{
 	 * @param x -  x coordinate
 	 * @param y -  y coordinate
 	 */
-	protected void setLocation(int x, int y) {
+	public void setLocation(int x, int y) {
 		location[0] = x;
 		location[1] = y;
 	}
@@ -150,14 +142,6 @@ public abstract class Character implements Moveable{
 		}
 
 		return dead;
-	}
-
-	public ImageView getPlayerImageView() {
-		return imageView;
-	}
-
-	public void setImageView(Image image) {
-		this.imageView = new ImageView(image);
 	}
 
 }
