@@ -9,25 +9,16 @@ import javafx.scene.image.ImageView;
  */
 public class User extends Character implements Moveable {
 	private int exp;
-	private int tileSize;
-	private Image playerImage;
-	private ImageView playerImageView;
-
 
 	/**
 	 * @param name
 	 */
-	public User(String name) {
-		this.setName(name);
+	public User(String name, Image image) {
+		super(name, image);
 		this.setMaxHP(100);
 		this.setHP(this.getMaxHP());
 		this.exp = 0;
-		this.tileSize = 16;
-		this.playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
-	    this.setPlayerImageView(playerImage);
 
-		
-//		inv = new Inventory();
 //		main = new Weapon("Wooden Sword", 1);
 //		shield = new Shield("Wooden Shield", 1);
 
@@ -64,16 +55,6 @@ public class User extends Character implements Moveable {
 		return str.toString();
 		
 	}
-
-	public ImageView getPlayerImageView() {
-		return playerImageView;
-	}
-
-	public void setPlayerImageView(Image playerImage) {
-		this.playerImageView = new ImageView(playerImage);
-	}
-	
-	
 	
 	
 }

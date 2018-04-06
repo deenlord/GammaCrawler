@@ -26,6 +26,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
 	User player;
+	Board board;
 	
 	/**
 	 * @return the start menu Scene
@@ -67,9 +68,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		final double tileSize = 32;
 		// import images to use as tiles
 		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
-		
 		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", tileSize, tileSize, false, false);
-		
+		Image playerImage = new Image("file:src/com/gammacrawler/images/user.png", tileSize, tileSize, false, false);
 		
 		// to use as coordinates
 		double x;
@@ -100,8 +100,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    }
 		
 	    // create a User
-		User player = new User("Player1");
-		player.setTileSize((int) tileSize);
+		User player = new User("Player1", playerImage);
 		// only add them once...
 	    int counter = 0;
 	    
@@ -135,25 +134,41 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	      sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	            @Override
 	            public void handle(KeyEvent event) {
+	            	int x = player.getLocation()[0];
+	            	int y = player.getLocation()[1];
+	            	int tileX = (int) ((x) / tileSize) - 1;
+	            	int tileY = (int) ((y) / tileSize) - 1;
+
+	            	for (int z = 0; z < ar.length; z++) {
+	            		for (int k= 0; k < ar.length; k++) {
+		            		System.out.println(z + " " + k + " " + ar[z][k]);
+		            	}	            		
+	            	}
+	            	System.out.println(ar[tileX][tileY]);
+	            	
 	                switch (event.getCode()) {
 	                    case W:  
-	                    	System.out.println("North"); 
-	                    	player.move(Direction.NORTH); 
+	                    	if (ar[tileX][tileY - 1] == 0) {
+	                    		player.setLocation(x, y -= tileSize);
+	                    	}
 	                    	break;
 	                    case S:  
-	                    	System.out.println("South"); 
-	                    	player.move(Direction.SOUTH); 
+	                    	if (ar[tileX][tileY + 1] == 0) {
+	                    		player.setLocation(x, y += tileSize);
+	                    	}
 	                    	break;
 	                    case A:  
-	                    	System.out.println("West"); 
-	                    	player.move(Direction.WEST); 
+	                    	if (ar[tileX - 1][tileY] == 0) {
+	                    		player.setLocation(x -= tileSize, y);
+	                    	}
 	                    	break;
 	                    case D: 
-	                    	System.out.println("East"); 
-	                    	player.move(Direction.EAST); 
+	                    	if (ar[tileX + 1][tileY] == 0) {
+	                    		player.setLocation(x += tileSize, y);
+	                    	}
 	                    	break;
 	                    case I: 
-	                    	System.out.println(player); 
+	                    	System.out.println(player);
 	                    	break;
 	                    default: break;
 	                }
@@ -168,7 +183,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 	public int[][] setupArray() {
 		
-		Board board = new Board(21, 21);
+		board = new Board(21, 21);
 		board.addMaze();
 		
 		int[][] array= board.getArray();
