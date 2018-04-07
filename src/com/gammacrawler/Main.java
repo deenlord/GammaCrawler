@@ -25,7 +25,7 @@ import javafx.scene.input.MouseEvent;
 
 
 /**
- * @author jake, nathaniel, jeromie
+ * @author jake, nathaniel, jeromie, crathke4
  *
  */
 public class Main extends Application implements EventHandler<ActionEvent> {
@@ -171,7 +171,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    User player = gen.getPlayer();
 		// only add them once...
 	    int counter = 0;
-	    
 	    // iterate through the array to find the first zero location,
 	    // draw the User there. ... only once.
 	    for (int z=0; z < (ar.length); z++) {
