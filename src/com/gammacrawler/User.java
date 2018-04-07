@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 public class User extends Character implements Moveable {
 	private int exp;
 	WoodenSword sword;
+	HealthPotion hp1;
 
 	/**
 	 * @param name
@@ -22,8 +23,12 @@ public class User extends Character implements Moveable {
 		this.setSprite(new Sprite("file:src/com/gammacrawler/images/user2.png", (int) Main.tileSize));
 		sword = new WoodenSword("Wooden Sword", 
 				new Sprite("file:src/com/gammacrawler/images/woodensword.png", (int) Main.tileSize / 2));
+		hp1 = new HealthPotion("Lite Health Potion", 
+				new Sprite("file:src/com/gammacrawler/images/litehealthpotion.png",
+				(int) Main.tileSize));
 		this.inv = new Inventory();
 		this.inv.al.add(sword);
+		this.inv.al.add(hp1);
 		
 	}
 	
