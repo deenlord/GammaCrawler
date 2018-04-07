@@ -24,7 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
- * @author jake, nathaniel, jeromie
+ * @author jake, nathaniel, jeromie, crathke4
  *
  */
 public class Main extends Application implements EventHandler<ActionEvent> {
