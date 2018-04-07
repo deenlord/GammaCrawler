@@ -1,5 +1,7 @@
 package com.gammacrawler;
 
+import java.util.ArrayList;
+
 import javafx.scene.image.ImageView;
 
 // import java.util.ArrayList;
@@ -15,6 +17,7 @@ public abstract class Character implements Moveable{
 	private int[] location = new int[2];
 	private int tileSize;
 	private Sprite sprite;
+	protected Inventory inv;
 	
 	/**
 	 * @return name of Character
@@ -87,6 +90,10 @@ public abstract class Character implements Moveable{
 	
 	public ImageView getSprite() {
 		return this.sprite.getSprite();
+	}
+	
+	public void setInventory(ArrayList<Item> inventory) {
+		this.inv.setInventory(inventory);
 	}
 	
 	

@@ -1,6 +1,5 @@
 package com.gammacrawler;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -9,7 +8,7 @@ import javafx.scene.image.ImageView;
  */
 public class User extends Character implements Moveable {
 	private int exp;
-
+	WoodenSword sword;
 
 	/**
 	 * @param name
@@ -20,7 +19,12 @@ public class User extends Character implements Moveable {
 		this.setHP(this.getMaxHP());
 		this.exp = 0;
 		this.setTileSize((int)Main.tileSize);
-		this.setSprite(new Sprite("file:src/com/gammacrawler/images/user.png", (int)Main.tileSize));
+		this.setSprite(new Sprite("file:src/com/gammacrawler/images/user2.png", (int) Main.tileSize));
+		sword = new WoodenSword("Wooden Sword", 
+				new Sprite("file:src/com/gammacrawler/images/woodensword.png", (int) Main.tileSize / 2));
+		this.inv = new Inventory();
+		this.inv.al.add(sword);
+		
 	}
 	
 	/**
@@ -33,6 +37,20 @@ public class User extends Character implements Moveable {
 	public void setExp(int xp) {
 		this.exp += xp;
 	}
+	
+	public ImageView getWeapon() {
+		return this.sword.sprite.getSprite();
+	}
+	
+	
+	public void attack() {
+		int x = (int) ((this.getLocation()[0]) + 1 + Main.tileSize);
+		int y = (int) ((this.getLocation()[1]) + 1 + (Main.tileSize) /4);
+		this.getWeapon().setLayoutX(x);
+		this.getWeapon().setLayoutY(y);
+		this.sword.swing();
+	}
+	
 	
 	public String toString() {
 		StringBuilder str = new StringBuilder();

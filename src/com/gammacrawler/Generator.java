@@ -12,6 +12,12 @@ public class Generator {
 		
 	}
 	
+	public Generator(Sprite sprite) {
+		this.player = new User("Richard");
+		this.player.setSprite(sprite);
+		this.board = new Board(21,21);
+	}
+	
 	public Generator(User player) {
 		this.player = player;
 		if (player.getExp() < 100)

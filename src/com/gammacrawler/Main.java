@@ -1,10 +1,15 @@
 package com.gammacrawler;
 
+import java.util.ArrayList;
+
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,6 +21,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 
 /**
@@ -27,6 +33,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Stage mainStage;
 	User player;
 	public final static double tileSize = 32;
+	private ArrayList<Sprite> characters = new ArrayList<>();
+
 	
 	/**
 	 * @return the start menu Scene
@@ -38,7 +46,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		menu.getStyleClass().add("menu");
 		Pane pane = new Pane();
 		pane.getStyleClass().add("menuPane");
-		pane.setPrefSize(300, 300);
+		pane.setPrefSize(320,320);
 		
 		
 		// create the game name label
@@ -49,6 +57,41 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		label.setFill(Color.RED);
 		label.getStyleClass().add("menuLabel");
 		
+		int i = 32;
+		// border
+		Sprite imgY1 = new Sprite("file:src/com/gammacrawler/images/user.png", 32);
+		Sprite imgY2 = new Sprite("file:src/com/gammacrawler/images/user2.png", 32);
+		Sprite imgY3 = new Sprite("file:src/com/gammacrawler/images/witch.png", 32);
+		Sprite imgY4 = new Sprite("file:src/com/gammacrawler/images/ghostpirate.png", 32);
+		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/chad.png", 32);
+		Sprite imgY6 = new Sprite("file:src/com/gammacrawler/images/dogmaskedzombie.png", 32);
+		Sprite imgY7 = new Sprite("file:src/com/gammacrawler/images/zombieviking.png", 32);
+		Sprite imgY8 = new Sprite("file:src/com/gammacrawler/images/bill.png", 32);
+		Sprite imgY9 = new Sprite("file:src/com/gammacrawler/images/blueguy.png", 32);
+		Sprite imgY10 = new Sprite("file:src/com/gammacrawler/images/zombieninja.png", 32);
+		
+		
+		
+		Sprite imgX1 = new Sprite("file:src/com/gammacrawler/images/woodensword.png", 32);
+		
+		characters.add(imgY1);
+		characters.add(imgY2);
+		characters.add(imgY3);
+		characters.add(imgY4);
+		characters.add(imgY5);
+		characters.add(imgY6);
+		characters.add(imgY7);
+		characters.add(imgY8);
+		characters.add(imgY9);
+		characters.add(imgY10);
+		
+		
+		int counter = 0;
+		for (Sprite spr : characters) {
+			spr.getSprite().setLayoutX(i * counter);
+			pane.getChildren().add(spr.getSprite());
+			counter++;
+		}
 		// create the button
 		launchButton = new Button();
 		launchButton.setText("Enter the Dungeon");
@@ -83,9 +126,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	 * @return the game board scene
 	 * with a character since 4/1
 	 */
-	public Scene gameLoop() {
+	public Scene gameLoop(Sprite sprite) {
 
-		Generator gen = new Generator(); // creates board and user procedurally...
+		Generator gen = new Generator(sprite); // creates board and user procedurally...
 		// Canvas goes in a Group
 		Group root = new Group();
 		// Create the array
@@ -155,6 +198,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	    //set the scene and return it
 	    root.getChildren().add(cv);
 	    root.getChildren().add(player.getSprite());
+	    root.getChildren().add(player.getWeapon());
+	    player.getWeapon().setVisible(false);
 	    Scene sc = new Scene(root);
 	      sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 	            @Override
@@ -186,10 +231,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	                    	break;
 	                    case I: 
 	                    	System.out.println(player); 
-//	                    	System.out.println("North: " +  ar[y-1][x]);
-//	                    	System.out.println("South: " + ar[y+1][x]);
-//	                    	System.out.println("East: " + ar[y][x+1]);
-//	                    	System.out.println("West: " + ar[y][x-1]);
+	                    	System.out.println("North: " +  ar[y-1][x]);
+	                    	System.out.println("South: " + ar[y+1][x]);
+	                    	System.out.println("East: " + ar[y][x+1]);
+	                    	System.out.println("West: " + ar[y][x-1]);
 	                    	break;
 	                    default: break;
 	                }
@@ -197,6 +242,20 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		        	player.getSprite().setLayoutY(player.getLocation()[1]);
 	            }
 	        });
+	      
+	      sc.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	          @Override
+	          public void handle(MouseEvent event) {
+	        	  player.getWeapon().setVisible(true);
+	        	  player.attack();
+	        	  
+//	              System.out.println("mouse click detected! "+ event.getSource());
+//	              System.out.println("x = " + player.getLocation()[0]);
+//	              System.out.println("y = " + player.getLocation()[1]);
+//	              int location = player.getLocation()[0] + 1;
+//	              System.out.println("x = " + location);     
+	          }
+	      });
 	    
 	    return sc;
 	}
@@ -206,7 +265,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public void handle(ActionEvent event) {
 		// if "Launch" button clicked
 		if(event.getSource() == launchButton ) {
-			this.mainStage.setScene(gameLoop());
+			double x =  (Math.random() * 10) - (1);
+			System.out.println("Character #: " + x);
+			this.mainStage.setScene(gameLoop(characters.get((int)x)));
 			// I think this is where we can update the game animations.
 			
 			new AnimationTimer() {
