@@ -8,6 +8,9 @@ public class Enemy extends Character implements Moveable{
 	 */
 	User player;
 	
+	/**
+	 * @param main - main from which player is derived
+	 */
 	Enemy(Main main)
 	{
 		this.player=main.player;
