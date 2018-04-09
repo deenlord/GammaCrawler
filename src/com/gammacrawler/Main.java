@@ -3,17 +3,13 @@ package com.gammacrawler;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -31,6 +27,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
 	User player;
+	public final static int tileSize = 32;
 	private ArrayList<Sprite> characters = new ArrayList<>();
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private Generator gen; 
@@ -154,8 +151,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		int[][] ar = gen.getBoard().getArray();
 		// import images to use as tiles
 
-		Image wall = new Image("file:src/com/gammacrawler/images/wall.png");
-		Image floor = new Image("file:src/com/gammacrawler/images/floor.png");
+		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
+		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", tileSize, tileSize, false, false);
 
 		// to use as coordinates
 		double x;
@@ -170,15 +167,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		for (int i = 0; i < (ar.length); i++) {
 			for (int j = 0; j < ar[i].length; j++) {
 				// for each j set x and y
-				y = (i + 1) * Settings.TILESIZE; // plus one to avoid dividing by zero
-				x = (j + 1) * Settings.TILESIZE;
+				y = (i + 1) * tileSize; // plus one to avoid dividing by zero
+				x = (j + 1) * tileSize;
 
 				if (ar[i][j] == 1) {
 					// draw wall tile where you find a 1 in the array
-					gc.drawImage(wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(wall, x, y, tileSize, tileSize);
 				} else {
 					// draw floor tile where you find a 0
-					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(floor, x, y, tileSize, tileSize);
 				}
 
 			}
@@ -194,8 +191,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		for (int z = 0; z < (ar.length); z++) {
 			for (int j = 0; j < (ar[z].length); j++) {
 				if (ar[z][j] == 0 & counter == 0) {
-					y = (z + 1) * Settings.TILESIZE; // avoid z/0
-					x = (j + 1) * Settings.TILESIZE;
+					y = (z + 1) * tileSize; // avoid z/0
+					x = (j + 1) * tileSize;
 					player.setLocation((int) x, (int) y);
 					player.getSprite().setLayoutX(x);
 					player.getSprite().setLayoutY(y);
@@ -222,8 +219,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			@Override
 			public void handle(KeyEvent event) {
 
-				int x = (player.getLocation()[0] / Settings.TILESIZE) - 1;
-				int y = (player.getLocation()[1] / Settings.TILESIZE) - 1;
+				int x = (player.getLocation()[0] / (int) tileSize) - 1;
+				int y = (player.getLocation()[1] / (int) tileSize) - 1;
 
 				switch (event.getCode()) {
 				case W:
@@ -349,8 +346,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			ArrayList<MoveRequest> newMq = new ArrayList<>();
 
 			for (MoveRequest mq : enemy.getMovePossibilities()) {
-				int tX = (mq.x /  Settings.TILESIZE) - 1;
-				int tY = (mq.y /  Settings.TILESIZE) - 1;
+				int tX = (mq.x / (int) tileSize) - 1;
+				int tY = (mq.y / (int) tileSize) - 1;
 
 				if (!(gen.getBoard().getArray()[tX][tY] == 1)) {
 					newMq.add(mq);
