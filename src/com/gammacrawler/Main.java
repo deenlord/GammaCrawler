@@ -61,14 +61,22 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Sprite imgY2 = new Sprite("file:src/com/gammacrawler/images/user2.png");
 		Sprite imgY3 = new Sprite("file:src/com/gammacrawler/images/witch.png");
 		Sprite imgY4 = new Sprite("file:src/com/gammacrawler/images/ghostpirate.png");
-		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/chad.png");
+		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/slime.png");
 		Sprite imgY6 = new Sprite("file:src/com/gammacrawler/images/dogmaskedzombie.png");
 		Sprite imgY7 = new Sprite("file:src/com/gammacrawler/images/zombieviking.png");
 		Sprite imgY8 = new Sprite("file:src/com/gammacrawler/images/bill.png");
 		Sprite imgY9 = new Sprite("file:src/com/gammacrawler/images/blueguy.png");
 		Sprite imgY10 = new Sprite("file:src/com/gammacrawler/images/zombieninja.png");
 
-		Sprite imgX1 = new Sprite("file:src/com/gammacrawler/images/woodensword.png");
+		Sprite imgX1 = new Sprite("file:src/com/gammacrawler/images/babydevil.png");
+		Sprite imgX2 = new Sprite("file:src/com/gammacrawler/images/candle.png");
+		Sprite imgX3 = new Sprite("file:src/com/gammacrawler/images/bigcreep.png");
+		Sprite imgX4 = new Sprite("file:src/com/gammacrawler/images/bomb.png");
+		Sprite imgX5 = new Sprite("file:src/com/gammacrawler/images/bat.png");
+		Sprite imgX6 = new Sprite("file:src/com/gammacrawler/images/ghost.png");
+		Sprite imgX7 = new Sprite("file:src/com/gammacrawler/images/skullsmall.png");
+		Sprite imgX8 = new Sprite("file:src/com/gammacrawler/images/ogre.png");
+		Sprite imgX9 = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
 
 		characters.add(imgY1);
 		characters.add(imgY2);
@@ -80,12 +88,30 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		characters.add(imgY8);
 		characters.add(imgY9);
 		characters.add(imgY10);
+		
+		characters.add(imgX1);
+		characters.add(imgX2);
+		characters.add(imgX3);
+		characters.add(imgX4);
+		characters.add(imgX5);
+		characters.add(imgX6);
+		characters.add(imgX7);
+		characters.add(imgX8);
+		characters.add(imgX9);
+		
 
 		int counter = 0;
 		for (Sprite spr : characters) {
-			spr.getSprite().setLayoutX(i * counter);
+			
+				if (counter >= 10) {
+					spr.getSprite().setLayoutY(i * (counter - 9));
+				}
+				else {
+					spr.getSprite().setLayoutX(i * counter);
+				}
 			pane.getChildren().add(spr.getSprite());
 			counter++;
+			
 		}
 		// create the button
 		launchButton = new Button();
@@ -128,8 +154,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		int[][] ar = gen.getBoard().getArray();
 		// import images to use as tiles
 
-		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		Image wall = new Image("file:src/com/gammacrawler/images/wall.png");
+		Image floor = new Image("file:src/com/gammacrawler/images/floor.png");
 
 		// to use as coordinates
 		double x;
