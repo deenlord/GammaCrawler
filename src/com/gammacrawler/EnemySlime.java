@@ -8,10 +8,10 @@ public class EnemySlime extends Enemy {
 	@Override
 	public ArrayList<MoveRequest> getMovePossibilities() {
 		ArrayList<MoveRequest> mq = new ArrayList<>();
-		mq.add(new MoveRequest(getLocation()[0] - Main.tileSize, getLocation()[1], this));
-		mq.add(new MoveRequest(getLocation()[0] + Main.tileSize, getLocation()[1], this));
-		mq.add(new MoveRequest(getLocation()[0], getLocation()[1] - Main.tileSize, this));
-		mq.add(new MoveRequest(getLocation()[0], getLocation()[1] + Main.tileSize, this));
+		mq.add(new MoveRequest(getLocation()[0] - Settings.TILESIZE, getLocation()[1], this));
+		mq.add(new MoveRequest(getLocation()[0] + Settings.TILESIZE, getLocation()[1], this));
+		mq.add(new MoveRequest(getLocation()[0], getLocation()[1] - Settings.TILESIZE, this));
+		mq.add(new MoveRequest(getLocation()[0], getLocation()[1] + Settings.TILESIZE, this));
 		return mq;
 	}
 

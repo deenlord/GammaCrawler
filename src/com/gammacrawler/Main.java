@@ -31,7 +31,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
 	User player;
-	public final static int tileSize = 32;
 	private ArrayList<Sprite> characters = new ArrayList<>();
 	private ArrayList<Enemy> enemies = new ArrayList<>();
 	private Generator gen; 
@@ -46,7 +45,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		menu.getStyleClass().add("menu");
 		Pane pane = new Pane();
 		pane.getStyleClass().add("menuPane");
-		pane.setPrefSize(320, 320);
+		pane.setPrefSize(Settings.STARTMENUSIZE, Settings.STARTMENUSIZE);
 
 		// create the game name label
 		Text label = new Text();
@@ -58,18 +57,18 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		int i = 32;
 		// border
-		Sprite imgY1 = new Sprite("file:src/com/gammacrawler/images/user.png", 32);
-		Sprite imgY2 = new Sprite("file:src/com/gammacrawler/images/user2.png", 32);
-		Sprite imgY3 = new Sprite("file:src/com/gammacrawler/images/witch.png", 32);
-		Sprite imgY4 = new Sprite("file:src/com/gammacrawler/images/ghostpirate.png", 32);
-		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/chad.png", 32);
-		Sprite imgY6 = new Sprite("file:src/com/gammacrawler/images/dogmaskedzombie.png", 32);
-		Sprite imgY7 = new Sprite("file:src/com/gammacrawler/images/zombieviking.png", 32);
-		Sprite imgY8 = new Sprite("file:src/com/gammacrawler/images/bill.png", 32);
-		Sprite imgY9 = new Sprite("file:src/com/gammacrawler/images/blueguy.png", 32);
-		Sprite imgY10 = new Sprite("file:src/com/gammacrawler/images/zombieninja.png", 32);
+		Sprite imgY1 = new Sprite("file:src/com/gammacrawler/images/user.png");
+		Sprite imgY2 = new Sprite("file:src/com/gammacrawler/images/user2.png");
+		Sprite imgY3 = new Sprite("file:src/com/gammacrawler/images/witch.png");
+		Sprite imgY4 = new Sprite("file:src/com/gammacrawler/images/ghostpirate.png");
+		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/chad.png");
+		Sprite imgY6 = new Sprite("file:src/com/gammacrawler/images/dogmaskedzombie.png");
+		Sprite imgY7 = new Sprite("file:src/com/gammacrawler/images/zombieviking.png");
+		Sprite imgY8 = new Sprite("file:src/com/gammacrawler/images/bill.png");
+		Sprite imgY9 = new Sprite("file:src/com/gammacrawler/images/blueguy.png");
+		Sprite imgY10 = new Sprite("file:src/com/gammacrawler/images/zombieninja.png");
 
-		Sprite imgX1 = new Sprite("file:src/com/gammacrawler/images/woodensword.png", 32);
+		Sprite imgX1 = new Sprite("file:src/com/gammacrawler/images/woodensword.png");
 
 		characters.add(imgY1);
 		characters.add(imgY2);
@@ -129,8 +128,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		int[][] ar = gen.getBoard().getArray();
 		// import images to use as tiles
 
-		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
-		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", tileSize, tileSize, false, false);
+		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 
 		// to use as coordinates
 		double x;
@@ -145,15 +144,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		for (int i = 0; i < (ar.length); i++) {
 			for (int j = 0; j < ar[i].length; j++) {
 				// for each j set x and y
-				y = (i + 1) * tileSize; // plus one to avoid dividing by zero
-				x = (j + 1) * tileSize;
+				y = (i + 1) * Settings.TILESIZE; // plus one to avoid dividing by zero
+				x = (j + 1) * Settings.TILESIZE;
 
 				if (ar[i][j] == 1) {
 					// draw wall tile where you find a 1 in the array
-					gc.drawImage(wall, x, y, tileSize, tileSize);
+					gc.drawImage(wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else {
 					// draw floor tile where you find a 0
-					gc.drawImage(floor, x, y, tileSize, tileSize);
+					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 
 			}
@@ -169,8 +168,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		for (int z = 0; z < (ar.length); z++) {
 			for (int j = 0; j < (ar[z].length); j++) {
 				if (ar[z][j] == 0 & counter == 0) {
-					y = (z + 1) * tileSize; // avoid z/0
-					x = (j + 1) * tileSize;
+					y = (z + 1) * Settings.TILESIZE; // avoid z/0
+					x = (j + 1) * Settings.TILESIZE;
 					player.setLocation((int) x, (int) y);
 					player.getSprite().setLayoutX(x);
 					player.getSprite().setLayoutY(y);
@@ -197,8 +196,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			@Override
 			public void handle(KeyEvent event) {
 
-				int x = (player.getLocation()[0] / (int) tileSize) - 1;
-				int y = (player.getLocation()[1] / (int) tileSize) - 1;
+				int x = (player.getLocation()[0] / Settings.TILESIZE) - 1;
+				int y = (player.getLocation()[1] / Settings.TILESIZE) - 1;
 
 				switch (event.getCode()) {
 				case W:
@@ -324,8 +323,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			ArrayList<MoveRequest> newMq = new ArrayList<>();
 
 			for (MoveRequest mq : enemy.getMovePossibilities()) {
-				int tX = (mq.x / (int) tileSize) - 1;
-				int tY = (mq.y / (int) tileSize) - 1;
+				int tX = (mq.x /  Settings.TILESIZE) - 1;
+				int tY = (mq.y /  Settings.TILESIZE) - 1;
 
 				if (!(gen.getBoard().getArray()[tX][tY] == 1)) {
 					newMq.add(mq);

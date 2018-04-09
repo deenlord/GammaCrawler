@@ -19,13 +19,11 @@ public class User extends Character implements Moveable {
 		this.setMaxHP(100);
 		this.setHP(this.getMaxHP());
 		this.exp = 0;
-		this.setTileSize((int)Main.tileSize);
-		this.setSprite(new Sprite("file:src/com/gammacrawler/images/user2.png", (int) Main.tileSize));
+		this.setSprite(new Sprite("file:src/com/gammacrawler/images/user2.png"));
 		sword = new WoodenSword("Wooden Sword", 
-				new Sprite("file:src/com/gammacrawler/images/woodensword.png", (int) Main.tileSize / 2));
+				new Sprite("file:src/com/gammacrawler/images/woodensword.png", Settings.TILESIZE / 2));
 		hp1 = new HealthPotion("Lite Health Potion", 
-				new Sprite("file:src/com/gammacrawler/images/litehealthpotion.png",
-				(int) Main.tileSize));
+				new Sprite("file:src/com/gammacrawler/images/litehealthpotion.png"));
 		this.inv = new Inventory();
 		this.inv.al.add(sword);
 		this.inv.al.add(hp1);
@@ -49,8 +47,8 @@ public class User extends Character implements Moveable {
 	
 	
 	public void attack() {
-		int x = (int) ((this.getLocation()[0]) + 1 + Main.tileSize);
-		int y = (int) ((this.getLocation()[1]) + 1 + (Main.tileSize) /4);
+		int x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
+		int y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
 		this.getWeapon().setLayoutX(x);
 		this.getWeapon().setLayoutY(y);
 		this.sword.swing();

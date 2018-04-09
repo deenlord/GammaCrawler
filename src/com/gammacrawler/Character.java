@@ -15,7 +15,6 @@ public abstract class Character implements Moveable{
 	private int curHP;
 	private int maxHP;
 	private int[] location = new int[2];
-	private int tileSize;
 	private Sprite sprite;
 	protected Inventory inv;
 	
@@ -76,13 +75,6 @@ public abstract class Character implements Moveable{
 		location[1] = y;
 	}
 	
-	public void setTileSize() {
-		this.tileSize = (int) Main.tileSize;
-	}
-	
-	public void setTileSize(int tileSize) {
-		this.tileSize = tileSize;
-	}
 	
 	public void setSprite(Sprite spr) {
 		this.sprite = spr;
@@ -106,16 +98,16 @@ public abstract class Character implements Moveable{
 		this.location = this.getLocation();
 		switch(dir) {
 			case NORTH:
-				this.location[1]-=tileSize;
+				this.location[1]-=Settings.TILESIZE;
 				break;
 			case SOUTH:
-				this.location[1]+=tileSize;
+				this.location[1]+=Settings.TILESIZE;
 				break;
 			case EAST:
-				this.location[0]+=tileSize;
+				this.location[0]+=Settings.TILESIZE;
 				break;
 			case WEST:
-				this.location[0]-=tileSize;
+				this.location[0]-=Settings.TILESIZE;
 				break;
 		}
 		
