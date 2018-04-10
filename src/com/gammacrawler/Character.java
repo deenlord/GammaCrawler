@@ -3,6 +3,7 @@ package com.gammacrawler;
 import java.util.ArrayList;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.transform.Rotate;
 
 // import java.util.ArrayList;
 
@@ -105,9 +106,12 @@ public abstract class Character implements Moveable{
 				break;
 			case EAST:
 				this.location[0]+=Settings.TILESIZE;
+				this.sprite.rotate(Direction.EAST);
+
 				break;
 			case WEST:
 				this.location[0]-=Settings.TILESIZE;
+				this.sprite.rotate(Direction.WEST);
 				break;
 		}
 		
