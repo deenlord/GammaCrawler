@@ -27,34 +27,24 @@ public abstract class Enemy extends Character implements Moveable {
 	 * @author crathke4
 	 * 4/7
 	 */
-	User player;
-	
-	/**
-	 * @param main - main from which player is derived
-	 */
-	Enemy(Main main)
-	{
-		this.player=main.player;
-	}
 	
 	/**
 	 * if attack is successful, player loses HP
 	 */
-	public void attack()
+	public void attack(User p)
 	{
 		boolean successful=true;
 		if(successful) {
-			player.setHP(getHP()-(int)(Math.random()*player.getMaxHP())/10);  //TODO: the math here probably isn't entirely right, 
+			p.setHP(getHP()-(int)((Math.random()*10)/p.getMaxHP()));  //TODO: the math here probably isn't entirely right, 
 																			  //should take a reasonable but random amount of health away from user
 		}
 	}
 	
 
-	@Override
 	/**
 	 * @return - True if dead, in which players xp is increased
 	 */
-	public boolean isDead()
+	public boolean isDead(User p)
 	{
 		boolean dead;
 		if( getHP() > 0 ) {
@@ -62,7 +52,7 @@ public abstract class Enemy extends Character implements Moveable {
 		}
 		else {
 			dead = true;
-			player.setExp(player.getExp()+5);	//TODO: again this is an arbitrary number and should be changed later
+			p.setExp(p.getExp()+5);	//TODO: again this is an arbitrary number and should be changed later
 		}
 
 		return dead;
