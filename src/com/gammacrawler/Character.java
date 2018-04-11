@@ -107,7 +107,6 @@ public abstract class Character implements Moveable{
 			case EAST:
 				this.location[0]+=Settings.TILESIZE;
 				this.sprite.rotate(Direction.EAST);
-
 				break;
 			case WEST:
 				this.location[0]-=Settings.TILESIZE;
