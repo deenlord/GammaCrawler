@@ -9,6 +9,7 @@ package com.gammacrawler;
  */
 public class Settings {
 	public static final int TILESIZE = 32;
+	public static final int HALFTILESIZE = 16;
 	public static final int STARTMENUSIZE = 320;
 	public static final int SCENEWIDTH = 855;
 	public static final int SCENEHEIGHT = 860;

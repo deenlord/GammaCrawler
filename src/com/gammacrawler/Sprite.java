@@ -13,24 +13,39 @@ public class Sprite {
 	ImageView imgView;
 	
 	/**
-	 * @param filename - path to file
+	 * @param pathtofile - path to image file
 	 */
-	public Sprite(String filename) {
-		this.img = new Image(filename, Settings.TILESIZE, Settings.TILESIZE, false, false);
+	public Sprite(String pathtofile) {
+		this.img = new Image(pathtofile, Settings.TILESIZE, Settings.TILESIZE, false, false);
+		this.imgView = new ImageView(this.img);
+		this.imgView.setRotationAxis(Rotate.Y_AXIS);
+	}
+	
+	/**
+	 * @param pathtofile - path to image file
+	 * @param half - if true sets image tile size to Settings.HALFTILESIZE
+	 */
+	public Sprite(String pathtofile, boolean half) {
+		if (half == true)  {
+			this.img = new Image(pathtofile, Settings.HALFTILESIZE, Settings.HALFTILESIZE, false, false);
+		}
+		else {
+			this.img = new Image(pathtofile, Settings.TILESIZE, Settings.TILESIZE, false, false);
+		}
+		
 		this.imgView = new ImageView(this.img);
 		this.imgView.setRotationAxis(Rotate.Y_AXIS);
 	}
 	
 	
 	/**
-	 * @param filename - path to file
+	 * @param pathtofile - path to file
 	 * @param tileSize - for custom sized sprites
 	 */
-	public Sprite(String filename, int tileSize) {
-		this.img = new Image(filename, tileSize, tileSize, false, false);
+	public Sprite(String pathtofile, int tileSize) {
+		this.img = new Image(pathtofile, tileSize, tileSize, false, false);
 		this.imgView = new ImageView(this.img);
 		this.imgView.setRotationAxis(Rotate.Y_AXIS);
-
 	}
 	
 	/**

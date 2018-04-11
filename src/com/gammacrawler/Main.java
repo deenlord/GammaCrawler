@@ -26,11 +26,8 @@ import javafx.scene.input.MouseEvent;
 public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
-	User player;
-	public final static int tileSize = 32;
 	private ArrayList<Sprite> characters = new ArrayList<>();
-	private ArrayList<Enemy> enemies = new ArrayList<>();
-	private Generator gen; 
+	private Generator gen;
 
 	/**
 	 * @return the start menu Scene
@@ -58,7 +55,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Sprite imgY2 = new Sprite("file:src/com/gammacrawler/images/user2.png");
 		Sprite imgY3 = new Sprite("file:src/com/gammacrawler/images/witch.png");
 		Sprite imgY4 = new Sprite("file:src/com/gammacrawler/images/ghostpirate.png");
-		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/slime.png");
+		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/chad.png");
 		Sprite imgY6 = new Sprite("file:src/com/gammacrawler/images/dogmaskedzombie.png");
 		Sprite imgY7 = new Sprite("file:src/com/gammacrawler/images/zombieviking.png");
 		Sprite imgY8 = new Sprite("file:src/com/gammacrawler/images/bill.png");
@@ -71,7 +68,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Sprite imgX4 = new Sprite("file:src/com/gammacrawler/images/bomb.png");
 		Sprite imgX5 = new Sprite("file:src/com/gammacrawler/images/bat.png");
 		Sprite imgX6 = new Sprite("file:src/com/gammacrawler/images/ghost.png");
-		Sprite imgX7 = new Sprite("file:src/com/gammacrawler/images/skullsmall.png");
+		Sprite imgX7 = new Sprite("file:src/com/gammacrawler/images/slime.png");
 		Sprite imgX8 = new Sprite("file:src/com/gammacrawler/images/ogre.png");
 		Sprite imgX9 = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
 
@@ -141,156 +138,109 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	/**
 	 * @return the game board scene with a character since 4/1
 	 */
-	public Scene gameLoop(Sprite sprite) {
+	public Scene gameLoop() {
 
-		gen = new Generator(sprite); // creates board and user
+		gen = new Generator(); // creates board and user
 												// procedurally...
 		// Canvas goes in a Group
 		Group root = new Group();
-		// Create the array
-		int[][] ar = gen.getBoard().getArray();
-		// import images to use as tiles
-
-		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", tileSize, tileSize, false, false);
-		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", tileSize, tileSize, false, false);
-
-		// to use as coordinates
-		double x;
-		double y;
-
-		// create the Canvas (feel free to resize)
-		Canvas cv = new Canvas(855, 860);
-		GraphicsContext gc = cv.getGraphicsContext2D();
-
-		// iterate through the array and draw the appropriate sprite
-		// based on 1 or 0 found at index
-		for (int i = 0; i < (ar.length); i++) {
-			for (int j = 0; j < ar[i].length; j++) {
-				// for each j set x and y
-				y = (i + 1) * tileSize; // plus one to avoid dividing by zero
-				x = (j + 1) * tileSize;
-
-				if (ar[i][j] == 1) {
-					// draw wall tile where you find a 1 in the array
-					gc.drawImage(wall, x, y, tileSize, tileSize);
-				} else {
-					// draw floor tile where you find a 0
-					gc.drawImage(floor, x, y, tileSize, tileSize);
-				}
-
-			}
-		}
-
 		// create a User
-		User player = gen.getPlayer();
-		// only add them once...
-		int counter = 0;
 
-		// iterate through the array to find the first zero location,
-		// draw the User there. ... only once.
-		for (int z = 0; z < (ar.length); z++) {
-			for (int j = 0; j < (ar[z].length); j++) {
-				if (ar[z][j] == 0 & counter == 0) {
-					y = (z + 1) * tileSize; // avoid z/0
-					x = (j + 1) * tileSize;
-					player.setLocation((int) x, (int) y);
-					player.getSprite().setLayoutX(x);
-					player.getSprite().setLayoutY(y);
-					counter++;
-				}
-
-				if (counter > 0) {
-					break;
-				}
-			}
-
-			if (counter > 0) {
-				break;
-			}
-		}
 
 		// set the scene and return it
-		root.getChildren().add(cv);
-		root.getChildren().add(player.getSprite());
-		root.getChildren().add(player.getWeapon());
-		player.getWeapon().setVisible(false);
+		root.getChildren().add(gen.getDungeon());
+		root.getChildren().add(gen.getPlayer().getSprite());
+		root.getChildren().add(gen.getPlayer().getWeapon());
+		gen.getPlayer().getWeapon().setVisible(false);
+		
+		
+		// uncomment below once we have enemies and want to draw them to the screen
+		
+//		for (Enemy enemy : gen.enemies) {
+//			root.getChildren().add(enemy.getSprite());
+//		}
+		
+		
 		Scene sc = new Scene(root);
+		
+		// event handling for the gameLoop Scene.
 		sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			
 			@Override
 			public void handle(KeyEvent event) {
 
-				int x = (player.getLocation()[0] / (int) tileSize) - 1;
-				int y = (player.getLocation()[1] / (int) tileSize) - 1;
+				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
+				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
 
 				switch (event.getCode()) {
 				case W:
 					System.out.println("North");
-					if (ar[y - 1][x] == 0 || ar[y - 1][x] == 2) {
-						player.move(Direction.NORTH);
-						turn();
+					if (gen.ar[y - 1][x] == 0 || gen.ar[y - 1][x] == 2) {
+						gen.getPlayer().move(Direction.NORTH);
+//						gen.turn();
 					}
 					break;
 				case S:
 					System.out.println("South");
-					if (ar[y + 1][x] == 0 || ar[y + 1][x] == 2) {
-						player.move(Direction.SOUTH);
-						turn();
+					if (gen.ar[y + 1][x] == 0 || gen.ar[y + 1][x] == 2) {
+						gen.getPlayer().move(Direction.SOUTH);
+//						gen.turn();
 					}
 					break;
 				case A:
 					System.out.println("West");
-					if (ar[y][x - 1] == 0 || ar[y][x - 1] == 2) {
-						player.move(Direction.WEST);
-						turn();
+					if (gen.ar[y][x - 1] == 0 || gen.ar[y][x - 1] == 2) {
+						gen.getPlayer().move(Direction.WEST);
+//						gen.turn();
 					}
 					break;
 				case D:
 					System.out.println("East");
-					if (ar[y][x + 1] == 0 || ar[y][x + 1] == 2) {
-						player.move(Direction.EAST);
-						turn();
+					if (gen.ar[y][x + 1] == 0 || gen.ar[y][x + 1] == 2) {
+						gen.getPlayer().move(Direction.EAST);
+//						gen.turn();
 					}
 					break;
 				case I:
-					System.out.println(player);
-					System.out.println("North: " + ar[y - 1][x]);
-					System.out.println("South: " + ar[y + 1][x]);
-					System.out.println("East: " + ar[y][x + 1]);
-					System.out.println("West: " + ar[y][x - 1]);
+					System.out.println(gen.getPlayer());
+					System.out.println("North: " + gen.ar[y - 1][x]);
+					System.out.println("South: " + gen.ar[y + 1][x]);
+					System.out.println("East: " + gen.ar[y][x + 1]);
+					System.out.println("West: " + gen.ar[y][x - 1]);
 					break;
 				default:
 					break;
 				}
-				player.getSprite().setLayoutX(player.getLocation()[0]);
-				player.getSprite().setLayoutY(player.getLocation()[1]);
+				gen.getPlayer().getSprite().setLayoutX(gen.getPlayer().getLocation()[0]);
+				gen.getPlayer().getSprite().setLayoutY(gen.getPlayer().getLocation()[1]);
 			}
 		});
 
 		sc.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				player.getWeapon().setVisible(true);
-				player.attack();
+				gen.getPlayer().getWeapon().setVisible(true);
+				gen.getPlayer().attack();
 
-				// System.out.println("mouse click detected! "+
-				// event.getSource());
-				// System.out.println("x = " + player.getLocation()[0]);
-				// System.out.println("y = " + player.getLocation()[1]);
-				// int location = player.getLocation()[0] + 1;
-				// System.out.println("x = " + location);
 			}
 		});
 
 		return sc;
 	}
 
+	
+
 	@Override
 	public void handle(ActionEvent event) {
+		// main menu event handling
+		// because we change scenes the only event being handled here is the button
+		// click on the main menu. Click the button to change the scene.
+		// Game event handling is done in that scene's handle method, located directly above.
+		
+		
 		// if "Launch" button clicked
 		if (event.getSource() == launchButton) {
-			double x = (Math.random() * 10) - (1);
-			System.out.println("Character #: " + x);
-			this.mainStage.setScene(gameLoop(characters.get((int) x)));
+			this.mainStage.setScene(gameLoop());
 			// I think this is where we can update the game animations.
 
 			new AnimationTimer() {
@@ -330,65 +280,5 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		launch(args);
 	}
 
-	/**
-	 * This is called any time the player presses a key that results in a
-	 * successful movement. No more key pressed will be handled until this
-	 * method finishes. This method moves the enemies around among other things.
-	 */
-	private void turn() {
-		ArrayList<MoveRequest> moveRequests = new ArrayList<>();
-		boolean conflicts = true;
-
-		// This gets all the valid (not into a wall) MoveRequests from all all enemies.
-		for (Enemy enemy : enemies) {
-
-			// The valid ones that will be added to.
-			ArrayList<MoveRequest> newMq = new ArrayList<>();
-
-			for (MoveRequest mq : enemy.getMovePossibilities()) {
-				int tX = (mq.x / (int) tileSize) - 1;
-				int tY = (mq.y / (int) tileSize) - 1;
-
-				if (!(gen.getBoard().getArray()[tX][tY] == 1)) {
-					newMq.add(mq);
-				}
-			}
-
-			// Makes the enemy choose one from its possible movements.
-			moveRequests.add(enemy.getMoveRequest(newMq));
-		}
-
-		// Then we check and see if any 2 enemies are trying to move into the
-		// same place. We keep doing this until we can iterate through all of it
-		// with no conflicts. Each time we do this it moves it closer to that
-		// condition because it moves towards no enemies moving which is a non
-		// conflicted state.
-		while (conflicts) {
-			conflicts = false;
-			for (int i = 0; i < moveRequests.size() - 1; i++) {
-				for (int j = i + 1; j < moveRequests.size(); j++) {
-					if (moveRequests.get(i).x == moveRequests.get(j).x) {
-						if (moveRequests.get(i).y == moveRequests.get(j).y) {
-
-							// For now I will choose in an arbitrary way
-							Enemy e = moveRequests.get(j).e;
-
-							// This sets the moveRequest to the failed request,
-							// which should just be the enemy and its non moved
-							// position.
-							moveRequests.set(j, e.handleMoveRequestFailed());
-							conflicts = true;
-						}
-					}
-				}
-			}
-		}
-
-		// Then we simply move the enemies to their requested position, which we
-		// know is non conflicted.
-		for (MoveRequest mq : moveRequests) {
-			mq.e.setLocation(mq.x, mq.y);
-		}
-	}
-
+	
 }
