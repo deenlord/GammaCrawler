@@ -272,7 +272,7 @@ public class Board {
 
 		int index = (int) (Math.random() * points.size());
 
-		return new int[]{points.get(index).x, points.get(index).y};
+		return new int[]{points.get(index).y, points.get(index).x};
 	}
 
 }
