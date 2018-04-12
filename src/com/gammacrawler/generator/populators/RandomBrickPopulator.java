@@ -1,5 +1,7 @@
 package com.gammacrawler.generator.populators;
 
+import com.gammacrawler.Point;
+
 public class RandomBrickPopulator extends Populator {
 
 	@Override
