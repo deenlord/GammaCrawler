@@ -70,7 +70,7 @@ public class inputMover2 extends Application
 		HBox hb=new HBox();
 		Scene scene=new Scene(hb, 500, 500);
 		this.MainStage=stage;
-//		hb.getChildren().addAll(label,location);
+		hb.getChildren().addAll(label,location);
 		move(scene);
 		stage.setScene(scene);
 		stage.setTitle("InputMover 2.0");
