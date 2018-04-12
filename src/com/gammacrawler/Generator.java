@@ -71,6 +71,13 @@ public class Generator {
 				em.getImageView().setX(loc[0]);
 				em.getImageView().setY(loc[1]);
 				System.out.println("enemy added");
+				
+				Enemy ogre = new Ogre();
+				int[] ogreloc = this.board.getFreePosition();
+				ogre.setLocation(ogreloc[0], ogreloc[1]);
+				this.enemies.add(ogre);
+				ogre.getImageView().setX(ogreloc[0]);
+				ogre.getImageView().setY(ogreloc[1] - Settings.TILESIZE);
 //			}
 //		}
 		return this.enemies;
