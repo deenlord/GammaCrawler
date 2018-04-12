@@ -16,7 +16,7 @@ public class PopulatorEnemies extends Populator {
 	@Override
 	public void populate() {
 		Ogre ogre;
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			Point p = getRandomFreeSpace();
 			ogre = new Ogre();
 			ogre.setLocation(p.x * Settings.TILESIZE, p.y * Settings.TILESIZE);

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Ogre extends Enemy {
 	protected static final String name = "Ogre";
-	protected static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/ogre.png");
 	protected static final int damage = 20;
+
 	public Ogre() {
-		super(name, sprite);
+		super(name, new Sprite("file:src/com/gammacrawler/images/ogre.png"));
 		this.setHP(25);
 		this.setXP(10);
 	}
