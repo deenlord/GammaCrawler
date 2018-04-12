@@ -22,13 +22,15 @@ public abstract class Populator {
 	}
 
 	// TODO: Test for nulls
-	protected int getOctNeighborCount(int[][] array, Point point, int testForTile) {
+	protected int getOctNeighborCount(int[][] array, Point point, int testForTile, boolean outOfBoundsCounts) {
 		int count = 0;
 
 		for (int x = point.x - 1; x < point.x + 1; x++) {
 			for (int y = point.y - 1; x < point.y + 1; y++) {
 
-				if (array[x][y] == testForTile) {
+				if (x < 0 || x >= array.length || y < 0 || y >= array[0].length ) {
+					count += (outOfBoundsCounts ? 1 : 0);
+				} else if (array[x][y] == testForTile) {
 					count++;
 				}
 			}

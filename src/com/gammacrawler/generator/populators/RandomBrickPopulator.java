@@ -9,7 +9,7 @@ public class RandomBrickPopulator extends Populator {
 		for (int i = 0; i < 100; i++) {
 			Point p = getRandomFreeSpace(array);
 			System.out.println(p);
-			if (getOctNeighborCount(array, p, 1) > 1) {
+			if (getOctNeighborCount(array, p, 1, false) > 1) {
 				array[p.x][p.y] = 1;
 			}
 		}

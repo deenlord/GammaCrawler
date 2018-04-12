@@ -257,20 +257,22 @@ public class Board {
 		p.populate(array);
 	}
 
-	public Point getFreePosition() {
+	public int[] getFreePosition() {
 		ArrayList<Point> points = new ArrayList<>();
 
+		System.out.println("TEST");
 		for (int x = 0; x < array.length; x++) {
-			for (int y = 0; x < array[0].length; y++) {
+			for (int y = 0; y < array[0].length; y++) {
 				if (array[x][y] == 0) {
 					points.add(new Point(x * Settings.TILESIZE, y * Settings.TILESIZE));
+					System.out.println("ADDED " + x + " " + y);
 				}
 			}
 		}
 
 		int index = (int) (Math.random() * points.size());
 
-		return points.get(0);
+		return new int[]{points.get(index).x, points.get(index).y};
 	}
 
 }
