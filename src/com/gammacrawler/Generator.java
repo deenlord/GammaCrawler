@@ -65,7 +65,7 @@ public class Generator {
 		if (this.player.getXP() < 100) {
 			for (int i = 0; i <= 4; i++) {
 				Enemy em = new EnemySlime();
-				// this.enemies.add(em);
+				this.enemies.add(em);
 			}
 		}
 		return this.enemies;

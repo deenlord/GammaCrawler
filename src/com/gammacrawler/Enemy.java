@@ -1,9 +1,18 @@
 package com.gammacrawler;
 
 import java.util.ArrayList;
-
+/**
+ * @author crathke4
+ * 4/7
+ */
 public abstract class Enemy extends Character implements Moveable {
 	// TODO: These javadocs
+	
+	public Enemy(String name, Sprite sprite) {
+		super(name, sprite);
+	}
+	
+	
 	/**
 	 * This gets this entity, and an x and y coordinate that it wants to move
 	 * to. Used by Main to resolve move conflicts.
@@ -23,10 +32,7 @@ public abstract class Enemy extends Character implements Moveable {
 	 */
 	public abstract MoveRequest handleMoveRequestFailed();
 
-	/**
-	 * @author crathke4
-	 * 4/7
-	 */
+
 	
 	/**
 	 * if attack is successful, player loses HP

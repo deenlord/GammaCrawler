@@ -3,7 +3,14 @@ package com.gammacrawler;
 import java.util.ArrayList;
 
 public class EnemySlime extends Enemy {
-	int isCharged;
+	
+	private static final String name = "Slime";
+	protected static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/slime.png");
+	
+	public EnemySlime() {
+		super(name, sprite);
+		
+	}
 
 	@Override
 	public ArrayList<MoveRequest> getMovePossibilities() {

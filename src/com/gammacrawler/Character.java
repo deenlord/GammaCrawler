@@ -18,6 +18,18 @@ public abstract class Character implements Moveable{
 	private Sprite sprite;
 	protected ArrayList<Item> inventory = new ArrayList<>();
 	
+	public Character (String name) {
+		this.name = name;
+	}
+	/**
+	 * @param name
+	 * @param sprite
+	 */
+	public Character (String name, Sprite sprite) {
+		this.name = name;
+		this.sprite = sprite;
+	}
+	
 	/**
 	 * @return name of Character
 	 */

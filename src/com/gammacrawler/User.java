@@ -14,7 +14,7 @@ public class User extends Character implements Moveable {
 	 * @param name
 	 */
 	public User(String name) {
-		this.setName(name);
+		super(name);
 		this.setMaxHP(100);
 		this.setHP(this.getMaxHP() - 10);
 		this.setXP(0);
