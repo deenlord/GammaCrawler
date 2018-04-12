@@ -9,18 +9,18 @@ public class Point {
 		this.y = y;
 	}
 
-	public Point direction(Point point, Direction direction) {
+	public Point direction(Direction direction) {
 		switch (direction) {
 		case NORTH:
-			return new Point(point.x, point.y - 1);
+			return new Point(x, y - 1);
 		case SOUTH:
-			return new Point(point.x, point.y + 1);
+			return new Point(x, y + 1);
 		case EAST:
-			return new Point(point.x + 1, point.y);
+			return new Point(x + 1, y);
 		case WEST:
-			return new Point(point.x - 1, point.y);
+			return new Point(x - 1, y);
 		}
-		return point;
+		return this;
 	}
 
 	@Override

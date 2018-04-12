@@ -3,6 +3,9 @@ package com.gammacrawler;
 import java.util.ArrayList;
 
 import com.gammacrawler.generator.Board;
+import com.gammacrawler.generator.populators.Populator;
+import com.gammacrawler.generator.populators.PopulatorEnemies;
+import com.gammacrawler.generator.populators.PopulatorSkulls;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,11 +19,13 @@ public class Generator {
 	
 	public Generator() {
 		this.player = new User("Richard");
-		this.board = new Board(5,7);
+		this.board = new Board(21,21);
 		this.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		this.createEnemies();
 		this.setPlayerInitialLocation();
+		populate(new PopulatorSkulls(this.board.getArray(), enemies));
+		populate(new PopulatorEnemies(this.board.getArray(), enemies));
 	}
 	
 	public Generator(Sprite userSprite) {
@@ -32,7 +37,7 @@ public class Generator {
 	public Generator(User player) {
 		this.player = player;
 		if (player.getXP() < 100)
-			this.board = new Board(5, 5);
+			this.board = new Board(21, 21);
 		else if(player.getXP() > 100 && player.getXP() < 500)
 			this.board = new Board(45,51);
 		else
@@ -152,6 +157,8 @@ public class Generator {
 		// import images to use as tiles
 		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		Image door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		Image skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 
 		// to use as coordinates
 		double x;
@@ -169,12 +176,16 @@ public class Generator {
 				y = (i + 1) * Settings.TILESIZE; // plus one to avoid dividing by zero
 				x = (j + 1) * Settings.TILESIZE;
 
-				if (ar[i][j] == 1) {
+				if (ar[i][j] == 0) {
+					// draw floor tile where you find a 0 in the array
+					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == 1) {
 					// draw wall tile where you find a 1 in the array
 					gc.drawImage(wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else {
-					// draw floor tile where you find a 0
-					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == 2) {
+					gc.drawImage(door, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == 3) {
+					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 
 			}
@@ -182,7 +193,11 @@ public class Generator {
 		
 		return cv;
 	}
-	
+
+	public void populate(Populator p) {
+		p.populate();
+	}
+
 	private void setPlayerInitialLocation() {
 		int counter = 0;
 		// iterate through the array to find the first zero location,
