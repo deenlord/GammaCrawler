@@ -1,15 +1,13 @@
 package com.gammacrawler.generator.map;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class MazeMap {
-	private MazeMapTile[][] tileArray;
-	private ArrayList<MazeMapTile> tileList = new ArrayList<>();
+	private MazeMapVertex[][] tileArray;
+	private ArrayList<MazeMapVertex> tileList = new ArrayList<>();
 
 	public MazeMap(int[][] array) {
-		tileArray = new MazeMapTile[(array.length - 1) / 2][(array[0].length - 1) / 2];
+		tileArray = new MazeMapVertex[(array.length - 1) / 2][(array[0].length - 1) / 2];
 		intMapToCellMap(array);
 	}
 
@@ -26,7 +24,7 @@ public class MazeMap {
 		for (int x = 1; x < array.length; x += 2) {
 			for (int y = 1; y < array[0].length; y += 2) {
 
-				MazeMapTile c = new MazeMapTile((x - 1) / 2, (y - 1) / 2);
+				MazeMapVertex c = new MazeMapVertex((x - 1) / 2, (y - 1) / 2);
 
 				// Process the tiles such that we don't place mazes on already
 				// clear tiles.
@@ -52,8 +50,6 @@ public class MazeMap {
 	 * @return If this direction is valid.
 	 */
 	private boolean thisDirectionValid(int direction, int x, int y) {
-		boolean flag = true;
-
 		if (direction == 0) {
 			if (x < 1)
 				return false;
@@ -90,7 +86,7 @@ public class MazeMap {
 	 */
 	public void makeMaze() {
 		if (tileList.size() > 0) {
-			for (MazeMapTile tile : tileList) {
+			for (MazeMapVertex tile : tileList) {
 				if (!tile.isVisited()) {
 					expandMaze(tile);
 				}
@@ -105,7 +101,7 @@ public class MazeMap {
 	 * @param tile
 	 *            The tile to operate on.
 	 */
-	private void expandMaze(MazeMapTile tile) {
+	private void expandMaze(MazeMapVertex tile) {
 
 		/** The direction we are checking, will be chosen randomly */
 		int direction = 0;
@@ -126,7 +122,7 @@ public class MazeMap {
 			// If this direction is valid, open the pathways and expand the maze
 			// there.
 			if (thisDirectionValid(direction, tile.getCompX(), tile.getCompY())) {
-				MazeMapTile otherTile;
+				MazeMapVertex otherTile;
 				switch (direction) {
 				case 0:
 					otherTile = tileArray[tile.getCompX() - 1][tile.getCompY()];
@@ -184,38 +180,6 @@ public class MazeMap {
 				if (tileArray[x][y].hasDown()) {
 					array[nX][nY + 1] = 0;
 				}
-			}
-		}
-	}
-
-	/**
-	 * Paints this map to the screen.
-	 * @param g The Graphics object.
-	 * @param tileSize The size of the tiles.
-	 */
-	public void paint(Graphics g, int tileSize) {
-		for (int x = 0; x < tileArray.length; x++) {
-			for (int y = 0; y < tileArray[0].length; y++) {
-				int xPos = x * tileSize;
-				int yPos = y * tileSize;
-				int xPosH = xPos + (tileSize / 2) + x * tileSize + tileSize;
-				int yPosH = yPos + (tileSize / 2) + y * tileSize + tileSize;
-				MazeMapTile tile = tileArray[x][y];
-
-				g.setColor(Color.black);
-				g.fillOval(xPosH - 4, yPosH - 4, 8, 8);
-
-				if (tile.hasLeft())
-					g.drawLine(xPosH, yPosH, xPosH - tileSize, yPosH);
-
-				if (tile.hasRight())
-					g.drawLine(xPosH, yPosH, xPosH + tileSize, yPosH);
-
-				if (tile.hasUp())
-					g.drawLine(xPosH, yPosH, xPosH, yPosH - tileSize);
-
-				if (tile.hasDown())
-					g.drawLine(xPosH, yPosH, xPosH, yPosH + tileSize);
 			}
 		}
 	}

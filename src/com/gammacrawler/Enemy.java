@@ -52,7 +52,7 @@ public abstract class Enemy extends Character implements Moveable {
 		}
 		else {
 			dead = true;
-			p.setExp(p.getExp()+5);	//TODO: again this is an arbitrary number and should be changed later
+			p.setXP(p.getXP()+5);	//TODO: again this is an arbitrary number and should be changed later
 		}
 
 		return dead;

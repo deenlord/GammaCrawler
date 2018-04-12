@@ -1,6 +1,6 @@
 package com.gammacrawler.generator.map;
 
-public class MazeMapTile {
+public class MazeMapVertex {
 
 	private int compressedX;
 	private int compressedY;
@@ -13,14 +13,14 @@ public class MazeMapTile {
 	private boolean hasUp = false;
 	private boolean hasDown = false;
 
-	public MazeMapTile(int compressedX, int compressedY) {
+	public MazeMapVertex(int compressedX, int compressedY) {
 		this.compressedX = compressedX;
 		this.compressedY = compressedY;
 		this.fullX = ((compressedX + 1) * 2) - 1;
 		this.fullY = ((compressedY + 1) * 2) - 1;
 	}
 
-	public MazeMapTile(int compressedX, int compressedY, boolean visited) {
+	public MazeMapVertex(int compressedX, int compressedY, boolean visited) {
 		this(compressedX, compressedY);
 		this.visited = visited;
 	}

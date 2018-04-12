@@ -1,4 +1,4 @@
-package com.gammacrawler.generator;
+package com.gammacrawler.generator.map.connector;
 
 import java.util.ArrayList;
 

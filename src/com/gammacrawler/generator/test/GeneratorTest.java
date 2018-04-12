@@ -3,17 +3,16 @@ package com.gammacrawler.generator.test;
 import javax.swing.JFrame;
 
 import com.gammacrawler.generator.Board;
-import com.gammacrawler.generator.GamePanel;
 
 public class GeneratorTest {
 	public static JFrame frame; 
 	public static Board board;
-	public static GamePanel panel;
+//	public static GamePanel panel;
 
 	public static void main(String[] args) {
 		board = new Board(51, 51);
 		board.addMaze();
-		panel = new GamePanel(board);
+//		panel = new GamePanel(board);
 
 		int[][] iArray = board.getArray();
 		for (int x = 0; x < iArray.length; x++) {
@@ -23,7 +22,7 @@ public class GeneratorTest {
 		}
 
 		frame = new JFrame();
-		frame.setContentPane(panel);
+//		frame.setContentPane(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);

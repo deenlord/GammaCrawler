@@ -1,12 +1,12 @@
 package com.gammacrawler.generator;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.gammacrawler.generator.map.MazeMap;
-import com.gammacrawler.generator.map.MazeMapTile;
+import com.gammacrawler.generator.map.connector.ConnectorBucket;
+import com.gammacrawler.generator.map.connector.DungeonConnector;
+import com.gammacrawler.generator.map.connector.DungeonConnectorMaker;
 import com.gammacrawler.generator.math.DunMath;
 
 public class Board {
@@ -142,10 +142,10 @@ public class Board {
 	 * @param minRoomHeight
 	 * @param maxRoomHeight
 	 */
-	private void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight, int maxRoomHeight) {
+	private void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight,
+			int maxRoomHeight) {
 		int snipWidth = array.length - 2;
 		int snipHeight = array[0].length - 2;
-		int border = 1;
 		int xPointMin;
 		int xPointMax;
 		int yPointMin;
@@ -164,13 +164,12 @@ public class Board {
 		maxRoomWidth = Math.min(snipWidth, maxRoomWidth);
 		maxRoomHeight = Math.min(snipHeight, maxRoomHeight);
 
-
 		// Make any even numbers odd.
 		minRoomWidth = (minRoomWidth % 2 == 0 ? minRoomWidth + 1 : minRoomWidth);
 		maxRoomWidth = (maxRoomWidth % 2 == 0 ? maxRoomWidth - 1 : maxRoomWidth);
 		minRoomHeight = (minRoomHeight % 2 == 0 ? minRoomHeight + 1 : minRoomHeight);
 		maxRoomHeight = (maxRoomHeight % 2 == 0 ? maxRoomHeight - 1 : maxRoomHeight);
-		
+
 		for (int i = 0; i < attempts; i++) {
 			thisRoomWidth = DunMath.randomOdd(minRoomWidth, maxRoomWidth);
 			thisRoomHeight = DunMath.randomOdd(minRoomHeight, maxRoomHeight);
@@ -247,144 +246,6 @@ public class Board {
 		}
 
 		return count;
-	}
-
-	private int octNeighborCount(int num, int x, int y) {
-		int count = 0;
-
-		for (int cx = x - 1; cx < x + 3; cx++) {
-			for (int cy = y - 1; cy < y + 3; cy++) {
-
-				// If out of bounds count as a neighbor
-				if (cx < 0 || cx >= array.length || cy < 0 || cy >= array[0].length) {
-					count++;
-				} else if (array[cx][cy] == num) {
-					count++;
-				}
-			}
-		}
-		return count;
-	}
-
-	/**
-	 * Returns if the tiles in a group do NOT all have the same region ID.
-	 * Ignores solid blocks.
-	 * 
-	 * @param tiles
-	 *            An ArrayList of tiles to check for different region IDs.
-	 * @return If the tiles do NOT have the same region ID, or false if < 2
-	 *         tiles.
-	 */
-	private boolean areAllTilesSameRegion(ArrayList<MazeMapTile> tiles) {
-		if (tiles.size() < 2) {
-			return false;
-		}
-
-		int firstRegionID = tiles.get(0).getRegionID();
-
-		for (int x = 1; x < tiles.size(); x++) {
-			if (tiles.get(x).getRegionID() != 0 && tiles.get(x).getRegionID() != firstRegionID) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private Color blendRegion(int x, int y) {
-		int c1 = 0;
-		int c2 = 0;
-
-		if (c1 == 0 && regionArray[x - 1][y] != 0)
-			c1 = regionArray[x - 1][y];
-		if (c1 == 0 && regionArray[x - 1][y] != 0)
-			c1 = regionArray[x + 1][y];
-		if (c1 == 0 && regionArray[x][y + 1] != 0)
-			c1 = regionArray[x][y + 1];
-		if (c1 == 0 && regionArray[x][y - 1] != 0)
-			c1 = regionArray[x][y - 1];
-
-		if (c2 == 0 && regionArray[x][y - 1] != 0 && regionArray[x][y - 1] != c1)
-			c2 = regionArray[x][y - 1];
-		if (c2 == 0 && regionArray[x][y + 1] != 0 && regionArray[x][y - 1] != c1)
-			c2 = regionArray[x][y + 1];
-		if (c2 == 0 && regionArray[x - 1][y] != 0 && regionArray[x][y - 1] != c1)
-			c2 = regionArray[x + 1][y];
-		if (c2 == 0 && regionArray[x - 1][y] != 0 && regionArray[x][y - 1] != c1)
-			c2 = regionArray[x - 1][y];
-
-		Color color1 = new Color(Color.HSBtoRGB(c1 * (1.0f / regionCounter), 0.8f, 0.8f));
-		Color color2 = new Color(Color.HSBtoRGB(c2 * (1.0f / regionCounter), 0.8f, 0.8f));
-
-		return (c1 < c2 ? color1 : color2);
-	}
-
-	public void paint(Graphics g) {
-		paintArray(g, 800 / Math.max(array.length, array[0].length));
-	}
-
-	public void paintArray(Graphics g, int tileSize) {
-		float doorHue = ((int) (Math.random() * regionCounter) + 1) * (1.0f / regionCounter);
-
-		for (int x = 0; x < array.length; x++) {
-			for (int y = 0; y < array[0].length; y++) {
-				int xPos = x * tileSize;
-				int yPos = y * tileSize;
-
-				float hue = x * (1.0f / array.length) + (System.nanoTime() % 10) / 10;
-				Color c = new Color(Color.HSBtoRGB(hue, 1.0f, 1.0f));
-				g.setColor(c);
-
-				g.fillRect(xPos, yPos, tileSize, tileSize);
-
-				int b1 = 0;
-				if (array[x][y] == 0) {
-					hue = regionArray[x][y] * (1.0f / regionCounter);
-					c = new Color(Color.HSBtoRGB(hue, 0.8f, 0.8f));
-					g.setColor(c);
-					// g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2,
-					// tileSize - b1 * 2);
-				} else if (array[x][y] == 2) {
-					b1 = tileSize / 4;
-					int b2 = tileSize / 8;
-					// doorHue = ((int) (Math.random() * regionCounter) + 1) *
-					// (1.0f / regionCounter);
-					c = new Color(Color.HSBtoRGB(doorHue, 0.8f, 0.8f));
-					g.setColor(blendRegion(x, y));
-					// g.fillRect(xPos, yPos, tileSize, tileSize);
-					// g.setColor(Color.black);
-					// g.fillRect(xPos + b2, yPos + b2, tileSize - b2 * 2,
-					// tileSize - b2 * 2);
-					// g.setColor(blendRegion(x, y));
-					// g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2,
-					// tileSize - b1 * 2);
-
-				}
-				// g.fillRect(xPos + b1, yPos + b1, tileSize - b1 * 2, tileSize
-				// - b1 * 2);
-
-				g.setColor(Color.black);
-				if (array[x][y] == 2) {
-					g.fillRect(xPos, yPos, tileSize, tileSize);
-					g.setColor(Color.white);
-					if (array[x - 1][y] == 1 || array[x + 1][y] == 1) {
-						g.fillRect(xPos, yPos + (tileSize / 2) - 2, tileSize, 4);
-						// g.fillRect(xPos, yPos, tileSize, (tileSize / 2) - 2);
-						// g.fillRect(xPos, yPos + (tileSize / 2) + 2, tileSize,
-						// (tileSize / 2) - 2);
-					} else {
-						g.fillRect(xPos + (tileSize / 2) - 2, yPos, 4, tileSize);
-						// g.fillRect(xPos, yPos, (tileSize / 2) - 2, tileSize);
-						// g.fillRect(xPos + (tileSize / 2) + 2, yPos, (tileSize
-						// / 2) - 2, tileSize);
-					}
-				} else if (array[x][y] == 0) {
-					g.fillRect(xPos, yPos, tileSize, tileSize);
-				}
-			}
-		}
-
-		// mazeMap.paint(g, tileSize);
 	}
 
 }
