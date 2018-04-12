@@ -58,8 +58,8 @@ public class Generator {
 	 * @return ArrayList of enemies based on the player's xp.
 	 */
 	public ArrayList<Enemy> createEnemies() {
-//		if (this.player.getXP() < 100) {
-//			for (int i = 0; i <= 4; i++) {
+		if (this.player.getXP() < 100) {
+			for (int i = 0; i <= 4; i++) {
 				Enemy em = new EnemySlime();
 				System.out.println("enemyslime created");
 				int[] loc = this.board.getFreePosition();
@@ -71,8 +71,8 @@ public class Generator {
 				em.getImageView().setX(loc[0]);
 				em.getImageView().setY(loc[1]);
 				System.out.println("enemy added");
-//			}
-//		}
+			}
+		}
 		return this.enemies;
 	}
 	

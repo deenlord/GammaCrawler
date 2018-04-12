@@ -32,7 +32,7 @@ public class Board {
 		fillIntegerArray(array, 1);
 		fillIntegerArray(regionArray, 0);
 		this.addMaze();
-		populate(new RandomBrickPopulator());
+		// populate(new RandomBrickPopulator());
 	}
 
 	public int[][] getArray() {
@@ -261,11 +261,11 @@ public class Board {
 		ArrayList<Point> points = new ArrayList<>();
 
 		System.out.println("TEST");
-		for (int x = 0; x < array.length; x++) {
-			for (int y = 0; y < array[0].length; y++) {
-				if (array[x][y] == 0) {
-					points.add(new Point(x * Settings.TILESIZE, y * Settings.TILESIZE));
-					System.out.println("ADDED " + x + " " + y);
+		for (int y = 0; y < array.length; y++) {
+			for (int x = 0; x < array[0].length; x++) {
+				if (array[y][x] == 0) {
+					points.add(new Point(y * Settings.TILESIZE, x * Settings.TILESIZE));
+					System.out.println("ADDED " + y + " " + x);
 				}
 			}
 		}

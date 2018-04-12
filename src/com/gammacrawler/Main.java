@@ -138,16 +138,18 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene gameLoop() {
 
 		gen = new Generator(); // creates board and user
-												// procedurally...
+		System.out.println("Generator created");							// procedurally...
 		// Canvas goes in a Group
 		Group root = new Group();
-		// create a User
 
 
 		// set the scene and return it
 		root.getChildren().add(gen.getDungeon());
 		root.getChildren().add(gen.getPlayer().getImageView());
 		root.getChildren().add(gen.getPlayer().getWeapon());
+		for (Enemy en : gen.enemies) {
+			root.getChildren().add(en.getImageView());
+		}
 		gen.getPlayer().getWeapon().setVisible(false);
 		
 		

@@ -12,7 +12,6 @@ public class EnemySlime extends Enemy {
 		super(name, sprite);
 		this.setHP(10);
 		this.setXP(5);
-		this.setLocation(.getBoard.getRandomLocation());
 	}
 	
 	public static int getDamage() {
