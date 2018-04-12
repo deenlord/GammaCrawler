@@ -18,12 +18,9 @@ public class Generator {
 		this.player = new User("Richard");
 		this.board = new Board(21,21);
 		this.ar = this.board.getArray();
-		this.createEnemies();
 		this.enemies = new ArrayList<>();
 		this.createEnemies();
 		this.setPlayerInitialLocation();
-
-		
 	}
 	
 	public Generator(Sprite userSprite) {
@@ -41,7 +38,6 @@ public class Generator {
 		else
 			this.board = new Board(55,55);
 		
-		this.createEnemies();
 		this.enemies = new ArrayList<>();
 		this.createEnemies();
 		this.setPlayerInitialLocation();
@@ -62,14 +58,25 @@ public class Generator {
 	 * @return ArrayList of enemies based on the player's xp.
 	 */
 	public ArrayList<Enemy> createEnemies() {
-		if (this.player.getXP() < 100) {
-			for (int i = 0; i <= 4; i++) {
+//		if (this.player.getXP() < 100) {
+//			for (int i = 0; i <= 4; i++) {
 				Enemy em = new EnemySlime();
+				System.out.println("enemyslime created");
+				int[] loc = this.board.getFreePosition();
+				System.out.println("found empty location");
+				em.setLocation(loc[0], loc[1]);
+				System.out.println("set enemy location");
 				this.enemies.add(em);
-			}
-		}
+				System.out.println("adding enemy to javafx scene");
+				em.getImageView().setX(loc[0]);
+				em.getImageView().setY(loc[1]);
+				System.out.println("enemy added");
+//			}
+//		}
 		return this.enemies;
 	}
+	
+
 	
 	
 	/**
