@@ -13,10 +13,10 @@ public class PopulatorSkulls extends Populator {
 
 	@Override
 	public void populate() {
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 30; i++) {
 			Point p = getRandomFreeSpace();
-			if (!doesBlockRoute(p, 0)) {
-				tileArray[p.x][p.y] = 3;
+			if (!doesBlockRoute(p, 0) && p != null) {
+				tileArray[p.x][p.y] = 10;
 			}
 		}
 	}

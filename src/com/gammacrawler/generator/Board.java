@@ -29,7 +29,7 @@ public class Board {
 		height = (height % 2 == 0 ? height + 1 : height);
 		this.array = new int[width][height];
 		regionArray = new int[array.length][array[0].length];
-		fillIntegerArray(array, 1);
+		fillIntegerArray(array, 99);
 		fillIntegerArray(regionArray, 0);
 		this.addMaze();
 	}
@@ -56,7 +56,7 @@ public class Board {
 			int x = (int) (Math.random() * array.length);
 			int y = (int) (Math.random() * array[0].length);
 			if (adjacentOpenCount(x, y) < 2) {
-				array[x][y] = 1;
+				array[x][y] = 99;
 				regionArray[x][y] = 0;
 			}
 		}
@@ -115,7 +115,7 @@ public class Board {
 	}
 
 	private void floodFillRegion(int x, int y, int regionID) {
-		if (array[x][y] == 1 || regionArray[x][y] == regionID) {
+		if (array[x][y] == 99 || regionArray[x][y] == regionID) {
 			return;
 		}
 

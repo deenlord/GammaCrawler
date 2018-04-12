@@ -175,28 +175,28 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				switch (event.getCode()) {
 				case W:
 					System.out.println("North");
-					if (gen.ar[y - 1][x] == 0 || gen.ar[y - 1][x] == 2) {
+					if (gen.ar[y - 1][x] < 10) {
 						gen.getPlayer().move(Direction.NORTH);
 //						gen.turn();
 					}
 					break;
 				case S:
 					System.out.println("South");
-					if (gen.ar[y + 1][x] == 0 || gen.ar[y + 1][x] == 2) {
+					if (gen.ar[y + 1][x] < 10) {
 						gen.getPlayer().move(Direction.SOUTH);
 //						gen.turn();
 					}
 					break;
 				case A:
 					System.out.println("West");
-					if (gen.ar[y][x - 1] == 0 || gen.ar[y][x - 1] == 2) {
+					if (gen.ar[y][x - 1] < 10) {
 						gen.getPlayer().move(Direction.WEST);
 //						gen.turn();
 					}
 					break;
 				case D:
 					System.out.println("East");
-					if (gen.ar[y][x + 1] == 0 || gen.ar[y][x + 1] == 2) {
+					if (gen.ar[y][x + 1] < 10) {
 						gen.getPlayer().move(Direction.EAST);
 //						gen.turn();
 					}

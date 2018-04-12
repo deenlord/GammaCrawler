@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.gammacrawler.generator.Board;
 import com.gammacrawler.generator.populators.Populator;
+import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
 
@@ -26,6 +27,7 @@ public class Generator {
 		this.setPlayerInitialLocation();
 		populate(new PopulatorSkulls(this.board.getArray(), enemies));
 		populate(new PopulatorEnemies(this.board.getArray(), enemies));
+		populate(new PopulatorCobbles(this.board.getArray(), enemies));
 	}
 	
 	public Generator(Sprite userSprite) {
@@ -159,6 +161,9 @@ public class Generator {
 		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		Image door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		Image skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		Image cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		Image cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		Image cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 
 		// to use as coordinates
 		double x;
@@ -179,14 +184,21 @@ public class Generator {
 				if (ar[i][j] == 0) {
 					// draw floor tile where you find a 0 in the array
 					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == 1) {
+				} else if (ar[i][j] == 99) {
 					// draw wall tile where you find a 1 in the array
 					gc.drawImage(wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == 2) {
 					gc.drawImage(door, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == 3) {
+					gc.drawImage(cobbles1, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == 4) {
+					gc.drawImage(cobbles2, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == 5) {
+					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == 10) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
+				
 
 			}
 		}
