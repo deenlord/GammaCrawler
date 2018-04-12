@@ -32,7 +32,7 @@ public class Board {
 		fillIntegerArray(array, 1);
 		fillIntegerArray(regionArray, 0);
 		this.addMaze();
-		//populate(new RandomBrickPopulator());
+		populate(new RandomBrickPopulator());
 	}
 
 	public int[][] getArray() {
@@ -257,7 +257,7 @@ public class Board {
 		p.populate(array);
 	}
 
-	public Point getFreePosition() {
+	public int[] getFreePosition() {
 		ArrayList<Point> points = new ArrayList<>();
 
 		System.out.println("TEST");
@@ -272,7 +272,7 @@ public class Board {
 
 		int index = (int) (Math.random() * points.size());
 
-		return points.get(0);
+		return new int[]{points.get(index).x, points.get(index).y};
 	}
 
 }
