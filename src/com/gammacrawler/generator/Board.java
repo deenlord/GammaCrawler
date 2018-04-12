@@ -8,6 +8,8 @@ import com.gammacrawler.generator.map.connector.ConnectorBucket;
 import com.gammacrawler.generator.map.connector.DungeonConnector;
 import com.gammacrawler.generator.map.connector.DungeonConnectorMaker;
 import com.gammacrawler.generator.math.DunMath;
+import com.gammacrawler.generator.populators.Populator;
+import com.gammacrawler.generator.populators.RandomBrickPopulator;
 
 public class Board {
 	ArrayList<ConnectorBucket> connectors;
@@ -28,6 +30,7 @@ public class Board {
 		fillIntegerArray(array, 1);
 		fillIntegerArray(regionArray, 0);
 		this.addMaze();
+		populate(new RandomBrickPopulator());
 	}
 
 	public int[][] getArray() {
@@ -246,6 +249,10 @@ public class Board {
 		}
 
 		return count;
+	}
+
+	public void populate(Populator p) {
+		p.populate(array);
 	}
 
 }
