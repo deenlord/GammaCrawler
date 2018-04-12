@@ -258,18 +258,26 @@ public class Board {
 	}
 
 	public int[] getFreePosition() {
-		int[] points = new int[2];
-		System.out.println("TEST");
-		for (int y = 0; y < array.length; y++) {
-			for (int x = 0; x < array[0].length; x++) {
-				if (array[y][x] == 0) {
-					points[0] = x * Settings.TILESIZE;
-					points[1] = y * Settings.TILESIZE;
-					System.out.println("ADDED " + y + " " + x);
+		ArrayList<Point> points = new ArrayList<>();
+
+		for (int x = 0; x < array.length; x++) {
+			for (int y = 0; y < array[0].length; y++) {
+				System.out.print(array[x][y]);
+				if (array[x][y] == 0) {
+					points.add(new Point(x, y));
+					System.out.print("X ");
+				} else {
+					System.out.print("O ");
 				}
 			}
+			System.out.println();
 		}
-		return points;
+
+		int index = (int) (Math.random() * points.size());
+
+		System.out.println(points);
+		return new int[]{points.get(index).x, points.get(index).y};
+		//return new int[]{(points.get(index).x + 1) * Settings.TILESIZE, (points.get(index).x + 2) * Settings.TILESIZE};
 	}
 
 }

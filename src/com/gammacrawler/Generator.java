@@ -16,7 +16,7 @@ public class Generator {
 	
 	public Generator() {
 		this.player = new User("Richard");
-		this.board = new Board(21,21);
+		this.board = new Board(5,7);
 		this.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		this.createEnemies();
@@ -32,7 +32,7 @@ public class Generator {
 	public Generator(User player) {
 		this.player = player;
 		if (player.getXP() < 100)
-			this.board = new Board(21, 21);
+			this.board = new Board(5, 5);
 		else if(player.getXP() > 100 && player.getXP() < 500)
 			this.board = new Board(45,51);
 		else
@@ -63,7 +63,8 @@ public class Generator {
 				Enemy em = new EnemySlime();
 				System.out.println("enemyslime created");
 				int[] loc = this.board.getFreePosition();
-				System.out.println("found empty location");
+				System.out.println("found empty location at " + loc[0] + " " + loc[1]);
+				System.out.println("TEST");
 				em.setLocation(loc[0], loc[1]);
 				System.out.println("set enemy location");
 				this.enemies.add(em);

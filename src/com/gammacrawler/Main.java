@@ -138,7 +138,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene gameLoop() {
 
 		gen = new Generator(); // creates board and user
-		System.out.println("Generator created");							// procedurally...
+		System.out.println("Generator created");			
+		// procedurally...
 		// Canvas goes in a Group
 		Group root = new Group();
 
