@@ -33,14 +33,14 @@ public class StatusBar extends Pane{
 		health=(Rectangle) Shape.union(lightHealth, darkHealth);
 		border.setFill(Color.BLACK);
 		health.setFill(Color.DARKRED);
-		update();
+		update(length);
 		return healthBar;
 	}
 
 	
-	public void update()
+	public void update(int length)
 	{
-		health.setWidth(((double)player.getHP()/(double)player.getMaxHP())*(800-10));
+		health.setWidth(((double)player.getHP()/(double)player.getMaxHP())*(length-10));
 	}
 
 
