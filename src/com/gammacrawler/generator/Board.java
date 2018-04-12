@@ -9,7 +9,6 @@ import com.gammacrawler.generator.map.MazeMap;
 import com.gammacrawler.generator.map.connector.ConnectorBucket;
 import com.gammacrawler.generator.map.connector.DungeonConnector;
 import com.gammacrawler.generator.map.connector.DungeonConnectorMaker;
-import com.gammacrawler.generator.math.DunMath;
 
 public class Board {
 	ArrayList<ConnectorBucket> connectors;
@@ -173,17 +172,17 @@ public class Board {
 		maxRoomHeight = (maxRoomHeight % 2 == 0 ? maxRoomHeight - 1 : maxRoomHeight);
 
 		for (int i = 0; i < attempts; i++) {
-			thisRoomWidth = DunMath.randomOdd(minRoomWidth, maxRoomWidth);
-			thisRoomHeight = DunMath.randomOdd(minRoomHeight, maxRoomHeight);
+			thisRoomWidth = randomOdd(minRoomWidth, maxRoomWidth);
+			thisRoomHeight = randomOdd(minRoomHeight, maxRoomHeight);
 
 			// Account for room width
 			xPointMax = Math.max(1, snipWidth - thisRoomWidth + 2);
 			xPointMax = (xPointMax % 2 == 0 ? xPointMax - 1 : xPointMax);
-			xPoint = DunMath.randomOdd(xPointMin, xPointMax);
+			xPoint = randomOdd(xPointMin, xPointMax);
 
 			yPointMax = Math.max(1, snipHeight - thisRoomHeight + 2);
 			yPointMax = (yPointMax % 2 == 0 ? yPointMax - 1 : yPointMax);
-			yPoint = DunMath.randomOdd(yPointMin, yPointMax);
+			yPoint = randomOdd(yPointMin, yPointMax);
 
 			makeRoom(xPoint, yPoint, thisRoomWidth, thisRoomHeight);
 		}
@@ -271,6 +270,14 @@ public class Board {
 		System.out.println(points);
 		return new int[]{points.get(index).x, points.get(index).y};
 		//return new int[]{(points.get(index).x + 1) * Settings.TILESIZE, (points.get(index).x + 2) * Settings.TILESIZE};
+	}
+
+	public static int randomOdd(int min, int max) {
+		if (max % 2 == 0)
+			max--;
+		if (min % 2 == 0)
+			min++;
+		return min + 2 * (int) (Math.random() * ((max - min) / 2 + 1));
 	}
 
 }

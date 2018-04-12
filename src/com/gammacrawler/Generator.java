@@ -27,7 +27,7 @@ public class Generator {
 		this.setPlayerInitialLocation();
 		populate(new PopulatorSkulls(this.board.getArray(), enemies));
 		populate(new PopulatorEnemies(this.board.getArray(), enemies));
-		//populate(new PopulatorCobbles(this.board.getArray(), enemies));
+		populate(new PopulatorCobbles(this.board.getArray(), enemies));
 	}
 	
 	public Generator(Sprite userSprite) {
