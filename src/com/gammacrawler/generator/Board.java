@@ -3,6 +3,8 @@ package com.gammacrawler.generator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.gammacrawler.Point;
+import com.gammacrawler.Settings;
 import com.gammacrawler.generator.map.MazeMap;
 import com.gammacrawler.generator.map.connector.ConnectorBucket;
 import com.gammacrawler.generator.map.connector.DungeonConnector;
@@ -253,6 +255,22 @@ public class Board {
 
 	public void populate(Populator p) {
 		p.populate(array);
+	}
+
+	public Point getFreePosition() {
+		ArrayList<Point> points = new ArrayList<>();
+
+		for (int x = 0; x < array.length; x++) {
+			for (int y = 0; x < array[0].length; y++) {
+				if (array[x][y] == 0) {
+					points.add(new Point(x * Settings.TILESIZE, y * Settings.TILESIZE));
+				}
+			}
+		}
+
+		int index = (int) (Math.random() * points.size());
+
+		return points.get(0);
 	}
 
 }

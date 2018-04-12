@@ -19,7 +19,7 @@ public class UserTest {
 		
 		deen.setHP(65);
 		
-		deen.increaseExp(10);
+		//deen.increaseExp(10);
 		
 		deen.move(Direction.NORTH);
 		
