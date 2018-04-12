@@ -10,8 +10,6 @@ import com.gammacrawler.generator.map.connector.ConnectorBucket;
 import com.gammacrawler.generator.map.connector.DungeonConnector;
 import com.gammacrawler.generator.map.connector.DungeonConnectorMaker;
 import com.gammacrawler.generator.math.DunMath;
-import com.gammacrawler.generator.populators.Populator;
-import com.gammacrawler.generator.populators.PopulatorSkulls;
 
 public class Board {
 	ArrayList<ConnectorBucket> connectors;
@@ -29,8 +27,8 @@ public class Board {
 		height = (height % 2 == 0 ? height + 1 : height);
 		this.array = new int[width][height];
 		regionArray = new int[array.length][array[0].length];
-		fillIntegerArray(array, 99);
-		fillIntegerArray(regionArray, 0);
+		fillIntegerArray(array, Settings.WALL_ID);
+		fillIntegerArray(regionArray, Settings.FLOOR_ID);
 		this.addMaze();
 	}
 
@@ -56,8 +54,8 @@ public class Board {
 			int x = (int) (Math.random() * array.length);
 			int y = (int) (Math.random() * array[0].length);
 			if (adjacentOpenCount(x, y) < 2) {
-				array[x][y] = 99;
-				regionArray[x][y] = 0;
+				array[x][y] = Settings.WALL_ID;
+				regionArray[x][y] = Settings.FLOOR_ID;
 			}
 		}
 	}
@@ -69,7 +67,7 @@ public class Board {
 			for (DungeonConnector c : bucket.getConnectors()) {
 				int random = (int) (Math.random() * extraDoorChance) + 1;
 				if (random == 1) {
-					array[c.getX()][c.getY()] = 2;
+					array[c.getX()][c.getY()] = Settings.DOOR_ID;
 					regionArray[c.getX()][c.getY()] = 1;
 				}
 			}
@@ -78,7 +76,7 @@ public class Board {
 			if (bucket.getConnectors().size() > 0) {
 				int random = (int) (Math.random() * bucket.getConnectors().size());
 				DungeonConnector c = bucket.getConnectors().get(random);
-				array[c.getX()][c.getY()] = 2;
+				array[c.getX()][c.getY()] = Settings.DOOR_ID;
 				regionArray[c.getX()][c.getY()] = 1;
 			}
 		}
@@ -115,7 +113,7 @@ public class Board {
 	}
 
 	private void floodFillRegion(int x, int y, int regionID) {
-		if (array[x][y] == 99 || regionArray[x][y] == regionID) {
+		if (array[x][y] == Settings.WALL_ID || regionArray[x][y] == regionID) {
 			return;
 		}
 
@@ -209,7 +207,7 @@ public class Board {
 		if (isSpace(pointX, pointY, width, height)) {
 			for (int x = pointX; x < pointX + width; x++) {
 				for (int y = pointY; y < pointY + height; y++) {
-					array[x][y] = 0;
+					array[x][y] = Settings.FLOOR_ID;
 				}
 			}
 		}

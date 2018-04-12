@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.gammacrawler.Enemy;
 import com.gammacrawler.Point;
+import com.gammacrawler.Settings;
 
 public class PopulatorSkulls extends Populator {
 
@@ -15,8 +16,8 @@ public class PopulatorSkulls extends Populator {
 	public void populate() {
 		for (int i = 0; i < 30; i++) {
 			Point p = getRandomFreeSpace();
-			if (!doesBlockRoute(p, 0) && p != null) {
-				tileArray[p.x][p.y] = 10;
+			if (!doesBlockRoute(p, Settings.FLOOR_ID) && p != null) {
+				tileArray[p.x][p.y] = Settings.SKULL_ID;
 			}
 		}
 	}

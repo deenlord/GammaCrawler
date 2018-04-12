@@ -13,4 +13,11 @@ public class Settings {
 	public static final int STARTMENUSIZE = 320;
 	public static final int SCENEWIDTH = 855;
 	public static final int SCENEHEIGHT = 860;
+	public static final int WALL_ID = 99;
+	public static final int FLOOR_ID = 0;
+	public static final int DOOR_ID = 2;
+	public static final int COBBLES1_ID = 3;
+	public static final int COBBLES2_ID = 4;
+	public static final int COBBLES3_ID = 5;
+	public static final int SKULL_ID = 10;
 }

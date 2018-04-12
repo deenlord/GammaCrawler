@@ -2,6 +2,8 @@ package com.gammacrawler.generator.map;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.Settings;
+
 public class MazeMap {
 	private MazeMapVertex[][] tileArray;
 	private ArrayList<MazeMapVertex> tileList = new ArrayList<>();
@@ -28,7 +30,7 @@ public class MazeMap {
 
 				// Process the tiles such that we don't place mazes on already
 				// clear tiles.
-				if (array[x][y] == 1) {
+				if (array[x][y] == Settings.WALL_ID) {
 					tileList.add(c);
 				} else {
 					c.setVisited(true);
