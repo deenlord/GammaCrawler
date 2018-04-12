@@ -1,9 +1,7 @@
 package com.gammacrawler;
 
 import java.util.ArrayList;
-
 import javafx.scene.image.ImageView;
-import javafx.scene.transform.Rotate;
 
 // import java.util.ArrayList;
 
@@ -15,9 +13,10 @@ public abstract class Character implements Moveable{
 	private String name;
 	private int curHP;
 	private int maxHP;
+	private int XP;
 	private int[] location = new int[2];
 	private Sprite sprite;
-	protected Inventory inv;
+	protected ArrayList<Item> inventory = new ArrayList<>();
 	
 	/**
 	 * @return name of Character
@@ -60,6 +59,21 @@ public abstract class Character implements Moveable{
 		maxHP = hitpoints;
 	}
 	
+	
+	/**
+	 * @return current XP
+	 */
+	public int getXP()  {
+		return this.XP;
+	}
+	
+	/**
+	 * @param xp - sets this.XP to xp
+	 */
+	public void setXP(int xp)  {
+		this.XP = xp;
+	}
+	
 	/**
 	 * @return current location
 	 */
@@ -81,12 +95,12 @@ public abstract class Character implements Moveable{
 		this.sprite = spr;
 	}
 	
-	public ImageView getSprite() {
+	public ImageView getImageView() {
 		return this.sprite.getSprite();
 	}
 	
 	public void setInventory(ArrayList<Item> inventory) {
-		this.inv.setInventory(inventory);
+		this.inventory = inventory;
 	}
 	
 	

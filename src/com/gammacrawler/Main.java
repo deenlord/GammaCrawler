@@ -27,7 +27,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
 	Stage mainStage;
 	private ArrayList<Sprite> characters = new ArrayList<>();
-	private Generator gen;
+	public static Generator gen;
 
 	/**
 	 * @return the start menu Scene
@@ -149,7 +149,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// set the scene and return it
 		root.getChildren().add(gen.getDungeon());
-		root.getChildren().add(gen.getPlayer().getSprite());
+		root.getChildren().add(gen.getPlayer().getImageView());
 		root.getChildren().add(gen.getPlayer().getWeapon());
 		gen.getPlayer().getWeapon().setVisible(false);
 		
@@ -211,8 +211,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				default:
 					break;
 				}
-				gen.getPlayer().getSprite().setLayoutX(gen.getPlayer().getLocation()[0]);
-				gen.getPlayer().getSprite().setLayoutY(gen.getPlayer().getLocation()[1]);
+				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
+				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 			}
 		});
 
@@ -252,6 +252,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		}
 
+	}
+	
+	public static Generator getGenerator() {
+		Generator generator = gen;
+		
+		return generator;
 	}
 
 	@Override

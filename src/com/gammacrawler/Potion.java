@@ -1,25 +1,22 @@
 package com.gammacrawler;
 
+/**
+ * @author jakev
+ *
+ */
 public abstract class Potion extends Item {
-	private int effect;
-	
-	public Potion(String name, Sprite sprite) {
+	int value;
+	public Potion(String name, Sprite sprite, int val) {
 		super(name, sprite);
-		// TODO Auto-generated constructor stub
-	}
+		this.value = val;
+	}	
 	
-	public Potion(String name, Sprite sprite, int effect) {
-		super(name, sprite);
-		this.effect = effect;
-	}
-	
-	public int getEffect() {
-		return this.effect;
-	}
-	
-	public void setEffect(int eff) {
-		this.effect = eff;
-	}
-	
-	
+	/**
+	 * @param c - a Character, can be User or Enemy
+	 * 
+	 * Intended use: apply the Potion's value to the Character's applicable attribute, 
+	 * and remove the item from their inventory.
+	 */
+	public abstract void drink(Character c);
+
 }

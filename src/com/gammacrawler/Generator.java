@@ -34,9 +34,9 @@ public class Generator {
 	
 	public Generator(User player) {
 		this.player = player;
-		if (player.getExp() < 100)
+		if (player.getXP() < 100)
 			this.board = new Board(21, 21);
-		else if(player.getExp() > 100 && player.getExp() < 500)
+		else if(player.getXP() > 100 && player.getXP() < 500)
 			this.board = new Board(45,51);
 		else
 			this.board = new Board(55,55);
@@ -62,10 +62,10 @@ public class Generator {
 	 * @return ArrayList of enemies based on the player's xp.
 	 */
 	public ArrayList<Enemy> createEnemies() {
-		if (this.player.getExp() < 100) {
+		if (this.player.getXP() < 100) {
 			for (int i = 0; i <= 4; i++) {
 				Enemy em = new EnemySlime();
-				this.enemies.add(em);
+				// this.enemies.add(em);
 			}
 		}
 		return this.enemies;
@@ -178,8 +178,8 @@ public class Generator {
 					int y = (z + 1) * Settings.TILESIZE; // avoid z/0
 					int x = (j + 1) * Settings.TILESIZE;
 					player.setLocation(x, y);
-					player.getSprite().setLayoutX(x);
-					player.getSprite().setLayoutY(y);
+					player.getImageView().setLayoutX(x);
+					player.getImageView().setLayoutY(y);
 					counter++;
 				}
 

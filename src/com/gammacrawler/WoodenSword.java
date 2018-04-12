@@ -10,7 +10,7 @@ public class WoodenSword extends Weapon {
 		super.setDamage(5);
 		super.setMaxDamage(10);
 		this.ft = new FadeTransition(Duration.millis(250), this.sprite.getSprite());
-	}
+		}
 
 	public WoodenSword(String name, Sprite sprite, int regDamage, int maxDamage) {
 		super(name, sprite, regDamage, maxDamage);
