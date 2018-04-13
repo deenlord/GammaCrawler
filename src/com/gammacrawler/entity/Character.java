@@ -179,8 +179,8 @@ public abstract class Character implements Moveable {
 	 * @param tileY
 	 */
 	public void moveToTile(int tileX, int tileY) {
-		getImageView().setX((tileX + 1) * Settings.TILESIZE);
-		getImageView().setY((tileY + 1) * Settings.TILESIZE);
+		getImageView().setX((tileX) * Settings.TILESIZE);
+		getImageView().setY((tileY) * Settings.TILESIZE);
 		this.setLocation((tileX + 1) * Settings.TILESIZE, (tileY + 1) * Settings.TILESIZE);
 	}
 
