@@ -12,7 +12,7 @@ import com.gammacrawler.generator.map.connector.DungeonConnectorMaker;
 
 public class Board {
 	ArrayList<ConnectorBucket> connectors;
-	private int[][] array;
+	private int[][] tileArray;
 	private int regionCounter = 1;
 	private int[][] regionArray;
 	MazeMap mazeMap;
@@ -24,23 +24,26 @@ public class Board {
 	public Board(int width, int height) {
 		width = (width % 2 == 0 ? width + 1 : width);
 		height = (height % 2 == 0 ? height + 1 : height);
-		this.array = new int[width][height];
-		regionArray = new int[array.length][array[0].length];
-		fillIntegerArray(array, Settings.WALL_ID);
+		this.tileArray = new int[width][height];
+		regionArray = new int[tileArray.length][tileArray[0].length];
+		fillIntegerArray(tileArray, Settings.WALL_ID);
 		fillIntegerArray(regionArray, Settings.FLOOR_ID);
 		this.addMaze();
 	}
 
 	public int[][] getArray() {
-		return array;
+		return tileArray;
 	}
 
+	/**
+	 * Adds the Maze structure to the Board, including rooms and hallways.
+	 */
 	public void addMaze() {
 		attemptPlaceRooms(500, 2, 20, 2, 20);
 
-		mazeMap = new MazeMap(array);
+		mazeMap = new MazeMap(tileArray);
 		mazeMap.makeMaze();
-		mazeMap.carveArray(array);
+		mazeMap.carveArray(tileArray);
 
 		fillRegions();
 		connectors = ConnectorBucket.getSortedList(DungeonConnectorMaker.getConnectors(regionArray));
@@ -48,17 +51,25 @@ public class Board {
 		makeSparse();
 	}
 
+	/**
+	 * This removes essentially dead ends to the maze, so that there are blocks
+	 * of solid stone instead of every inch being opened up.
+	 */
 	private void makeSparse() {
 		for (int i = 0; i < sparseTries; i++) {
-			int x = (int) (Math.random() * array.length);
-			int y = (int) (Math.random() * array[0].length);
+			int x = (int) (Math.random() * tileArray.length);
+			int y = (int) (Math.random() * tileArray[0].length);
 			if (adjacentOpenCount(x, y) < 2) {
-				array[x][y] = Settings.WALL_ID;
+				tileArray[x][y] = Settings.WALL_ID;
 				regionArray[x][y] = Settings.FLOOR_ID;
 			}
 		}
 	}
 
+	/**
+	 * This takes all the connectors between regions and replaces them with
+	 * doors.
+	 */
 	private void carveConnectors() {
 		for (ConnectorBucket bucket : connectors) {
 
@@ -66,7 +77,7 @@ public class Board {
 			for (DungeonConnector c : bucket.getConnectors()) {
 				int random = (int) (Math.random() * extraDoorChance) + 1;
 				if (random == 1) {
-					array[c.getX()][c.getY()] = Settings.DOOR_ID;
+					tileArray[c.getX()][c.getY()] = Settings.DOOR_ID;
 					regionArray[c.getX()][c.getY()] = 1;
 				}
 			}
@@ -75,7 +86,7 @@ public class Board {
 			if (bucket.getConnectors().size() > 0) {
 				int random = (int) (Math.random() * bucket.getConnectors().size());
 				DungeonConnector c = bucket.getConnectors().get(random);
-				array[c.getX()][c.getY()] = Settings.DOOR_ID;
+				tileArray[c.getX()][c.getY()] = Settings.DOOR_ID;
 				regionArray[c.getX()][c.getY()] = 1;
 			}
 		}
@@ -101,9 +112,9 @@ public class Board {
 	 * Sets every section of connected tiles to a new region ID.
 	 */
 	private void fillRegions() {
-		for (int x = 0; x < array.length; x++) {
-			for (int y = 0; y < array[0].length; y++) {
-				if (array[x][y] == 0 && regionArray[x][y] == 0) {
+		for (int x = 0; x < tileArray.length; x++) {
+			for (int y = 0; y < tileArray[0].length; y++) {
+				if (tileArray[x][y] == 0 && regionArray[x][y] == 0) {
 					floodFillRegion(x, y, regionCounter);
 					regionCounter++;
 				}
@@ -111,8 +122,16 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Fills out floors with a region - this lets us assign each tile to a
+	 * region so that we can connect all the regions.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param regionID
+	 */
 	private void floodFillRegion(int x, int y, int regionID) {
-		if (array[x][y] == Settings.WALL_ID || regionArray[x][y] == regionID) {
+		if (tileArray[x][y] == Settings.WALL_ID || regionArray[x][y] == regionID) {
 			return;
 		}
 
@@ -121,32 +140,31 @@ public class Board {
 		if (x > 0) {
 			floodFillRegion(x - 1, y, regionID);
 		}
-		if (x < array.length - 1) {
+		if (x < tileArray.length - 1) {
 			floodFillRegion(x + 1, y, regionID);
 		}
 		if (y > 0) {
 			floodFillRegion(x, y - 1, regionID);
 		}
-		if (y < array[0].length - 1) {
+		if (y < tileArray[0].length - 1) {
 			floodFillRegion(x, y + 1, regionID);
 		}
 	}
 
-	// TODO: This javadoc
 	/**
 	 * Attempt to place randomized white rooms. Size parameters will be made odd
 	 * by adding 1 if they are even.
 	 * 
-	 * @param attempts
-	 * @param minRoomWidth
-	 * @param maxRoomWidth
-	 * @param minRoomHeight
-	 * @param maxRoomHeight
+	 * @param attempts The attempts that will be taken to create a room
+	 * @param minRoomWidth The minimum width of a room
+	 * @param maxRoomWidth The maximum width of a room
+	 * @param minRoomHeight The minimum height of a room
+	 * @param maxRoomHeight The minimum height of a room
 	 */
 	private void attemptPlaceRooms(int attempts, int minRoomWidth, int maxRoomWidth, int minRoomHeight,
 			int maxRoomHeight) {
-		int snipWidth = array.length - 2;
-		int snipHeight = array[0].length - 2;
+		int snipWidth = tileArray.length - 2;
+		int snipHeight = tileArray[0].length - 2;
 		int xPointMin;
 		int xPointMax;
 		int yPointMin;
@@ -206,7 +224,7 @@ public class Board {
 		if (isSpace(pointX, pointY, width, height)) {
 			for (int x = pointX; x < pointX + width; x++) {
 				for (int y = pointY; y < pointY + height; y++) {
-					array[x][y] = Settings.FLOOR_ID;
+					tileArray[x][y] = Settings.FLOOR_ID;
 				}
 			}
 		}
@@ -215,7 +233,7 @@ public class Board {
 	private boolean isSpace(int pointX, int pointY, int width, int height) {
 		for (int x = pointX; x < pointX + width; x++) {
 			for (int y = pointY; y < pointY + height; y++) {
-				if (array[x][y] == 0)
+				if (tileArray[x][y] == 0)
 					return false;
 			}
 		}
@@ -226,22 +244,22 @@ public class Board {
 		int count = 0;
 
 		if (x > 0) {
-			if (array[x - 1][y] == 0 || array[x - 1][y] == 2) {
+			if (tileArray[x - 1][y] == 0 || tileArray[x - 1][y] == 2) {
 				count++;
 			}
 		}
-		if (x < array.length - 1) {
-			if (array[x + 1][y] == 0 || array[x + 1][y] == 2) {
+		if (x < tileArray.length - 1) {
+			if (tileArray[x + 1][y] == 0 || tileArray[x + 1][y] == 2) {
 				count++;
 			}
 		}
 		if (y > 0) {
-			if (array[x][y - 1] == 0 || array[x][y - 1] == 2) {
+			if (tileArray[x][y - 1] == 0 || tileArray[x][y - 1] == 2) {
 				count++;
 			}
 		}
-		if (y < array[0].length - 1) {
-			if (array[x][y + 1] == 0 || array[x][y + 1] == 2) {
+		if (y < tileArray[0].length - 1) {
+			if (tileArray[x][y + 1] == 0 || tileArray[x][y + 1] == 2) {
 				count++;
 			}
 		}
@@ -252,10 +270,10 @@ public class Board {
 	public int[] getFreePosition() {
 		ArrayList<Point> points = new ArrayList<>();
 
-		for (int x = 0; x < array.length; x++) {
-			for (int y = 0; y < array[0].length; y++) {
-				System.out.print(array[x][y]);
-				if (array[x][y] == 0) {
+		for (int x = 0; x < tileArray.length; x++) {
+			for (int y = 0; y < tileArray[0].length; y++) {
+				System.out.print(tileArray[x][y]);
+				if (tileArray[x][y] == 0) {
 					points.add(new Point(x, y));
 					System.out.print("X ");
 				} else {
@@ -268,10 +286,17 @@ public class Board {
 		int index = (int) (Math.random() * points.size());
 
 		System.out.println(points);
-		return new int[]{points.get(index).x, points.get(index).y};
-		//return new int[]{(points.get(index).x + 1) * Settings.TILESIZE, (points.get(index).x + 2) * Settings.TILESIZE};
+		return new int[] { points.get(index).x, points.get(index).y };
+		// return new int[]{(points.get(index).x + 1) * Settings.TILESIZE,
+		// (points.get(index).x + 2) * Settings.TILESIZE};
 	}
 
+	/**
+	 * Returns a random odd number with a range
+	 * @param min
+	 * @param max
+	 * @return A random odd number with a range
+	 */
 	public static int randomOdd(int min, int max) {
 		if (max % 2 == 0)
 			max--;
