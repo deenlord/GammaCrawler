@@ -181,7 +181,7 @@ public abstract class Character implements Moveable {
 	public void moveToTile(int tileX, int tileY) {
 		getImageView().setX((tileX) * Settings.TILESIZE);
 		getImageView().setY((tileY) * Settings.TILESIZE);
-		this.setLocation((tileX + 1) * Settings.TILESIZE, (tileY + 1) * Settings.TILESIZE);
+		this.setLocation((tileX) * Settings.TILESIZE, (tileY) * Settings.TILESIZE);
 	}
 
 }
