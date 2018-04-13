@@ -32,15 +32,18 @@ public abstract class Populator {
 		return null;
 	}
 
-	protected Point getRandomFreeSpace() {
+	protected int[] getRandomFreeSpace() {
 		int tries = 1000;
 
 		for (int i = 0; i < tries; i++) {
 			int x = (int) (Math.random() * tileArray.length);
 			int y = (int) (Math.random() * tileArray[0].length);
 
+			System.out.println("Attempting " + x + " " + y);
+			System.out.println("BLOCK: " + tileArray[x][y]);
 			if (tileArray[x][y] == 0) {
-				return new Point(x, y);
+				System.out.println("MAKING POINT " + x + " " + y);
+				return new int[]{x, y};
 			}
 		}
 

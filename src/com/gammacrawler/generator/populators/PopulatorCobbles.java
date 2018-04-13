@@ -18,19 +18,22 @@ public class PopulatorCobbles extends Populator {
 	@Override
 	public void populate() {
 		for (int i = 0; i < attempts; i++) {
-			Point p = getRandomFreeSpace();
+			int[] n = getRandomFreeSpace();
+			Point p = new Point(n[0], n[1]);
 			if (p != null) {
 				tileArray[p.x][p.y] = Settings.COBBLES1_ID;
 			}
 		}
 		for (int i = 0; i < attempts; i++) {
-			Point p = getRandomFreeSpace();
+			int[] n = getRandomFreeSpace();
+			Point p = new Point(n[0], n[1]);
 			if (p != null) {
 				tileArray[p.x][p.y] = Settings.COBBLES2_ID;
 			}
 		}
 		for (int i = 0; i < attempts; i++) {
-			Point p = getRandomFreeSpace();
+			int[] n = getRandomFreeSpace();
+			Point p = new Point(n[0], n[1]);
 			if (p != null) {
 				tileArray[p.x][p.y] = Settings.COBBLES3_ID;
 			}

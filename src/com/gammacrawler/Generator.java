@@ -35,11 +35,11 @@ public class Generator {
 		this.board = new Board(21,21);
 		this.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
-		this.createEnemies();
+		//this.createEnemies();
 		this.setPlayerInitialLocation();
-		populate(new PopulatorSkulls(this.board.getArray(), enemies));
+	//	populate(new PopulatorSkulls(this.board.getArray(), enemies));
 		populate(new PopulatorEnemies(this.board.getArray(), enemies));
-		populate(new PopulatorCobbles(this.board.getArray(), enemies));
+		//populate(new PopulatorCobbles(this.board.getArray(), enemies));
 	}
 	
 	public Generator(Sprite userSprite) {

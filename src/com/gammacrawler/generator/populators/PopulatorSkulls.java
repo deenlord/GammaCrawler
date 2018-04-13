@@ -15,7 +15,8 @@ public class PopulatorSkulls extends Populator {
 	@Override
 	public void populate() {
 		for (int i = 0; i < 30; i++) {
-			Point p = getRandomFreeSpace();
+			int[] n = getRandomFreeSpace();
+			Point p = new Point(n[0], n[1]);
 			if (!doesBlockRoute(p, Settings.FLOOR_ID) && p != null) {
 				tileArray[p.x][p.y] = Settings.SKULL_ID;
 			}
