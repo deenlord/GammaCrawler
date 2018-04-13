@@ -1,6 +1,4 @@
-package com.gammacrawler;
-
-
+package com.gammacrawler.entity;
 
 /**
  * @author jakev
@@ -56,14 +54,14 @@ public abstract class Item {
 	 * @param richard - will add the item to the player's inventory
 	 */
 	public void addToUser(User richard) {
-			richard.inventory.add(this);
+			richard.getInventory().add(this);
 	}
 	
 	/**
 	 * @param en - will add item to an enemy's inventory
 	 */
 	public void addToEnemy(Enemy en) {
-		en.inventory.add(this);
+		en.getInventory().add(this);
 	}
 	
 	

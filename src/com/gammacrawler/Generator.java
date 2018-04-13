@@ -2,11 +2,16 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.EnemySlime;
+import com.gammacrawler.entity.Sprite;
+import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
 import com.gammacrawler.generator.populators.Populator;
 import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
+import com.gammacrawler.util.MoveRequest;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

@@ -1,4 +1,6 @@
-package com.gammacrawler;
+package com.gammacrawler.util;
+
+import com.gammacrawler.Direction;
 
 public class Point {
 	public int x;

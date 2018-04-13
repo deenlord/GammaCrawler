@@ -1,14 +1,13 @@
 package com.gammacrawler.test;
 
 import com.gammacrawler.Direction;
-import com.gammacrawler.User;
+import com.gammacrawler.entity.User;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;;
 /**

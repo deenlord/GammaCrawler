@@ -1,4 +1,7 @@
-package com.gammacrawler;
+package com.gammacrawler.item;
+
+import com.gammacrawler.entity.Item;
+import com.gammacrawler.entity.Sprite;
 
 /**
  * @author deenlord

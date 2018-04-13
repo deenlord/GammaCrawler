@@ -1,17 +1,23 @@
-package com.gammacrawler;
+package com.gammacrawler.entity;
 
 import java.util.ArrayList;
 
-public class Ogre extends Enemy {
-	protected static final String name = "Ogre";
-	protected static final int damage = 20;
+import com.gammacrawler.Direction;
+import com.gammacrawler.Settings;
+import com.gammacrawler.util.MoveRequest;
 
-	public Ogre() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/ogre.png"));
-		this.setHP(25);
-		this.setXP(10);
+public class EnemySlime extends Enemy {
+	
+	private static final String name = "Slime";
+	protected static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/slime.png");
+	private static final int damage = 5;
+	
+	public EnemySlime() {
+		super(name, sprite);
+		this.setHP(10);
+		this.setXP(5);
 	}
-
+	
 	public static int getDamage() {
 		return damage;
 	}
@@ -63,6 +69,3 @@ public class Ogre extends Enemy {
 
 
 }
-
-
-

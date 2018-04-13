@@ -1,4 +1,6 @@
-package com.gammacrawler;
+package com.gammacrawler.util;
+
+import com.gammacrawler.entity.Enemy;
 
 public class MoveRequest {
 	public int x;

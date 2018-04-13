@@ -1,4 +1,6 @@
-package com.gammacrawler;
+package com.gammacrawler.entity;
+
+import com.gammacrawler.Direction;
 
 /**
  * @author deenlord

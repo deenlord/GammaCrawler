@@ -1,6 +1,8 @@
-package com.gammacrawler;
+package com.gammacrawler.item;
 
-
+import com.gammacrawler.entity.Character;
+import com.gammacrawler.entity.Item;
+import com.gammacrawler.entity.Sprite;
 
 /**
  * @author jakev
@@ -26,11 +28,11 @@ public class HealthPotion extends Potion {
 			returnMe = max;
 		}
 		
-		for (int i = 0; i < c.inventory.size(); i++) {
-			Item in = c.inventory.get(i);
+		for (int i = 0; i < c.getInventory().size(); i++) {
+			Item in = c.getInventory().get(i);
 			if(in.getName().equals("HealthPotion")) {
 				index  = i;
-				c.inventory.remove(index);
+				c.getInventory().remove(index);
 			}
 		}
 		

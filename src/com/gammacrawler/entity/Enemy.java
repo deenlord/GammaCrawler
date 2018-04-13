@@ -1,6 +1,8 @@
-package com.gammacrawler;
+package com.gammacrawler.entity;
 
 import java.util.ArrayList;
+
+import com.gammacrawler.util.MoveRequest;
 /**
  * @author crathke4
  * 4/7

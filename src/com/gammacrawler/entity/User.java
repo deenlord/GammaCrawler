@@ -1,4 +1,8 @@
-package com.gammacrawler;
+package com.gammacrawler.entity;
+
+import com.gammacrawler.Settings;
+import com.gammacrawler.item.HealthPotion;
+import com.gammacrawler.item.WoodenSword;
 
 import javafx.scene.image.ImageView;
 
@@ -21,13 +25,13 @@ public class User extends Character implements Moveable {
 		this.setSprite(new Sprite("file:src/com/gammacrawler/images/user2.png"));
 		sword = new WoodenSword("Wooden Sword", 
 				new Sprite("file:src/com/gammacrawler/images/woodensword.png", Settings.TILESIZE / 2));
-		this.inventory.add(sword);
+		this.getInventory().add(sword);
 		HealthPotion health = new HealthPotion();
 		health.addToUser(this);
 		health.drink(this);
 		System.out.println(this.getHP());
 		
-		for (Item i : this.inventory) {
+		for (Item i : this.getInventory()) {
 			System.out.println(i.getName());
 		}
 		

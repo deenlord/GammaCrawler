@@ -61,6 +61,7 @@ public class inputMover {
 			}
 			System.out.println("New Coordinates: "+coordinates);
 		}
+		scn.close();
 	}
 	
 	/**

@@ -2,6 +2,9 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.Sprite;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

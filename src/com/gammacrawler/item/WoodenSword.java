@@ -1,4 +1,6 @@
-package com.gammacrawler;
+package com.gammacrawler.item;
+
+import com.gammacrawler.entity.Sprite;
 
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;

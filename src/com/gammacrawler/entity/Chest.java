@@ -1,4 +1,4 @@
-package com.gammacrawler;
+package com.gammacrawler.entity;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class Chest extends Item{
 	public void take(String name, User richard) {
 		for (int i = 0; i < inventory.size(); i++) {
 			if (name == this.inventory.get(i).getName()) {
-				richard.inventory.add(this.inventory.get(i));
+				richard.getInventory().add(this.inventory.get(i));
 				this.inventory.remove(i);
 			}
 		}

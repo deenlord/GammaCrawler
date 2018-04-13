@@ -1,6 +1,10 @@
-package com.gammacrawler;
+package com.gammacrawler.entity;
 
 import java.util.ArrayList;
+
+import com.gammacrawler.Direction;
+import com.gammacrawler.Settings;
+
 import javafx.scene.image.ImageView;
 
 // import java.util.ArrayList;
@@ -16,7 +20,7 @@ public abstract class Character implements Moveable{
 	private int XP;
 	private int[] location = new int[2];
 	private Sprite sprite;
-	protected ArrayList<Item> inventory = new ArrayList<>();
+	private ArrayList<Item> inventory = new ArrayList<>();
 	
 	public Character (String name) {
 		this.name = name;
@@ -155,6 +159,9 @@ public abstract class Character implements Moveable{
 		}
 
 		return dead;
+	}
+	public ArrayList<Item> getInventory() {
+		return inventory;
 	}
 
 }

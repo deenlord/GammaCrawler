@@ -3,8 +3,8 @@ package com.gammacrawler.generator.populators;
 import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
-import com.gammacrawler.Enemy;
-import com.gammacrawler.Point;
+import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.util.Point;
 
 public abstract class Populator {
 

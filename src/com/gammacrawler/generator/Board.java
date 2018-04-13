@@ -3,12 +3,12 @@ package com.gammacrawler.generator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.gammacrawler.Point;
 import com.gammacrawler.Settings;
 import com.gammacrawler.generator.map.MazeMap;
 import com.gammacrawler.generator.map.connector.ConnectorBucket;
 import com.gammacrawler.generator.map.connector.DungeonConnector;
 import com.gammacrawler.generator.map.connector.DungeonConnectorMaker;
+import com.gammacrawler.util.Point;
 
 public class Board {
 	ArrayList<ConnectorBucket> connectors;
@@ -165,17 +165,14 @@ public class Board {
 			int maxRoomHeight) {
 		int snipWidth = tileArray.length - 2;
 		int snipHeight = tileArray[0].length - 2;
-		int xPointMin;
+		int xPointMin = 1;
 		int xPointMax;
-		int yPointMin;
+		int yPointMin = 1;
 		int yPointMax;
 		int xPoint;
 		int yPoint;
 		int thisRoomWidth;
 		int thisRoomHeight;
-
-		xPointMin = 1;
-		yPointMin = 1;
 
 		// Make sure we don't have rooms bigger than the floor
 		minRoomWidth = Math.min(snipWidth, minRoomWidth);

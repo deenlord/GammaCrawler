@@ -2,9 +2,9 @@ package com.gammacrawler.generator.populators;
 
 import java.util.ArrayList;
 
-import com.gammacrawler.Enemy;
-import com.gammacrawler.Point;
 import com.gammacrawler.Settings;
+import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.util.Point;
 
 public class PopulatorSkulls extends Populator {
 

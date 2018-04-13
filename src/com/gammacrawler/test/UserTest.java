@@ -1,5 +1,6 @@
 package com.gammacrawler.test;
 import com.gammacrawler.*;
+import com.gammacrawler.entity.User;
 
 /**
  * @author deenlord

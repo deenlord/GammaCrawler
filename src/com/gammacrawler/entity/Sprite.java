@@ -1,4 +1,7 @@
-package com.gammacrawler;
+package com.gammacrawler.entity;
+
+import com.gammacrawler.Direction;
+import com.gammacrawler.Settings;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
