@@ -22,7 +22,14 @@ public class Generator {
 	Board board;
 	int[][] ar;
 	ArrayList<Enemy> enemies;
-	
+	Image wall;
+	Image floor;
+	Image door;
+	Image skull;
+	Image cobbles1;
+	Image cobbles2;
+	Image cobbles3;
+
 	public Generator() {
 		this.player = new User("Richard");
 		this.board = new Board(21,21);
@@ -55,8 +62,6 @@ public class Generator {
 		this.setPlayerInitialLocation();
 
 	}
-	
-	
 	
 	public User getPlayer() {
 		return this.player;
@@ -104,6 +109,7 @@ public class Generator {
 	 * successful movement. No more key pressed will be handled until this
 	 * method finishes. This method moves the enemies around among other things.
 	 */
+	// TODO: NOPE scrapping this attempt, redo this method
 	public void turn() {
 		ArrayList<MoveRequest> moveRequests = new ArrayList<>();
 		boolean conflicts = true;
@@ -161,14 +167,7 @@ public class Generator {
 	}
 
 	public Canvas getDungeon() {
-		// import images to use as tiles
-		Image wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		Image floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		Image door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		Image skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		Image cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		Image cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		Image cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		setupImages();
 
 		// to use as coordinates
 		double x;
@@ -203,12 +202,22 @@ public class Generator {
 				} else if (ar[i][j] == 10) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
-				
-
 			}
 		}
-		
+
 		return cv;
+	}
+
+	private void setupImages() {
+
+		// Import images to use as tiles
+		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 	}
 
 	public void populate(Populator p) {
