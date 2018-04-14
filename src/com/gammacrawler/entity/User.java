@@ -17,7 +17,7 @@ public class User extends Character implements Moveable {
 	protected Direction direction;
 
 	/** init User sets HP to 100 XP to 0, gives them a sword
-	 * @param name 
+	 * @param name  - name of user
 	 */
 	public User(String name) {
 		super(name, sprite);
