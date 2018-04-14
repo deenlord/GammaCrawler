@@ -2,50 +2,57 @@ package com.gammacrawler.entity;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
-import com.gammacrawler.item.HealthPotion;
+import com.gammacrawler.item.Weapon;
 import com.gammacrawler.item.WoodenSword;
 
-import javafx.scene.image.ImageView;
-
 /**
+ * User is the player. 
+ * 
  * @author deenlord
  * 3/24
  */
 public class User extends Character implements Moveable {
 	protected Sprite sprite = new Sprite("file:src/com/gammacrawler/images/user2.png");
-	protected WoodenSword sword;
+	protected Weapon<?> weapon;
 	protected Direction direction;
 
-	/**
-	 * @param name
+	/** init User sets HP to 100 XP to 0, gives them a sword
+	 * @param name 
 	 */
 	public User(String name) {
 		super(name);
 		this.setMaxHP(100);
-		this.setHP(this.getMaxHP() - 10);
+		this.setHP(this.getMaxHP());
 		this.setXP(0);
 		this.setSprite(sprite);
-		sword = new WoodenSword("Wooden Sword", 
-				new Sprite("file:src/com/gammacrawler/images/woodensword.png", Settings.TILESIZE / 2));
-		this.getInventory().add(sword);
-		HealthPotion health = new HealthPotion();
-		health.addToUser(this);
-		health.drink(this);
-		System.out.println(this.getHP());
-		
+		weapon = new WoodenSword();
+		this.getInventory().add(weapon);
 		for (Item i : this.getInventory()) {
 			System.out.println(i.getName());
 		}
-		
 		this.direction = Direction.EAST;
 		
 		
 	}
 	
-	public ImageView getWeapon() {
-		return this.sword.getSprite().getSprite();
+	/**
+	 * @param w - A Weapon - will override the player's weapon
+	 */
+	public void setWeapon(Weapon<?> w) {
+		this.weapon = w;
 	}
 	
+	/**
+	 * @return this.weapon
+	 */
+	public Weapon<?> getWeapon() {
+		return this.weapon;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.gammacrawler.entity.Character#move(com.gammacrawler.Direction)
+	 */
+	@Override
 	public void move(Direction dir) {
 		System.out.println("Trying to move");
 		int[] loc = this.getLocation();
@@ -77,31 +84,30 @@ public class User extends Character implements Moveable {
 		int y;
 		
 	switch(this.direction) {
-	case EAST:
-		x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
-		y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-		sword.getSprite().rotate(this.direction);
-		this.getWeapon().setLayoutX(x);
-		this.getWeapon().setLayoutY(y);
-		this.sword.swing();
-		break;
-	case WEST:
-		x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
-		y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-		sword.getSprite().rotate(this.direction);
-		this.getWeapon().setLayoutX(x);
-		this.getWeapon().setLayoutY(y);
-		this.sword.swing();
-		break;
-	case NORTH:
-		break;
-	case SOUTH:
-		break;
-	default:
-		break;
-		
-	}
-		
+		case EAST:
+			x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
+			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
+			weapon.getSprite().rotate(Direction.EAST);
+			weapon.getSprite().getImageView().setLayoutX(x);
+			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.animate();
+			break;
+		case WEST:
+			x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
+			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
+			weapon.getSprite().rotate(this.direction);
+			weapon.getSprite().getImageView().setLayoutX(x);
+			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.animate();
+			break;
+		case NORTH:
+			break;
+		case SOUTH:
+			break;
+		default:
+			break;
+			
+		}		
 	}
 	
 	
@@ -114,6 +120,17 @@ public class User extends Character implements Moveable {
 		str.append("Location: " + this.getLocation()[0] + " " + this.getLocation()[1] + "\n");
 		
 		return str.toString();
+		
+	}
+
+	@Override
+	public boolean isDead() {
+		if (this.getHP() <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
 		
 	}
 

@@ -118,7 +118,7 @@ public abstract class Character implements Moveable {
 	}
 
 	public ImageView getImageView() {
-		return this.sprite.getSprite();
+		return this.sprite.getImageView();
 	}
 
 	public void setInventory(ArrayList<Item> inventory) {
@@ -129,24 +129,19 @@ public abstract class Character implements Moveable {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.gammacrawler.Moveable#move(com.gammacrawler.Direction) Move your
-	 * player the direction (sets this.location)
+	 * player the direction (sets this.location) handles sprite rotation.
 	 */
 	public abstract void move(Direction dir);
 	
 	/**
 	 * @return true or false (can use as exit condition for game state)
 	 */
-	public boolean isDead() {
-		boolean dead;
-		if (curHP > 0) {
-			dead = false;
-		} else {
-			dead = true;
-		}
-
-		return dead;
-	}
-
+	public abstract boolean isDead();
+	
+	
+	/**
+	 * @return the character's inventory
+	 */
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}

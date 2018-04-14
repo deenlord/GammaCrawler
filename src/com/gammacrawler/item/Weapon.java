@@ -7,7 +7,7 @@ import com.gammacrawler.entity.Sprite;
  * @author deenlord
  *
  */
-public class Weapon extends Item {
+public abstract class Weapon<T> extends Item {
 	int damageDealt;
 	int maxDamageDealt;
 	public Weapon(String name, Sprite sprite) {
@@ -33,6 +33,9 @@ public class Weapon extends Item {
 	public void setMaxDamage(int max) {
 		this.maxDamageDealt = max;
 	}
+	
+	public abstract void animate();
+	
 	
 	
 	

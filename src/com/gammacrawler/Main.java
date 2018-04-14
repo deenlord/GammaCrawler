@@ -98,12 +98,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		for (Sprite spr : characters) {
 			
 				if (counter >= 10) {
-					spr.getSprite().setLayoutY(i * (counter - 9));
+					spr.getImageView().setLayoutY(i * (counter - 9));
 				}
 				else {
-					spr.getSprite().setLayoutX(i * counter);
+					spr.getImageView().setLayoutX(i * counter);
 				}
-			pane.getChildren().add(spr.getSprite());
+			pane.getChildren().add(spr.getImageView());
 			counter++;
 			
 		}
@@ -150,11 +150,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// set the scene and return it
 		root.getChildren().add(gen.getDungeon());
 		root.getChildren().add(gen.getPlayer().getImageView());
-		root.getChildren().add(gen.getPlayer().getWeapon());
+		root.getChildren().add(gen.getPlayer().getWeapon().getSprite().getImageView());
 		for (Enemy en : gen.enemies) {
 			root.getChildren().add(en.getImageView());
 		}
-		gen.getPlayer().getWeapon().setVisible(false);
+		gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(false);
 		
 		
 		// uncomment below once we have enemies and want to draw them to the screen
@@ -222,7 +222,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		sc.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				gen.getPlayer().getWeapon().setVisible(true);
+				gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(true);
 				gen.getPlayer().attack();
 
 			}

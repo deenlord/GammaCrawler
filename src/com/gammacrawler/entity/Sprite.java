@@ -54,7 +54,7 @@ public class Sprite {
 	/**
 	 * @return - an ImageView of the file used to create this Sprite
 	 */
-	public ImageView getSprite() {
+	public ImageView getImageView() {
 		return this.imgView;
 	}
 	
