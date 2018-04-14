@@ -17,11 +17,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+/**
+ * @author deenlord, crathke4, wolfiewaffle
+ *
+ */
 public class Generator {
 	User player;
 	Board board;
 	int[][] ar;
 	ArrayList<Enemy> enemies;
+	StatusBar status;
 	Image wall;
 	Image floor;
 	Image door;
@@ -33,6 +38,7 @@ public class Generator {
 	public Generator() {
 		this.player = new User("Richard");
 		this.board = new Board(21,21);
+		
 		this.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		//this.createEnemies();
@@ -40,6 +46,9 @@ public class Generator {
 	//	populate(new PopulatorSkulls(this.board.getArray(), enemies));
 		populate(new PopulatorEnemies(this.board.getArray(), enemies));
 		//populate(new PopulatorCobbles(this.board.getArray(), enemies));
+		
+		this.status = new StatusBar(this, 20, 672);
+
 	}
 	
 	public Generator(Sprite userSprite) {
@@ -69,6 +78,10 @@ public class Generator {
 	
 	public Board getBoard() {
 		return this.board;
+	}
+	
+	public StatusBar getStatus() {
+		return this.status;
 	}
 	
 	/**
