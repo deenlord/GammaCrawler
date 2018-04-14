@@ -131,28 +131,8 @@ public abstract class Character implements Moveable {
 	 * @see com.gammacrawler.Moveable#move(com.gammacrawler.Direction) Move your
 	 * player the direction (sets this.location)
 	 */
-	public void move(Direction dir) {
-		System.out.println("Trying to move");
-		this.location = this.getLocation();
-		switch (dir) {
-		case NORTH:
-			this.location[1] -= Settings.TILESIZE;
-			break;
-		case SOUTH:
-			this.location[1] += Settings.TILESIZE;
-			break;
-		case EAST:
-			this.location[0] += Settings.TILESIZE;
-			this.sprite.rotate(Direction.EAST);
-			break;
-		case WEST:
-			this.location[0] -= Settings.TILESIZE;
-			this.sprite.rotate(Direction.WEST);
-			break;
-		}
-
-	}
-
+	public abstract void move(Direction dir);
+	
 	/**
 	 * @return true or false (can use as exit condition for game state)
 	 */
