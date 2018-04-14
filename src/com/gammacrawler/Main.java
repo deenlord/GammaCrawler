@@ -155,7 +155,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			root.getChildren().add(en.getImageView());
 		}
 		gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(false);
-		
+		root.getChildren().add(gen.getStatus());
 		
 		// uncomment below once we have enemies and want to draw them to the screen
 		
