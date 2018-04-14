@@ -8,10 +8,7 @@ import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
 import com.gammacrawler.generator.populators.Populator;
-import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
-import com.gammacrawler.generator.populators.PopulatorSkulls;
-import com.gammacrawler.util.MoveRequest;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -113,71 +110,6 @@ public class Generator {
 //		}
 		return this.enemies;
 	}
-	
-
-	
-	
-	/**
-	 * This is called any time the player presses a key that results in a
-	 * successful movement. No more key pressed will be handled until this
-	 * method finishes. This method moves the enemies around among other things.
-	 */
-	// TODO: NOPE scrapping this attempt, redo this method
-	public void turn() {
-		ArrayList<MoveRequest> moveRequests = new ArrayList<>();
-		boolean conflicts = true;
-
-		// This gets all the valid (not into a wall) MoveRequests from all all enemies.
-		for (Enemy enemy : enemies) {
-
-			// The valid ones that will be added to.
-			ArrayList<MoveRequest> newMq = new ArrayList<>();
-
-			for (MoveRequest mq : enemy.getMovePossibilities()) {
-				int tX = (mq.x / Settings.TILESIZE) - 1;
-				int tY = (mq.y / Settings.TILESIZE) - 1;
-
-				if (!(ar[tY][tX] == 1)) {
-					newMq.add(mq);
-				}
-			}
-
-			// Makes the enemy choose one from its possible movements.
-			moveRequests.add(enemy.getMoveRequest(newMq));
-		}
-
-		// Then we check and see if any 2 enemies are trying to move into the
-		// same place. We keep doing this until we can iterate through all of it
-		// with no conflicts. Each time we do this it moves it closer to that
-		// condition because it moves towards no enemies moving which is a non
-		// conflicted state.
-		while (conflicts) {
-			conflicts = false;
-			for (int i = 0; i < moveRequests.size() - 1; i++) {
-				for (int j = i + 1; j < moveRequests.size(); j++) {
-					if (moveRequests.get(i).x == moveRequests.get(j).x) {
-						if (moveRequests.get(i).y == moveRequests.get(j).y) {
-
-							// For now I will choose in an arbitrary way
-							Enemy e = moveRequests.get(j).e;
-
-							// This sets the moveRequest to the failed request,
-							// which should just be the enemy and its non moved
-							// position.
-							moveRequests.set(j, e.handleMoveRequestFailed());
-							conflicts = true;
-						}
-					}
-				}
-			}
-		}
-
-		// Then we simply move the enemies to their requested position, which we
-		// know is non conflicted.
-		for (MoveRequest mq : moveRequests) {
-			mq.e.setLocation(mq.x, mq.y);
-		}
-	}
 
 	public Canvas getDungeon() {
 		setupImages();
@@ -260,6 +192,34 @@ public class Generator {
 			if (counter > 0) {
 				break;
 			}
+		}
+	}
+
+	/**
+	 * TODO: Javadoc
+	 */
+	private void handleCollisions() {
+
+		// This checks each enemy against every other, once.
+		for (int i = 0; i < enemies.size() - 1; i++) {
+			for (int j = i + 1; j < enemies.size(); j++) {
+				boolean areColliding = false;
+				Enemy enemy1 = enemies.get(i);
+				Enemy enemy2 = enemies.get(j);
+
+				// Check if these entities are colliding.
+				if (enemy1.getLocation()[0] == enemy2.getLocation()[0]) {
+					if (enemy1.getLocation()[1] == enemy2.getLocation()[1]) {
+						areColliding = true;
+					}					
+				}
+
+				// If the entities occupy the same space we collide them.
+				if (areColliding) {
+					enemy1.collide(enemy2);
+					enemy1.collide(enemy1);
+				}
+			}			
 		}
 	}
 

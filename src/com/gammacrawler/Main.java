@@ -289,5 +289,4 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		launch(args);
 	}
 
-	
 }

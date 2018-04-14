@@ -73,4 +73,5 @@ public class Sprite {
 			this.imgView.setRotate(270);
 		}
 	}
+
 }
