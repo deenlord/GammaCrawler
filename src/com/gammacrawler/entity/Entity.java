@@ -84,6 +84,6 @@ public abstract class Entity implements Moveable {
 		return this.sprite.getImageView();
 	}
 
-	public abstract void collide(Entity e);
+	public abstract void collide(Entity e); // Test to see if it works...
 
 }
