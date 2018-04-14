@@ -134,7 +134,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Scene launcher = new Scene(menu);
 		return launcher;
 	}
-
+	
 	/**
 	 * @return the game board scene with a character since 4/1
 	 */
@@ -155,6 +155,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			root.getChildren().add(en.getImageView());
 		}
 		gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(false);
+		
+		//add a status bar
 		root.getChildren().add(gen.getStatus());
 		
 		// uncomment below once we have enemies and want to draw them to the screen
@@ -216,6 +218,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				}
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
+				//update the status bar to reflect current player condition
+				gen.getStatus().updateHealth(672, gen.getStatus().getHealth());
 			}
 		});
 
@@ -224,6 +228,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			public void handle(MouseEvent event) {
 				gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(true);
 				gen.getPlayer().attack();
+				//update the status bar to reflect current player condition
+				gen.getStatus().updateHealth(672, gen.getStatus().getHealth());
 
 			}
 		});

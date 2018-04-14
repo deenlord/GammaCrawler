@@ -27,6 +27,7 @@ public class StatusBar extends Pane{
 		this.player=gen.getPlayer();
 		generateHealthBar(height, (length));
 		generateExpLabel();
+		updateHealth(length, health);
 	}
 	/**
 	 * 
@@ -47,9 +48,11 @@ public class StatusBar extends Pane{
 		darkHealth.setFill(Color.RED);
 		lightHealth.setFill(Color.ORANGERED);
 		this.getChildren().addAll(health,healthBorder,darkHealth,lightHealth);
-		updateHealth(length,health);
 	}
 
+	public Text getHealth() {
+		return health;
+	}
 	private void generateExpLabel()
 	{
 		exp=new Text(coordX+health.getLayoutBounds().getWidth()+10,coordY-1,"XP: "+player.getXP());
@@ -67,6 +70,7 @@ public class StatusBar extends Pane{
 	{
 		health.setText("HP: "+player.getHP()+"/"+player.getMaxHP());
 		this.darkHealth.setWidth(((double)player.getHP()/(double)player.getMaxHP())*(length-10));
+		this.lightHealth.setWidth(((double)player.getHP()/(double)player.getMaxHP())*(length-10));
 	}
 
 
