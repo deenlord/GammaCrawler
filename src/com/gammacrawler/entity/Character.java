@@ -13,26 +13,20 @@ import javafx.scene.image.ImageView;
  * @author deenlord
  *
  */
-public abstract class Character implements Moveable {
-	private String name;
-	private int curHP;
-	private int maxHP;
-	private int XP;
-	private int[] location = new int[2];
-	private Sprite sprite;
-	private ArrayList<Item> inventory = new ArrayList<>();
-
-	public Character(String name) {
-		this.name = name;
-	}
+public abstract class Character extends Entity {
+	protected String name;
+	protected int curHP;
+	protected int maxHP;
+	protected int XP;
+	protected ArrayList<Item> inventory = new ArrayList<>();
 
 	/**
 	 * @param name
 	 * @param sprite
 	 */
 	public Character(String name, Sprite sprite) {
+		super(sprite);
 		this.name = name;
-		this.sprite = sprite;
 	}
 
 	/**
@@ -129,15 +123,44 @@ public abstract class Character implements Moveable {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.gammacrawler.Moveable#move(com.gammacrawler.Direction) Move your
-	 * player the direction (sets this.location) handles sprite rotation.
+	 * player the direction (sets this.location)
 	 */
-	public abstract void move(Direction dir);
+	public void move(Direction dir) {
+		System.out.println("Trying to move");
+		this.location = this.getLocation();
+		switch (dir) {
+		case NORTH:
+			this.location[1] -= Settings.TILESIZE;
+			break;
+		case SOUTH:
+			this.location[1] += Settings.TILESIZE;
+			break;
+		case EAST:
+			this.location[0] += Settings.TILESIZE;
+			this.sprite.rotate(Direction.EAST);
+			break;
+		case WEST:
+			this.location[0] -= Settings.TILESIZE;
+			this.sprite.rotate(Direction.WEST);
+			break;
+		}
 
-	
-	
+	}
+
 	/**
-	 * @return the character's inventory
+	 * @return true or false (can use as exit condition for game state)
 	 */
+	public boolean isDead() {
+		boolean dead;
+		if (curHP > 0) {
+			dead = false;
+		} else {
+			dead = true;
+		}
+
+		return dead;
+	}
+
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}
@@ -155,17 +178,4 @@ public abstract class Character implements Moveable {
 		this.setLocation((tileX) * Settings.TILESIZE, (tileY) * Settings.TILESIZE);
 	}
 
-	
-	/**
-	 * @return true or false (can use as exit condition for game state)
-	 */
-	public boolean isDead() {
-		if (this.getHP() <= 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		
-	}
 }

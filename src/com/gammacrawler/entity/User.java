@@ -12,7 +12,7 @@ import com.gammacrawler.item.WoodenSword;
  * 3/24
  */
 public class User extends Character implements Moveable {
-	protected Sprite sprite = new Sprite("file:src/com/gammacrawler/images/user2.png");
+	protected static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/user2.png");
 	protected Weapon<?> weapon;
 	protected Direction direction;
 
@@ -20,7 +20,7 @@ public class User extends Character implements Moveable {
 	 * @param name 
 	 */
 	public User(String name) {
-		super(name);
+		super(name, sprite);
 		this.setMaxHP(100);
 		this.setHP(this.getMaxHP());
 		this.setXP(0);
@@ -145,9 +145,10 @@ public class User extends Character implements Moveable {
 		
 	}
 
-
-	
-	
-	
+	@Override
+	public void collide(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
