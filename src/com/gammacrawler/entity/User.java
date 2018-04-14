@@ -8,7 +8,7 @@ import com.gammacrawler.item.WoodenSword;
 /**
  * User is the player. 
  * 
- * @author deenlord
+ * @author deenlord, crathke4
  * 3/24
  */
 public class User extends Character implements Moveable {
@@ -132,7 +132,9 @@ public class User extends Character implements Moveable {
 		}		
 	}
 	
-	
+	/*
+	 * (non-Javadoc)
+	 */
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append("Name: " + this.getName() + "\n");

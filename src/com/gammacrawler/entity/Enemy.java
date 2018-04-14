@@ -5,21 +5,25 @@ package com.gammacrawler.entity;
  * 4/7
  */
 public abstract class Enemy extends Character implements Moveable {
-	// TODO: These javadocs
 	
+	/**
+	 * 	Passes name and sprite to super to create new Character
+	 * @param name - name of the enemy
+	 * @param sprite - sprite to be used in display
+	 */
 	public Enemy(String name, Sprite sprite) {
 		super(name, sprite);
 	}
 
 	/**
-	 * if attack is successful, player loses HP
+	 * reduces player health when called
+	 * @param p - User from which to take health
 	 */
 	public void attack(User p)
 	{
 		boolean successful=true;
 		if(successful) {
-			p.setHP(getHP()-(int)((Math.random()*10)/p.getMaxHP()));  //TODO: the math here probably isn't entirely right, 
-																			  //should take a reasonable but random amount of health away from user
+			p.setHP(getHP()-(int)((Math.random()*10)/(p.getMaxHP()/5))); 
 		}
 	}
 

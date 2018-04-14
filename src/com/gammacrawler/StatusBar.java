@@ -10,14 +10,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class StatusBar extends Pane{
-	
+	/**
+	 * @author Crathke4
+	 */
 	private User player;
 	private Rectangle darkHealth, lightHealth;
 	private Rectangle healthBorder;
 	private Text health, exp;
 	private int coordX=32, coordY=14;
 	/**
-	 * 
+	 * Generates graphic and text representations of health and XP formatted into a single node
 	 * @param gen-Generator used to read player Health
 	 * @param height-Height of Status Bar
 	 * @param length-Length of each bar
@@ -30,7 +32,7 @@ public class StatusBar extends Pane{
 		updateHealth(length, health);
 	}
 	/**
-	 * 
+	 * Generates graphic and text representations of players health
 	 * @param height - inherit from Constructor
 	 * @param length - inherit from Constructor
 	 */
@@ -50,9 +52,17 @@ public class StatusBar extends Pane{
 		this.getChildren().addAll(health,healthBorder,darkHealth,lightHealth);
 	}
 
+	/**
+	 * Getter to be used in the updateHealth method in Main.java
+	 * @return the players health
+	 */
 	public Text getHealth() {
 		return health;
 	}
+	
+	/**
+	 * Generates a text representation of players XP
+	 */
 	private void generateExpLabel()
 	{
 		exp=new Text(coordX+health.getLayoutBounds().getWidth()+10,coordY-1,"XP: "+player.getXP());
