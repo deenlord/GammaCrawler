@@ -66,8 +66,11 @@ public class Sprite {
 		case EAST:
 			this.imgView.setRotate(0);
 			break;
-		default:
+		case NORTH:
+			this.imgView.setRotate(90);
 			break;
+		case SOUTH:
+			this.imgView.setRotate(270);
 		}
 	}
 }

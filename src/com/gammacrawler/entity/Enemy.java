@@ -47,23 +47,5 @@ public abstract class Enemy extends Character implements Moveable {
 																			  //should take a reasonable but random amount of health away from user
 		}
 	}
-	
-
-	/**
-	 * @return - True if dead, in which players xp is increased
-	 */
-	public boolean isDead(User p)
-	{
-		boolean dead;
-		if( getHP() > 0 ) {
-			dead = false;
-		}
-		else {
-			dead = true;
-			p.setXP(p.getXP()+5);	//TODO: again this is an arbitrary number and should be changed later
-		}
-
-		return dead;
-	}
 
 }

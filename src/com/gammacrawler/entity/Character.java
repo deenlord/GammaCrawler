@@ -132,11 +132,7 @@ public abstract class Character implements Moveable {
 	 * player the direction (sets this.location) handles sprite rotation.
 	 */
 	public abstract void move(Direction dir);
-	
-	/**
-	 * @return true or false (can use as exit condition for game state)
-	 */
-	public abstract boolean isDead();
+
 	
 	
 	/**
@@ -159,4 +155,17 @@ public abstract class Character implements Moveable {
 		this.setLocation((tileX) * Settings.TILESIZE, (tileY) * Settings.TILESIZE);
 	}
 
+	
+	/**
+	 * @return true or false (can use as exit condition for game state)
+	 */
+	public boolean isDead() {
+		if (this.getHP() <= 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
 }

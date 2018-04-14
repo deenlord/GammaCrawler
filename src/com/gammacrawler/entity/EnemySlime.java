@@ -21,6 +21,7 @@ public class EnemySlime extends Enemy {
 	public static int getDamage() {
 		return damage;
 	}
+	
 
 	@Override
 	public ArrayList<MoveRequest> getMovePossibilities() {
@@ -65,6 +66,27 @@ public class EnemySlime extends Enemy {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void move(Direction dir) {
+		// TODO Auto-generated method stub
+		switch(dir)	 {
+		case EAST:
+			this.setLocation(this.getLocation()[0] +1, this.getLocation()[1]);
+			break;
+		case WEST:
+			this.setLocation(this.getLocation()[0] -1, this.getLocation()[1]);
+			break;
+		case NORTH:
+			break;
+		case SOUTH:
+			break;
+		default:
+			break;
+		}
+			
+	}
+
 
 
 

@@ -30,6 +30,7 @@ public class User extends Character implements Moveable {
 		for (Item i : this.getInventory()) {
 			System.out.println(i.getName());
 		}
+		
 		this.direction = Direction.EAST;
 		
 		
@@ -59,9 +60,11 @@ public class User extends Character implements Moveable {
 		switch (dir) {
 		case NORTH:
 			loc[1] -= Settings.TILESIZE;
+			this.direction = Direction.NORTH;
 			break;
 		case SOUTH:
 			loc[1] += Settings.TILESIZE;
+			this.direction = Direction.SOUTH;
 			break;
 		case EAST:
 			loc[0] += Settings.TILESIZE;
@@ -79,6 +82,9 @@ public class User extends Character implements Moveable {
 	}
 	
 	
+	/** 
+	 * handles weapon animation east west north and south of user
+	 */
 	public void attack() {
 		int x;
 		int y;
@@ -93,16 +99,32 @@ public class User extends Character implements Moveable {
 			weapon.animate();
 			break;
 		case WEST:
+			System.out.println("Attacking west");
 			x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
 			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(this.direction);
+			weapon.getSprite().rotate(Direction.WEST);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
 			weapon.animate();
 			break;
 		case NORTH:
+			System.out.println("Attacking NORTH");
+			x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
+			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
+			weapon.getSprite().rotate(Direction.NORTH);
+			weapon.getSprite().getImageView().setVisible(true);
+			weapon.getSprite().getImageView().setLayoutX(x);
+			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.animate();
 			break;
 		case SOUTH:
+			x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
+			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
+			weapon.getSprite().rotate(Direction.SOUTH);
+			weapon.getSprite().getImageView().setVisible(true);
+			weapon.getSprite().getImageView().setLayoutX(x);
+			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.animate();
 			break;
 		default:
 			break;
@@ -120,17 +142,6 @@ public class User extends Character implements Moveable {
 		str.append("Location: " + this.getLocation()[0] + " " + this.getLocation()[1] + "\n");
 		
 		return str.toString();
-		
-	}
-
-	@Override
-	public boolean isDead() {
-		if (this.getHP() <= 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
 		
 	}
 
