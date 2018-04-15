@@ -2,14 +2,13 @@ package com.gammacrawler.generator.populators;
 
 import java.util.ArrayList;
 
-import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Ogre;
-import com.gammacrawler.util.Point;
 
 public class PopulatorEnemies extends Populator {
 
-	public PopulatorEnemies(int[][] tileArray, ArrayList<Enemy> enemies) {
-		super(tileArray, enemies);
+	public PopulatorEnemies(int[][] tileArray, ArrayList<Entity> entities) {
+		super(tileArray, entities);
 	}
 
 	@Override
@@ -20,8 +19,9 @@ public class PopulatorEnemies extends Populator {
 			int[] p = getRandomFreeSpace();
 			System.out.println("POINT " + p[0] + " " + p[1]);
 			ogre = new Ogre();
-			ogre.moveToTile(p[0], p[1]);
-			enemies.add(ogre);
+			ogre.moveToTile(2, 3);
+			System.out.println("OGRE IS AT " + ogre.getImageView().getX() + " " + ogre.getImageView().getY());
+			entities.add(ogre);
 		//}
 	}
 

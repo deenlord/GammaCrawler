@@ -3,13 +3,13 @@ package com.gammacrawler.generator.populators;
 import java.util.ArrayList;
 
 import com.gammacrawler.Settings;
-import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.util.Point;
 
 public class PopulatorSkulls extends Populator {
 
-	public PopulatorSkulls(int[][] tileArray, ArrayList<Enemy> enemies) {
-		super(tileArray, enemies);
+	public PopulatorSkulls(int[][] tileArray, ArrayList<Entity> entities) {
+		super(tileArray, entities);
 	}
 
 	@Override

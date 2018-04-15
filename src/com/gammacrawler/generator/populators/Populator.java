@@ -4,16 +4,17 @@ import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.util.Point;
 
 public abstract class Populator {
 
 	protected int[][] tileArray;
-	protected ArrayList<Enemy> enemies;
+	protected ArrayList<Entity> entities;
 
-	public Populator(int[][] tileArray, ArrayList<Enemy> enemies) {
+	public Populator(int[][] tileArray, ArrayList<Entity> entities) {
 		this.tileArray = tileArray;
-		this.enemies = enemies;
+		this.entities = entities;
 	}
 
 	public abstract void populate();
@@ -39,10 +40,10 @@ public abstract class Populator {
 			int x = (int) (Math.random() * tileArray.length);
 			int y = (int) (Math.random() * tileArray[0].length);
 
-			System.out.println("Attempting " + x + " " + y);
-			System.out.println("BLOCK: " + tileArray[x][y]);
+//			System.out.println("Attempting " + x + " " + y);
+//			System.out.println("BLOCK: " + tileArray[x][y]);
 			if (tileArray[x][y] == 0) {
-				System.out.println("MAKING POINT " + x + " " + y);
+//				System.out.println("MAKING POINT " + x + " " + y);
 				return new int[]{x, y};
 			}
 		}
