@@ -180,28 +180,28 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("North");
 					if (gen.ar[y - 1][x] < 10) {
 						gen.getPlayer().move(Direction.NORTH);
-//						gen.turn();
+						gen.handleCollisions();
 					}
 					break;
 				case S:
 					System.out.println("South");
 					if (gen.ar[y + 1][x] < 10) {
 						gen.getPlayer().move(Direction.SOUTH);
-//						gen.turn();
+						gen.handleCollisions();
 					}
 					break;
 				case A:
 					System.out.println("West");
 					if (gen.ar[y][x - 1] < 10) {
 						gen.getPlayer().move(Direction.WEST);
-//						gen.turn();
+						gen.handleCollisions();
 					}
 					break;
 				case D:
 					System.out.println("East");
 					if (gen.ar[y][x + 1] < 10) {
 						gen.getPlayer().move(Direction.EAST);
-//						gen.turn();
+						gen.handleCollisions();
 					}
 					break;
 				case I:

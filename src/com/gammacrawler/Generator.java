@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.EnemySlime;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
@@ -23,6 +24,7 @@ public class Generator {
 	Board board;
 	int[][] ar;
 	ArrayList<Enemy> enemies;
+	ArrayList<Entity> gameEntities;
 	StatusBar status;
 	Image wall;
 	Image floor;
@@ -64,7 +66,7 @@ public class Generator {
 			this.board = new Board(55,55);
 		
 		this.enemies = new ArrayList<>();
-		this.createEnemies();
+		//this.createEnemies();
 		this.setPlayerInitialLocation();
 
 	}
@@ -84,32 +86,36 @@ public class Generator {
 	/**
 	 * @return ArrayList of enemies based on the player's xp.
 	 */
-	public ArrayList<Enemy> createEnemies() {
-//		if (this.player.getXP() < 100) {
-//			for (int i = 0; i <= 4; i++) {
-				Enemy em = new EnemySlime();
-				System.out.println("enemyslime created");
-				int[] loc = this.board.getFreePosition();
-				System.out.println("found empty location at " + loc[0] + " " + loc[1]);
-				System.out.println("TEST");
-				em.setLocation(loc[0], loc[1]);
-				System.out.println("set enemy location");
-				this.enemies.add(em);
-				System.out.println("adding enemy to javafx scene");
-				em.getImageView().setX(loc[0]);
-				em.getImageView().setY(loc[1]);
-				System.out.println("enemy added");
-				
-//				Enemy ogre = new Ogre(null);
-//				int[] ogreloc = this.board.getFreePosition();
-//				ogre.setLocation(ogreloc[0], ogreloc[1]);
-//				this.enemies.add(ogre);
-//				ogre.getImageView().setX(ogreloc[0]);
-//				ogre.getImageView().setY(ogreloc[1] - Settings.TILESIZE);
-//			}
-//		}
-		return this.enemies;
-	}
+	// THIS IS APPERENTLY DEPRECATED
+//	public ArrayList<Enemy> createEnemies() {
+////		if (this.player.getXP() < 100) {
+////			for (int i = 0; i <= 4; i++) {
+//				Enemy em = new EnemySlime();
+//				System.out.println("enemyslime created");
+//				int[] loc = this.board.getFreePosition();
+//				System.out.println("found empty location at " + loc[0] + " " + loc[1]);
+//				System.out.println("TEST");
+//				em.setLocation(loc[0], loc[1]);
+//				System.out.println("set enemy location");
+//				
+//				//this.enemies.add(em);
+//				gameEntities.add(em);
+//				
+//				System.out.println("adding enemy to javafx scene");
+//				em.getImageView().setX(loc[0]);
+//				em.getImageView().setY(loc[1]);
+//				System.out.println("enemy added");
+//				
+////				Enemy ogre = new Ogre(null);
+////				int[] ogreloc = this.board.getFreePosition();
+////				ogre.setLocation(ogreloc[0], ogreloc[1]);
+////				this.enemies.add(ogre);
+////				ogre.getImageView().setX(ogreloc[0]);
+////				ogre.getImageView().setY(ogreloc[1] - Settings.TILESIZE);
+////			}
+////		}
+//		return this.enemies;
+//	}
 
 	public Canvas getDungeon() {
 		setupImages();
@@ -181,6 +187,7 @@ public class Generator {
 					player.setLocation(x, y);
 					player.getImageView().setLayoutX(x);
 					player.getImageView().setLayoutY(y);
+					gameEntities.add(player);
 					counter++;
 				}
 
@@ -198,7 +205,7 @@ public class Generator {
 	/**
 	 * TODO: Javadoc
 	 */
-	private void handleCollisions() {
+	public void handleCollisions() {
 
 		// This checks each enemy against every other, once.
 		for (int i = 0; i < enemies.size() - 1; i++) {
