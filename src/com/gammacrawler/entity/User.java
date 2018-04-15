@@ -8,7 +8,7 @@ import com.gammacrawler.item.WoodenSword;
 /**
  * User is the player. 
  * 
- * @author deenlord
+ * @author deenlord, crathke4
  * 3/24
  */
 public class User extends Character implements Moveable {
@@ -17,7 +17,7 @@ public class User extends Character implements Moveable {
 	protected Direction direction;
 
 	/** init User sets HP to 100 XP to 0, gives them a sword
-	 * @param name 
+	 * @param name  - name of user
 	 */
 	public User(String name) {
 		super(name, sprite);
@@ -93,7 +93,7 @@ public class User extends Character implements Moveable {
 		case EAST:
 			x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
 			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(Direction.EAST);
+			weapon.getSprite().rotate(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
 			weapon.animate();
@@ -102,24 +102,24 @@ public class User extends Character implements Moveable {
 			System.out.println("Attacking west");
 			x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
 			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(Direction.WEST);
+			weapon.getSprite().rotate(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
 			weapon.animate();
 			break;
 		case NORTH:
 			System.out.println("Attacking NORTH");
-			x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
-			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(Direction.NORTH);
-			weapon.getSprite().getImageView().setVisible(true);
+			x = (int) (this.getLocation()[0]);
+			y = (int) ((this.getLocation()[1]) - Settings.TILESIZE + (Settings.TILESIZE) /4);
+			weapon.getSprite().rotate(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
 			weapon.animate();
 			break;
+			
 		case SOUTH:
-			x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
-			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
+			x = (int) ((this.getLocation()[0]));
+			y = (int) ((this.getLocation()[1]) + Settings.TILESIZE + (Settings.TILESIZE) /4);
 			weapon.getSprite().rotate(Direction.SOUTH);
 			weapon.getSprite().getImageView().setVisible(true);
 			weapon.getSprite().getImageView().setLayoutX(x);
@@ -132,7 +132,9 @@ public class User extends Character implements Moveable {
 		}		
 	}
 	
-	
+	/*
+	 * (non-Javadoc)
+	 */
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append("Name: " + this.getName() + "\n");
