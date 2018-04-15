@@ -49,6 +49,8 @@ public class Sprite {
 		this.img = new Image(pathtofile, tileSize, tileSize, false, false);
 		this.imgView = new ImageView(this.img);
 		this.imgView.setRotationAxis(Rotate.Y_AXIS);
+
+		
 	}
 	
 	/**
@@ -61,16 +63,18 @@ public class Sprite {
 	public void rotate(Direction dir) {
 		switch (dir) {
 		case WEST:
+			System.out.println("Rotating West");
 			this.imgView.setRotate(180);
 			break;
 		case EAST:
 			this.imgView.setRotate(0);
 			break;
 		case NORTH:
-			this.imgView.setRotate(90);
+			System.out.println("Rotating North");
+			this.imgView.setRotate(0);
 			break;
 		case SOUTH:
-			this.imgView.setRotate(270);
+			this.imgView.setRotate(180);
 		}
 	}
 
