@@ -42,7 +42,7 @@ public abstract class Populator {
 
 //			System.out.println("Attempting " + x + " " + y);
 //			System.out.println("BLOCK: " + tileArray[x][y]);
-			if (tileArray[x][y] == 0) {
+			if (tileArray[x][y] == 0 || tileArray[x][y] == 3 || tileArray[x][y] == 4 || tileArray[x][y] == 5) {
 //				System.out.println("MAKING POINT " + x + " " + y);
 				return new int[]{x, y};
 			}
