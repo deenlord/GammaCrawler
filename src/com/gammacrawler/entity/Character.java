@@ -15,8 +15,8 @@ import javafx.scene.image.ImageView;
  */
 public abstract class Character extends Entity {
 	protected String name;
-	protected int curHP;
-	protected int maxHP;
+	private int curHP;
+	private int maxHP;
 	protected int XP;
 	protected ArrayList<Item> inventory = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public abstract class Character extends Entity {
 	 *            - set current HP to hitpoints value
 	 */
 	public void setHP(int hitpoints) {
-		curHP = hitpoints;
+		curHP = Math.min(Math.max(0, hitpoints), maxHP);
 	}
 
 	/**
