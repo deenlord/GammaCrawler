@@ -1,18 +1,34 @@
-package com.gammacrawler.entity;
+package com.gammacrawler.enemies;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
+import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.Entity;
+import com.gammacrawler.entity.Sprite;
 
+/**
+ * @author deenlord
+ *
+ */
 public class Ogre extends Enemy {
 	protected static final String name = "Ogre";
 	protected static final int damage = 20;
 
+	/** Creates an Ogre
+	 * @param name = "Ogre"
+	 * @param damage = 20
+	 * @param hp = 25
+	 * @param xp = 10
+	 */
 	public Ogre() {
 		super(name, new Sprite("file:src/com/gammacrawler/images/ogre.png"));
 		this.setHP(25);
 		this.setXP(10);
 	}
 
+	/** Returns damage Ogre deals
+	 * @return damage
+	 */
 	public static int getDamage() {
 		return damage;
 	}

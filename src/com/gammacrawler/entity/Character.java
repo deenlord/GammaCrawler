@@ -106,25 +106,25 @@ public abstract class Character extends Entity {
 		location[0] = x;
 		location[1] = y;
 	}
-
+	
+	@Override
 	public void setSprite(Sprite spr) {
 		this.sprite = spr;
 	}
-
+	
+	@Override
 	public ImageView getImageView() {
 		return this.sprite.getImageView();
 	}
 
+	/**
+	 * @param inventory
+	 */
 	public void setInventory(ArrayList<Item> inventory) {
 		this.inventory = inventory;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.gammacrawler.Moveable#move(com.gammacrawler.Direction) Move your
-	 * player the direction (sets this.location)
-	 */
+	@Override
 	public void move(Direction dir) {
 		System.out.println("Trying to move");
 		this.location = this.getLocation();
@@ -147,6 +147,9 @@ public abstract class Character extends Entity {
 
 	}
 
+	/**
+	 * @return the character's inventory.
+	 */
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}

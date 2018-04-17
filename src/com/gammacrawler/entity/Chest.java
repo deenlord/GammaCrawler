@@ -7,7 +7,7 @@ public class Chest extends Item{
 	Sprite sprite = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
 	public String name = "Wooden Chest";
 	public Chest(String name, Sprite sprite) {
-		super(name, sprite);
+		super(sprite, name);
 		inventory = new ArrayList<>();
 	}
 	
@@ -31,6 +31,12 @@ public class Chest extends Item{
 			sb.append(i.getName() + "/n");
 		}
 		return sb.toString();
+		
+	}
+
+	@Override
+	public void collide(Entity e) {
+		// TODO Auto-generated method stub
 		
 	}
 }

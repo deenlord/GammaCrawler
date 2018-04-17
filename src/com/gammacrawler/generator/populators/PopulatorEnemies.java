@@ -1,9 +1,8 @@
 package com.gammacrawler.generator.populators;
 
 import java.util.ArrayList;
-
 import com.gammacrawler.entity.Entity;
-import com.gammacrawler.entity.Ogre;
+import com.gammacrawler.enemies.*;
 
 public class PopulatorEnemies extends Populator {
 
