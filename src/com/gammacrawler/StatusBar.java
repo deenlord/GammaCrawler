@@ -30,7 +30,7 @@ public class StatusBar extends Pane{
 		generateHealthBar(height, (length));
 		generateExpLabel();
 		generatePointsLabel();
-		updateHealth(length, health);
+		updateStatus(length, health);
 	}
 	/**
 	 * Generates graphic and text representations of players health
@@ -77,7 +77,7 @@ public class StatusBar extends Pane{
 	 */
 	private void generatePointsLabel()
 	{
-		points=new Text(coordX+health.getLayoutBounds().getWidth()+exp.getLayoutBounds().getWidth(), coordY-1, "Points: "+player.getPoints());
+		points=new Text(coordX+health.getLayoutBounds().getWidth()+10+exp.getLayoutBounds().getWidth(), coordY-1, "Points: "+player.getPoints());
 		points.setFont(Font.font(null, FontWeight.BOLD, 14));
 		points.setFill(Color.DARKGOLDENROD);
 		this.getChildren().add(points);
@@ -88,11 +88,13 @@ public class StatusBar extends Pane{
 	 * @param length  - inherit from generateHealthBar
 	 * @param health - inherit from generateHealthBar
 	 */
-	public void updateHealth(int length, Text health)
+	public void updateStatus(int length, Text health)
 	{
 		health.setText("HP: "+player.getHP()+"/"+player.getMaxHP());
 		this.darkHealth.setWidth(((double)player.getHP()/(double)player.getMaxHP())*(length-10));
 		this.lightHealth.setWidth(((double)player.getHP()/(double)player.getMaxHP())*(length-10));
+		this.exp.setText("XP: "+player.getXP());
+		this.points.setText("Points: "+player.getPoints());
 	}
 
 

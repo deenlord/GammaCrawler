@@ -251,7 +251,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
-				gen.getStatus().updateHealth(672, gen.getStatus().getHealth());
+				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 			}
 		});
 
@@ -261,7 +261,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().getWeapon().getImageView().setVisible(true);
 				gen.getPlayer().attack();
 				//update the status bar to reflect current player condition
-				gen.getStatus().updateHealth(672, gen.getStatus().getHealth());
+				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				gen.handleCollisions();
 				clearDead((Group) sc.getRoot());
 

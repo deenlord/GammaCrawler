@@ -11,6 +11,7 @@ public class GoldCoin extends Entity {
 	public void collide(Entity e) {
 		if (e instanceof User) {
 			System.out.println("PICKED UP GOLD!");
+			((User) e).setPoints(((User) e).getPoints()+GOLD_POINT_VALUE);
 			this.isDead = true;
 		}
 	}
