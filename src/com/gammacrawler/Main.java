@@ -2,7 +2,7 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
-import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 
 import javafx.animation.AnimationTimer;
@@ -134,7 +134,37 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Scene launcher = new Scene(menu);
 		return launcher;
 	}
-	
+
+	/**
+	 * This sets up the Scene for the game
+	 * @return The game Scene
+	 */
+	private Scene setupImages() {
+
+		// Canvas goes in a Group
+		Group root = new Group();
+
+		// Set the scene
+		root.getChildren().add(gen.getDungeon());
+		root.getChildren().add(gen.getPlayer().getImageView());
+		root.getChildren().add(gen.getPlayer().getWeapon().getSprite().getImageView());
+		for (Entity en : gen.gameEntities) {
+			root.getChildren().add(en.getImageView());
+		}
+		gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(false);
+
+		//add a status bar
+		root.getChildren().add(gen.getStatus());
+
+		// uncomment below once we have enemies and want to draw them to the screen
+
+//		for (Enemy enemy : gen.enemies) {
+//			root.getChildren().add(enemy.getSprite());
+//		}
+
+		return new Scene(root);
+	}
+
 	/**
 	 * @return the game board scene with a character since 4/1
 	 */
@@ -143,30 +173,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		gen = new Generator(); // creates board and user
 		System.out.println("Generator created");			
 		// procedurally...
-		// Canvas goes in a Group
-		Group root = new Group();
-
-
-		// set the scene and return it
-		root.getChildren().add(gen.getDungeon());
-		root.getChildren().add(gen.getPlayer().getImageView());
-		root.getChildren().add(gen.getPlayer().getWeapon().getSprite().getImageView());
-		for (Enemy en : gen.enemies) {
-			root.getChildren().add(en.getImageView());
-		}
-		gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(false);
-		
-		//add a status bar
-		root.getChildren().add(gen.getStatus());
-		
-		// uncomment below once we have enemies and want to draw them to the screen
-		
-//		for (Enemy enemy : gen.enemies) {
-//			root.getChildren().add(enemy.getSprite());
-//		}
-		
-		
-		Scene sc = new Scene(root);
+	
+		Scene sc = setupImages();
 		
 		// event handling for the gameLoop Scene.
 		sc.setOnKeyPressed(new EventHandler<KeyEvent>() {

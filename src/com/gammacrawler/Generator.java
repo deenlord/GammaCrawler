@@ -190,7 +190,7 @@ public class Generator {
 					player.setLocation(x, y);
 					player.getImageView().setLayoutX(x);
 					player.getImageView().setLayoutY(y);
-					gameEntities.add(player);
+					//gameEntities.add(player);
 					counter++;
 				}
 
