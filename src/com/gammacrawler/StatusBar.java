@@ -72,6 +72,9 @@ public class StatusBar extends Pane{
 		this.getChildren().add(exp);
 	}
 	
+	/**
+	 * Generates a text representation of players Points
+	 */
 	private void generatePointsLabel()
 	{
 		points=new Text(coordX+health.getLayoutBounds().getWidth()+exp.getLayoutBounds().getWidth(), coordY-1, "Points: "+player.getPoints());
