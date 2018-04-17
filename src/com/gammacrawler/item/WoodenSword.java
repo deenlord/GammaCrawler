@@ -41,6 +41,7 @@ public class WoodenSword extends Weapon {
 	public void collide(Entity e) {
 		// TODO Auto-generated method stub
 		System.out.println("WoodenSword IS COLLIDING WITH " + e.getClass().getSimpleName());
+		setDoingDamage(false);
 	}
 
 }

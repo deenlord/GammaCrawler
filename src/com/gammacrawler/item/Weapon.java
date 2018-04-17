@@ -10,6 +10,8 @@ import com.gammacrawler.entity.Sprite;
 public abstract class Weapon<T> extends Item {
 	int damageDealt;
 	int maxDamageDealt;
+	private boolean isDoingDamage = false;
+
 	public Weapon(String name, Sprite sprite) {
 		super(sprite, name);
 		
@@ -34,8 +36,18 @@ public abstract class Weapon<T> extends Item {
 		this.maxDamageDealt = max;
 	}
 
+	public boolean isDoingDamage() {
+		return this.isDoingDamage;
+	}
+
+	public void setDoingDamage(boolean bool) {
+		this.isDoingDamage = bool;
+	}
+
 	public abstract void animate();
 	
 	public abstract Sprite getSprite();
+	
+	
 	
 }

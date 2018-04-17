@@ -88,7 +88,8 @@ public class User extends Character implements Moveable {
 	public void attack() {
 		int x;
 		int y;
-		
+		weapon.setDoingDamage(true);
+
 	switch(this.direction) {
 		case EAST:
 			x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
@@ -96,6 +97,7 @@ public class User extends Character implements Moveable {
 			weapon.getSprite().rotate(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.setLocation(this.getLocation()[0] + Settings.TILESIZE, this.getLocation()[1]);
 			weapon.animate();
 			break;
 		case WEST:
@@ -105,6 +107,7 @@ public class User extends Character implements Moveable {
 			weapon.getSprite().rotate(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.setLocation(this.getLocation()[0] - Settings.TILESIZE, this.getLocation()[1]);
 			weapon.animate();
 			break;
 		case NORTH:
@@ -114,6 +117,7 @@ public class User extends Character implements Moveable {
 			weapon.getSprite().rotate(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.setLocation(this.getLocation()[0], this.getLocation()[1] - Settings.TILESIZE);
 			weapon.animate();
 			break;
 			
@@ -124,6 +128,7 @@ public class User extends Character implements Moveable {
 			weapon.getSprite().getImageView().setVisible(true);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
+			weapon.setLocation(this.getLocation()[0], this.getLocation()[1] + Settings.TILESIZE); // TODO: Fix entity coordinates
 			weapon.animate();
 			break;
 		default:

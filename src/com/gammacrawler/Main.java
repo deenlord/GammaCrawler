@@ -170,6 +170,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		for (Entity en : gen.gameEntities) {
 			root.getChildren().add(en.getImageView());
 		}
+		gen.gameEntities.add(gen.getPlayer().getWeapon());
 		gen.getPlayer().getWeapon().getImageView().setVisible(false);
 
 		//add a status bar
@@ -261,6 +262,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().attack();
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateHealth(672, gen.getStatus().getHealth());
+				gen.handleCollisions();
+				clearDead((Group) sc.getRoot());
 
 			}
 		});

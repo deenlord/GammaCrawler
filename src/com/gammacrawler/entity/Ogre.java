@@ -42,6 +42,7 @@ public class Ogre extends Enemy {
 	@Override
 	public void collide(Entity e) {
 		System.out.println("OGRE IS COLLIDING WITH " + e.getClass().getSimpleName());
+		this.isDead = true;
 	}
 
 }
