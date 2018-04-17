@@ -28,10 +28,10 @@ public abstract class Character extends Entity {
 	}
 
 	/**
-	 * @param points - points to be added
+	 * @param points - what poitns will be set to
 	 */
 	public void setPoints(int points) {
-		this.points+=points;
+		this.points = points;
 	}
 
 	protected ArrayList<Item> inventory = new ArrayList<>();
