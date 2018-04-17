@@ -21,8 +21,8 @@ public abstract class Character extends Entity {
 	protected ArrayList<Item> inventory = new ArrayList<>();
 
 	/**
-	 * @param name
-	 * @param sprite
+	 * @param name - name of character
+	 * @param sprite - character's sprite
 	 */
 	public Character(String name, Sprite sprite) {
 		super(sprite);
@@ -118,7 +118,7 @@ public abstract class Character extends Entity {
 	}
 
 	/**
-	 * @param inventory
+	 * @param inventory - what inventory will be set to
 	 */
 	public void setInventory(ArrayList<Item> inventory) {
 		this.inventory = inventory;
@@ -158,8 +158,8 @@ public abstract class Character extends Entity {
 	 * This will take a tile coordinate (0 - (length - 1)) and convert it into
 	 * pixel coordinates, then move the entity to that location.
 	 * 
-	 * @param tileX
-	 * @param tileY
+	 * @param tileX - x coordinate
+	 * @param tileY - y coordinate
 	 */
 	public void moveToTile(int tileX, int tileY) {
 		getImageView().setX((tileX) * Settings.TILESIZE);

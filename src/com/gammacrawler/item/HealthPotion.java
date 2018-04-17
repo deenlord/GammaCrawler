@@ -1,6 +1,7 @@
 package com.gammacrawler.item;
 
 import com.gammacrawler.entity.Character;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
@@ -39,6 +40,12 @@ public class HealthPotion extends Potion {
 		c.setHP(returnMe);
 		System.out.println("Health Potion Applied: User HP = " + c.getHP());
 	
+	}
+
+	@Override
+	public void collide(Entity e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

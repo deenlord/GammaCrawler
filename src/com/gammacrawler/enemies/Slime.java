@@ -1,4 +1,8 @@
-package com.gammacrawler.entity;
+package com.gammacrawler.enemies;
+
+import com.gammacrawler.entity.Enemy;
+import com.gammacrawler.entity.Entity;
+import com.gammacrawler.entity.Sprite;
 
 /**
  * @author deenlord
@@ -11,10 +15,10 @@ public class Slime extends Enemy {
 	private static final int damage = 5;
 	
 	/** Creates an Enemy Slime
-	 * @param name = "Slime"
-	 * @param damage = 5
-	 * @param hp = 10
-	 * @param xp = 5
+	 *  name = "Slime"
+	 *  damage = 5
+	 *  hp = 10
+	 *  xp = 5
 	 */
 	public Slime() {
 		super(name, sprite);

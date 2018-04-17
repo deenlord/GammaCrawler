@@ -17,7 +17,9 @@ public class ConnectorBucket {
 	}
 
 	/**
-	 * Returns if the numbers match either forwards or backwards.
+	 * @param regionIDOne - first number
+	 * @param regionIDTwo - second number
+	 * @return Boolean - if true, numbers match forwards or backwards
 	 */
 	public boolean fits(int regionIDOne, int regionIDTwo) {
 		if (regionIDOne == regionOne) {
@@ -31,13 +33,11 @@ public class ConnectorBucket {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Takes a list of DungeonConnectors and puts them in a list of buckets,
-	 * sorting them by what regions they connect.
-	 * 
-	 * @param connectors
-	 *            The big list of connectors to sort.
+	 * Sorts an arrayList of connectors
+	 * @param connectors - connectors to be sorted
+	 * @return connectors, sorted by which regions they connect
 	 */
 	public static ArrayList<ConnectorBucket> getSortedList(ArrayList<DungeonConnector> connectors) {
 		ArrayList<ConnectorBucket> buckets = new ArrayList<>();

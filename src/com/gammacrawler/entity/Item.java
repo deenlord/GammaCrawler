@@ -11,8 +11,8 @@ public abstract class Item extends Entity{
 	private int value;
 
 	/**
-	 * @param name
-	 * @param sprite
+	 * @param name - name of the item
+	 * @param sprite - Item's sprite
 	 */
 	public Item(Sprite sprite, String name) {
 		super(sprite);
@@ -20,8 +20,8 @@ public abstract class Item extends Entity{
 	}
 	
 	/**
-	 * @param name
-	 * @param sprite
+	 * @param name - name of item
+	 * @param sprite - Item's sprite
 	 * @param val - value of item, a modifier. HealthPotion val = 25, gives user 25 health.
 	 */
 	public Item(String name, Sprite sprite, int val) {

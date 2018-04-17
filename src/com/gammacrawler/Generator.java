@@ -153,7 +153,7 @@ public class Generator {
 	}
 
 	/** takes a Populator, then populates the populator
-	 * @param p 
+	 * @param p - populator to be populated
 	 */
 	public void populate(Populator p) {
 		p.populate();

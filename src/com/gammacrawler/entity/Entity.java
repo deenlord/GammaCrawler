@@ -11,8 +11,7 @@ public abstract class Entity implements Moveable {
 	public boolean isDead = false;
 
 	/**
-	 * @param name
-	 * @param sprite
+	 * @param sprite - Entity's sprite
 	 */
 	public Entity(Sprite sprite) {
 		this.sprite = sprite;
@@ -44,8 +43,8 @@ public abstract class Entity implements Moveable {
 	 * This will take a tile coordinate (0 - (length - 1)) and convert it into
 	 * pixel coordinates, then move the entity to that location.
 	 * 
-	 * @param tileX
-	 * @param tileY
+	 * @param tileX - x coordinate
+	 * @param tileY - y coordinate
 	 */
 	public void moveToTile(int tileX, int tileY) {
 		getImageView().setX((tileX) * Settings.TILESIZE);
@@ -60,10 +59,8 @@ public abstract class Entity implements Moveable {
 	}
 
 	/**
-	 * @param x
-	 *            - x coordinate
-	 * @param y
-	 *            - y coordinate
+	 * @param x - x coordinate
+	 * @param y - y coordinate
 	 */
 	public void setLocation(int x, int y) {
 		location[0] = x;

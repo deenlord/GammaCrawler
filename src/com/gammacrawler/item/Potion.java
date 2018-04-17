@@ -11,7 +11,7 @@ import com.gammacrawler.entity.Sprite;
 public abstract class Potion extends Item {
 	int value;
 	public Potion(String name, Sprite sprite, int val) {
-		super(name, sprite);
+		super(sprite, name);
 		this.value = val;
 	}	
 	

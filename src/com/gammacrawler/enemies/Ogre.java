@@ -15,10 +15,7 @@ public class Ogre extends Enemy {
 	protected static final int damage = 20;
 
 	/** Creates an Ogre
-	 * @param name = "Ogre"
-	 * @param damage = 20
-	 * @param hp = 25
-	 * @param xp = 10
+	 *  name Ogre, damage 20, hp25, xp 10
 	 */
 	public Ogre() {
 		super(name, new Sprite("file:src/com/gammacrawler/images/ogre.png"));

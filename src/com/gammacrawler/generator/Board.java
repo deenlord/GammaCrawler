@@ -290,8 +290,8 @@ public class Board {
 
 	/**
 	 * Returns a random odd number with a range
-	 * @param min
-	 * @param max
+	 * @param min - lowest possible number
+	 * @param max - highest possible number
 	 * @return A random odd number with a range
 	 */
 	public static int randomOdd(int min, int max) {
