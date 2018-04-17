@@ -12,7 +12,7 @@ public class Slime extends Enemy {
 	
 	private static final String name = "Slime";
 	protected static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/slime.png");
-	private static final int damage = 5;
+
 	
 	/** Creates an Enemy Slime
 	 *  name = "Slime"
@@ -21,17 +21,13 @@ public class Slime extends Enemy {
 	 *  xp = 5
 	 */
 	public Slime() {
-		super(name, sprite);
+		// damage = 5
+		super(name, sprite, 5);
 		this.setHP(10);
 		this.setXP(5);
 	}
 	
-	/**
-	 * @return the damage the slime deals
-	 */
-	public static int getDamage() {
-		return damage;
-	}
+
 
 	@Override
 	public void collide(Entity e) {
