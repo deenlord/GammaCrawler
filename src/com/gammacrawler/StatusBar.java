@@ -16,7 +16,7 @@ public class StatusBar extends Pane{
 	private User player;
 	private Rectangle darkHealth, lightHealth;
 	private Rectangle healthBorder;
-	private Text health, exp;
+	private Text health, exp, points;
 	private int coordX=32, coordY=14;
 	/**
 	 * Generates graphic and text representations of health and XP formatted into a single node
@@ -69,6 +69,14 @@ public class StatusBar extends Pane{
 		exp.setFont(Font.font(null,FontWeight.BOLD, 14));
 		exp.setFill(Color.DARKBLUE);
 		this.getChildren().add(exp);
+	}
+	
+	private void generatePointsLabel()
+	{
+		points=new Text(coordX+health.getLayoutBounds().getWidth()+exp.getLayoutBounds().getWidth(), coordY-1, "Points: "+player.getPoints());
+		points.setFont(Font.font(null, FontWeight.BOLD, 14));
+		points.setFill(Color.DARKGOLDENROD);
+		this.getChildren().add(points);
 	}
 	
 	/**
