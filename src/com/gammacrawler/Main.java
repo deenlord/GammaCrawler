@@ -201,10 +201,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			
 			@Override
 			public void handle(KeyEvent event) {
-
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
 				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
-
 				switch (event.getCode()) {
 				case W:
 					System.out.println("North");
