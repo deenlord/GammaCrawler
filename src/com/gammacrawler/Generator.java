@@ -190,7 +190,7 @@ public class Generator {
 					player.setLocation(x, y);
 					player.getImageView().setLayoutX(x);
 					player.getImageView().setLayoutY(y);
-					//gameEntities.add(player);
+					gameEntities.add(player);
 					counter++;
 				}
 
@@ -211,23 +211,23 @@ public class Generator {
 	public void handleCollisions() {
 
 		// This checks each enemy against every other, once.
-		for (int i = 0; i < enemies.size() - 1; i++) {
-			for (int j = i + 1; j < enemies.size(); j++) {
+		for (int i = 0; i < gameEntities.size() - 1; i++) {
+			for (int j = i + 1; j < gameEntities.size(); j++) {
 				boolean areColliding = false;
-				Enemy enemy1 = enemies.get(i);
-				Enemy enemy2 = enemies.get(j);
+				Entity entity1 = gameEntities.get(i);
+				Entity entity2 = gameEntities.get(j);
 
 				// Check if these entities are colliding.
-				if (enemy1.getLocation()[0] == enemy2.getLocation()[0]) {
-					if (enemy1.getLocation()[1] == enemy2.getLocation()[1]) {
+				if (entity1.getLocation()[0] == entity2.getLocation()[0]) {
+					if (entity1.getLocation()[1] == entity2.getLocation()[1]) {
 						areColliding = true;
 					}					
 				}
 
 				// If the entities occupy the same space we collide them.
 				if (areColliding) {
-					enemy1.collide(enemy2);
-					enemy1.collide(enemy1);
+					entity1.collide(entity2);
+					entity2.collide(entity1);
 				}
 			}			
 		}

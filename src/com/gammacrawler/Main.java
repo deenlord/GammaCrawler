@@ -139,14 +139,13 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	 * This sets up the Scene for the game
 	 * @return The game Scene
 	 */
-	private Scene setupImages() {
+	private Scene setupScene() {
 
 		// Canvas goes in a Group
 		Group root = new Group();
 
 		// Set the scene
 		root.getChildren().add(gen.getDungeon());
-		root.getChildren().add(gen.getPlayer().getImageView());
 		root.getChildren().add(gen.getPlayer().getWeapon().getSprite().getImageView());
 		for (Entity en : gen.gameEntities) {
 			root.getChildren().add(en.getImageView());
@@ -174,7 +173,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		System.out.println("Generator created");			
 		// procedurally...
 	
-		Scene sc = setupImages();
+		Scene sc = setupScene();
 		
 		// event handling for the gameLoop Scene.
 		sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
