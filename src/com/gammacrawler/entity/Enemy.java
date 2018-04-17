@@ -5,14 +5,15 @@ package com.gammacrawler.entity;
  * 4/7
  */
 public abstract class Enemy extends Character implements Moveable {
-	
+	private int damage;
 	/**
 	 * 	Passes name and sprite to super to create new Character
 	 * @param name - name of the enemy
 	 * @param sprite - sprite to be used in display
 	 */
-	public Enemy(String name, Sprite sprite) {
+	public Enemy(String name, Sprite sprite, int damage) {
 		super(name, sprite);
+		this.damage = damage;
 	}
 
 	/**
@@ -23,8 +24,15 @@ public abstract class Enemy extends Character implements Moveable {
 	{
 		boolean successful=true;
 		if(successful) {
-			p.setHP(getHP()-(int)((Math.random()*10)/(p.getMaxHP()/5))); 
+			p.setHP(p.getHP()- damage); 
 		}
+	}
+	
+	/**
+	 * @return the damage the enemy deals
+	 */
+	public int getDamage() {
+		return this.damage;
 	}
 
 }
