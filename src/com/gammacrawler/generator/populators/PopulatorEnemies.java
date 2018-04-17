@@ -14,15 +14,12 @@ public class PopulatorEnemies extends Populator {
 	@Override
 	public void populate() {
 		Ogre ogre;
-		//for (int i = 0; i < 1; i++) {
-			System.out.println("CALLING");
+		for (int i = 0; i < 10; i++) {
 			int[] p = getRandomFreeSpace();
-			System.out.println("POINT " + p[0] + " " + p[1]);
 			ogre = new Ogre();
-			ogre.moveToTile(2, 3);
-			System.out.println("OGRE IS AT " + ogre.getImageView().getX() + " " + ogre.getImageView().getY());
+			ogre.moveToTile(p[1] + 1, p[0] + 1); // TODO: Fix entity coordinates
 			entities.add(ogre);
-		//}
+		}
 	}
 
 }
