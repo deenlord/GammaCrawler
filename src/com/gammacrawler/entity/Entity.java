@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 public abstract class Entity implements Moveable {
 	protected int[] location = new int[2];
 	protected Sprite sprite;
+	public boolean isDead = false;
 
 	/**
 	 * @param name
@@ -85,5 +86,27 @@ public abstract class Entity implements Moveable {
 	}
 
 	public abstract void collide(Entity e); // Test to see if it works...
+
+	/**
+	 * @return true or false (can use as exit condition for game state)
+	 */
+	public boolean isDead() {
+		boolean dead = false;
+
+		if (isDead) {
+			dead  = true;
+		} else {
+			if (this instanceof Character) {
+				if (((Character) this).getHP() > 0) {
+					dead = false;
+				} else {
+					dead = true;
+				}
+
+			}
+		}
+
+		return dead;
+	}
 
 }

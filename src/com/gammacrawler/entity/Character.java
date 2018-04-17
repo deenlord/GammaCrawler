@@ -147,20 +147,6 @@ public abstract class Character extends Entity {
 
 	}
 
-	/**
-	 * @return true or false (can use as exit condition for game state)
-	 */
-	public boolean isDead() {
-		boolean dead;
-		if (curHP > 0) {
-			dead = false;
-		} else {
-			dead = true;
-		}
-
-		return dead;
-	}
-
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}

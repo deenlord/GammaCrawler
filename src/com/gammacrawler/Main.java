@@ -136,6 +136,26 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 	/**
+	 * This removes dead entities from the map
+	 */
+	private void clearDead(Group root) {
+		ArrayList<Entity> deadEntities = new ArrayList<>();
+
+		for (Entity en : gen.gameEntities) {
+			if (en.isDead) {
+				deadEntities.add(en);
+			}
+		}
+
+		for (Entity en : deadEntities) {
+			if (en.isDead) {
+				gen.gameEntities.remove(en);
+				root.getChildren().remove(en.getImageView());
+			}
+		}
+	}
+
+	/**
 	 * This sets up the Scene for the game
 	 * @return The game Scene
 	 */
@@ -190,6 +210,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (gen.ar[y - 1][x] < 10) {
 						gen.getPlayer().move(Direction.NORTH);
 						gen.handleCollisions();
+						clearDead((Group) sc.getRoot());
 					}
 					break;
 				case S:
@@ -197,6 +218,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (gen.ar[y + 1][x] < 10) {
 						gen.getPlayer().move(Direction.SOUTH);
 						gen.handleCollisions();
+						clearDead((Group) sc.getRoot());
 					}
 					break;
 				case A:
@@ -204,6 +226,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (gen.ar[y][x - 1] < 10) {
 						gen.getPlayer().move(Direction.WEST);
 						gen.handleCollisions();
+						clearDead((Group) sc.getRoot());
 					}
 					break;
 				case D:
@@ -211,6 +234,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (gen.ar[y][x + 1] < 10) {
 						gen.getPlayer().move(Direction.EAST);
 						gen.handleCollisions();
+						clearDead((Group) sc.getRoot());
 					}
 					break;
 				case I:
