@@ -11,12 +11,12 @@ public abstract class Weapon<T> extends Item {
 	int damageDealt;
 	int maxDamageDealt;
 	public Weapon(String name, Sprite sprite) {
-		super(name, sprite);
+		super(sprite, name);
 		
 	}
 	
 	public Weapon(String name, Sprite sprite, int regDamage, int maxDamage) {
-		super(name, sprite);
+		super(sprite, name);
 		this.damageDealt = regDamage;
 		this.maxDamageDealt = maxDamage;
 		
@@ -33,10 +33,9 @@ public abstract class Weapon<T> extends Item {
 	public void setMaxDamage(int max) {
 		this.maxDamageDealt = max;
 	}
-	
+
 	public abstract void animate();
 	
-	
-	
+	public abstract Sprite getSprite();
 	
 }

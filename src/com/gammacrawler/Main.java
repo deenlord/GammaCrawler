@@ -166,11 +166,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// Set the scene
 		root.getChildren().add(gen.getDungeon());
-		root.getChildren().add(gen.getPlayer().getWeapon().getSprite().getImageView());
+		root.getChildren().add(gen.getPlayer().getWeapon().getImageView());
 		for (Entity en : gen.gameEntities) {
 			root.getChildren().add(en.getImageView());
 		}
-		gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(false);
+		gen.getPlayer().getWeapon().getImageView().setVisible(false);
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
@@ -257,7 +257,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		sc.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				gen.getPlayer().getWeapon().getSprite().getImageView().setVisible(true);
+				gen.getPlayer().getWeapon().getImageView().setVisible(true);
 				gen.getPlayer().attack();
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateHealth(672, gen.getStatus().getHealth());

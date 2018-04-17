@@ -4,7 +4,7 @@ package com.gammacrawler.entity;
  * @author jakev
  *
  */
-public abstract class Item {
+public abstract class Item extends Entity{
 
 	private String name;
 	protected Sprite sprite;
@@ -14,9 +14,9 @@ public abstract class Item {
 	 * @param name
 	 * @param sprite
 	 */
-	public Item(String name, Sprite sprite) {
+	public Item(Sprite sprite, String name) {
+		super(sprite);
 		this.name = name;
-		this.sprite = sprite;
 	}
 	
 	/**
@@ -25,15 +25,9 @@ public abstract class Item {
 	 * @param val - value of item, a modifier. HealthPotion val = 25, gives user 25 health.
 	 */
 	public Item(String name, Sprite sprite, int val) {
-		this(name, sprite);
-		this.value = val;
-	}
-	
-	/**
-	 * @param name
-	 */
-	public Item(String name) {
+		super(sprite);
 		this.name = name;
+		this.value = val;
 	}
 	
 	/**

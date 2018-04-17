@@ -1,6 +1,7 @@
 package com.gammacrawler.item;
 
 import com.gammacrawler.Settings;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 
 import javafx.animation.FadeTransition;
@@ -30,6 +31,16 @@ public class WoodenSword extends Weapon {
 	    this.ft.setCycleCount(1);
 	    this.ft.setAutoReverse(true);
 	    this.ft.play();
+	}
+	
+	public Sprite getSprite() {
+		return this.sprite;
+	}
+
+	@Override
+	public void collide(Entity e) {
+		// TODO Auto-generated method stub
+		System.out.println("WoodenSword IS COLLIDING WITH " + e.getClass().getSimpleName());
 	}
 
 }
