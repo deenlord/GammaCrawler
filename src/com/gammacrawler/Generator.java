@@ -18,7 +18,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-/**
+/** This class is used for procedural generation.
  * @author deenlord, crathke4, wolfiewaffle
  *
  */
@@ -40,7 +40,6 @@ public class Generator {
 	public Generator() {
 		this.player = new User("Richard");
 		this.board = new Board(21,21);
-		
 		this.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		this.gameEntities = new ArrayList<>();
@@ -53,13 +52,9 @@ public class Generator {
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
 //		populate(new PopulatorEnemiesDebug(this.board.getArray(), gameEntities));
 		
+		
+		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
-
-	}
-	
-	public Generator(Sprite userSprite) {
-		new Generator();
-		this.player.setSprite(userSprite);
 
 	}
 	
@@ -73,8 +68,18 @@ public class Generator {
 			this.board = new Board(55,55);
 		
 		this.enemies = new ArrayList<>();
-		//this.createEnemies();
+		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
+
+		// Run all the populators, to populate the dungeon with stuff.
+		populate(new PopulatorSkulls(this.board.getArray(), gameEntities));
+		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
+		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
+		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
+		
+		
+		// Show user their health, experience, gold, etc...
+		this.status = new StatusBar(this, 20, 672);
 
 	}
 	
@@ -89,40 +94,7 @@ public class Generator {
 	public StatusBar getStatus() {
 		return this.status;
 	}
-	
-	/**
-	 * @return ArrayList of enemies based on the player's xp.
-	 */
-	// THIS IS APPERENTLY DEPRECATED
-//	public ArrayList<Enemy> createEnemies() {
-////		if (this.player.getXP() < 100) {
-////			for (int i = 0; i <= 4; i++) {
-//				Enemy em = new EnemySlime();
-//				System.out.println("enemyslime created");
-//				int[] loc = this.board.getFreePosition();
-//				System.out.println("found empty location at " + loc[0] + " " + loc[1]);
-//				System.out.println("TEST");
-//				em.setLocation(loc[0], loc[1]);
-//				System.out.println("set enemy location");
-//				
-//				//this.enemies.add(em);
-//				gameEntities.add(em);
-//				
-//				System.out.println("adding enemy to javafx scene");
-//				em.getImageView().setX(loc[0]);
-//				em.getImageView().setY(loc[1]);
-//				System.out.println("enemy added");
-//				
-////				Enemy ogre = new Ogre(null);
-////				int[] ogreloc = this.board.getFreePosition();
-////				ogre.setLocation(ogreloc[0], ogreloc[1]);
-////				this.enemies.add(ogre);
-////				ogre.getImageView().setX(ogreloc[0]);
-////				ogre.getImageView().setY(ogreloc[1] - Settings.TILESIZE);
-////			}
-////		}
-//		return this.enemies;
-//	}
+
 
 	public Canvas getDungeon() {
 		setupImages();
@@ -166,9 +138,11 @@ public class Generator {
 		return cv;
 	}
 
+	
+	/** Setup our dungeon images, this is for non-interactive sprites.
+	 * 
+	 */
 	private void setupImages() {
-
-		// Import images to use as tiles
 		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
@@ -178,14 +152,20 @@ public class Generator {
 		cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 	}
 
+	/** takes a Populator, then populates the populator
+	 * @param p 
+	 */
 	public void populate(Populator p) {
 		p.populate();
 	}
 
+	/**
+	 * iterate through the array to find the first zero location (top left),
+	 * draw the User there. ... only once.
+	 */
 	private void setPlayerInitialLocation() {
 		int counter = 0;
-		// iterate through the array to find the first zero location,
-		// draw the User there. ... only once.
+		// 
 		for (int z = 0; z < (ar.length); z++) {
 			for (int j = 0; j < (ar[z].length); j++) {
 				if (ar[z][j] == 0 & counter == 0) {
