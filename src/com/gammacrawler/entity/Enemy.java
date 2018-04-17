@@ -22,7 +22,11 @@ public abstract class Enemy extends Character implements Moveable {
 	 */
 	public void attack(User p)
 	{
-		boolean successful=true;
+		boolean successful = false;
+		int rand = (int) Math.random() * 10;
+		if ( rand <=5 )
+			successful=true;
+		
 		if(successful) {
 			p.setHP(p.getHP()- damage); 
 		}
