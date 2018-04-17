@@ -29,6 +29,7 @@ public class StatusBar extends Pane{
 		this.player=gen.getPlayer();
 		generateHealthBar(height, (length));
 		generateExpLabel();
+		generatePointsLabel();
 		updateHealth(length, health);
 	}
 	/**
