@@ -141,21 +141,21 @@ public class Generator {
 				y = (i + 1) * Settings.TILESIZE; // plus one to avoid dividing by zero
 				x = (j + 1) * Settings.TILESIZE;
 
-				if (ar[i][j] == 0) {
+				if (ar[i][j] == Settings.FLOOR_ID) {
 					// draw floor tile where you find a 0 in the array
 					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == 99) {
+				} else if (ar[i][j] == Settings.WALL_ID) {
 					// draw wall tile where you find a 1 in the array
 					gc.drawImage(wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == 2) {
+				} else if (ar[i][j] == Settings.DOOR_ID) {
 					gc.drawImage(door, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == 3) {
+				} else if (ar[i][j] == Settings.COBBLES1_ID) {
 					gc.drawImage(cobbles1, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == 4) {
+				} else if (ar[i][j] == Settings.COBBLES2_ID) {
 					gc.drawImage(cobbles2, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == 5) {
+				} else if (ar[i][j] == Settings.COBBLES3_ID) {
 					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == 10) {
+				} else if (ar[i][j] == Settings.SKULL_ID) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}

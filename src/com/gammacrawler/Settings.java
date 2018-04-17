@@ -19,5 +19,5 @@ public class Settings {
 	public static final int COBBLES1_ID = 3;
 	public static final int COBBLES2_ID = 4;
 	public static final int COBBLES3_ID = 5;
-	public static final int SKULL_ID = 10;
+	public static final int SKULL_ID = 6;
 }
