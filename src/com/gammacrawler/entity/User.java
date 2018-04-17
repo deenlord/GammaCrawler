@@ -25,6 +25,7 @@ public class User extends Character implements Moveable {
 		this.setHP(this.getMaxHP());
 		this.setXP(0);
 		this.setSprite(sprite);
+		this.setPoints(0);
 		weapon = new WoodenSword();
 		this.getInventory().add(weapon);
 		for (Item i : this.getInventory()) {
