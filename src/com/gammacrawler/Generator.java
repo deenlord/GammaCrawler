@@ -3,12 +3,14 @@ package com.gammacrawler;
 import java.util.ArrayList;
 
 import com.gammacrawler.entity.Enemy;
-import com.gammacrawler.entity.EnemySlime;
+import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
 import com.gammacrawler.generator.populators.Populator;
+import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
+import com.gammacrawler.generator.populators.PopulatorGoldCoin;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,6 +25,7 @@ public class Generator {
 	Board board;
 	int[][] ar;
 	ArrayList<Enemy> enemies;
+	ArrayList<Entity> gameEntities;
 	StatusBar status;
 	Image wall;
 	Image floor;
@@ -38,11 +41,13 @@ public class Generator {
 		
 		this.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
+		this.gameEntities = new ArrayList<>();
 		//this.createEnemies();
 		this.setPlayerInitialLocation();
-	//	populate(new PopulatorSkulls(this.board.getArray(), enemies));
-		populate(new PopulatorEnemies(this.board.getArray(), enemies));
-		//populate(new PopulatorCobbles(this.board.getArray(), enemies));
+		//populate(new PopulatorSkulls(this.board.getArray(), enemies));
+		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
+		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
+		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
 		
 		this.status = new StatusBar(this, 20, 672);
 
@@ -64,7 +69,7 @@ public class Generator {
 			this.board = new Board(55,55);
 		
 		this.enemies = new ArrayList<>();
-		this.createEnemies();
+		//this.createEnemies();
 		this.setPlayerInitialLocation();
 
 	}
@@ -84,32 +89,36 @@ public class Generator {
 	/**
 	 * @return ArrayList of enemies based on the player's xp.
 	 */
-	public ArrayList<Enemy> createEnemies() {
-//		if (this.player.getXP() < 100) {
-//			for (int i = 0; i <= 4; i++) {
-				Enemy em = new EnemySlime();
-				System.out.println("enemyslime created");
-				int[] loc = this.board.getFreePosition();
-				System.out.println("found empty location at " + loc[0] + " " + loc[1]);
-				System.out.println("TEST");
-				em.setLocation(loc[0], loc[1]);
-				System.out.println("set enemy location");
-				this.enemies.add(em);
-				System.out.println("adding enemy to javafx scene");
-				em.getImageView().setX(loc[0]);
-				em.getImageView().setY(loc[1]);
-				System.out.println("enemy added");
-				
-//				Enemy ogre = new Ogre(null);
-//				int[] ogreloc = this.board.getFreePosition();
-//				ogre.setLocation(ogreloc[0], ogreloc[1]);
-//				this.enemies.add(ogre);
-//				ogre.getImageView().setX(ogreloc[0]);
-//				ogre.getImageView().setY(ogreloc[1] - Settings.TILESIZE);
-//			}
-//		}
-		return this.enemies;
-	}
+	// THIS IS APPERENTLY DEPRECATED
+//	public ArrayList<Enemy> createEnemies() {
+////		if (this.player.getXP() < 100) {
+////			for (int i = 0; i <= 4; i++) {
+//				Enemy em = new EnemySlime();
+//				System.out.println("enemyslime created");
+//				int[] loc = this.board.getFreePosition();
+//				System.out.println("found empty location at " + loc[0] + " " + loc[1]);
+//				System.out.println("TEST");
+//				em.setLocation(loc[0], loc[1]);
+//				System.out.println("set enemy location");
+//				
+//				//this.enemies.add(em);
+//				gameEntities.add(em);
+//				
+//				System.out.println("adding enemy to javafx scene");
+//				em.getImageView().setX(loc[0]);
+//				em.getImageView().setY(loc[1]);
+//				System.out.println("enemy added");
+//				
+////				Enemy ogre = new Ogre(null);
+////				int[] ogreloc = this.board.getFreePosition();
+////				ogre.setLocation(ogreloc[0], ogreloc[1]);
+////				this.enemies.add(ogre);
+////				ogre.getImageView().setX(ogreloc[0]);
+////				ogre.getImageView().setY(ogreloc[1] - Settings.TILESIZE);
+////			}
+////		}
+//		return this.enemies;
+//	}
 
 	public Canvas getDungeon() {
 		setupImages();
@@ -181,6 +190,7 @@ public class Generator {
 					player.setLocation(x, y);
 					player.getImageView().setLayoutX(x);
 					player.getImageView().setLayoutY(y);
+					gameEntities.add(player);
 					counter++;
 				}
 
@@ -198,26 +208,26 @@ public class Generator {
 	/**
 	 * TODO: Javadoc
 	 */
-	private void handleCollisions() {
+	public void handleCollisions() {
 
 		// This checks each enemy against every other, once.
-		for (int i = 0; i < enemies.size() - 1; i++) {
-			for (int j = i + 1; j < enemies.size(); j++) {
+		for (int i = 0; i < gameEntities.size() - 1; i++) {
+			for (int j = i + 1; j < gameEntities.size(); j++) {
 				boolean areColliding = false;
-				Enemy enemy1 = enemies.get(i);
-				Enemy enemy2 = enemies.get(j);
+				Entity entity1 = gameEntities.get(i);
+				Entity entity2 = gameEntities.get(j);
 
 				// Check if these entities are colliding.
-				if (enemy1.getLocation()[0] == enemy2.getLocation()[0]) {
-					if (enemy1.getLocation()[1] == enemy2.getLocation()[1]) {
+				if (entity1.getLocation()[0] == entity2.getLocation()[0]) {
+					if (entity1.getLocation()[1] == entity2.getLocation()[1]) {
 						areColliding = true;
 					}					
 				}
 
 				// If the entities occupy the same space we collide them.
 				if (areColliding) {
-					enemy1.collide(enemy2);
-					enemy1.collide(enemy1);
+					entity1.collide(entity2);
+					entity2.collide(entity1);
 				}
 			}			
 		}

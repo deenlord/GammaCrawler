@@ -41,8 +41,7 @@ public class Ogre extends Enemy {
 
 	@Override
 	public void collide(Entity e) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("OGRE IS COLLIDING WITH " + e.getClass().getSimpleName());
 	}
 
 }
