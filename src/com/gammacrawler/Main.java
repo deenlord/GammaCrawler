@@ -175,7 +175,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
-
+		
 		// uncomment below once we have enemies and want to draw them to the screen
 
 //		for (Enemy enemy : gen.enemies) {

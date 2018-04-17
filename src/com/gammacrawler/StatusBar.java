@@ -39,7 +39,7 @@ public class StatusBar extends Pane{
 	 */
 	private void generateHealthBar(int height, int length)
 	{
-		health=new Text(coordX,coordY-1,"HP: "+player.getHP()+"/"+player.getMaxHP());
+		health=new Text(coordX,coordY-1,"HP: "+player.getHP());
 		health.setFont(Font.font(null,FontWeight.BOLD, 14));
 		health.setFill(Color.DARKRED);
 		this.healthBorder=new Rectangle(coordX,coordY,length,height);
@@ -66,7 +66,9 @@ public class StatusBar extends Pane{
 	 */
 	private void generateExpLabel()
 	{
-		exp=new Text(coordX+health.getLayoutBounds().getWidth()+10,coordY-1,"XP: "+player.getXP());
+		exp=new Text("XP: "+player.getXP()+"/"+player.getMaxHP());
+		exp.setX(this.health.getLayoutBounds().getMaxX()+10);
+		exp.setY(coordY-1);
 		exp.setFont(Font.font(null,FontWeight.BOLD, 14));
 		exp.setFill(Color.DARKBLUE);
 		this.getChildren().add(exp);
@@ -77,7 +79,9 @@ public class StatusBar extends Pane{
 	 */
 	private void generatePointsLabel()
 	{
-		points=new Text(coordX+health.getLayoutBounds().getWidth()+10+exp.getLayoutBounds().getWidth(), coordY-1, "Points: "+player.getPoints());
+		points=new Text("Points: "+player.getPoints());
+		points.setX(this.exp.getLayoutBounds().getMaxX()+10);
+		points.setY(coordY-1);
 		points.setFont(Font.font(null, FontWeight.BOLD, 14));
 		points.setFill(Color.DARKGOLDENROD);
 		this.getChildren().add(points);
@@ -95,6 +99,8 @@ public class StatusBar extends Pane{
 		this.lightHealth.setWidth(((double)player.getHP()/(double)player.getMaxHP())*(length-10));
 		this.exp.setText("XP: "+player.getXP());
 		this.points.setText("Points: "+player.getPoints());
+		this.exp.setX(this.health.getLayoutBounds().getMaxX()+10);
+		this.points.setX(this.exp.getLayoutBounds().getMaxX()+10);
 	}
 
 
