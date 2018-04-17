@@ -18,6 +18,22 @@ public abstract class Character extends Entity {
 	private int curHP;
 	private int maxHP;
 	protected int XP;
+	protected int points;
+	
+	/**
+	 * @return number of points the player has
+	 */
+	public int getPoints() {
+		return points;
+	}
+
+	/**
+	 * @param points - points to be added
+	 */
+	public void setPoints(int points) {
+		this.points+=points;
+	}
+
 	protected ArrayList<Item> inventory = new ArrayList<>();
 
 	/**
