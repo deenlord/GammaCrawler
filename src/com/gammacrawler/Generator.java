@@ -8,6 +8,7 @@ import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
 import com.gammacrawler.generator.populators.Populator;
+import com.gammacrawler.generator.populators.PopulatorChests;
 import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorEnemiesDebug;
@@ -50,6 +51,7 @@ public class Generator {
 		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
+		populate(new PopulatorChests(this.board.getArray(), gameEntities));
 //		populate(new PopulatorEnemiesDebug(this.board.getArray(), gameEntities));
 		
 		

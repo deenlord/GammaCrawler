@@ -2,6 +2,7 @@ package com.gammacrawler.generator.populators;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.Settings;
 import com.gammacrawler.entity.Chest;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.item.HealthPotion;
@@ -19,9 +20,7 @@ public class PopulatorChests extends Populator {
 		HealthPotion hp = new HealthPotion();
 		chest.addTo(hp);
 		int[] p = this.getRandomFreeSpace();
-		chest.getImageView().setLayoutX(p[0] + 1);
-		chest.getImageView().setLayoutY(p[1] + 1);
-		
+		chest.moveToTile(p[1] + 1, p[0] + 0);
 		entities.add(chest);
 		
 	}

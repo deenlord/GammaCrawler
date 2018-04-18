@@ -11,7 +11,7 @@ import javafx.util.Duration;
 public class WoodenSword extends Weapon {
 	FadeTransition ft;
 	private static final String name = "Wooden Sword";
-	protected static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/woodensword.png", Settings.TILESIZE/2);
+	protected static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/woodensword.png", Settings.HALF_TILESIZE);
 	
 	public WoodenSword() {
 		super(name, sprite);
