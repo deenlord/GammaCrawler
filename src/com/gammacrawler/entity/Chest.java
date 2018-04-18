@@ -6,9 +6,10 @@ import com.gammacrawler.Direction;
 
 public class Chest extends Item{
 	ArrayList<Item> inventory;
-	Sprite sprite = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
-	public String name = "Wooden Chest";
-	public Chest(String name, Sprite sprite) {
+	static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
+	public static String name = "Wooden Chest";
+	
+	public Chest() {
 		super(sprite, name);
 		inventory = new ArrayList<>();
 	}
