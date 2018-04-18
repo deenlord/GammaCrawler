@@ -35,6 +35,10 @@ public abstract class Weapon<T> extends Item {
 	public void setMaxDamage(int max) {
 		this.maxDamageDealt = max;
 	}
+	
+	public int getMaxDamage() {
+		return this.maxDamageDealt;
+	}
 
 	public boolean isDoingDamage() {
 		return this.isDoingDamage;

@@ -67,12 +67,14 @@ public abstract class Character extends Entity {
 		return curHP;
 	}
 
-	/**
+	/** set current HP to hitpoints value
 	 * @param hitpoints
-	 *            - set current HP to hitpoints value
+	 *            - 
 	 */
 	public void setHP(int hitpoints) {
-		curHP = Math.min(Math.max(0, hitpoints), maxHP);
+		
+		if (hitpoints <= this.getMaxHP())
+			curHP = hitpoints;
 	}
 
 	/**
