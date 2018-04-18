@@ -1,5 +1,6 @@
 package com.gammacrawler.item;
 
+import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
@@ -42,6 +43,12 @@ public class WoodenSword extends Weapon {
 		// TODO Auto-generated method stub
 		System.out.println("WoodenSword IS COLLIDING WITH " + e.getClass().getSimpleName());
 		setDoingDamage(false);
+	}
+
+	@Override
+	public void move(Direction d) {
+		// TODO really don't need this.
+		
 	}
 
 }

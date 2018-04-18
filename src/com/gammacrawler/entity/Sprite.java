@@ -60,7 +60,6 @@ public class Sprite {
 		this.imgView.setRotationAxis(Rotate.Y_AXIS);
 		switch (dir) {
 		case WEST:
-			System.out.println("Rotating West");
 			this.imgView.setRotate(180);
 			break;
 		case EAST:
@@ -78,21 +77,22 @@ public class Sprite {
 	public void rotateWeapon(Direction dir) {
 		System.out.println("Rotate Weapon called.");
 		this.imgView.setRotationAxis(Rotate.Z_AXIS);
+		//this.imgView.setTranslateZ(1);
 		switch (dir) {
 		case WEST:
-			System.out.println("Rotating Weapon West");
+//			 System.out.println("Rotating Weapon West");
 			this.imgView.setRotate(180);
 			break;
 		case EAST:
-			System.out.println("Rotating Weapon East");
+//			 System.out.println("Rotating Weapon East");
 			this.imgView.setRotate(0);
 			break;
 		case NORTH:
-			System.out.println("Rotating Weapon North");
+//			System.out.println("Rotating Weapon North");
 			this.imgView.setRotate(270);
 			break;
 		case SOUTH:
-			System.out.println("Rotating Weapon South");
+//			System.out.println("Rotating Weapon South");
 			this.imgView.setRotate(90);
 			break;
 		}

@@ -163,25 +163,20 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// Canvas goes in a Group
 		Group root = new Group();
+		
 
 		// Set the scene
 		root.getChildren().add(gen.getDungeon());
-		root.getChildren().add(gen.getPlayer().getWeapon().getImageView());
+		
 		for (Entity en : gen.gameEntities) {
 			root.getChildren().add(en.getImageView());
 		}
+		
+		root.getChildren().add(gen.getPlayer().getWeapon().getImageView());
 		gen.gameEntities.add(gen.getPlayer().getWeapon());
-		gen.getPlayer().getWeapon().getImageView().setVisible(false);
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
-		
-		// uncomment below once we have enemies and want to draw them to the screen
-
-//		for (Enemy enemy : gen.enemies) {
-//			root.getChildren().add(enemy.getSprite());
-//		}
-
 		return new Scene(root);
 	}
 
