@@ -21,7 +21,6 @@ public class Sprite {
 	public Sprite(String pathtofile) {
 		this.img = new Image(pathtofile, Settings.TILESIZE, Settings.TILESIZE, false, false);
 		this.imgView = new ImageView(this.img);
-		this.imgView.setRotationAxis(Rotate.Y_AXIS);
 	}
 	
 	/**
@@ -37,7 +36,6 @@ public class Sprite {
 		}
 		
 		this.imgView = new ImageView(this.img);
-		this.imgView.setRotationAxis(Rotate.Y_AXIS);
 	}
 	
 	
@@ -48,8 +46,6 @@ public class Sprite {
 	public Sprite(String pathtofile, int tileSize) {
 		this.img = new Image(pathtofile, tileSize, tileSize, false, false);
 		this.imgView = new ImageView(this.img);
-		this.imgView.setRotationAxis(Rotate.Y_AXIS);
-
 		
 	}
 	
@@ -60,7 +56,8 @@ public class Sprite {
 		return this.imgView;
 	}
 	
-	public void rotate(Direction dir) {
+	public void rotateCharacter(Direction dir) {
+		this.imgView.setRotationAxis(Rotate.Y_AXIS);
 		switch (dir) {
 		case WEST:
 			System.out.println("Rotating West");
@@ -70,11 +67,34 @@ public class Sprite {
 			this.imgView.setRotate(0);
 			break;
 		case NORTH:
-			System.out.println("Rotating North");
 			this.imgView.setRotate(0);
 			break;
 		case SOUTH:
 			this.imgView.setRotate(180);
+			break;
+		}
+	}
+	
+	public void rotateWeapon(Direction dir) {
+		System.out.println("Rotate Weapon called.");
+		this.imgView.setRotationAxis(Rotate.Z_AXIS);
+		switch (dir) {
+		case WEST:
+			System.out.println("Rotating Weapon West");
+			this.imgView.setRotate(180);
+			break;
+		case EAST:
+			System.out.println("Rotating Weapon East");
+			this.imgView.setRotate(0);
+			break;
+		case NORTH:
+			System.out.println("Rotating Weapon North");
+			this.imgView.setRotate(270);
+			break;
+		case SOUTH:
+			System.out.println("Rotating Weapon South");
+			this.imgView.setRotate(90);
+			break;
 		}
 	}
 

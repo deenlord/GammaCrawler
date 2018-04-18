@@ -2,6 +2,8 @@ package com.gammacrawler.entity;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.Direction;
+
 public class Chest extends Item{
 	ArrayList<Item> inventory;
 	Sprite sprite = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
@@ -36,6 +38,12 @@ public class Chest extends Item{
 
 	@Override
 	public void collide(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(Direction d) {
 		// TODO Auto-generated method stub
 		
 	}

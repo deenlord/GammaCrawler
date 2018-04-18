@@ -1,5 +1,6 @@
 package com.gammacrawler.enemies;
 
+import com.gammacrawler.Direction;
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
@@ -27,7 +28,10 @@ public class Slime extends Enemy {
 		this.setXP(5);
 	}
 	
-
+	@Override 
+	public void move(Direction dir) {
+		// TODO : add enemy movement ai here
+	}
 
 	@Override
 	public void collide(Entity e) {

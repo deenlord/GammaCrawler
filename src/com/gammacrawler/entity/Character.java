@@ -147,17 +147,19 @@ public abstract class Character extends Entity {
 		switch (dir) {
 		case NORTH:
 			this.location[1] -= Settings.TILESIZE;
+			this.sprite.rotateCharacter(Direction.NORTH);
 			break;
 		case SOUTH:
 			this.location[1] += Settings.TILESIZE;
+			this.sprite.rotateCharacter(Direction.SOUTH);
 			break;
 		case EAST:
 			this.location[0] += Settings.TILESIZE;
-			this.sprite.rotate(Direction.EAST);
+			this.sprite.rotateCharacter(Direction.EAST);
 			break;
 		case WEST:
 			this.location[0] -= Settings.TILESIZE;
-			this.sprite.rotate(Direction.WEST);
+			this.sprite.rotateCharacter(Direction.WEST);
 			break;
 		}
 

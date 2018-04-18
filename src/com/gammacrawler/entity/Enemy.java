@@ -4,7 +4,7 @@ package com.gammacrawler.entity;
  * @author crathke4
  * 4/7
  */
-public abstract class Enemy extends Character implements Moveable {
+public abstract class Enemy extends Character {
 	private int damage;
 	/**
 	 * 	Passes name and sprite to super to create new Character

@@ -51,37 +51,9 @@ public class User extends Character implements Moveable {
 		return this.weapon;
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.gammacrawler.entity.Character#move(com.gammacrawler.Direction)
-	 */
-	@Override
-	public void move(Direction dir) {
-		System.out.println("Trying to move");
-		int[] loc = this.getLocation();
-		switch (dir) {
-		case NORTH:
-			loc[1] -= Settings.TILESIZE;
-			this.direction = Direction.NORTH;
-			break;
-		case SOUTH:
-			loc[1] += Settings.TILESIZE;
-			this.direction = Direction.SOUTH;
-			break;
-		case EAST:
-			loc[0] += Settings.TILESIZE;
-			this.direction = Direction.EAST;
-			this.sprite.rotate(Direction.EAST);
-			break;
-		case WEST:
-			loc[0] -= Settings.TILESIZE;
-			this.direction = Direction.WEST;
-			this.sprite.rotate(Direction.WEST);
-			break;
-		}
-		this.setLocation(loc[0], loc[1]);
-
+	public void updateDirection(Direction dir) {
+		this.direction = dir;
 	}
-	
 	
 	/** 
 	 * handles weapon animation east west north and south of user
@@ -95,7 +67,7 @@ public class User extends Character implements Moveable {
 		case EAST:
 			x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
 			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(this.direction);
+			weapon.getSprite().rotateWeapon(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
 			weapon.setLocation(this.getLocation()[0] + Settings.TILESIZE, this.getLocation()[1]);
@@ -105,7 +77,7 @@ public class User extends Character implements Moveable {
 			System.out.println("Attacking west");
 			x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
 			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(this.direction);
+			weapon.getSprite().rotateWeapon(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
 			weapon.setLocation(this.getLocation()[0] - Settings.TILESIZE, this.getLocation()[1]);
@@ -115,7 +87,7 @@ public class User extends Character implements Moveable {
 			System.out.println("Attacking NORTH");
 			x = (int) (this.getLocation()[0]);
 			y = (int) ((this.getLocation()[1]) - Settings.TILESIZE + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(this.direction);
+			weapon.getSprite().rotateWeapon(this.direction);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);
 			weapon.setLocation(this.getLocation()[0], this.getLocation()[1] - Settings.TILESIZE);
@@ -125,7 +97,7 @@ public class User extends Character implements Moveable {
 		case SOUTH:
 			x = (int) ((this.getLocation()[0]));
 			y = (int) ((this.getLocation()[1]) + Settings.TILESIZE + (Settings.TILESIZE) /4);
-			weapon.getSprite().rotate(Direction.SOUTH);
+			weapon.getSprite().rotateWeapon(Direction.SOUTH);
 			weapon.getSprite().getImageView().setVisible(true);
 			weapon.getSprite().getImageView().setLayoutX(x);
 			weapon.getSprite().getImageView().setLayoutY(y);

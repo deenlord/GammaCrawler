@@ -210,6 +210,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("North");
 					if (gen.ar[y - 1][x] < 10) {
 						gen.getPlayer().move(Direction.NORTH);
+						gen.getPlayer().updateDirection(Direction.NORTH);
 						gen.handleCollisions();
 						clearDead((Group) sc.getRoot());
 					}
@@ -218,6 +219,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("South");
 					if (gen.ar[y + 1][x] < 10) {
 						gen.getPlayer().move(Direction.SOUTH);
+						gen.getPlayer().updateDirection(Direction.SOUTH);
 						gen.handleCollisions();
 						clearDead((Group) sc.getRoot());
 					}
@@ -226,6 +228,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("West");
 					if (gen.ar[y][x - 1] < 10) {
 						gen.getPlayer().move(Direction.WEST);
+						gen.getPlayer().updateDirection(Direction.WEST);
 						gen.handleCollisions();
 						clearDead((Group) sc.getRoot());
 					}
@@ -234,6 +237,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("East");
 					if (gen.ar[y][x + 1] < 10) {
 						gen.getPlayer().move(Direction.EAST);
+						gen.getPlayer().updateDirection(Direction.EAST);
 						gen.handleCollisions();
 						clearDead((Group) sc.getRoot());
 					}

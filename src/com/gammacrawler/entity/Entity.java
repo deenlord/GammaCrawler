@@ -17,28 +17,6 @@ public abstract class Entity implements Moveable {
 		this.sprite = sprite;
 	}
 
-	@Override
-	public void move(Direction d) {
-		System.out.println("Trying to move");
-		this.location = this.getLocation();
-		switch (d) {
-		case NORTH:
-			this.location[1] -= Settings.TILESIZE;
-			break;
-		case SOUTH:
-			this.location[1] += Settings.TILESIZE;
-			break;
-		case EAST:
-			this.location[0] += Settings.TILESIZE;
-			this.sprite.rotate(Direction.EAST);
-			break;
-		case WEST:
-			this.location[0] -= Settings.TILESIZE;
-			this.sprite.rotate(Direction.WEST);
-			break;
-		}
-	}
-
 	/**
 	 * This will take a tile coordinate (0 - (length - 1)) and convert it into
 	 * pixel coordinates, then move the entity to that location.
