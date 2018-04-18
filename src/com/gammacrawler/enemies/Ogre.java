@@ -37,11 +37,13 @@ public class Ogre extends Enemy {
 			WoodenSword sw = new WoodenSword();
 			System.out.println("Ogre HP: " + this.getHP());
 			
-			int rand = (int) Math.random() * 10;
-			if (rand <= 8)
+			int rand = (int) Math.random() * 100;
+			if (rand <= 8) {
 				this.setHP(this.getHP() - sw.getDamage());
-			else
+			}
+			else {
 				this.setHP(this.getHP() - sw.getMaxDamage());
+			}
 			
 			System.out.println(this.getHP());
 		}

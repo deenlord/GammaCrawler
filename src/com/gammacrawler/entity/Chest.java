@@ -3,6 +3,7 @@ package com.gammacrawler.entity;
 import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
+import com.gammacrawler.item.WoodenSword;
 
 public class Chest extends Item{
 	ArrayList<Item> inventory;
@@ -39,8 +40,12 @@ public class Chest extends Item{
 
 	@Override
 	public void collide(Entity e) {
-		// TODO Auto-generated method stub
-		
+		// TODO finish this. #deenlord 4/18
+		if (e.getClass().getSimpleName().equals("WoodenSword") || e.getClass().getSimpleName().equals("User")) {
+			for (Item i : this.inventory) {
+				// TODO: add item to player's inventory, or just drop to screen? Interesting.
+			}
+		}
 	}
 
 	@Override
