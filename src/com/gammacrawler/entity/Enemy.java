@@ -40,7 +40,7 @@ public abstract class Enemy extends Character {
 		}
 	}
 	
-	public void move()
+	public void moveAI()
 	{
 		this.status=EnemyStatus.DOCILE;
 		ai.check();
