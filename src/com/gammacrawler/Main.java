@@ -174,6 +174,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		root.getChildren().add(gen.getPlayer().getWeapon().getImageView());
 		gen.gameEntities.add(gen.getPlayer().getWeapon());
+		gen.getPlayer().getWeapon().getImageView().setVisible(false);
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());

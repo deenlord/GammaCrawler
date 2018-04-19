@@ -6,21 +6,21 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 
-public class IncreaseMaxHPPotion extends Potion {
+public class XPPotion extends Potion {
 
-	private static final String name = "BoostHP Potion";
-	private static final int value = 25;
+	private static final String name = "BoostXP Potion";
+	private static final int value = 100;
 	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/smallhealthpotion.png");
 	
-	public IncreaseMaxHPPotion() {
+	public XPPotion() {
 		super(name, sprite, value);
 	}
 
 	
 	@Override
 	public void drink(Character c) {
-		c.setMaxHP(c.getMaxHP() + value);
-		c.setHP(c.getHP() + value);
+		c.setXP(c.getXP() + value);
+
 	}
 
 	@Override
