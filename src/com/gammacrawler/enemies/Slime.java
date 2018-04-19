@@ -15,11 +15,13 @@ public class Slime extends Enemy {
 	protected static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/slime.png");
 
 	
-	/** Creates an Enemy Slime
-	 *  name = "Slime"
-	 *  damage = 5
-	 *  hp = 10
-	 *  xp = 5
+	/** 
+	 * <h3>Creates an Enemy Slime</h3>
+	 * <p>
+	 *  name = "Slime" <br>
+	 *  damage = 5 <br>
+	 *  hp = 10 <br>
+	 *  xp = 5 <br>
 	 */
 	public Slime() {
 		// damage = 5

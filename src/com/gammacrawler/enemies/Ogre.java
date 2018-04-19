@@ -5,6 +5,7 @@ import com.gammacrawler.Settings;
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
+import com.gammacrawler.entity.User;
 import com.gammacrawler.item.WoodenSword;
 
 /**
@@ -14,8 +15,12 @@ import com.gammacrawler.item.WoodenSword;
 public class Ogre extends Enemy {
 	protected static final String name = "Ogre";
 
-	/** Creates an Ogre
-	 *  name Ogre, damage 20, hp25, xp 10
+	/** 
+	 * <h3> Creates an Ogre </h3>
+	 *  {@code name = "Ogre"}
+	 *  {@code damage = 20} 
+	 *  {@code HP = 25}
+	 *  {@code XP = 10}
 	 */
 	public Ogre() {
 		super(name, new Sprite("file:src/com/gammacrawler/images/ogre.png"), 20);
@@ -46,6 +51,11 @@ public class Ogre extends Enemy {
 			}
 			
 			System.out.println(this.getHP());
+		}
+		else if (e.getClass().getSimpleName().equals("User")) {
+			User richard = (User) e;
+			richard.setHP(richard.getHP() -  this.getDamage());
+			e = richard;
 		}
 		
 		if (this.getHP() <= 0) {

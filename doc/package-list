@@ -1,1 +1,11 @@
+com.gammacrawler
 com.gammacrawler.enemies
+com.gammacrawler.entity
+com.gammacrawler.generator
+com.gammacrawler.generator.map
+com.gammacrawler.generator.map.connector
+com.gammacrawler.generator.populators
+com.gammacrawler.generator.test
+com.gammacrawler.item
+com.gammacrawler.test
+com.gammacrawler.util

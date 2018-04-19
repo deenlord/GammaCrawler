@@ -1,5 +1,6 @@
 package com.gammacrawler.item;
 
+import com.gammacrawler.Direction;
 import com.gammacrawler.entity.Character;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
@@ -44,6 +45,12 @@ public class HealthPotion extends Potion {
 
 	@Override
 	public void collide(Entity e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move(Direction d) {
 		// TODO Auto-generated method stub
 		
 	}

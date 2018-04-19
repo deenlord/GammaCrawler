@@ -41,10 +41,12 @@ public class Chest extends Item{
 	@Override
 	public void collide(Entity e) {
 		// TODO finish this. #deenlord 4/18
-		if (e.getClass().getSimpleName().equals("WoodenSword") || e.getClass().getSimpleName().equals("User")) {
+		if (e.getClass().getSimpleName().equals("User")) {
+			User richard = (User) e;
 			for (Item i : this.inventory) {
-				// TODO: add item to player's inventory, or just drop to screen? Interesting.
+				i.addToUser(richard);
 			}
+			e = richard;
 		}
 	}
 

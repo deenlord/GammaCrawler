@@ -9,10 +9,12 @@ import java.util.ArrayList;
 public abstract class Enemy extends Character {
 	private int damage;
 	private ArrayList<Item> inventory;
+	
 	/**
 	 * 	Passes name and sprite to super to create new Character
-	 * @param name - name of the enemy
-	 * @param sprite - sprite to be used in display
+	 * @param name - name of the enemy - String
+	 * @param sprite - sprite to be used in display - Sprite
+	 * @param damage - amount of damage enemy deals - int
 	 */
 	public Enemy(String name, Sprite sprite, int damage) {
 		super(name, sprite);
