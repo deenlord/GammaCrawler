@@ -3,6 +3,7 @@ package com.gammacrawler.generator.populators;
 import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
+import com.gammacrawler.Settings;
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.util.Point;
@@ -42,7 +43,10 @@ public abstract class Populator {
 
 //			System.out.println("Attempting " + x + " " + y);
 //			System.out.println("BLOCK: " + tileArray[x][y]);
-			if (tileArray[x][y] == 0 || tileArray[x][y] == 3 || tileArray[x][y] == 4 || tileArray[x][y] == 5) {
+			if (tileArray[x][y] == Settings.FLOOR_ID ||
+					tileArray[x][y] == Settings.COBBLES1_ID ||
+					tileArray[x][y] == Settings.COBBLES2_ID ||
+					tileArray[x][y] == Settings.COBBLES3_ID) {
 //				System.out.println("MAKING POINT " + x + " " + y);
 				return new int[]{x, y};
 			}
@@ -93,9 +97,12 @@ public abstract class Populator {
 				getTile(point.direction(Direction.SOUTH).direction(Direction.EAST)),
 				getTile(point.direction(Direction.EAST)) };
 
-		// Replace doors with route
+		// Replace non solid tiles with route
 		for (int i = 0; i < tiles.length; i++) {
-			if (tiles[i] == 2) {
+			if (tiles[i] == Settings.FLOOR_ID ||
+					tiles[i] == Settings.COBBLES1_ID ||
+					tiles[i] == Settings.COBBLES2_ID ||
+					tiles[i] == Settings.COBBLES3_ID) {
 				tiles[i] = routeTile;
 			}
 		}
