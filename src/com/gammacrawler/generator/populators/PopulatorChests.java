@@ -23,7 +23,7 @@ public class PopulatorChests extends Populator {
 		chest.addTo(hp);
 		chest.addTo(incMax);
 		int[] p = this.getRandomFreeSpace();
-		chest.moveToTile(p[1] + 1, p[0] + 0);
+		chest.moveToTile(p[1] + 1, p[0] + 1);
 		entities.add(chest);
 		
 	}
