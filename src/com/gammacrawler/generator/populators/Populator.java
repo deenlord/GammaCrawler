@@ -100,6 +100,7 @@ public abstract class Populator {
 		// Replace non solid tiles with route
 		for (int i = 0; i < tiles.length; i++) {
 			if (tiles[i] == Settings.FLOOR_ID ||
+					tiles[i] == Settings.DOOR_ID ||
 					tiles[i] == Settings.COBBLES1_ID ||
 					tiles[i] == Settings.COBBLES2_ID ||
 					tiles[i] == Settings.COBBLES3_ID) {
