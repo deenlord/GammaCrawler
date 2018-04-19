@@ -8,6 +8,8 @@ import java.util.ArrayList;
  */
 public abstract class Enemy extends Character {
 	private int damage;
+	EnemyStatus status;
+	EnemyAI ai;
 	private ArrayList<Item> inventory;
 	
 	/**
@@ -36,6 +38,12 @@ public abstract class Enemy extends Character {
 		if(successful) {
 			p.setHP(p.getHP()- damage); 
 		}
+	}
+	
+	public void moveAI()
+	{
+		this.status=EnemyStatus.DOCILE;
+		ai.check();
 	}
 	
 	/**
