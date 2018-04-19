@@ -10,6 +10,7 @@ public class Chest extends Item{
 	static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
 	public static String name = "Wooden Chest";
 	
+	
 	public Chest() {
 		super(sprite, name);
 		inventory = new ArrayList<>();
@@ -47,6 +48,8 @@ public class Chest extends Item{
 				i.addToUser(richard);
 			}
 			e = richard;
+			
+			
 		}
 	}
 
