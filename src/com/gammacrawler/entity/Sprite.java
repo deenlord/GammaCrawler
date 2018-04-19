@@ -29,7 +29,7 @@ public class Sprite {
 	 */
 	public Sprite(String pathtofile, boolean half) {
 		if (half == true)  {
-			this.img = new Image(pathtofile, Settings.HALFTILESIZE, Settings.HALFTILESIZE, false, false);
+			this.img = new Image(pathtofile, Settings.HALF_TILESIZE, Settings.HALF_TILESIZE, false, false);
 		}
 		else {
 			this.img = new Image(pathtofile, Settings.TILESIZE, Settings.TILESIZE, false, false);
@@ -54,6 +54,10 @@ public class Sprite {
 	 */
 	public ImageView getImageView() {
 		return this.imgView;
+	}
+	
+	public void setImageView(ImageView iv) {
+		this.imgView = iv;
 	}
 	
 	public void rotateCharacter(Direction dir) {

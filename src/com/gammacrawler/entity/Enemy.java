@@ -6,10 +6,10 @@ import java.util.ArrayList;
  * @author crathke4
  * 4/7
  */
-public abstract class Enemy extends Character {
+public abstract class Enemy extends Character implements Moveable{
 	private int damage;
 	EnemyStatus status;
-	EnemyAI ai;
+	EnemyAI ai=new EnemyAI();
 	private ArrayList<Item> inventory;
 	
 	/**
@@ -43,7 +43,7 @@ public abstract class Enemy extends Character {
 	public void moveAI()
 	{
 		this.status=EnemyStatus.DOCILE;
-		ai.check();
+		ai.check(this);
 	}
 	
 	/**

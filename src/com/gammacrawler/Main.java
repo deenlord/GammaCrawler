@@ -2,6 +2,7 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 
@@ -174,6 +175,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		
 		root.getChildren().add(gen.getPlayer().getWeapon().getImageView());
 		gen.gameEntities.add(gen.getPlayer().getWeapon());
+		gen.getPlayer().getWeapon().getImageView().setVisible(false);
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
@@ -249,6 +251,27 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
+				//move enemy
+				//TODO: Implement enemy AI into Main
+				//bug: Individual enemies in generator do not respond to enemy.moveAI
+//				int iterator=0; 
+//				for(Entity e: gen.gameEntities)
+//				{
+//					if(e instanceof Enemy) {
+//						Enemy en=(Enemy) gen.gameEntities.get(iterator);
+//						en.moveAI();
+//					}
+//					iterator++;
+//				}
+//				
+//				for(iterator=0;iterator<gen.gameEntities.size();iterator++)
+//				{
+//					if(gen.gameEntities.get(iterator) instanceof Enemy)
+//					{
+//						Enemy e=(Enemy) gen.gameEntities.get(iterator);
+//						e.moveAI();
+//					}
+//				}
 			}
 		});
 
@@ -261,7 +284,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				gen.handleCollisions();
 				clearDead((Group) sc.getRoot());
-
+				
 			}
 		});
 

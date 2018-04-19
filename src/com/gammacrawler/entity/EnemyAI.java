@@ -9,8 +9,9 @@ public class EnemyAI {
 	User player;
 	Board board;
 	
-	public void check()
+	public void check(Enemy e)
 	{
+		this.enemy=e;
 		switch(enemy.status)
 		{
 		case DOCILE:
@@ -38,7 +39,7 @@ public class EnemyAI {
 	 */
 	public void walk()
 	{
-		int directionInt=(int) Math.random()*4+1;
+		int directionInt=(int) (Math.random()*4)+1;
 		Direction dir;
 		switch(directionInt)
 		{
@@ -56,6 +57,8 @@ public class EnemyAI {
 			break;
 		}
 		enemy.move(dir);
+		System.out.println(dir);
+		System.out.println(">"+enemy.getLocation()[0]/32+", v"+enemy.getLocation()[1]/32);
 	}
 	
 	/**
