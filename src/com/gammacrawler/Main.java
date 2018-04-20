@@ -259,6 +259,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				{
 					if(e instanceof Enemy) {
 						((Enemy) e).moveAI();
+						gen.handleCollisions();
 					}
 				}
 //				

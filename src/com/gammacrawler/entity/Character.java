@@ -146,6 +146,7 @@ public abstract class Character extends Entity {
 	public void move(Direction dir) {
 		System.out.println("Trying to move");
 		this.location = this.getLocation();
+		
 		switch (dir) {
 		case NORTH:
 			this.location[1] -= Settings.TILESIZE;

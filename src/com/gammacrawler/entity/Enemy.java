@@ -72,14 +72,20 @@ public abstract class Enemy extends Character implements Moveable{
 	
 	@Override
 	public void collide(Entity e) {
-		System.out.println("Enemy IS COLLIDING WITH " + e.getClass().getSimpleName());
-		
-		if (this.getHP() <= 0) {
-			this.isDead = true;
-			for (Item i : this.inventory) {
-				i.addToUser(Generator.player);
+		System.out.println(this.getClass().getSimpleName()+" IS COLLIDING WITH " + e.getClass().getSimpleName());
+		if(e instanceof User)
+		{
+			if (this.getHP() <= 0) {
+				this.isDead = true;
+				for (Item i : this.inventory) {
+					i.addToUser(Generator.player);
+				}
+				Generator.player.setXP(Generator.player.getXP() + this.getXP());
 			}
-			Generator.player.setXP(Generator.player.getXP() + this.getXP());
+		}
+		else
+		{
+			
 		}
 	}
 
