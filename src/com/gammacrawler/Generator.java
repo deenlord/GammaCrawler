@@ -4,14 +4,12 @@ import java.util.ArrayList;
 
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
-import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
 import com.gammacrawler.generator.populators.Populator;
 import com.gammacrawler.generator.populators.PopulatorChests;
 import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
-import com.gammacrawler.generator.populators.PopulatorEnemiesDebug;
 import com.gammacrawler.generator.populators.PopulatorGoldCoin;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
 
@@ -26,7 +24,7 @@ import javafx.scene.image.Image;
 public class Generator {
 	public static User player;
 	Board board;
-	int[][] ar;
+	public static int[][] ar;
 	ArrayList<Enemy> enemies;
 	ArrayList<Entity> gameEntities;
 	StatusBar status;

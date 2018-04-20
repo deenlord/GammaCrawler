@@ -2,8 +2,10 @@ package com.gammacrawler.entity;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
-import com.gammacrawler.item.WoodenSword;
+import com.gammacrawler.Settings;
+import com.gammacrawler.generator.Board;
 
 /**
  * @author crathke4
@@ -83,10 +85,49 @@ public abstract class Enemy extends Character implements Moveable{
 				Generator.player.setXP(Generator.player.getXP() + this.getXP());
 			}
 		}
-		else
-		{
-			
+	}
+	
+	@Override
+	public void move(Direction dir)
+	{
+		System.out.println("Trying to move");
+		this.location = this.getLocation();
+		int x=this.getLocation()[0],
+			y=this.getLocation()[1];
+		switch (dir) {
+		case NORTH:
+			if (Generator.ar[y-1][x]<10) {
+				this.location[1] -= Settings.TILESIZE;
+				this.sprite.rotateCharacter(Direction.NORTH);
+				break;
+			}
+		case SOUTH:
+			if (Generator.ar[y+1][x]<10) {
+				this.location[1] += Settings.TILESIZE;
+				this.sprite.rotateCharacter(Direction.SOUTH);
+				break;
+			}
+		case EAST:
+			if (Generator.ar[y][x+1]<10) {
+				this.location[0] += Settings.TILESIZE;
+				this.sprite.rotateCharacter(Direction.EAST);
+				break;
+			}
+		case WEST:
+			if (Generator.ar[y][x-1]<10) {
+				this.location[0] -= Settings.TILESIZE;
+				this.sprite.rotateCharacter(Direction.WEST);
+				break;
+			}
 		}
 	}
-
+	@Override
+	public void die(Entity killer) {
+		super.die(killer);
+		// If it is a player increase their XP
+		if (killer instanceof User) {
+			User u = (User) killer;
+			u.setXP(u.getXP() + XP);
+		}
+	}
 }

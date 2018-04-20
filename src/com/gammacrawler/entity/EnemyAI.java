@@ -1,6 +1,7 @@
 package com.gammacrawler.entity;
 
 import com.gammacrawler.Direction;
+import com.gammacrawler.Generator;
 import com.gammacrawler.generator.Board;
 
 public class EnemyAI {
@@ -56,6 +57,7 @@ public class EnemyAI {
 			break;
 		case 3:
 			dir=Direction.EAST;
+			
 			break;
 		default: 
 			dir=Direction.WEST;
