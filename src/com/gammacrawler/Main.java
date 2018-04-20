@@ -2,6 +2,7 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 
@@ -253,7 +254,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				//move enemy
 				//TODO: Implement enemy AI into Main
 				//bug: Individual enemies in generator do not respond to enemy.moveAI
-//				int iterator=0; 
+				int iterator=0; 
 //				for(Entity e: gen.gameEntities)
 //				{
 //					if(e instanceof Enemy) {
@@ -262,15 +263,16 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 //					}
 //					iterator++;
 //				}
-//				
-//				for(iterator=0;iterator<gen.gameEntities.size();iterator++)
-//				{
-//					if(gen.gameEntities.get(iterator) instanceof Enemy)
-//					{
-//						Enemy e=(Enemy) gen.gameEntities.get(iterator);
+				
+				for(iterator=0;iterator<gen.gameEntities.size();iterator++)
+				{
+					if(gen.gameEntities.get(iterator) instanceof Enemy)
+					{
+						Enemy e=(Enemy) gen.gameEntities.get(iterator);
 //						e.moveAI();
-//					}
-//				}
+						e.move(Direction.WEST);
+					}
+				}
 			}
 		});
 

@@ -4,18 +4,22 @@ import com.gammacrawler.Direction;
 import com.gammacrawler.generator.Board;
 
 public class EnemyAI {
-
+/**
+ * @author crathke4
+ */
 	Enemy enemy;
-	User player;
 	Board board;
-	
+	/**
+	 * Checks the status of the enemy, and calls a moving method based on the enemyStatus
+	 * @param e - Enemy which to move
+	 */
 	public void check(Enemy e)
 	{
 		this.enemy=e;
 		switch(enemy.status)
 		{
 		case DOCILE:
-			walk();
+			walk(e);
 			break;
 		case HOSTILE:
 			chase();
@@ -36,8 +40,9 @@ public class EnemyAI {
 	
 	/**
 	 * moves enemy randomly until player is in same room as enemy
+	 * @param e - Enemy which to move
 	 */
-	public void walk()
+	public void walk(Enemy e)
 	{
 		int directionInt=(int) (Math.random()*4)+1;
 		Direction dir;

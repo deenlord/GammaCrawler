@@ -43,6 +43,9 @@ public abstract class Enemy extends Character implements Moveable{
 		}
 	}
 	
+	/**
+	 * moves the enemy using EnemyAI
+	 */
 	public void moveAI()
 	{
 		this.status=EnemyStatus.DOCILE;
