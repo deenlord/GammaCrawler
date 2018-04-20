@@ -1,6 +1,5 @@
 package com.gammacrawler.entity;
 
-import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
 
 import javafx.scene.image.ImageView;
@@ -61,6 +60,13 @@ public abstract class Entity implements Moveable {
 	}
 
 	public abstract void collide(Entity e); // Test to see if it works...
+
+	/**
+	 * Called to kill an entity
+	 */
+	public void die(Entity killer) {
+		this.isDead = true;
+	};
 
 	/**
 	 * @return true or false (can use as exit condition for game state)

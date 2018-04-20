@@ -89,4 +89,15 @@ public abstract class Enemy extends Character implements Moveable{
 		}
 	}
 
+	@Override
+	public void die(Entity killer) {
+		super.die(killer);
+
+		// If it is a player increase their XP
+		if (killer instanceof User) {
+			User u = (User) killer;
+			u.setXP(u.getXP() + XP);
+		}
+	}
+
 }

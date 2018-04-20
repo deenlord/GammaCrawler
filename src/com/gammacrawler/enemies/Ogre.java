@@ -1,12 +1,9 @@
 package com.gammacrawler.enemies;
 
-import com.gammacrawler.Direction;
-import com.gammacrawler.Settings;
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
-import com.gammacrawler.item.WoodenSword;
 
 /**
  * @author deenlord
@@ -28,12 +25,12 @@ public class Ogre extends Enemy {
 		this.setHP(25);
 		this.setXP(10);
 	}
-	
+
 //	@Override
 //	public void move(Direction dir) {
 //		this.moveAI();
 //	}
 
-
+	
 
 }
