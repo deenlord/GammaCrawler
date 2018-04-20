@@ -92,8 +92,8 @@ public abstract class Enemy extends Character implements Moveable{
 	{
 		System.out.println("Trying to move");
 		this.location = this.getLocation();
-		int x=this.getLocation()[0],
-			y=this.getLocation()[1];
+		int x=(this.getLocation()[0]/Settings.TILESIZE)-1,
+			y=(this.getLocation()[1]/Settings.TILESIZE)-1;
 		switch (dir) {
 		case NORTH:
 			if (Generator.ar[y-1][x]<10) {
