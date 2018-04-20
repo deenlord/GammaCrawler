@@ -133,8 +133,10 @@ public class User extends Character implements Moveable {
 		// TODO Auto-generated method stub)
 		if (e instanceof Enemy) {
 			this.setHP(this.getHP() - ((Enemy) e).getDamage());
-			if (e.isDead()) {
-				this.setXP(this.getXP() + ((Enemy) e).getXP());
+			if (this.getHP() <= 0) {
+				this.isDead = true;
+				
+				// TODO: Change Scene to game over scene!
 			}
 		}
 		
