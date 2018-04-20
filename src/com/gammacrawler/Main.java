@@ -259,8 +259,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				{
 					if(e instanceof Enemy) {
 						((Enemy) e).moveAI();
-						e.getImageView().setLayoutX(e.getLocation()[0]);
-						e.getImageView().setLayoutY(e.getLocation()[1]);
 					}
 				}
 //				

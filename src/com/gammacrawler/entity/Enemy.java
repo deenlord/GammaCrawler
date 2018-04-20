@@ -50,6 +50,8 @@ public abstract class Enemy extends Character implements Moveable{
 	{
 		this.status=EnemyStatus.DOCILE;
 		ai.check(this);
+		this.getImageView().setX(this.getLocation()[0]);
+		this.getImageView().setY(this.getLocation()[1]);
 	}
 	
 	/**
