@@ -12,7 +12,6 @@ import com.gammacrawler.entity.Sprite;
 public class Slime extends Enemy {
 	
 	private static final String name = "Slime";
-	protected static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/slime.png");
 
 	
 	/** 
@@ -25,8 +24,9 @@ public class Slime extends Enemy {
 	 */
 	public Slime() {
 		// damage = 5
-		super(name, sprite, 5);
-		this.setHP(10);
+		super(name, new Sprite("file:src/com/gammacrawler/images/slime.png"), 5);
+		this.setMaxHP(15);
+		this.setHP(15);
 		this.setXP(5);
 	}
 	
@@ -35,10 +35,5 @@ public class Slime extends Enemy {
 		// TODO : add enemy movement ai here
 	}
 
-	@Override
-	public void collide(Entity e) {
-		// TODO Auto-generated method stub
-		System.out.println("Slime IS COLLIDING WITH " + e.getClass().getSimpleName());
-	}
 
 }

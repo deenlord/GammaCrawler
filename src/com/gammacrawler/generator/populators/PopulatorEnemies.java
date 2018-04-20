@@ -13,11 +13,18 @@ public class PopulatorEnemies extends Populator {
 	@Override
 	public void populate() {
 		Ogre ogre;
-		for (int i = 0; i < 10; i++) {
-			int[] p = getRandomFreeSpace();
+		Slime slime;
+		int[] empt;
+		for (int i = 0; i <= 4; i++) {
+			empt = getRandomFreeSpace();
 			ogre = new Ogre();
-			ogre.moveToTile(p[1] + 1, p[0] + 1); // TODO: Fix entity coordinates
+			ogre.moveToTile(empt[1] + 1, empt[0] + 1); // TODO: Fix entity coordinates
+			empt = getRandomFreeSpace();
+			slime = new Slime();
+			slime.moveToTile(empt[1] + 1, empt[0] + 1);
 			entities.add(ogre);
+			entities.add(slime);
+			
 		}
 	}
 

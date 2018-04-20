@@ -130,7 +130,13 @@ public class User extends Character implements Moveable {
 
 	@Override
 	public void collide(Entity e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub)
+		if (e instanceof Enemy) {
+			this.setHP(this.getHP() - ((Enemy) e).getDamage());
+			if (e.isDead()) {
+				this.setXP(this.getXP() + ((Enemy) e).getXP());
+			}
+		}
 		
 	}
 	

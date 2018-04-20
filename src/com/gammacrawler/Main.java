@@ -2,7 +2,6 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
-import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 

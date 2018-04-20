@@ -48,7 +48,7 @@ public class Chest extends Item{
 				i.addToUser(richard);
 			}
 			e = richard;
-			
+			this.isDead = true;
 			
 		}
 	}

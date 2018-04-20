@@ -38,12 +38,6 @@ public class WoodenSword extends Weapon {
 		return this.sprite;
 	}
 
-	@Override
-	public void collide(Entity e) {
-		// TODO Auto-generated method stub
-		System.out.println("WoodenSword IS COLLIDING WITH " + e.getClass().getSimpleName());
-		setDoingDamage(false);
-	}
 
 	@Override
 	public void move(Direction d) {

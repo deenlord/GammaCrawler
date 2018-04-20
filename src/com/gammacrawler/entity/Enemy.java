@@ -2,6 +2,8 @@ package com.gammacrawler.entity;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.item.WoodenSword;
+
 /**
  * @author crathke4
  * 4/7
@@ -60,6 +62,17 @@ public abstract class Enemy extends Character implements Moveable{
 	
 	public ArrayList<Item> getInventory() {
 		return this.inventory;
+	}
+	
+	@Override
+	public void collide(Entity e) {
+		System.out.println("Enemy IS COLLIDING WITH " + e.getClass().getSimpleName());
+		
+		if (this.getHP() <= 0) {
+			this.isDead = true;
+		}
+				
+		
 	}
 
 }
