@@ -24,7 +24,7 @@ import javafx.scene.image.Image;
  *
  */
 public class Generator {
-	User player;
+	public static User player;
 	Board board;
 	int[][] ar;
 	ArrayList<Enemy> enemies;

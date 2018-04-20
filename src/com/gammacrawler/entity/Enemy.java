@@ -2,6 +2,7 @@ package com.gammacrawler.entity;
 
 import java.util.ArrayList;
 
+import com.gammacrawler.Generator;
 import com.gammacrawler.item.WoodenSword;
 
 /**
@@ -70,9 +71,11 @@ public abstract class Enemy extends Character implements Moveable{
 		
 		if (this.getHP() <= 0) {
 			this.isDead = true;
+			for (Item i : this.inventory) {
+				i.addToUser(Generator.player);
+			}
+			Generator.player.setXP(Generator.player.getXP() + this.getXP());
 		}
-				
-		
 	}
 
 }
