@@ -164,7 +164,6 @@ public abstract class Character extends Entity {
 			this.sprite.rotateCharacter(Direction.WEST);
 			break;
 		}
-		System.out.println(this.location[0]/32+", "+this.location[1]/32);
 
 	}
 
