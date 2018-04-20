@@ -255,24 +255,24 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				//TODO: Implement enemy AI into Main
 				//bug: Individual enemies in generator do not respond to enemy.moveAI
 				int iterator=0; 
-//				for(Entity e: gen.gameEntities)
-//				{
-//					if(e instanceof Enemy) {
-//						Enemy en=(Enemy) gen.gameEntities.get(iterator);
-//						en.moveAI();
-//					}
-//					iterator++;
-//				}
-				
-				for(iterator=0;iterator<gen.gameEntities.size();iterator++)
+				for(Entity e: gen.gameEntities)
 				{
-					if(gen.gameEntities.get(iterator) instanceof Enemy)
-					{
-						Enemy e=(Enemy) gen.gameEntities.get(iterator);
-//						e.moveAI();
-						e.move(Direction.WEST);
+					if(e instanceof Enemy) {
+						((Enemy) e).moveAI();
+						e.getImageView().setLayoutX(e.getLocation()[0]);
+						e.getImageView().setLayoutY(e.getLocation()[1]);
 					}
 				}
+//				
+//				for(iterator=0;iterator<gen.gameEntities.size();iterator++)
+//				{
+//					if(gen.gameEntities.get(iterator) instanceof Enemy)
+//					{
+//						Enemy e=(Enemy) gen.gameEntities.get(iterator);
+////						e.moveAI();
+//						e.move(Direction.WEST);
+//					}
+//				}
 			}
 		});
 

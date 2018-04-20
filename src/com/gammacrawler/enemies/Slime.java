@@ -29,11 +29,11 @@ public class Slime extends Enemy {
 		this.setHP(15);
 		this.setXP(5);
 	}
-	
-	@Override 
-	public void move(Direction dir) {
-		// TODO : add enemy movement ai here
-	}
+//	
+//	@Override 
+//	public void move(Direction dir) {
+//		// TODO : add enemy movement ai here
+//	}
 
 
 }

@@ -63,7 +63,7 @@ public class EnemyAI {
 		}
 		enemy.move(dir);
 		System.out.println(dir);
-		System.out.println(">"+enemy.getLocation()[0]/32+", v"+enemy.getLocation()[1]/32);
+		System.out.println(">"+enemy.getLocation()[0]+", v"+enemy.getLocation()[1]);
 	}
 	
 	/**

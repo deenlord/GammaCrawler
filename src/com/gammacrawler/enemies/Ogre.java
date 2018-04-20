@@ -29,10 +29,10 @@ public class Ogre extends Enemy {
 		this.setXP(10);
 	}
 	
-	@Override
-	public void move(Direction dir) {
-		// TODO : add enemy movement ai here
-	}
+//	@Override
+//	public void move(Direction dir) {
+//		this.moveAI();
+//	}
 
 
 
