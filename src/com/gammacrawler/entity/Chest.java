@@ -3,7 +3,6 @@ package com.gammacrawler.entity;
 import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
-import com.gammacrawler.item.WoodenSword;
 
 public class Chest extends Item{
 	ArrayList<Item> inventory;

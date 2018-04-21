@@ -2,8 +2,6 @@ package com.gammacrawler.item;
 
 import com.gammacrawler.enemies.Ogre;
 import com.gammacrawler.enemies.Slime;
-import com.gammacrawler.entity.Character;
-import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;

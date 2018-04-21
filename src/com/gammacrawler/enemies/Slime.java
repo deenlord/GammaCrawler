@@ -1,8 +1,6 @@
 package com.gammacrawler.enemies;
 
-import com.gammacrawler.Direction;
 import com.gammacrawler.entity.Enemy;
-import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 
 /**

@@ -1,5 +1,5 @@
 package com.gammacrawler.test;
-import com.gammacrawler.*;
+import com.gammacrawler.Direction;
 import com.gammacrawler.entity.User;
 
 /**

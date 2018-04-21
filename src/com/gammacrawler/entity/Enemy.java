@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
 import com.gammacrawler.Settings;
-import com.gammacrawler.generator.Board;
 
 /**
  * @author crathke4

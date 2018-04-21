@@ -1,9 +1,7 @@
 package com.gammacrawler.enemies;
 
 import com.gammacrawler.entity.Enemy;
-import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
-import com.gammacrawler.entity.User;
 
 /**
  * @author deenlord

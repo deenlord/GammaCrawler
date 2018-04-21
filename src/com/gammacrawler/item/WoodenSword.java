@@ -2,7 +2,6 @@ package com.gammacrawler.item;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
-import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 
 import javafx.animation.FadeTransition;

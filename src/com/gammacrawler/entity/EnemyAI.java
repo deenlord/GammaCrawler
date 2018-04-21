@@ -1,7 +1,6 @@
 package com.gammacrawler.entity;
 
 import com.gammacrawler.Direction;
-import com.gammacrawler.Generator;
 import com.gammacrawler.generator.Board;
 
 public class EnemyAI {
