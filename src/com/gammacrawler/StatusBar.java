@@ -91,20 +91,8 @@ public class StatusBar extends Pane{
 		points.setFill(Color.DARKGOLDENROD);
 		this.getChildren().add(points);
 	}
-	
-	/**
-	 * Generates a graphical representation of the users inventory
-	 */
-	private void generateInvBar()
-	{
-		for(Item item:Generator.player.getInventory())
-		{
-//			if(!(item instanceof Weapon))
-			{
-				this.getChildren().add(item.getImageView());
-			}
-		}
-	}
+
+
 	/**
 	 * Updates the current statusBar to reflect the users condition
 	 * @param length  - inherit from generateHealthBar
