@@ -106,7 +106,7 @@ public class StatusBar extends Pane{
 		}
 	}
 	/**
-	 * 
+	 * Updates the current statusBar to reflect the users condition
 	 * @param length  - inherit from generateHealthBar
 	 * @param health - inherit from generateHealthBar
 	 */
