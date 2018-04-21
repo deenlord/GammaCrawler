@@ -181,7 +181,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
-		root.getChildren().add(gen.invBar);
+		//root.getChildren().add(gen.invBar);
 		return new Scene(root);
 	}
 
@@ -280,7 +280,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
-				gen.updateInventoryBar();
+				//gen.updateInventoryBar();
 			}
 		});
 
