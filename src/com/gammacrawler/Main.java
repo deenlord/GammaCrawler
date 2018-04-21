@@ -251,10 +251,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
-				//move enemy
-				//TODO: Implement enemy AI into Main
-				//bug: Individual enemies in generator do not respond to enemy.moveAI
-				int iterator=0; 
+				//move enemies
 				for(Entity e: gen.gameEntities)
 				{
 					if(e instanceof Enemy) {
@@ -263,16 +260,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						gen.handleCollisions();
 					}
 				}
-//				
-//				for(iterator=0;iterator<gen.gameEntities.size();iterator++)
-//				{
-//					if(gen.gameEntities.get(iterator) instanceof Enemy)
-//					{
-//						Enemy e=(Enemy) gen.gameEntities.get(iterator);
-////						e.moveAI();
-//						e.move(Direction.WEST);
-//					}
-//				}
 			}
 		});
 
