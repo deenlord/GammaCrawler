@@ -19,15 +19,18 @@ public abstract class Enemy extends Character implements Moveable{
 	
 	/**
 	 * 	Passes name and sprite to super to create new Character
-	 * @param name - name of the enemy - String
-	 * @param sprite - sprite to be used in display - Sprite
-	 * @param damage - amount of damage enemy deals - int
+	 * @param name - String - name of the enemy
+	 * @param sprite - Sprite - sprite to be used in display
+	 * @param damage - int - amount of damage enemy deals
 	 */
 	public Enemy(String name, Sprite sprite, int damage) {
 		super(name, sprite);
 		this.damage = damage;
 		this.inventory = new ArrayList<>();
 	}
+	
+	
+	// Deprecated attack method since 0.4 - not using.
 
 //	/**
 //	 * reduces player health when called
@@ -63,11 +66,17 @@ public abstract class Enemy extends Character implements Moveable{
 		return this.damage;
 	}
 	
+	/**
+	 * @param item - Item - gets added to this.inventory
+	 */
 	public void addToInventory(Item item) {
 		this.inventory.add(item);
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.gammacrawler.entity.Character#getInventory()
+	 */
 	public ArrayList<Item> getInventory() {
 		return this.inventory;
 	}
@@ -81,7 +90,7 @@ public abstract class Enemy extends Character implements Moveable{
 				die(Generator.player);
 				
 				for (Item i : this.inventory) {
-					i.addToUser(Generator.player);
+					i.addToUser();
 				}
 			}
 		}

@@ -38,6 +38,7 @@ public class User extends Character implements Moveable {
 	}
 	
 	/**
+	 * Set current weapon - likely to be deprecated by 1.0
 	 * @param w - A Weapon - will override the player's weapon
 	 */
 	public void setWeapon(Weapon<?> w) {
@@ -51,6 +52,10 @@ public class User extends Character implements Moveable {
 		return this.weapon;
 	}
 	
+	/**
+	 * Used to update the direction the User is facing.
+	 * @param dir A Direction
+	 */
 	public void updateDirection(Direction dir) {
 		this.direction = dir;
 	}

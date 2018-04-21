@@ -125,6 +125,34 @@ public abstract class Character extends Entity {
 		location[1] = y;
 	}
 	
+
+	/**
+	 * @param inventory - what inventory will be set to
+	 */
+	public void setInventory(ArrayList<Item> inventory) {
+		this.inventory = inventory;
+	}
+
+	/**
+	 * @return the character's inventory.
+	 */
+	public ArrayList<Item> getInventory() {
+		return inventory;
+	}
+
+	/**
+	 * This will take a tile coordinate (0 - (length - 1)) and convert it into
+	 * pixel coordinates, then move the entity to that location.
+	 * 
+	 * @param tileX - x coordinate
+	 * @param tileY - y coordinate
+	 */
+	public void moveToTile(int tileX, int tileY) {
+		getImageView().setX((tileX) * Settings.TILESIZE);
+		getImageView().setY((tileY) * Settings.TILESIZE);
+		this.setLocation((tileX) * Settings.TILESIZE, (tileY) * Settings.TILESIZE);
+	}
+	
 	@Override
 	public void setSprite(Sprite spr) {
 		this.sprite = spr;
@@ -134,14 +162,7 @@ public abstract class Character extends Entity {
 	public ImageView getImageView() {
 		return this.sprite.getImageView();
 	}
-
-	/**
-	 * @param inventory - what inventory will be set to
-	 */
-	public void setInventory(ArrayList<Item> inventory) {
-		this.inventory = inventory;
-	}
-
+	
 	@Override
 	public void move(Direction dir) {
 		System.out.println("Trying to move");
@@ -166,26 +187,6 @@ public abstract class Character extends Entity {
 			break;
 		}
 
-	}
-
-	/**
-	 * @return the character's inventory.
-	 */
-	public ArrayList<Item> getInventory() {
-		return inventory;
-	}
-
-	/**
-	 * This will take a tile coordinate (0 - (length - 1)) and convert it into
-	 * pixel coordinates, then move the entity to that location.
-	 * 
-	 * @param tileX - x coordinate
-	 * @param tileY - y coordinate
-	 */
-	public void moveToTile(int tileX, int tileY) {
-		getImageView().setX((tileX) * Settings.TILESIZE);
-		getImageView().setY((tileY) * Settings.TILESIZE);
-		this.setLocation((tileX) * Settings.TILESIZE, (tileY) * Settings.TILESIZE);
 	}
 
 }
