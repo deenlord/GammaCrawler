@@ -63,6 +63,7 @@ public abstract class Entity implements Moveable {
 
 	/**
 	 * Called to kill an entity
+	 * @param killer - where xp/gold/items are given
 	 */
 	public void die(Entity killer) {
 		this.isDead = true;
