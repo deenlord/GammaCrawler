@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -179,6 +178,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
+		root.getChildren().add(gen.invBar);
 		return new Scene(root);
 	}
 
@@ -244,6 +244,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("East: " + gen.ar[y][x + 1]);
 					System.out.println("West: " + gen.ar[y][x - 1]);
 					break;
+				case X:
+					
+					break;
 				default:
 					break;
 				}
@@ -259,6 +262,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
+				gen.updateInventoryBar();
 			}
 		});
 

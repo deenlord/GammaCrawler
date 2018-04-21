@@ -28,6 +28,7 @@ public class Generator {
 	ArrayList<Enemy> enemies;
 	ArrayList<Entity> gameEntities;
 	StatusBar status;
+	InventoryBar invBar;
 	Image wall;
 	Image floor;
 	Image door;
@@ -55,6 +56,7 @@ public class Generator {
 		
 		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
+		this.invBar = new InventoryBar();
 
 	}
 	
@@ -93,6 +95,10 @@ public class Generator {
 	
 	public StatusBar getStatus() {
 		return this.status;
+	}
+	
+	public void updateInventoryBar() {
+		this.invBar.update();
 	}
 
 
