@@ -251,7 +251,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				for(Entity e: gen.gameEntities)
 				{
 					if(e instanceof Enemy) {
-						
 						((Enemy) e).moveAI();
 						gen.handleCollisions();
 					}

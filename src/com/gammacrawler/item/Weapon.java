@@ -65,6 +65,7 @@ public abstract class Weapon<T> extends Item {
 		else if (e instanceof Ogre) {
 			if (rand <= 8) {
 				((Ogre) e).setHP(((Ogre) e).getHP() - this.getDamage());
+				System.out.println("damaging ogre");
 			}
 			else {
 				((Ogre) e).setHP(((Ogre) e).getHP() - this.getMaxDamage());

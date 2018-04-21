@@ -134,7 +134,7 @@ public class User extends Character implements Moveable {
 		if (e instanceof Enemy) {
 			this.setHP(this.getHP() - ((Enemy) e).getDamage());
 			if (this.getHP() <= 0) {
-				this.isDead = true;
+				this.die(e);
 				
 				// TODO: Change Scene to game over scene!
 			}

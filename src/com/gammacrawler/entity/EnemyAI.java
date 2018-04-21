@@ -9,6 +9,7 @@ public class EnemyAI {
  */
 	Enemy enemy;
 	Board board;
+	int counter = 0;
 	/**
 	 * Checks the status of the enemy, and calls a moving method based on the enemyStatus
 	 * @param e - Enemy which to move
@@ -44,27 +45,32 @@ public class EnemyAI {
 	 */
 	public void walk(Enemy e)
 	{
-		int directionInt=(int) (Math.random()*4)+1;
-		Direction dir;
-		switch(directionInt)
-		{
-		case 1:
-			dir=Direction.NORTH;
-			break;
-		case 2:
-			dir=Direction.SOUTH;
-			break;
-		case 3:
-			dir=Direction.EAST;
-			
-			break;
-		default: 
-			dir=Direction.WEST;
-			break;
+		
+		if (counter == 3) {
+			int directionInt=(int) (Math.random()*4)+1;
+			Direction dir;
+			switch(directionInt)
+			{
+			case 1:
+				dir=Direction.NORTH;
+				break;
+			case 2:
+				dir=Direction.SOUTH;
+				break;
+			case 3:
+				dir=Direction.EAST;
+				
+				break;
+			default: 
+				dir=Direction.WEST;
+				break;
+			}
+			enemy.move(dir);
+			System.out.println(dir);
+			System.out.println(">"+enemy.getLocation()[0]+", v"+enemy.getLocation()[1]);
+			counter =  0;
 		}
-		enemy.move(dir);
-		System.out.println(dir);
-		System.out.println(">"+enemy.getLocation()[0]+", v"+enemy.getLocation()[1]);
+		counter ++;
 	}
 	
 	/**

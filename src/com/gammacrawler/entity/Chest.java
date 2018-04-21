@@ -3,6 +3,7 @@ package com.gammacrawler.entity;
 import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
+import com.gammacrawler.Generator;
 
 public class Chest extends Item{
 	ArrayList<Item> inventory;
@@ -41,13 +42,12 @@ public class Chest extends Item{
 	@Override
 	public void collide(Entity e) {
 		// TODO finish this. #deenlord 4/18
-		if (e.getClass().getSimpleName().equals("User")) {
-			User richard = (User) e;
+		if (e instanceof User) {
+			
 			for (Item i : this.inventory) {
-				i.addToUser(richard);
+				i.addToUser(Generator.player);
 			}
-			e = richard;
-			this.isDead = true;
+			this.die(Generator.player);
 			
 		}
 	}

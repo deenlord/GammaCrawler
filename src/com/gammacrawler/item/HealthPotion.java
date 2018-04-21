@@ -32,7 +32,7 @@ public class HealthPotion extends Potion {
 		
 		for (int i = 0; i < c.getInventory().size(); i++) {
 			Item in = c.getInventory().get(i);
-			if(in.getName().equals("HealthPotion")) {
+			if(in instanceof HealthPotion) {
 				index  = i;
 				c.getInventory().remove(index);
 			}

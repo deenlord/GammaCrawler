@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
 import com.gammacrawler.Settings;
+import com.gammacrawler.item.Weapon;
 
 /**
  * @author crathke4
@@ -28,21 +29,21 @@ public abstract class Enemy extends Character implements Moveable{
 		this.inventory = new ArrayList<>();
 	}
 
-	/**
-	 * reduces player health when called
-	 * @param p - User from which to take health
-	 */
-	public void attack(User p)
-	{
-		boolean successful = false;
-		int rand = (int) Math.random() * 10;
-		if ( rand <=5 )
-			successful=true;
-		
-		if(successful) {
-			p.setHP(p.getHP()- damage); 
-		}
-	}
+//	/**
+//	 * reduces player health when called
+//	 * @param p - User from which to take health
+//	 */
+//	public void attack(User p)
+//	{
+//		boolean successful = false;
+//		int rand = (int) Math.random() * 10;
+//		if ( rand <=5 )
+//			successful=true;
+//		
+//		if(successful) {
+//			p.setHP(p.getHP()- damage); 
+//		}
+//	}
 	
 	/**
 	 * moves the enemy using EnemyAI
@@ -74,14 +75,14 @@ public abstract class Enemy extends Character implements Moveable{
 	@Override
 	public void collide(Entity e) {
 		System.out.println(this.getClass().getSimpleName()+" IS COLLIDING WITH " + e.getClass().getSimpleName());
-		if(e instanceof User)
-		{
+		
+		if (e instanceof Weapon) {
 			if (this.getHP() <= 0) {
-				this.isDead = true;
+				die(Generator.player);
+				
 				for (Item i : this.inventory) {
 					i.addToUser(Generator.player);
 				}
-				Generator.player.setXP(Generator.player.getXP() + this.getXP());
 			}
 		}
 	}
@@ -127,8 +128,7 @@ public abstract class Enemy extends Character implements Moveable{
 
 		// If it is a player increase their XP
 		if (killer instanceof User) {
-			User u = (User) killer;
-			u.setXP(u.getXP() + XP);
+			Generator.player.setXP(Generator.player.getXP() + XP);
 		}
 	}
 

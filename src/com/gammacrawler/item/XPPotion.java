@@ -1,6 +1,7 @@
 package com.gammacrawler.item;
 
 import com.gammacrawler.Direction;
+import com.gammacrawler.Generator;
 import com.gammacrawler.entity.Character;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
@@ -26,9 +27,9 @@ public class XPPotion extends Potion {
 	@Override
 	public void collide(Entity e) {
 		// TODO Auto-generated method stub
-		if (e.getClass().getSimpleName().equals("User")) {
-			User richard = (User) e;
-			this.drink(richard);
+		if (e instanceof User) {
+			
+			this.drink(Generator.player);
 		}
 	}
 	
