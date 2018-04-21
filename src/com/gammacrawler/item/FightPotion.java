@@ -7,12 +7,13 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
-public class GoldPotion extends Potion {
-	private static final String name = "Gold Potion";
+public class FightPotion extends Potion {
+	
+	private static final String name = "Fight Potion";
 	private static final int value = 25;
 	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/smallhealthpotion.png");
-	
-	public GoldPotion() {
+
+	public FightPotion() {
 		super(name, sprite, value);
 	}
 
@@ -21,7 +22,7 @@ public class GoldPotion extends Potion {
 		// TODO Auto-generated method stub
 		int index  = 0;
 		
-		Generator.player.setPoints(Generator.player.getPoints() + value);
+		Generator.player.getWeapon().setDamage(100);
 		
 		for (int i = 0; i < c.getInventory().size(); i++) {
 			Item in = c.getInventory().get(i);
@@ -34,15 +35,15 @@ public class GoldPotion extends Potion {
 	}
 
 	@Override
-	public void collide(Entity e) {
+	public void move(Direction d) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void move(Direction d) {
+	public void collide(Entity e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
