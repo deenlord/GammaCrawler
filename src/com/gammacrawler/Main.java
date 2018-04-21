@@ -247,10 +247,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				default:
 					break;
 				}
-				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
-				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
-				//update the status bar to reflect current player condition
-				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				//move enemies
 				for(Entity e: gen.gameEntities)
 				{
@@ -260,6 +256,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						gen.handleCollisions();
 					}
 				}
+				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
+				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
+				//update the status bar to reflect current player condition
+				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 			}
 		});
 
