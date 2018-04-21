@@ -20,15 +20,7 @@ public class Chest extends Item{
 		this.inventory.add(i);
 	}
 	
-	public void take(String name, User richard) {
-		for (int i = 0; i < inventory.size(); i++) {
-			if (name == this.inventory.get(i).getName()) {
-				richard.getInventory().add(this.inventory.get(i));
-				this.inventory.remove(i);
-			}
-		}
-	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

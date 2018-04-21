@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
+import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
+import com.gammacrawler.item.Potion;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -198,9 +201,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			
 			@Override
 			public void handle(KeyEvent event) {
+				Item it;
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
 				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
+//				System.out.println(event.getCode());
 				switch (event.getCode()) {
+				
 				case W:
 					System.out.println("North");
 					if (gen.ar[y - 1][x] < 10) {
@@ -244,9 +250,21 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("East: " + gen.ar[y][x + 1]);
 					System.out.println("West: " + gen.ar[y][x - 1]);
 					break;
-				case X:
-					
-					break;
+				case DIGIT1:
+					it = Generator.player.getInventory().get(1);
+					if (it instanceof Potion) {
+						((Potion) it).drink(Generator.player);
+					}
+					Generator.player.getInventory().remove(1);
+					break;	
+//				case DIGIT2:
+//					it = Generator.player.getInventory().get(2);
+//					if (it instanceof Potion) {
+//						((Potion) it).drink(Generator.player);
+//						Generator.player.getInventory().remove(2);
+//		
+//					}
+//					break;	
 				default:
 					break;
 				}
