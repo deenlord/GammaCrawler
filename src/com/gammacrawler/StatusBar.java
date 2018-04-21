@@ -1,7 +1,11 @@
 package com.gammacrawler;
 
+import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.User;
+import com.gammacrawler.item.Weapon;
 
+import javafx.scene.Group;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -31,6 +35,7 @@ public class StatusBar extends Pane{
 		generateExpLabel();
 		generatePointsLabel();
 		updateStatus(length, health);
+		generateInvBar();
 	}
 	/**
 	 * Generates graphic and text representations of players health
@@ -87,6 +92,19 @@ public class StatusBar extends Pane{
 		this.getChildren().add(points);
 	}
 	
+	/**
+	 * Generates a graphical representation of the users inventory
+	 */
+	private void generateInvBar()
+	{
+		for(Item item:Generator.player.getInventory())
+		{
+//			if(!(item instanceof Weapon))
+			{
+				this.getChildren().add(item.getImageView());
+			}
+		}
+	}
 	/**
 	 * 
 	 * @param length  - inherit from generateHealthBar
