@@ -2,6 +2,10 @@ package com.gammacrawler.generator.map.connector;
 
 import java.util.HashSet;
 
+/**
+ * @author WolfieWaffle
+ *
+ */
 public class DungeonConnector {
 
 	private int x;
@@ -11,6 +15,12 @@ public class DungeonConnector {
 	private int hashCode;
 	private HashSet<Integer> hashSet = new HashSet<>();
 
+	/**
+	 * @param x - int
+	 * @param y - int
+	 * @param regionIDOne - int
+	 * @param regionIDTwo - int
+	 */
 	public DungeonConnector(int x, int y, int regionIDOne, int regionIDTwo) {
 		this.x = x;
 		this.y = y;
@@ -21,22 +31,37 @@ public class DungeonConnector {
 		hashCode = hashSet.hashCode();
 	}
 
+	/**
+	 * @return x
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * @return y
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * @return regionIDOne
+	 */
 	public int getRegionIDOne() {
 		return regionIDOne;
 	}
 
+	/**
+	 * @return regionIDTwo
+	 */
 	public int getRegionIDTwo() {
 		return regionIDTwo;
 	}
 
+	/**
+	 * @return hashcode
+	 */
 	public int getHashCode() {
 		return hashCode;
 	}

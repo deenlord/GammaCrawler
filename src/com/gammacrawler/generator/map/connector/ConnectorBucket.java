@@ -2,16 +2,27 @@ package com.gammacrawler.generator.map.connector;
 
 import java.util.ArrayList;
 
+/**
+ * @author WolfieWaffle
+ *
+ */
 public class ConnectorBucket {
 	int regionOne;
 	int regionTwo;
 	private ArrayList<DungeonConnector> connectors = new ArrayList<>();
 
+	/**
+	 * @param regionIDOne - int
+	 * @param regionIDTwo - int
+	 */
 	public ConnectorBucket(int regionIDOne, int regionIDTwo) {
 		this.regionOne = regionIDOne;
 		this.regionTwo = regionIDTwo;
 	}
 
+	/**
+	 * @return connectors
+	 */
 	public ArrayList<DungeonConnector> getConnectors() {
 		return connectors;
 	}
