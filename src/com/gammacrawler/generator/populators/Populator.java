@@ -47,12 +47,26 @@ public abstract class Populator {
 					tileArray[x][y] == Settings.COBBLES1_ID ||
 					tileArray[x][y] == Settings.COBBLES2_ID ||
 					tileArray[x][y] == Settings.COBBLES3_ID) {
-//				System.out.println("MAKING POINT " + x + " " + y);
-				return new int[]{x, y};
+				if (noEntitiesHere(x, y)) {
+//					System.out.println("MAKING POINT " + x + " " + y);
+					return new int[]{x, y};
+				}
 			}
 		}
 
 		return null;
+	}
+
+	private boolean noEntitiesHere(int x, int y) {
+		for (Entity e : entities) {
+			if ((e.getLocation()[1] / Settings.TILESIZE) - 1 == x) {
+				if ((e.getLocation()[0] / Settings.TILESIZE) - 1 == y) {
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 	protected int getOctNeighborCount(Point point, int testForTile, boolean outOfBoundsCounts) {
