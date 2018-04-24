@@ -331,6 +331,16 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (gen.player.invisibleTurns < 1) {
 						gen.player.getImageView().setOpacity(1.0);
 					}
+
+					// Kill the player if they phased into a wall with the Ghost Potion
+					x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
+					y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
+
+					if (gen.board.getArray()[y][x] >= 10 && gen.player.invisibleTurns < 1) {
+						System.out.println(x + " " + y + " " + gen.board.getArray()[x][y]);
+						gen.player.setHP(0);
+						gen.player.die(gen.player);
+					}
 				}
 
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
@@ -339,12 +349,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				//gen.updateInventoryBar();
 
-				// Kill the player if they phased into a wall with the Ghost Potion
-				if (gen.board.getArray()[y][x] >= 10) {
-					System.out.println(gen.board.getArray()[x][y]);
-					gen.player.setHP(0);
-					gen.player.die(gen.player);
-				}
 				clearDead((Group) sc.getRoot());
 			}
 		});
