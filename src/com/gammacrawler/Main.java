@@ -257,6 +257,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 							System.out.println();
 						}
 					}
+					System.out.print("Player: ");
+					for (Item i : gen.player.getInventory()) {
+						System.out.print(i.getClass().getSimpleName() + " ");
+					}
+					System.out.println();
 					break;
 				default:
 					break;
