@@ -22,14 +22,6 @@ public class GoldPotion extends Potion {
 		int index  = 0;
 		
 		Generator.player.setPoints(Generator.player.getPoints() + value);
-		
-		for (int i = 0; i < c.getInventory().size(); i++) {
-			Item in = c.getInventory().get(i);
-			if(in instanceof GoldPotion) {
-				index  = i;
-				c.getInventory().remove(index);
-			}
-		}
 		c.getInventory().remove(this);
 	}
 
