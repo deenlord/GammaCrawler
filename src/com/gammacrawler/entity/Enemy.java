@@ -90,7 +90,7 @@ public abstract class Enemy extends Character implements Moveable{
 	@Override
 	public void move(Direction dir)
 	{
-		System.out.println("Trying to move");
+		//System.out.println("Trying to move");
 		this.location = this.getLocation();
 		int x=(this.getLocation()[0]/Settings.TILESIZE)-1,
 			y=(this.getLocation()[1]/Settings.TILESIZE)-1;

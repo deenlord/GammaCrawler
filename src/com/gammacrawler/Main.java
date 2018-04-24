@@ -202,43 +202,42 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			
 			@Override
 			public void handle(KeyEvent event) {
+
+				// Get the tile x and y of the player from the real x and y.
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
 				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
+
+				// This will be set to true if we want the enemies to be calculated
+				boolean validKeyPressed = false;
+				Direction direction = null;
+
 				switch (event.getCode()) {
 				case W:
 					System.out.println("North");
 					if (gen.ar[y - 1][x] < 10) {
-						gen.getPlayer().move(Direction.NORTH);
-						gen.getPlayer().updateDirection(Direction.NORTH);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+						direction = Direction.NORTH;
+						validKeyPressed = true;
 					}
 					break;
 				case S:
 					System.out.println("South");
 					if (gen.ar[y + 1][x] < 10) {
-						gen.getPlayer().move(Direction.SOUTH);
-						gen.getPlayer().updateDirection(Direction.SOUTH);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+						direction = Direction.SOUTH;
+						validKeyPressed = true;
 					}
 					break;
 				case A:
 					System.out.println("West");
 					if (gen.ar[y][x - 1] < 10) {
-						gen.getPlayer().move(Direction.WEST);
-						gen.getPlayer().updateDirection(Direction.WEST);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+						direction = Direction.WEST;
+						validKeyPressed = true;
 					}
 					break;
 				case D:
 					System.out.println("East");
 					if (gen.ar[y][x + 1] < 10) {
-						gen.getPlayer().move(Direction.EAST);
-						gen.getPlayer().updateDirection(Direction.EAST);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+						direction = Direction.EAST;
+						validKeyPressed = true;
 					}
 					break;
 				case I:
@@ -262,17 +261,28 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				default:
 					break;
 				}
-				//move enemies
-				if(counter>2) {
-					for(Entity e: gen.gameEntities)
-					{
-						if(e instanceof Enemy) {
-							((Enemy) e).moveAI();
+
+				// Handle collisions and move if valid key pressed
+				if (validKeyPressed) {
+					gen.getPlayer().move(direction);
+					gen.getPlayer().updateDirection(direction);
+					gen.handleCollisions();
+					clearDead((Group) sc.getRoot());
+
+					// Move enemies
+					counter++;
+					if(counter>2) {
+						for(Entity e: gen.gameEntities)
+						{
+							if(e instanceof Enemy) {
+								((Enemy) e).moveAI();
+							}
 						}
+						counter=0;
 					}
-					counter=0;
+
 				}
-				counter++;
+
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
@@ -356,3 +366,4 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 }
+
