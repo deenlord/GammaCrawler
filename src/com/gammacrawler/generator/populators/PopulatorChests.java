@@ -42,8 +42,10 @@ public class PopulatorChests extends Populator {
 		}
 		else
 			chest.addTo(new IncreaseMaxHPPotion());
-		
-		chest.moveToTile(p[1] + 1, p[0] + 1);
+		if (p != null) {
+			chest.moveToTile(p[1] + 1, p[0] + 1);
+		}
+
 		entities.add(chest);
 	}
 
