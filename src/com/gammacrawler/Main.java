@@ -29,6 +29,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Stage mainStage;
 	private ArrayList<Sprite> characters = new ArrayList<>();
 	public static Generator gen;
+	
+	//counter for enemy movement
+	int counter=0;
 
 	/**
 	 * @return the start menu Scene
@@ -260,13 +263,16 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					break;
 				}
 				//move enemies
-				for(Entity e: gen.gameEntities)
-				{
-					if(e instanceof Enemy) {
-						((Enemy) e).moveAI();
-						gen.handleCollisions();
+				if(counter>2) {
+					for(Entity e: gen.gameEntities)
+					{
+						if(e instanceof Enemy) {
+							((Enemy) e).moveAI();
+						}
 					}
+					counter=0;
 				}
+				counter++;
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
