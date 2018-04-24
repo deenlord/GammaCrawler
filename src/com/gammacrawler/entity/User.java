@@ -132,7 +132,7 @@ public class User extends Character implements Moveable {
 	@Override
 	public void collide(Entity e) {
 		// TODO Auto-generated method stub)
-		if (e instanceof Enemy) {
+		if (e instanceof Enemy && invisibleTurns < 1) {
 			this.setHP(this.getHP() - ((Enemy) e).getDamage());
 			if (this.getHP() <= 0) {
 				this.die(e);

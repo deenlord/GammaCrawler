@@ -318,6 +318,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 								((Enemy) e).moveAI();
 							}
 						}
+						gen.handleCollisions();
 						counter=0;
 					}
 
@@ -335,6 +336,13 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				//gen.updateInventoryBar();
+
+				// Kill the player if they phased into a wall with the Ghost Potion
+				if (gen.board.getArray()[y][x] >= 10) {
+					System.out.println(gen.board.getArray()[x][y]);
+					gen.player.setHP(0);
+					gen.player.die(gen.player);
+				}
 				clearDead((Group) sc.getRoot());
 			}
 		});
