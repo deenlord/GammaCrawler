@@ -14,7 +14,9 @@ public class RandomItem {
 					new GoldPotion(),
 					new HealthPotion(),
 					new IncreaseMaxHPPotion(),
-					new XPPotion()
+					new XPPotion(),
+					new Chalice(),
+					new GhostPotion()
 			};
 
 		// Choose a random item

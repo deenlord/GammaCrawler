@@ -15,6 +15,7 @@ public class User extends Character implements Moveable {
 	protected static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/user2.png");
 	protected Weapon<?> weapon;
 	protected Direction direction;
+	public int invisibleTurns = 0;
 
 	/** init User sets HP to 100 XP to 0, gives them a sword
 	 * @param name  - name of user

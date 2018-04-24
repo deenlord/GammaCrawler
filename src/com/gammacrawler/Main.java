@@ -214,28 +214,28 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				switch (event.getCode()) {
 				case W:
 					System.out.println("North");
-					if (gen.ar[y - 1][x] < 10) {
+					if (gen.ar[y - 1][x] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.NORTH;
 						validKeyPressed = true;
 					}
 					break;
 				case S:
 					System.out.println("South");
-					if (gen.ar[y + 1][x] < 10) {
+					if (gen.ar[y + 1][x] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.SOUTH;
 						validKeyPressed = true;
 					}
 					break;
 				case A:
 					System.out.println("West");
-					if (gen.ar[y][x - 1] < 10) {
+					if (gen.ar[y][x - 1] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.WEST;
 						validKeyPressed = true;
 					}
 					break;
 				case D:
 					System.out.println("East");
-					if (gen.ar[y][x + 1] < 10) {
+					if (gen.ar[y][x + 1] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.EAST;
 						validKeyPressed = true;
 					}
@@ -281,6 +281,13 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						counter=0;
 					}
 
+					// Reduce the players invisibility
+					if (gen.player.invisibleTurns > 0) {
+						gen.player.invisibleTurns--;
+					}
+					if (gen.player.invisibleTurns < 1) {
+						gen.player.getImageView().setOpacity(1.0);
+					}
 				}
 
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
