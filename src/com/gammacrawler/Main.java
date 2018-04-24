@@ -255,6 +255,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 							for (Item i : ((Enemy) e).getInventory()) {
 								System.out.print(i.getClass().getSimpleName() + " ");
 							}
+							System.out.println();
 //							StatusBar.addStatus();
 						}
 					}
@@ -262,6 +263,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					for (Item i : gen.player.getInventory()) {
 						System.out.print(i.getClass().getSimpleName() + " ");
 					}
+					System.out.println();
 //					StatusBar.addStatus();
 					break;
 				case DIGIT1:
