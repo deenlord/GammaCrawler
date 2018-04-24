@@ -318,6 +318,33 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				case DIGIT9:
 					useItem = 9;
 					break;
+				case DIGIT1:
+					useItem = 1;
+					break;
+				case DIGIT2:
+					useItem = 2;
+					break;
+				case DIGIT3:
+					useItem = 3;
+					break;
+				case DIGIT4:
+					useItem = 4;
+					break;
+				case DIGIT5:
+					useItem = 5;
+					break;
+				case DIGIT6:
+					useItem = 6;
+					break;
+				case DIGIT7:
+					useItem = 7;
+					break;
+				case DIGIT8:
+					useItem = 8;
+					break;
+				case DIGIT9:
+					useItem = 9;
+					break;
 				default:
 					break;
 				}
