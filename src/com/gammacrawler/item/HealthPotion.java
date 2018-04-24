@@ -30,14 +30,6 @@ public class HealthPotion extends Potion {
 			returnMe = max;
 		}
 		
-		for (int i = 0; i < c.getInventory().size(); i++) {
-			Item in = c.getInventory().get(i);
-			if(in instanceof HealthPotion) {
-				index  = i;
-				c.getInventory().remove(index);
-			}
-		}
-		
 		c.setHP(returnMe);
 		System.out.println("Health Potion Applied: User HP = " + c.getHP());
 		c.getInventory().remove(this);
