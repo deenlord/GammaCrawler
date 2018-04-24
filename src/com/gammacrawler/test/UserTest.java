@@ -14,7 +14,7 @@ public class UserTest {
 		
 		User deen = new User("Deenski");
 		
-		System.out.println(deen.toString());
+		StatusBar.addStatus(deen.toString());
 		
 		deen.setName("Deenlord");
 		
@@ -26,7 +26,7 @@ public class UserTest {
 		
 		deen.move(Direction.NORTH);
 		
-		System.out.println(deen.toString());
+		StatusBar.addStatus(deen.toString());
 		
 		// direction is not incrementing location coordinates for some reason
 		// #deenlord 3/24

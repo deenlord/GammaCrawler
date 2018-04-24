@@ -1,6 +1,7 @@
 package com.gammacrawler.item;
 
 import com.gammacrawler.Direction;
+import com.gammacrawler.StatusBar;
 import com.gammacrawler.entity.Character;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
@@ -31,8 +32,23 @@ public class HealthPotion extends Potion {
 		}
 		
 		c.setHP(returnMe);
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+		StatusBar.addStatus("Health Potion Applied: User HP = " + c.getHP());
+	
+=======
 		System.out.println("Health Potion Applied: User HP = " + c.getHP());
 		c.getInventory().remove(this);
+>>>>>>> 53ed35f1b9bd255423083c686c3ef7588d38345d
+=======
+		System.out.println("Health Potion Applied: User HP = " + c.getHP());
+		c.getInventory().remove(this);
+>>>>>>> 53ed35f1b9bd255423083c686c3ef7588d38345d
+=======
+		System.out.println("Health Potion Applied: User HP = " + c.getHP());
+		c.getInventory().remove(this);
+>>>>>>> 53ed35f1b9bd255423083c686c3ef7588d38345d
 	}
 
 	@Override

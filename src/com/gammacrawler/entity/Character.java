@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
+import com.gammacrawler.StatusBar;
 
 import javafx.scene.image.ImageView;
 
@@ -144,7 +145,7 @@ public abstract class Character extends Entity {
 
 	@Override
 	public void move(Direction dir) {
-		System.out.println("Trying to move");
+		StatusBar.addStatus("Trying to move");
 		this.location = this.getLocation();
 		
 		switch (dir) {

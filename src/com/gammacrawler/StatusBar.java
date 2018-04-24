@@ -35,6 +35,7 @@ public class StatusBar extends Pane{
 		generateHealthBar(height, (length));
 		generateExpLabel();
 		generatePointsLabel();
+		generateGameStatusLabel();
 		updateStatus(length, health);
 		
 	}
@@ -96,14 +97,18 @@ public class StatusBar extends Pane{
 	public void generateGameStatusLabel()
 	{
 		gameStatus=new Text();
-		gameStatus.setX(points.getLayoutBounds().getMaxX());
+		gameStatus.setX(points.getLayoutBounds().getMaxX()+10);
 		gameStatus.setY(coordY-1);
+		gameStatus.setFont(Font.font(null, FontWeight.BOLD, 14));
+		this.getChildren().add(gameStatus);
 		
 	}
 	
-	public static void addstatus(String message)
+	public static void addStatus(String message)
 	{
-		gameStatus.setText(message);
+		if(message!=null&&message.length()>1) {
+			gameStatus.setText(message);
+		}
 	}
 
 	/**
@@ -120,6 +125,7 @@ public class StatusBar extends Pane{
 		this.points.setText("Points: "+player.getPoints());
 		this.exp.setX(this.health.getLayoutBounds().getMaxX()+10);
 		this.points.setX(this.exp.getLayoutBounds().getMaxX()+10);
+		gameStatus.setX(points.getLayoutBounds().getMaxX()+10);
 	}
 
 
