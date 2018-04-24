@@ -57,6 +57,13 @@ public abstract class Item extends Entity{
 	public void addToEnemy(Enemy en) {
 		en.getInventory().add(this);
 	}
-	
-	
+
+	/**
+	 * @param c - a Character, can be User or Enemy
+	 * 
+	 * Intended use: Can be used for any affect that you want an item to have.
+	 */
+	public void use(Character c) {
+	}
+
 }
