@@ -15,12 +15,12 @@ public abstract class Potion extends Item {
 		this.value = val;
 	}	
 	
-	/**
-	 * @param c - a Character, can be User or Enemy
-	 * 
-	 * Intended use: apply the Potion's value to the Character's applicable attribute, 
-	 * and remove the item from their inventory.
-	 */
-	public abstract void drink(Character c);
+//	/**
+//	 * @param c - a Character, can be User or Enemy
+//	 * 
+//	 * Intended use: apply the Potion's value to the Character's applicable attribute, 
+//	 * and remove the item from their inventory.
+//	 */
+//	public abstract void drink(Character c);
 
 }

@@ -192,7 +192,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene gameLoop() {
 
 		gen = new Generator(); // creates board and user
-		System.out.println("Generator created");			
+		StatusBar.addStatus("Generator created");			
 		// procedurally...
 	
 		Scene sc = setupScene();
@@ -209,43 +209,44 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 				// This will be set to true if we want the enemies to be calculated
 				boolean validKeyPressed = false;
+				int useItem = 0;
 				Direction direction = null;
 
 				switch (event.getCode()) {
 				case W:
-					System.out.println("North");
+					StatusBar.addStatus("North");
 					if (gen.ar[y - 1][x] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.NORTH;
 						validKeyPressed = true;
 					}
 					break;
 				case S:
-					System.out.println("South");
+					StatusBar.addStatus("South");
 					if (gen.ar[y + 1][x] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.SOUTH;
 						validKeyPressed = true;
 					}
 					break;
 				case A:
-					System.out.println("West");
+					StatusBar.addStatus("West");
 					if (gen.ar[y][x - 1] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.WEST;
 						validKeyPressed = true;
 					}
 					break;
 				case D:
-					System.out.println("East");
+					StatusBar.addStatus("East");
 					if (gen.ar[y][x + 1] < 10 || gen.player.invisibleTurns > 0) {
 						direction = Direction.EAST;
 						validKeyPressed = true;
 					}
 					break;
 				case I:
-					System.out.println(gen.getPlayer());
-					System.out.println("North: " + gen.ar[y - 1][x]);
-					System.out.println("South: " + gen.ar[y + 1][x]);
-					System.out.println("East: " + gen.ar[y][x + 1]);
-					System.out.println("West: " + gen.ar[y][x - 1]);
+					StatusBar.addStatus(gen.getPlayer().getName());
+					StatusBar.addStatus("North: " + gen.ar[y - 1][x]);
+					StatusBar.addStatus("South: " + gen.ar[y + 1][x]);
+					StatusBar.addStatus("East: " + gen.ar[y][x + 1]);
+					StatusBar.addStatus("West: " + gen.ar[y][x - 1]);
 					break;
 				case X:
 					for (Entity e : gen.gameEntities) {
@@ -254,17 +255,79 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 							for (Item i : ((Enemy) e).getInventory()) {
 								System.out.print(i.getClass().getSimpleName() + " ");
 							}
-							System.out.println();
+//							StatusBar.addStatus();
 						}
 					}
 					System.out.print("Player: ");
 					for (Item i : gen.player.getInventory()) {
 						System.out.print(i.getClass().getSimpleName() + " ");
 					}
-					System.out.println();
+//					StatusBar.addStatus();
+					break;
+				case DIGIT1:
+					useItem = 1;
+					break;
+				case DIGIT2:
+					useItem = 2;
+					break;
+				case DIGIT3:
+					useItem = 3;
+					break;
+				case DIGIT4:
+					useItem = 4;
+					break;
+				case DIGIT5:
+					useItem = 5;
+					break;
+				case DIGIT6:
+					useItem = 6;
+					break;
+				case DIGIT7:
+					useItem = 7;
+					break;
+				case DIGIT8:
+					useItem = 8;
+					break;
+				case DIGIT9:
+					useItem = 9;
+					break;
+				case DIGIT1:
+					useItem = 1;
+					break;
+				case DIGIT2:
+					useItem = 2;
+					break;
+				case DIGIT3:
+					useItem = 3;
+					break;
+				case DIGIT4:
+					useItem = 4;
+					break;
+				case DIGIT5:
+					useItem = 5;
+					break;
+				case DIGIT6:
+					useItem = 6;
+					break;
+				case DIGIT7:
+					useItem = 7;
+					break;
+				case DIGIT8:
+					useItem = 8;
+					break;
+				case DIGIT9:
+					useItem = 9;
 					break;
 				default:
 					break;
+				}
+
+				// Use items
+				if (useItem > 0) {
+					if (gen.getPlayer().getInventory().size() >= useItem) {
+						gen.getPlayer().getInventory().get(useItem - 1).use(gen.getPlayer());
+					}
+					useItem = 0;
 				}
 
 				// Handle collisions and move if valid key pressed

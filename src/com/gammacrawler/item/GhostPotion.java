@@ -17,7 +17,7 @@ public class GhostPotion extends Potion {
 	}
 
 	@Override
-	public void drink(Character c) {
+	public void use(Character c) {
 		// TODO Auto-generated method stub
 		int index  = 0;
 
@@ -31,7 +31,7 @@ public class GhostPotion extends Potion {
 				c.getInventory().remove(index);
 			}
 		}
-
+		c.getInventory().remove(this);
 	}
 
 	@Override

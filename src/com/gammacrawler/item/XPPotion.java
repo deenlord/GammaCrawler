@@ -19,9 +19,9 @@ public class XPPotion extends Potion {
 
 	
 	@Override
-	public void drink(Character c) {
+	public void use(Character c) {
 		c.setXP(c.getXP() + value);
-
+		c.getInventory().remove(this);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class XPPotion extends Potion {
 		// TODO Auto-generated method stub
 		if (e instanceof User) {
 			
-			this.drink(Generator.player);
+			this.use(Generator.player);
 		}
 	}
 	

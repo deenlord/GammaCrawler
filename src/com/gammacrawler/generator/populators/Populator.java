@@ -41,14 +41,14 @@ public abstract class Populator {
 			int x = (int) (Math.random() * tileArray.length);
 			int y = (int) (Math.random() * tileArray[0].length);
 
-//			System.out.println("Attempting " + x + " " + y);
-//			System.out.println("BLOCK: " + tileArray[x][y]);
+//			StatusBar.addStatus("Attempting " + x + " " + y);
+//			StatusBar.addStatus("BLOCK: " + tileArray[x][y]);
 			if (tileArray[x][y] == Settings.FLOOR_ID ||
 					tileArray[x][y] == Settings.COBBLES1_ID ||
 					tileArray[x][y] == Settings.COBBLES2_ID ||
 					tileArray[x][y] == Settings.COBBLES3_ID) {
 				if (noEntitiesHere(x, y)) {
-//					System.out.println("MAKING POINT " + x + " " + y);
+//					StatusBar.addStatus("MAKING POINT " + x + " " + y);
 					return new int[]{x, y};
 				}
 			}

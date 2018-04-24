@@ -1,5 +1,6 @@
 package com.gammacrawler.item;
 
+import com.gammacrawler.StatusBar;
 import com.gammacrawler.enemies.Ogre;
 import com.gammacrawler.enemies.Slime;
 import com.gammacrawler.entity.Entity;
@@ -65,7 +66,7 @@ public abstract class Weapon<T> extends Item {
 		else if (e instanceof Ogre) {
 			if (rand <= 8) {
 				((Ogre) e).setHP(((Ogre) e).getHP() - this.getDamage());
-				System.out.println("damaging ogre");
+				StatusBar.addStatus("damaging ogre");
 			}
 			else {
 				((Ogre) e).setHP(((Ogre) e).getHP() - this.getMaxDamage());
