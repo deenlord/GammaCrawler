@@ -32,6 +32,7 @@ public class HealthPotion extends Potion {
 		}
 		
 		c.setHP(returnMe);
+		c.getInventory().remove(this);
 		StatusBar.addStatus("Health Potion Applied: User HP = " + c.getHP());
 	}
 
