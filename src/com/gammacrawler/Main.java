@@ -308,7 +308,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					gen.getPlayer().move(direction);
 					gen.getPlayer().updateDirection(direction);
 					gen.handleCollisions();
-					clearDead((Group) sc.getRoot());
 
 					// Move enemies
 					counter++;
@@ -336,6 +335,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				//gen.updateInventoryBar();
+				clearDead((Group) sc.getRoot());
 			}
 		});
 
