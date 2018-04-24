@@ -29,7 +29,7 @@ public class inputMover {
 	public void move()
 	{
 		Scanner scn=new Scanner(System.in);
-		System.out.println("Coordinates: "+coordinates);
+		StatusBar.addStatus("Coordinates: "+coordinates);
 		
 		boolean keepGoing=true;
 		while(keepGoing) {
@@ -56,10 +56,10 @@ public class inputMover {
 					keepGoing=false;
 					break;
 				default:
-					System.out.println("w, s, a, or d");
+					StatusBar.addStatus("w, s, a, or d");
 					break;
 			}
-			System.out.println("New Coordinates: "+coordinates);
+			StatusBar.addStatus("New Coordinates: "+coordinates);
 		}
 		scn.close();
 	}
@@ -78,25 +78,25 @@ public class inputMover {
 		case "w":
 			if(board[(int) (coordinates.getY()-1)][(int) coordinates.getX()]==1){
 				moveValid=false;
-				System.out.println("You cannot go that way!");
+				StatusBar.addStatus("You cannot go that way!");
 				};
 			break;
 		case "s":			
 			if(board[(int) (coordinates.getY()+1)][(int) coordinates.getX()]==1){
 				moveValid=false;
-				System.out.println("You cannot go that way!");
+				StatusBar.addStatus("You cannot go that way!");
 				};
 			break;
 		case "a":
 			if(board[(int) (coordinates.getY())][(int) coordinates.getX()-1]==1){
 				moveValid=false;
-				System.out.println("You cannot go that way!");
+				StatusBar.addStatus("You cannot go that way!");
 				};
 			break;
 		case "d":
 			if(board[(int) (coordinates.getY())][(int) coordinates.getX()+1]==1){
 				moveValid=false;
-				System.out.println("You cannot go that way!");
+				StatusBar.addStatus("You cannot go that way!");
 				};
 			break;
 		}

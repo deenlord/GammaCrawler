@@ -2,6 +2,7 @@ package com.gammacrawler.generator.test;
 
 import javax.swing.JFrame;
 
+import com.gammacrawler.StatusBar;
 import com.gammacrawler.generator.Board;
 
 public class GeneratorTest {
@@ -17,7 +18,7 @@ public class GeneratorTest {
 		int[][] iArray = board.getArray();
 		for (int x = 0; x < iArray.length; x++) {
 			for (int y = 0; y < iArray[0].length; y++) {
-				System.out.println(iArray[x][y]);
+				StatusBar.addStatus(""+iArray[x][y]);
 			}
 		}
 

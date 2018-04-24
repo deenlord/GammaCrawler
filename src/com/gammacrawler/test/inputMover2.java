@@ -51,7 +51,7 @@ public class inputMover2 extends Application
 				case ESCAPE:
 					stop();
 				default:
-					System.out.println("Standard WSAD controls");
+					StatusBar.addStatus("Standard WSAD controls");
 					break;
 				}
 				location.setText("\n"+user.getLocation()[0]+", "+user.getLocation()[1]);

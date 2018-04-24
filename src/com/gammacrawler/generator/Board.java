@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.gammacrawler.Settings;
+import com.gammacrawler.StatusBar;
 import com.gammacrawler.generator.map.MazeMap;
 import com.gammacrawler.generator.map.connector.ConnectorBucket;
 import com.gammacrawler.generator.map.connector.DungeonConnector;
@@ -277,12 +278,11 @@ public class Board {
 					System.out.print("O ");
 				}
 			}
-			System.out.println();
 		}
 
 		int index = (int) (Math.random() * points.size());
 
-		System.out.println(points);
+		StatusBar.addStatus(""+points);
 		return new int[] { points.get(index).x, points.get(index).y };
 		// return new int[]{(points.get(index).x + 1) * Settings.TILESIZE,
 		// (points.get(index).x + 2) * Settings.TILESIZE};

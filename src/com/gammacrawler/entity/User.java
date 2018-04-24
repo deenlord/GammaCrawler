@@ -2,6 +2,7 @@ package com.gammacrawler.entity;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
+import com.gammacrawler.StatusBar;
 import com.gammacrawler.item.Weapon;
 import com.gammacrawler.item.WoodenSword;
 
@@ -30,7 +31,8 @@ public class User extends Character implements Moveable {
 		weapon = new WoodenSword();
 		this.getInventory().add(weapon);
 		for (Item i : this.getInventory()) {
-			System.out.println(i.getName());
+		//	StatusBar.addStatus(i.getName());
+		System.out.println("Error in StatusBar.addStatus(message) \nat com.gammacrawler.item at line 34");
 		}
 		
 		this.direction = Direction.EAST;
@@ -75,7 +77,7 @@ public class User extends Character implements Moveable {
 			weapon.animate();
 			break;
 		case WEST:
-			System.out.println("Attacking west");
+			StatusBar.addStatus("Attacking west");
 			x = (int) (this.getLocation()[0] - (Settings.TILESIZE /2));
 			y = (int) ((this.getLocation()[1]) + 1 + (Settings.TILESIZE) /4);
 			weapon.getSprite().rotateWeapon(this.direction);
@@ -85,7 +87,7 @@ public class User extends Character implements Moveable {
 			weapon.animate();
 			break;
 		case NORTH:
-			System.out.println("Attacking NORTH");
+			StatusBar.addStatus("Attacking NORTH");
 			x = (int) (this.getLocation()[0]);
 			y = (int) ((this.getLocation()[1]) - Settings.TILESIZE + (Settings.TILESIZE) /4);
 			weapon.getSprite().rotateWeapon(this.direction);
@@ -132,7 +134,7 @@ public class User extends Character implements Moveable {
 	@Override
 	public void collide(Entity e) {
 		// TODO Auto-generated method stub)
-		if (e instanceof Enemy) {
+		if (e instanceof Enemy && invisibleTurns < 1) {
 			this.setHP(this.getHP() - ((Enemy) e).getDamage());
 			if (this.getHP() <= 0) {
 				this.die(e);

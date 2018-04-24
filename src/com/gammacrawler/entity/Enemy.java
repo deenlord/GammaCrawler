@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
 import com.gammacrawler.Settings;
+import com.gammacrawler.StatusBar;
 import com.gammacrawler.item.Weapon;
 
 /**
@@ -74,7 +75,7 @@ public abstract class Enemy extends Character implements Moveable{
 	
 	@Override
 	public void collide(Entity e) {
-		System.out.println(this.getClass().getSimpleName()+" IS COLLIDING WITH " + e.getClass().getSimpleName());
+		StatusBar.addStatus(this.getClass().getSimpleName()+" IS COLLIDING WITH " + e.getClass().getSimpleName());
 		
 		if (e instanceof Weapon) {
 			if (this.getHP() <= 0) {
@@ -90,7 +91,7 @@ public abstract class Enemy extends Character implements Moveable{
 	@Override
 	public void move(Direction dir)
 	{
-		//System.out.println("Trying to move");
+		//StatusBar.addStatus("Trying to move");
 		this.location = this.getLocation();
 		int x=(this.getLocation()[0]/Settings.TILESIZE)-1,
 			y=(this.getLocation()[1]/Settings.TILESIZE)-1;
