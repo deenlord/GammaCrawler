@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
+import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -245,7 +246,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					System.out.println("West: " + gen.ar[y][x - 1]);
 					break;
 				case X:
-					
+					for (Entity e : gen.gameEntities) {
+						if (e instanceof Enemy) {
+							System.out.print(e + ": ");
+							for (Item i : ((Enemy) e).getInventory()) {
+								System.out.print(i.getClass().getSimpleName() + " ");
+							}
+							System.out.println();
+						}
+					}
 					break;
 				default:
 					break;
