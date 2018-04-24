@@ -20,4 +20,7 @@ public class Settings {
 	public static final int COBBLES2_ID = 4;
 	public static final int COBBLES3_ID = 5;
 	public static final int SKULL_ID = 6;
+	public static final int STONES1_ID = 11;
+	public static final int STONES2_ID = 12;
+	public static final int STONES3_ID = 13;
 }

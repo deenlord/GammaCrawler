@@ -36,6 +36,9 @@ public class Generator {
 	Image cobbles1;
 	Image cobbles2;
 	Image cobbles3;
+	Image stones1;
+	Image stones2;
+	Image stones3;
 
 	public Generator() {
 		this.player = new User("Richard");
@@ -46,6 +49,7 @@ public class Generator {
 		this.setPlayerInitialLocation();
 
 		// Run all the populators, to populate the dungeon with stuff.
+		populate(new PopulatorGraveyard(this.board.getArray(), gameEntities));
 		populate(new PopulatorSkulls(this.board.getArray(), gameEntities));
 		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
@@ -137,6 +141,12 @@ public class Generator {
 					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.SKULL_ID) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STONES1_ID) {
+					gc.drawImage(stones1, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STONES2_ID) {
+					gc.drawImage(stones2, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STONES3_ID) {
+					gc.drawImage(stones3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}
 		}
@@ -156,6 +166,9 @@ public class Generator {
 		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stones1 = new Image("file:src/com/gammacrawler/images/stones1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stones2 = new Image("file:src/com/gammacrawler/images/stones2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stones3 = new Image("file:src/com/gammacrawler/images/stones3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 	}
 
 	/** takes a Populator, then populates the populator

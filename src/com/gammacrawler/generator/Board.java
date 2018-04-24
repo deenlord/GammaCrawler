@@ -39,7 +39,7 @@ public class Board {
 	 * Adds the Maze structure to the Board, including rooms and hallways.
 	 */
 	public void addMaze() {
-		attemptPlaceRooms(500, 2, 10, 2, 12);
+		attemptPlaceRooms(500, 2, 20, 2, 24);
 
 		mazeMap = new MazeMap(tileArray);
 		mazeMap.makeMaze();
