@@ -20,7 +20,7 @@ public class HealthPotion extends Potion {
 	}
 
 	@Override
-	public void drink(Character c) {
+	public void use(Character c) {
 		int val = c.getHP();
 		int max = c.getMaxHP();
 		int returnMe = val + value;
@@ -40,7 +40,7 @@ public class HealthPotion extends Potion {
 		
 		c.setHP(returnMe);
 		System.out.println("Health Potion Applied: User HP = " + c.getHP());
-	
+		c.getInventory().remove(this);
 	}
 
 	@Override

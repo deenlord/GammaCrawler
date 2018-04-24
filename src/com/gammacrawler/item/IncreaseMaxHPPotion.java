@@ -19,9 +19,10 @@ public class IncreaseMaxHPPotion extends Potion {
 
 	
 	@Override
-	public void drink(Character c) {
+	public void use(Character c) {
 		c.setMaxHP(c.getMaxHP() + value);
 		c.setHP(c.getHP() + value);
+		c.getInventory().remove(this);
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class IncreaseMaxHPPotion extends Potion {
 		// TODO Auto-generated method stub
 		if (e instanceof User) {
 	
-			this.drink(Generator.player);
+			this.use(Generator.player);
 		}
 	}
 	

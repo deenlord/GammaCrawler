@@ -17,10 +17,14 @@ public class Chalice extends Potion {
 	}
 
 	@Override
-	public void drink(Character c) {
+	public void use(Character c) {
 
 		// Reduce the players HP but give them money, risk vs reward.
 		Generator.player.setHP(Generator.player.getHP() - takeHP);
+		if (Generator.player.getHP() < 1) {
+			Generator.player.setHP(0);
+			Generator.player.die(Generator.player);
+		}
 		Generator.player.setPoints(Generator.player.getPoints() + giveGold);
 	}
 

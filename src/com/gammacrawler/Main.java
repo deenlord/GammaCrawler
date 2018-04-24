@@ -209,6 +209,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 				// This will be set to true if we want the enemies to be calculated
 				boolean validKeyPressed = false;
+				int useItem = 0;
 				Direction direction = null;
 
 				switch (event.getCode()) {
@@ -257,9 +258,49 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 							System.out.println();
 						}
 					}
+					System.out.print("Player: ");
+					for (Item i : gen.player.getInventory()) {
+						System.out.print(i.getClass().getSimpleName() + " ");
+					}
+					System.out.println();
+					break;
+				case DIGIT1:
+					useItem = 1;
+					break;
+				case DIGIT2:
+					useItem = 2;
+					break;
+				case DIGIT3:
+					useItem = 3;
+					break;
+				case DIGIT4:
+					useItem = 4;
+					break;
+				case DIGIT5:
+					useItem = 5;
+					break;
+				case DIGIT6:
+					useItem = 6;
+					break;
+				case DIGIT7:
+					useItem = 7;
+					break;
+				case DIGIT8:
+					useItem = 8;
+					break;
+				case DIGIT9:
+					useItem = 9;
 					break;
 				default:
 					break;
+				}
+
+				// Use items
+				if (useItem > 0) {
+					if (gen.getPlayer().getInventory().size() >= useItem) {
+						gen.getPlayer().getInventory().get(useItem - 1).use(gen.getPlayer());
+					}
+					useItem = 0;
 				}
 
 				// Handle collisions and move if valid key pressed
