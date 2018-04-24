@@ -129,8 +129,12 @@ public abstract class Enemy extends Character implements Moveable{
 		// If it is a player increase their XP
 		if (killer instanceof User) {
 			Generator.player.setXP(Generator.player.getXP() + XP);
+
+			// Add items to players inventory on death
+			for (Item i : inventory) {
+				Generator.player.inventory.add(i);
+			}
 		}
 	}
-
 
 }
