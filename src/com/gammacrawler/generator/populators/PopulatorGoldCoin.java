@@ -19,7 +19,11 @@ public class PopulatorGoldCoin extends Populator {
 		for (int i = 0; i < attempts; i++) {
 			int[] p = getRandomFreeSpace();
 			coin = new GoldCoin();
-			coin.moveToTile(p[1] + 1, p[0] + 1); // TODO: Fix entity coordinates
+
+			if (p != null) {
+				coin.moveToTile(p[1] + 1, p[0] + 1); // TODO: Fix entity coordinates
+			}
+
 			entities.add(coin);
 		}
 	}

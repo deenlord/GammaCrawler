@@ -2,6 +2,7 @@ package com.gammacrawler.entity;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
+import com.gammacrawler.StatusBar;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -97,24 +98,24 @@ public class Sprite {
 	 * @param dir - A Direction 
 	 */
 	public void rotateWeapon(Direction dir) {
-		System.out.println("Rotate Weapon called.");
+		StatusBar.addStatus("Rotate Weapon called.");
 		this.imgView.setRotationAxis(Rotate.Z_AXIS);
 		//this.imgView.setTranslateZ(1);
 		switch (dir) {
 		case WEST:
-//			 System.out.println("Rotating Weapon West");
+//			 StatusBar.addStatus("Rotating Weapon West");
 			this.imgView.setRotate(180);
 			break;
 		case EAST:
-//			 System.out.println("Rotating Weapon East");
+//			 StatusBar.addStatus("Rotating Weapon East");
 			this.imgView.setRotate(0);
 			break;
 		case NORTH:
-//			System.out.println("Rotating Weapon North");
+//			StatusBar.addStatus("Rotating Weapon North");
 			this.imgView.setRotate(270);
 			break;
 		case SOUTH:
-//			System.out.println("Rotating Weapon South");
+//			StatusBar.addStatus("Rotating Weapon South");
 			this.imgView.setRotate(90);
 			break;
 		}

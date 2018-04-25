@@ -45,12 +45,10 @@ public class EnemyAI {
 	 */
 	public void walk(Enemy e)
 	{
-		
-		if (counter == 3) {
-			int directionInt=(int) (Math.random()*4)+1;
-			Direction dir;
-			switch(directionInt)
-			{
+		int directionInt=(int) (Math.random()*4)+1;
+		Direction dir;
+		switch(directionInt)
+		{
 			case 1:
 				dir=Direction.NORTH;
 				break;
@@ -64,13 +62,9 @@ public class EnemyAI {
 			default: 
 				dir=Direction.WEST;
 				break;
-			}
-			enemy.move(dir);
-			System.out.println(dir);
-			System.out.println(">"+enemy.getLocation()[0]+", v"+enemy.getLocation()[1]);
-			counter =  0;
 		}
-		counter ++;
+		enemy.move(dir);
+		
 	}
 	
 	/**

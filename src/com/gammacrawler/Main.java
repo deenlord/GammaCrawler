@@ -31,6 +31,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Stage mainStage;
 	private ArrayList<Sprite> characters = new ArrayList<>();
 	public static Generator gen;
+	
+	//counter for enemy movement
+	int counter=0;
 
 	/**
 	 * @return the start menu Scene
@@ -191,7 +194,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene gameLoop() {
 
 		gen = new Generator(); // creates board and user
-		System.out.println("Generator created");			
+		StatusBar.addStatus("Generator created");			
 		// procedurally...
 	
 		Scene sc = setupScene();
@@ -201,55 +204,60 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			
 			@Override
 			public void handle(KeyEvent event) {
+
 				Item it;
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
 				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
 //				System.out.println(event.getCode());
+
+
+				// Get the tile x and y of the player from the real x and y.
+				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
+				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
+
+				// This will be set to true if we want the enemies to be calculated
+				boolean validKeyPressed = false;
+				int useItem = 0;
+				Direction direction = null;
+
 				switch (event.getCode()) {
 				
 				case W:
-					System.out.println("North");
-					if (gen.ar[y - 1][x] < 10) {
-						gen.getPlayer().move(Direction.NORTH);
-						gen.getPlayer().updateDirection(Direction.NORTH);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+					StatusBar.addStatus("North");
+					if (gen.ar[y - 1][x] < 10 || gen.player.invisibleTurns > 0) {
+						direction = Direction.NORTH;
+						validKeyPressed = true;
 					}
 					break;
 				case S:
-					System.out.println("South");
-					if (gen.ar[y + 1][x] < 10) {
-						gen.getPlayer().move(Direction.SOUTH);
-						gen.getPlayer().updateDirection(Direction.SOUTH);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+					StatusBar.addStatus("South");
+					if (gen.ar[y + 1][x] < 10 || gen.player.invisibleTurns > 0) {
+						direction = Direction.SOUTH;
+						validKeyPressed = true;
 					}
 					break;
 				case A:
-					System.out.println("West");
-					if (gen.ar[y][x - 1] < 10) {
-						gen.getPlayer().move(Direction.WEST);
-						gen.getPlayer().updateDirection(Direction.WEST);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+					StatusBar.addStatus("West");
+					if (gen.ar[y][x - 1] < 10 || gen.player.invisibleTurns > 0) {
+						direction = Direction.WEST;
+						validKeyPressed = true;
 					}
 					break;
 				case D:
-					System.out.println("East");
-					if (gen.ar[y][x + 1] < 10) {
-						gen.getPlayer().move(Direction.EAST);
-						gen.getPlayer().updateDirection(Direction.EAST);
-						gen.handleCollisions();
-						clearDead((Group) sc.getRoot());
+					StatusBar.addStatus("East");
+					if (gen.ar[y][x + 1] < 10 || gen.player.invisibleTurns > 0) {
+						direction = Direction.EAST;
+						validKeyPressed = true;
 					}
 					break;
 				case I:
-					System.out.println(gen.getPlayer());
-					System.out.println("North: " + gen.ar[y - 1][x]);
-					System.out.println("South: " + gen.ar[y + 1][x]);
-					System.out.println("East: " + gen.ar[y][x + 1]);
-					System.out.println("West: " + gen.ar[y][x - 1]);
+					StatusBar.addStatus(gen.getPlayer().getName());
+					StatusBar.addStatus("North: " + gen.ar[y - 1][x]);
+					StatusBar.addStatus("South: " + gen.ar[y + 1][x]);
+					StatusBar.addStatus("East: " + gen.ar[y][x + 1]);
+					StatusBar.addStatus("West: " + gen.ar[y][x - 1]);
 					break;
+
 				case DIGIT1:
 					it = Generator.player.getInventory().get(1);
 					if (it instanceof Potion) {
@@ -265,22 +273,109 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 //		
 //					}
 //					break;	
+
+				case X:
+					for (Entity e : gen.gameEntities) {
+						if (e instanceof Enemy) {
+							System.out.print(e + ": ");
+							for (Item i : ((Enemy) e).getInventory()) {
+								System.out.print(i.getClass().getSimpleName() + " ");
+							}
+							System.out.println();
+//							StatusBar.addStatus();
+						}
+					}
+					System.out.print("Player: ");
+					for (Item i : gen.player.getInventory()) {
+						System.out.print(i.getClass().getSimpleName() + " ");
+					}
+					System.out.println();
+//					StatusBar.addStatus();
+					break;
+				case DIGIT1:
+					useItem = 1;
+					break;
+				case DIGIT2:
+					useItem = 2;
+					break;
+				case DIGIT3:
+					useItem = 3;
+					break;
+				case DIGIT4:
+					useItem = 4;
+					break;
+				case DIGIT5:
+					useItem = 5;
+					break;
+				case DIGIT6:
+					useItem = 6;
+					break;
+				case DIGIT7:
+					useItem = 7;
+					break;
+				case DIGIT8:
+					useItem = 8;
+					break;
+				case DIGIT9:
+					useItem = 9;
+					break;
 				default:
 					break;
 				}
-				//move enemies
-				for(Entity e: gen.gameEntities)
-				{
-					if(e instanceof Enemy) {
-						((Enemy) e).moveAI();
+
+				// Use items
+				if (useItem > 0) {
+					if (gen.getPlayer().getInventory().size() >= useItem) {
+						gen.getPlayer().getInventory().get(useItem - 1).use(gen.getPlayer());
+					}
+					useItem = 0;
+				}
+
+				// Handle collisions and move if valid key pressed
+				if (validKeyPressed) {
+					gen.getPlayer().move(direction);
+					gen.getPlayer().updateDirection(direction);
+					gen.handleCollisions();
+
+					// Move enemies
+					counter++;
+					if(counter>2) {
+						for(Entity e: gen.gameEntities)
+						{
+							if(e instanceof Enemy) {
+								((Enemy) e).moveAI();
+							}
+						}
 						gen.handleCollisions();
+						counter=0;
+					}
+
+					// Reduce the players invisibility
+					if (gen.player.invisibleTurns > 0) {
+						gen.player.invisibleTurns--;
+					}
+					if (gen.player.invisibleTurns < 1) {
+						gen.player.getImageView().setOpacity(1.0);
+					}
+
+					// Kill the player if they phased into a wall with the Ghost Potion
+					x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
+					y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
+
+					if (gen.board.getArray()[y][x] >= 10 && gen.player.invisibleTurns < 1) {
+						System.out.println(x + " " + y + " " + gen.board.getArray()[x][y]);
+						gen.player.setHP(0);
+						gen.player.die(gen.player);
 					}
 				}
+
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				//gen.updateInventoryBar();
+
+				clearDead((Group) sc.getRoot());
 			}
 		});
 
@@ -359,3 +454,4 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 }
+

@@ -7,12 +7,12 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
-public class GoldPotion extends Potion {
-	private static final String name = "Gold Potion";
-	private static final int value = 25;
-	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/smallhealthpotion.png");
+public class GhostPotion extends Potion {
+	private static final String name = "Ghost Potion";
+	private static final int value = 50;
+	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/ghostpotion.png");
 	
-	public GoldPotion() {
+	public GhostPotion() {
 		super(name, sprite, value);
 	}
 
@@ -20,8 +20,17 @@ public class GoldPotion extends Potion {
 	public void use(Character c) {
 		// TODO Auto-generated method stub
 		int index  = 0;
-		
-		Generator.player.setPoints(Generator.player.getPoints() + value);
+
+		Generator.player.invisibleTurns = 3;
+		Generator.player.getImageView().setOpacity(0.5);
+
+		for (int i = 0; i < c.getInventory().size(); i++) {
+			Item in = c.getInventory().get(i);
+			if(in instanceof GhostPotion) {
+				index  = i;
+				c.getInventory().remove(index);
+			}
+		}
 		c.getInventory().remove(this);
 	}
 

@@ -41,7 +41,12 @@ public class Chest extends Item{
 		if (e instanceof User) {
 			
 			for (Item i : this.inventory) {
+<<<<<<< HEAD
 				i.addToUser();
+=======
+				i.addToUser(Generator.player);
+				Generator.player.points += 200;
+>>>>>>> 5f9f6d3cf3792c9349b0aed24510f0e646f6778b
 			}
 			
 			this.die(Generator.player);	

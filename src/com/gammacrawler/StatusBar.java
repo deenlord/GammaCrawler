@@ -21,6 +21,7 @@ public class StatusBar extends Pane{
 	private Rectangle darkHealth, lightHealth;
 	private Rectangle healthBorder;
 	private Text health, exp, points;
+	private static Text gameStatus;
 	private int coordX=32, coordY=14;
 	/**
 	 * Generates graphic and text representations of health and XP formatted into a single node
@@ -34,8 +35,13 @@ public class StatusBar extends Pane{
 		generateHealthBar(height, (length));
 		generateExpLabel();
 		generatePointsLabel();
+		generateGameStatusLabel();
 		updateStatus(length, health);
+<<<<<<< HEAD
 //		generateInvBar();
+=======
+		
+>>>>>>> 5f9f6d3cf3792c9349b0aed24510f0e646f6778b
 	}
 	/**
 	 * Generates graphic and text representations of players health
@@ -91,7 +97,23 @@ public class StatusBar extends Pane{
 		points.setFill(Color.DARKGOLDENROD);
 		this.getChildren().add(points);
 	}
-
+	
+	public void generateGameStatusLabel()
+	{
+		gameStatus=new Text();
+		gameStatus.setX(points.getLayoutBounds().getMaxX()+10);
+		gameStatus.setY(coordY-1);
+		gameStatus.setFont(Font.font(null, FontWeight.BOLD, 14));
+		this.getChildren().add(gameStatus);
+		
+	}
+	
+	public static void addStatus(String message)
+	{
+		if(message!=null&&message.length()>1) {
+			gameStatus.setText(message);
+		}
+	}
 
 	/**
 	 * Updates the current statusBar to reflect the users condition
@@ -107,6 +129,7 @@ public class StatusBar extends Pane{
 		this.points.setText("Points: "+player.getPoints());
 		this.exp.setX(this.health.getLayoutBounds().getMaxX()+10);
 		this.points.setX(this.exp.getLayoutBounds().getMaxX()+10);
+		gameStatus.setX(points.getLayoutBounds().getMaxX()+10);
 	}
 
 
