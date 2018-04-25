@@ -6,6 +6,8 @@ import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
+import com.gammacrawler.entity.User;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,7 +19,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -120,7 +125,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// create authors label
 		Text authors = new Text();
-		authors.setText("By: Nathaniel Butterfield \n      Christian Rathke\n      JakobVendegna");
+		authors.setText("Created By: \nNathaniel Butterfield\nChristian Rathke\nJakob Vendegna");
+		authors.setTextAlignment(TextAlignment.CENTER);
 		authors.setLayoutY(200);
 		authors.setLayoutX(90);
 		authors.setFill(Color.WHITESMOKE);
@@ -155,6 +161,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			if (en.isDead) {
 				gen.gameEntities.remove(en);
 				root.getChildren().remove(en.getImageView());
+			}
+			if(en instanceof User) {
+				gameOver();
 			}
 		}
 	}
@@ -369,7 +378,19 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		return sc;
 	}
 
-	
+	public Scene gameOver()
+	{
+		Group group=new Group();
+		Text gameOver=new Text();
+		gameOver.xProperty().bind(mainStage.widthProperty().divide(2));
+		gameOver.yProperty().bind(mainStage.heightProperty().divide(2));
+		gameOver.setText("GAME OVER!");
+		gameOver.setFont(Font.font(null, FontWeight.EXTRA_BOLD, 72));
+		gameOver.setFill(Color.RED);
+		group.getChildren().add(gameOver);
+		Scene scene=new Scene(group);
+		return scene;
+	}
 
 	@Override
 	public void handle(ActionEvent event) {
