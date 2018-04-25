@@ -58,6 +58,7 @@ public abstract class Weapon<T> extends Item {
 		if (e instanceof Slime) {
 			if (rand <= 8) {
 				((Slime) e).setHP(((Slime) e).getHP() - this.getDamage());
+				StatusBar.addStatus("Slicing Slime");
 			}
 			else {
 				((Slime) e).setHP(((Slime) e).getHP() - this.getMaxDamage());
@@ -66,7 +67,7 @@ public abstract class Weapon<T> extends Item {
 		else if (e instanceof Ogre) {
 			if (rand <= 8) {
 				((Ogre) e).setHP(((Ogre) e).getHP() - this.getDamage());
-				StatusBar.addStatus("damaging ogre");
+				StatusBar.addStatus("Damaging Ogre");
 			}
 			else {
 				((Ogre) e).setHP(((Ogre) e).getHP() - this.getMaxDamage());
