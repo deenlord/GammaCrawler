@@ -24,13 +24,6 @@ public class GhostPotion extends Potion {
 		Generator.player.invisibleTurns = 3;
 		Generator.player.getImageView().setOpacity(0.5);
 
-		for (int i = 0; i < c.getInventory().size(); i++) {
-			Item in = c.getInventory().get(i);
-			if(in instanceof GhostPotion) {
-				index  = i;
-				c.getInventory().remove(index);
-			}
-		}
 		c.getInventory().remove(this);
 	}
 

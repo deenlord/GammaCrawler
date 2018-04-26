@@ -13,7 +13,7 @@ public class IncreaseMaxHPPotion extends Potion {
 	private static final int value = 25;
 	
 	public IncreaseMaxHPPotion() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/smallhealthpotion.png"), value);
+		super(name, new Sprite("file:src/com/gammacrawler/images/litehealthpotion.png"), value);
 	}
 
 	
