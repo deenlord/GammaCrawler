@@ -6,10 +6,9 @@ import com.gammacrawler.Generator;
  * @author jakev
  *
  */
-public abstract class Item extends Entity{
+public abstract class Item extends Entity {
 
 	private String name;
-	protected Sprite sprite;
 	private int value;
 
 	/**
@@ -40,14 +39,6 @@ public abstract class Item extends Entity{
 	 */
 	public String getName() {
 		return this.name;
-	}
-	
-	/**
-	 * Called to get this.sprite
-	 * @return item Sprite
-	 */
-	public Sprite getSprite() {
-		return this.sprite;
 	}
 	
 	/**

@@ -21,6 +21,14 @@ public abstract class Entity implements Moveable {
 	}
 
 	/**
+	 * Called to get this.sprite
+	 * @return item Sprite
+	 */
+	public Sprite getSprite() {
+		return this.sprite;
+	}
+
+	/**
 	 * This will take a tile coordinate (0 - (length - 1)) and convert it into
 	 * pixel coordinates, then move the entity to that location.
 	 * 

@@ -279,48 +279,39 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						break;
 					case DIGIT1:
 						useItem = 1;
-						StatusBar.addStatus(Generator.player.getInventory().get(1).getName().toString());
-						Generator.player.getInventory().remove(1);
+						StatusBar.addStatus(Generator.player.getInventory().get(0).getName().toString());
 						break;
 					case DIGIT2:
 						useItem = 2;
-						StatusBar.addStatus(Generator.player.getInventory().get(2).getName().toString());
-						Generator.player.getInventory().remove(2);
+						StatusBar.addStatus(Generator.player.getInventory().get(1).getName().toString());
 						break;
 					case DIGIT3:
 						useItem = 3;
-						StatusBar.addStatus(Generator.player.getInventory().get(3).getName().toString());
-						Generator.player.getInventory().remove(3);
+						StatusBar.addStatus(Generator.player.getInventory().get(2).getName().toString());
 						break;
 					case DIGIT4:
 						useItem = 4;
-						StatusBar.addStatus(Generator.player.getInventory().get(4).getName().toString());
-						Generator.player.getInventory().remove(4);
+						StatusBar.addStatus(Generator.player.getInventory().get(3).getName().toString());
 						break;
 					case DIGIT5:
 						useItem = 5;
-						StatusBar.addStatus(Generator.player.getInventory().get(5).getName().toString());
-						Generator.player.getInventory().remove(5);
+						StatusBar.addStatus(Generator.player.getInventory().get(4).getName().toString());
 						break;
 					case DIGIT6:
 						useItem = 6;
-						StatusBar.addStatus(Generator.player.getInventory().get(6).getName().toString());
-						Generator.player.getInventory().remove(6);
+						StatusBar.addStatus(Generator.player.getInventory().get(5).getName().toString());
 						break;
 					case DIGIT7:
 						useItem = 7;
-						StatusBar.addStatus(Generator.player.getInventory().get(7).getName().toString());
-						Generator.player.getInventory().remove(7);
+						StatusBar.addStatus(Generator.player.getInventory().get(6).getName().toString());
 						break;
 					case DIGIT8:
 						useItem = 8;
-						StatusBar.addStatus(Generator.player.getInventory().get(8).getName().toString());
-						Generator.player.getInventory().remove(8);
+						StatusBar.addStatus(Generator.player.getInventory().get(7).getName().toString());
 						break;
 					case DIGIT9:
 						useItem = 9;
-						StatusBar.addStatus(Generator.player.getInventory().get(9).getName().toString());
-						Generator.player.getInventory().remove(9);
+						StatusBar.addStatus(Generator.player.getInventory().get(8).getName().toString());
 						break;
 					default:
 						break;
@@ -380,7 +371,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
 				//update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
-				//gen.updateInventoryBar();
+				gen.updateInventoryBar();
 
 				clearDead((Group) sc.getRoot());
 			}

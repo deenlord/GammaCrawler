@@ -10,7 +10,7 @@ import com.gammacrawler.entity.Sprite;
 public class GhostPotion extends Potion {
 	private static final String name = "Ghost Potion";
 	private static final int value = 50;
-	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/ghostpotion.png");
+	private static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/ghostpotion.png");
 	
 	public GhostPotion() {
 		super(name, sprite, value);

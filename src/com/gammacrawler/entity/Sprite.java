@@ -122,6 +122,7 @@ public class Sprite {
 	}
 
 	public ImageView getNewImageView() {
+		System.out.println(img);
 		ImageView iv = new ImageView(img);
 		return iv;
 	}

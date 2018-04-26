@@ -10,10 +10,9 @@ public class Chalice extends Potion {
 	private static final String name = "Gold Chalice";
 	private static final int takeHP = 7;
 	private static final int giveGold = 10;
-	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/chalice.png");
 	
 	public Chalice() {
-		super(name, sprite, 0);
+		super(name, new Sprite("file:src/com/gammacrawler/images/chalice.png"), 0);
 	}
 
 	@Override
