@@ -44,6 +44,22 @@ public class PopulatorStair extends Populator {
 				case 3:
 					checkPoint[0]--;
 					break;
+				case 4:
+					checkPoint[1]--;
+					checkPoint[0]--;
+					break;
+				case 5:
+					checkPoint[1]++;
+					checkPoint[0]++;
+					break;
+				case 6:
+					checkPoint[1]--;
+					checkPoint[0]++;
+					break;
+				case 7:
+					checkPoint[1]++;
+					checkPoint[0]--;
+					break;
 				default:
 					break;
 			}
