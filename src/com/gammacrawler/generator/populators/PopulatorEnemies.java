@@ -26,7 +26,7 @@ public class PopulatorEnemies extends Populator {
 
 	public PopulatorEnemies(int[][] tileArray, ArrayList<Entity> entities) {
 		super(tileArray, entities);
-		maxItemsInEnemyInventory = 2;
+		maxItemsInEnemyInventory = 1;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class PopulatorEnemies extends Populator {
 			ogre = new Ogre();
 
 			// Add random items
-			int itemCount = (int) ((Math.random() * maxItemsInEnemyInventory) + 1);
+			int itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
 			for (int j = 0; j < itemCount; j++) {
 				ogre.addToInventory(new RandomItem().getItem());
 			}
@@ -54,7 +54,7 @@ public class PopulatorEnemies extends Populator {
 			slime = new Slime();
 
 			// Add random items
-			itemCount = (int) ((Math.random() * maxItemsInEnemyInventory) + 1);
+			itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
 			for (int j = 0; j < itemCount; j++) {
 				slime.addToInventory(new RandomItem().getItem());
 			}
@@ -66,7 +66,7 @@ public class PopulatorEnemies extends Populator {
 			witch = new Witch();
 
 			// Add random items
-			itemCount = (int) ((Math.random() * maxItemsInEnemyInventory) + 1);
+			itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
 			for (int j = 0; j < itemCount; j++) {
 				witch.addToInventory(new RandomItem().getItem());
 			}
@@ -78,7 +78,7 @@ public class PopulatorEnemies extends Populator {
 			zombieninja = new ZombieNinja();
 
 			
-			itemCount = (int) ((Math.random() * maxItemsInEnemyInventory) + 1);
+			itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
 			for (int j = 0; j < itemCount; j++) {
 				zombieninja.addToInventory(new RandomItem().getItem());
 			}

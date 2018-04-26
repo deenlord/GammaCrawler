@@ -90,10 +90,6 @@ public abstract class Enemy extends Character implements Moveable{
 			if (((Weapon) e).isDoingDamage()) {
 				if (this.getHP() <= 0) {
 					die(Generator.player);
-					
-					for (Item i : this.inventory) {
-						i.addToUser();
-					}
 				}
 			}
 		}

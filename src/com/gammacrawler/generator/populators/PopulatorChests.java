@@ -33,40 +33,34 @@ public class PopulatorChests extends Populator {
 			int[] p = this.getRandomFreeSpace();
 			
 			int rand = (int) Math.random() * 100;
-			if (rand <= 3) {
+			if (rand <= 10) {
 				chest.addTo(new Chalice());
-				chest.addTo(new GhostPotion());
-			} else if (rand <= 9) {
-				chest.addTo(new GhostPotion());
+				chest.addTo(new HealthPotion());
+			} else if (rand <= 20) {
 				chest.addTo(new IncreaseMaxHPPotion());	
-			} else if (rand <= 10) {
+			} else if (rand <= 30) {
 				chest.addTo(new GhostPotion());
-				chest.addTo(new HealthPotion());
-				chest.addTo(new IncreaseMaxHPPotion());	
-			}
-			else if (rand <= 20) {
-				chest.addTo(new GhostPotion());
-				chest.addTo(new HealthPotion());
-			}
-			else if (rand <= 30) {
-				chest.addTo(new GhostPotion());
-				chest.addTo(new HealthPotion());
-				chest.addTo(new IncreaseMaxHPPotion());
 				chest.addTo(new XPPotion());
 			}
 			else if (rand <= 40) {
+				chest.addTo(new GhostPotion());
+				chest.addTo(new HealthPotion());
+				chest.addTo(new XPPotion());
+			}
+			else if (rand <= 50) {
+				chest.addTo(new IncreaseMaxHPPotion());
+			}
+			else if (rand <= 60) {
 				chest.addTo(new GoldPotion());
 				chest.addTo(new HealthPotion());
 			}
-			else if (rand <=50) {
+			else if (rand <=70) {
 				chest.addTo(new FightPotion());
 				chest.addTo(new XPPotion());
 				chest.addTo(new GoldPotion());
 			}
 			else
-				chest.addTo(new GhostPotion());
-				chest.addTo(new IncreaseMaxHPPotion());
-	
+				chest.addTo(new HealthPotion());
 			if (p != null) {
 				chest.moveToTile(p[1] + 1, p[0] + 1);
 			}
