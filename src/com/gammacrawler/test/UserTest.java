@@ -1,5 +1,6 @@
 package com.gammacrawler.test;
 import com.gammacrawler.Direction;
+import com.gammacrawler.StatusBar;
 import com.gammacrawler.entity.User;
 
 /**

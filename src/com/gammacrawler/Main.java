@@ -6,8 +6,7 @@ import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
-import com.gammacrawler.item.Potion;
-
+import com.gammacrawler.entity.User;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,7 +18,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -122,7 +124,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// create authors label
 		Text authors = new Text();
-		authors.setText("By: Nathaniel Butterfield \n      Christian Rathke\n      JakobVendegna");
+		authors.setText("Created By: \nNathaniel Butterfield\nChristian Rathke\nJakob Vendegna");
+		authors.setTextAlignment(TextAlignment.CENTER);
 		authors.setLayoutY(200);
 		authors.setLayoutX(90);
 		authors.setFill(Color.WHITESMOKE);
@@ -157,6 +160,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			if (en.isDead) {
 				gen.gameEntities.remove(en);
 				root.getChildren().remove(en.getImageView());
+			}
+			if(en instanceof User) {
+				gameOver();
 			}
 		}
 	}
@@ -220,38 +226,38 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				
 				case W:
 					StatusBar.addStatus("North");
-					if (gen.ar[y - 1][x] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y - 1][x] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.NORTH;
 						validKeyPressed = true;
 					}
 					break;
 				case S:
 					StatusBar.addStatus("South");
-					if (gen.ar[y + 1][x] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y + 1][x] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.SOUTH;
 						validKeyPressed = true;
 					}
 					break;
 				case A:
 					StatusBar.addStatus("West");
-					if (gen.ar[y][x - 1] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y][x - 1] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.WEST;
 						validKeyPressed = true;
 					}
 					break;
 				case D:
 					StatusBar.addStatus("East");
-					if (gen.ar[y][x + 1] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y][x + 1] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.EAST;
 						validKeyPressed = true;
 					}
 					break;
 				case I:
 					StatusBar.addStatus(gen.getPlayer().getName());
-					StatusBar.addStatus("North: " + gen.ar[y - 1][x]);
-					StatusBar.addStatus("South: " + gen.ar[y + 1][x]);
-					StatusBar.addStatus("East: " + gen.ar[y][x + 1]);
-					StatusBar.addStatus("West: " + gen.ar[y][x - 1]);
+					StatusBar.addStatus("North: " + Generator.ar[y - 1][x]);
+					StatusBar.addStatus("South: " + Generator.ar[y + 1][x]);
+					StatusBar.addStatus("East: " + Generator.ar[y][x + 1]);
+					StatusBar.addStatus("West: " + Generator.ar[y][x - 1]);
 					break;
 				case X:
 					for (Entity e : gen.gameEntities) {
@@ -265,7 +271,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						}
 					}
 					System.out.print("Player: ");
-					for (Item i : gen.player.getInventory()) {
+					for (Item i : Generator.player.getInventory()) {
 						System.out.print(i.getClass().getSimpleName() + " ");
 					}
 					System.out.println();
@@ -330,21 +336,21 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					}
 
 					// Reduce the players invisibility
-					if (gen.player.invisibleTurns > 0) {
-						gen.player.invisibleTurns--;
+					if (Generator.player.invisibleTurns > 0) {
+						Generator.player.invisibleTurns--;
 					}
-					if (gen.player.invisibleTurns < 1) {
-						gen.player.getImageView().setOpacity(1.0);
+					if (Generator.player.invisibleTurns < 1) {
+						Generator.player.getImageView().setOpacity(1.0);
 					}
 
 					// Kill the player if they phased into a wall with the Ghost Potion
 					x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
 					y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
 
-					if (gen.board.getArray()[y][x] >= 10 && gen.player.invisibleTurns < 1) {
+					if (gen.board.getArray()[y][x] >= 10 && Generator.player.invisibleTurns < 1) {
 						System.out.println(x + " " + y + " " + gen.board.getArray()[x][y]);
-						gen.player.setHP(0);
-						gen.player.die(gen.player);
+						Generator.player.setHP(0);
+						Generator.player.die(Generator.player);
 					}
 				}
 
@@ -374,7 +380,19 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		return sc;
 	}
 
-	
+	public Scene gameOver()
+	{
+		Group group=new Group();
+		Text gameOver=new Text();
+		gameOver.xProperty().bind(mainStage.widthProperty().divide(2));
+		gameOver.yProperty().bind(mainStage.heightProperty().divide(2));
+		gameOver.setText("GAME OVER!");
+		gameOver.setFont(Font.font(null, FontWeight.EXTRA_BOLD, 72));
+		gameOver.setFill(Color.RED);
+		group.getChildren().add(gameOver);
+		Scene scene=new Scene(group);
+		return scene;
+	}
 
 	@Override
 	public void handle(ActionEvent event) {
