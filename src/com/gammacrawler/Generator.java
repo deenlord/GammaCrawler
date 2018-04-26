@@ -67,6 +67,7 @@ public class Generator {
 		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 2.0));
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
 		populate(new PopulatorChests(this.board.getArray(), gameEntities, 5));
+		populate(new PopulatorStair(this.board.getArray(), gameEntities));
 		
 		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
