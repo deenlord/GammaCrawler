@@ -10,7 +10,7 @@ import com.gammacrawler.entity.Sprite;
 public class GoldPotion extends Potion {
 	private static final String name = "Gold Potion";
 	private static final int value = 25;
-	private static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/smallhealthpotion.png");
+	private static final Sprite sprite = new Sprite("file:src/com/gammacrawler/images/smallgoldpotion.png");
 	
 	public GoldPotion() {
 		super(name, sprite, value);

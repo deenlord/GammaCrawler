@@ -13,7 +13,7 @@ public class FightPotion extends Potion {
 	private static final int value = 25;
 
 	public FightPotion() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/smallhealthpotion.png"), value);
+		super(name, new Sprite("file:src/com/gammacrawler/images/smallfightpotion.png"), value);
 	}
 
 	@Override
