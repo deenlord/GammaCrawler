@@ -1,6 +1,7 @@
 package com.gammacrawler;
 
 import com.gammacrawler.entity.Item;
+import com.gammacrawler.item.Weapon;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -26,7 +27,7 @@ public class InventoryBar extends Pane {
 		for (Item item:Generator.player.getInventory())
 		{
 			
-		//if(!(item instanceof Weapon))
+		if(!(item instanceof Weapon))
 			{
 			System.out.println("Found " + item + " in inventory");
 			ImageView iv = item.getSprite().getNewImageView();
