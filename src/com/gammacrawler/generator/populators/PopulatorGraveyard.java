@@ -64,10 +64,6 @@ public class PopulatorGraveyard extends Populator {
 			for (GraveSite site : sites) {
 				makeGraveyard(site.minX, site.maxX, site.minY, site.maxY);
 			}
-			// Test if this is a proper space
-//			if (isRoom(x, x + width, y, y + height)) {
-//				makeGraveyard(x, x + width -1 , y, y + height - 1);
-//			}
 		}
 	}
 
@@ -95,22 +91,16 @@ public class PopulatorGraveyard extends Populator {
 					while (tileArray[tX + 1][y] == Settings.FLOOR_ID) {
 						lenX ++;
 						tX ++;
-//						tileArray[tX][y] = Settings.STONES3_ID;
 					}
-					System.out.println("LEN X " + lenX);
 					while (tileArray[x][tY + 1] == Settings.FLOOR_ID) {
 						lenY ++;
 						tY ++;
-//						tileArray[x][tY] = Settings.STONES3_ID;
 					}
 
 					if (lenX < 5 || lenY < 5) {
 						break Check;
 					} else {
 						sites.add(new GraveSite(x + 1, x + lenX - 2, y + 1, y + lenY - 2));
-//						tileArray[x][y] = Settings.STONES1_ID;
-//						tileArray[x][y + lenY] = Settings.STONES1_ID;
-//						tileArray[x + lenX][y] = Settings.STONES1_ID;
 					}
 				}
 			}
@@ -120,12 +110,8 @@ public class PopulatorGraveyard extends Populator {
 	}
 
 	private void makeGraveyard(int minX, int maxX, int minY, int maxY) {
-
-		System.out.println("GRAVE " + minX + " " + minY + " " + maxX + " " + maxY);
-
 		makeWalls(minX, maxX, minY, maxY);
 		makeSkulls(minX, maxX, minY, maxY);
-		
 	}
 
 	private void makeSkulls(int minX, int maxX, int minY, int maxY) {
@@ -162,12 +148,6 @@ public class PopulatorGraveyard extends Populator {
 		tileArray[minX][maxY] = Settings.STONES1_ID;
 		tileArray[maxX][minY] = Settings.STONES1_ID;
 		tileArray[maxX][maxY] = Settings.STONES1_ID;
-
-		for (int x = minX + 1; x < maxX; x++) {
-			for (int y = minY; y < maxY; y++) {
-				//tileArray[x][y] = Settings.STONES1_ID;
-			}
-		}
 
 		for (int x = minX + 1; x < maxX; x++) {
 			random = (int) (Math.random() * wallOptions.length);

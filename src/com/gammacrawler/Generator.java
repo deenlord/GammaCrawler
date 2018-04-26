@@ -42,8 +42,21 @@ public class Generator {
 	Image stones3;
 
 	public Generator() {
+		makeGenerator(21, 21, 12);
+	}
+
+	public Generator(int xp) {
+		if (xp < 100)
+			makeGenerator(21, 21, 12);
+		else if(xp > 100 && xp < 500)
+			makeGenerator(21, 25, 16);
+		else
+			makeGenerator(25, 31, 20);
+	}
+
+	private void makeGenerator(int width, int height, int roomMaxSize) {
 		Generator.player = new User("Richard");
-		this.board = new Board(21,21);
+		this.board = new Board(width, height, roomMaxSize);
 		Generator.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		this.gameEntities = new ArrayList<>();
@@ -52,44 +65,16 @@ public class Generator {
 		// Run all the populators, to populate the dungeon with stuff.
 		populate(new PopulatorGraveyard(this.board.getArray(), gameEntities));
 		populate(new PopulatorSkulls(this.board.getArray(), gameEntities));
-		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
+		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 8.5));
+		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 2.0));
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
-		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
-		populate(new PopulatorChests(this.board.getArray(), gameEntities));
-//		populate(new PopulatorEnemiesDebug(this.board.getArray(), gameEntities));
-		
+		populate(new PopulatorChests(this.board.getArray(), gameEntities, 5));
 		
 		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
 		this.invBar = new InventoryBar();
-
 	}
-	
-	public Generator(User player) {
-		Generator.player = player;
-		if (player.getXP() < 100)
-			this.board = new Board(21, 21);
-		else if(player.getXP() > 100 && player.getXP() < 500)
-			this.board = new Board(45,51);
-		else
-			this.board = new Board(55,55);
-		
-		this.enemies = new ArrayList<>();
-		this.gameEntities = new ArrayList<>();
-		this.setPlayerInitialLocation();
 
-		// Run all the populators, to populate the dungeon with stuff.
-		populate(new PopulatorSkulls(this.board.getArray(), gameEntities));
-		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
-		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
-		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
-		
-		
-		// Show user their health, experience, gold, etc...
-		this.status = new StatusBar(this, 20, 672);
-
-	}
-	
 	public User getPlayer() {
 		return Generator.player;
 	}
@@ -115,7 +100,7 @@ public class Generator {
 		double y;
 
 		// create the Canvas (feel free to resize)
-		Canvas cv = new Canvas(Settings.SCENEWIDTH, Settings.SCENEHEIGHT);
+		Canvas cv = new Canvas(Settings.TILESIZE * (ar[0].length + 1), Settings.TILESIZE * (ar.length + 1));
 		GraphicsContext gc = cv.getGraphicsContext2D();
 
 		// iterate through the array and draw the appropriate sprite
