@@ -330,7 +330,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				// Use items
 				if (useItem > 0) {
 					if (gen.getPlayer().getInventory().size() >= useItem) {
-						gen.getPlayer().getInventory().get(useItem - 1).use(gen.getPlayer());
+						gen.getPlayer().getInventory().get(useItem).use(gen.getPlayer());
 					}
 					useItem = 0;
 				}
