@@ -126,7 +126,7 @@ public class Generator {
 					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.SKULL_ID) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == Settings.STAIRS_ID) {
+				} else if (ar[i][j] == Settings.STAIR_ID) {
 					gc.drawImage(stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}
