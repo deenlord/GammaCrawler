@@ -61,6 +61,7 @@ public class Generator {
 		this.setPlayerInitialLocation();
 
 		// Run all the populators, to populate the dungeon with stuff.
+		populate(new PopulatorStair(this.board.getArray(), gameEntities));
 		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 30.0));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 8.5));
 		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 2.0));
@@ -125,7 +126,7 @@ public class Generator {
 					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.SKULL_ID) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
-				} else if (ar[i][j] == Settings.STAIR_ID) {
+				} else if (ar[i][j] == Settings.STAIRS_ID) {
 					gc.drawImage(stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}
