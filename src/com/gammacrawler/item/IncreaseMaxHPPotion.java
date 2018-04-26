@@ -11,10 +11,9 @@ public class IncreaseMaxHPPotion extends Potion {
 
 	private static final String name = "BoostHP Potion";
 	private static final int value = 25;
-	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/smallhealthpotion.png");
 	
 	public IncreaseMaxHPPotion() {
-		super(name, sprite, value);
+		super(name, new Sprite("file:src/com/gammacrawler/images/litehealthpotion.png"), value);
 	}
 
 	

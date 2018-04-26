@@ -41,9 +41,9 @@ public class Generator {
 	Image stones3;
 
 	public Generator() {
-		this.player = new User("Richard");
+		Generator.player = new User("Richard");
 		this.board = new Board(21,21);
-		this.ar = this.board.getArray();
+		Generator.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
@@ -65,7 +65,7 @@ public class Generator {
 	}
 	
 	public Generator(User player) {
-		this.player = player;
+		Generator.player = player;
 		if (player.getXP() < 100)
 			this.board = new Board(21, 21);
 		else if(player.getXP() > 100 && player.getXP() < 500)
@@ -90,7 +90,7 @@ public class Generator {
 	}
 	
 	public User getPlayer() {
-		return this.player;
+		return Generator.player;
 	}
 	
 	public Board getBoard() {

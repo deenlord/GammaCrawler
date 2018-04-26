@@ -37,7 +37,6 @@ public class StatusBar extends Pane{
 		generatePointsLabel();
 		generateGameStatusLabel();
 		updateStatus(length, health);
-		
 	}
 	/**
 	 * Generates graphic and text representations of players health

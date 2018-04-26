@@ -1,32 +1,37 @@
 package com.gammacrawler;
 
-import com.gammacrawler.entity.Item;
-import com.gammacrawler.item.Weapon;
+import java.util.ArrayList;
 
-import javafx.scene.Group;
+import com.gammacrawler.entity.Item;
+
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+/**
+ * @author jakev, crathke4, nathaniel
+ *
+ */
 public class InventoryBar extends Pane {
-	Group g;
-	int x = Settings.TILESIZE;
-	int y = (Settings.TILESIZE * 2);
+
 	public InventoryBar() {
-		this.setPrefSize(615, 32);
-		g = new Group();
-		g.getChildren().add(this);
+		this.setupInventoryBar();
 	}
-	
-	public void update() {
-		for (Item i : Generator.player.getInventory()) {
-			if (i instanceof Weapon) {
-				break;
-			}
-			else {
-				i.getImageView().setLayoutX(x);
-				i.getImageView().setLayoutY(y);
-				x = x + Settings.TILESIZE;
-				this.getChildren().add(i.getImageView());
-			}
+
+	public void setupInventoryBar() {
+		this.getChildren().clear();
+		ArrayList<Item> inv = Generator.player.getInventory();
+
+		for (int i = 0; i < inv.size(); i++) {
+			ImageView iv = inv.get(i).getSprite().getNewImageView();
+			iv.setX(i * Settings.TILESIZE);
+			iv.setY(Settings.TILESIZE);
+
+			this.getChildren().add(iv);
 		}
 	}
+
+	public void update() {
+		this.setupInventoryBar();
+	}
+
 }

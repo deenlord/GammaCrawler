@@ -6,6 +6,7 @@ import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
+import com.gammacrawler.entity.User;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,9 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -29,9 +35,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	Stage mainStage;
 	private ArrayList<Sprite> characters = new ArrayList<>();
 	public static Generator gen;
-	
-	//counter for enemy movement
-	int counter=0;
+
+	// counter for enemy movement
+	int counter = 0;
 
 	/**
 	 * @return the start menu Scene
@@ -44,7 +50,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Pane pane = new Pane();
 		pane.getStyleClass().add("menuPane");
 		pane.setPrefSize(Settings.STARTMENUSIZE, Settings.STARTMENUSIZE);
-
 		// create the game name label
 		Text label = new Text();
 		label.setText("GammaCrawler!");
@@ -86,7 +91,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		characters.add(imgY8);
 		characters.add(imgY9);
 		characters.add(imgY10);
-		
+
 		characters.add(imgX1);
 		characters.add(imgX2);
 		characters.add(imgX3);
@@ -96,20 +101,18 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		characters.add(imgX7);
 		characters.add(imgX8);
 		characters.add(imgX9);
-		
 
 		int counter = 0;
 		for (Sprite spr : characters) {
-			
-				if (counter >= 10) {
-					spr.getImageView().setLayoutY(i * (counter - 9));
-				}
-				else {
-					spr.getImageView().setLayoutX(i * counter);
-				}
+
+			if (counter >= 10) {
+				spr.getImageView().setLayoutY(i * (counter - 9));
+			} else {
+				spr.getImageView().setLayoutX(i * counter);
+			}
 			pane.getChildren().add(spr.getImageView());
 			counter++;
-			
+
 		}
 		// create the button
 		launchButton = new Button();
@@ -120,7 +123,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// create authors label
 		Text authors = new Text();
-		authors.setText("By: Nathaniel Butterfield \n      Christian Rathke\n      JakobVendegna");
+		authors.setText("Created By: \nNathaniel Butterfield\nChristian Rathke\nJakob Vendegna");
+		authors.setTextAlignment(TextAlignment.CENTER);
 		authors.setLayoutY(200);
 		authors.setLayoutX(90);
 		authors.setFill(Color.WHITESMOKE);
@@ -130,6 +134,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		pane.getChildren().add(label);
 		pane.getChildren().add(launchButton);
 		pane.getChildren().add(authors);
+		// GameOver Test
+		Button kill = new Button();
+		kill.setText("K/O");
+		kill.setOnAction(e -> mainStage.setScene(gameOver()));
+		pane.getChildren().add(kill);
 
 		// add the pane to the group
 		menu.getChildren().add(pane);
@@ -156,33 +165,36 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.gameEntities.remove(en);
 				root.getChildren().remove(en.getImageView());
 			}
+			if (en instanceof User) {
+				mainStage.setScene(gameOver());
+			}
 		}
 	}
 
 	/**
 	 * This sets up the Scene for the game
+	 * 
 	 * @return The game Scene
 	 */
 	private Scene setupScene() {
 
 		// Canvas goes in a Group
 		Group root = new Group();
-		
 
 		// Set the scene
 		root.getChildren().add(gen.getDungeon());
-		
+
 		for (Entity en : gen.gameEntities) {
 			root.getChildren().add(en.getImageView());
 		}
-		
+
 		root.getChildren().add(gen.getPlayer().getWeapon().getImageView());
 		gen.gameEntities.add(gen.getPlayer().getWeapon());
 		gen.getPlayer().getWeapon().getImageView().setVisible(false);
 
-		//add a status bar
+		// add a status bar
 		root.getChildren().add(gen.getStatus());
-		//root.getChildren().add(gen.invBar);
+		root.getChildren().add(gen.invBar);
 		return new Scene(root);
 	}
 
@@ -192,61 +204,64 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene gameLoop() {
 
 		gen = new Generator(); // creates board and user
-		StatusBar.addStatus("Generator created");			
+		StatusBar.addStatus("Generator created");
 		// procedurally...
-	
+
 		Scene sc = setupScene();
-		
+
 		// event handling for the gameLoop Scene.
 		sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			
+
 			@Override
-			public void handle(KeyEvent event) {
+			public void handle(KeyEvent event) throws IndexOutOfBoundsException {
+
+				Item it;
 
 				// Get the tile x and y of the player from the real x and y.
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
-				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
+				int y = (gen.getPlayer().getLocation()[1] / Settings.TILESIZE) - 1;
 
-				// This will be set to true if we want the enemies to be calculated
+				// This will be set to true if we want the enemies to be
+				// calculated
 				boolean validKeyPressed = false;
 				int useItem = 0;
 				Direction direction = null;
-
 				switch (event.getCode()) {
+
 				case W:
 					StatusBar.addStatus("North");
-					if (gen.ar[y - 1][x] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y - 1][x] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.NORTH;
 						validKeyPressed = true;
 					}
 					break;
 				case S:
 					StatusBar.addStatus("South");
-					if (gen.ar[y + 1][x] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y + 1][x] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.SOUTH;
 						validKeyPressed = true;
 					}
 					break;
 				case A:
 					StatusBar.addStatus("West");
-					if (gen.ar[y][x - 1] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y][x - 1] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.WEST;
 						validKeyPressed = true;
 					}
 					break;
 				case D:
 					StatusBar.addStatus("East");
-					if (gen.ar[y][x + 1] < 10 || gen.player.invisibleTurns > 0) {
+					if (Generator.ar[y][x + 1] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.EAST;
 						validKeyPressed = true;
 					}
 					break;
 				case I:
 					StatusBar.addStatus(gen.getPlayer().getName());
-					StatusBar.addStatus("North: " + gen.ar[y - 1][x]);
-					StatusBar.addStatus("South: " + gen.ar[y + 1][x]);
-					StatusBar.addStatus("East: " + gen.ar[y][x + 1]);
-					StatusBar.addStatus("West: " + gen.ar[y][x - 1]);
+					StatusBar.addStatus("North: " + Generator.ar[y - 1][x]);
+					StatusBar.addStatus("South: " + Generator.ar[y + 1][x]);
+					StatusBar.addStatus("East: " + Generator.ar[y][x + 1]);
+					StatusBar.addStatus("West: " + Generator.ar[y][x - 1]);
 					break;
 				case X:
 					for (Entity e : gen.gameEntities) {
@@ -256,15 +271,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 								System.out.print(i.getClass().getSimpleName() + " ");
 							}
 							System.out.println();
-//							StatusBar.addStatus();
+							// StatusBar.addStatus();
 						}
 					}
 					System.out.print("Player: ");
-					for (Item i : gen.player.getInventory()) {
+					for (Item i : Generator.player.getInventory()) {
 						System.out.print(i.getClass().getSimpleName() + " ");
 					}
 					System.out.println();
-//					StatusBar.addStatus();
+					// StatusBar.addStatus();
 					break;
 				case DIGIT1:
 					useItem = 1;
@@ -292,6 +307,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					break;
 				case DIGIT9:
 					useItem = 9;
+
 					break;
 				default:
 					break;
@@ -299,8 +315,15 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 				// Use items
 				if (useItem > 0) {
-					if (gen.getPlayer().getInventory().size() >= useItem) {
-						gen.getPlayer().getInventory().get(useItem - 1).use(gen.getPlayer());
+					if (gen.getPlayer().getInventory().size() > useItem) {
+
+						// Show the player what item they used
+						StatusBar.addStatus(Generator.player.getInventory().get(useItem).getName().toString());
+						gen.getPlayer().getInventory().get(useItem).use(gen.getPlayer());
+					} else {
+
+						// Or tell them they don't have an item in that slot
+						StatusBar.addStatus("Can't use what you don't have");
 					}
 					useItem = 0;
 				}
@@ -313,38 +336,42 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 					// Move enemies
 					counter++;
-					if(counter>2) {
-						for(Entity e: gen.gameEntities)
-						{
-							if(e instanceof Enemy) {
+					if (counter > 2) {
+						for (Entity e : gen.gameEntities) {
+							if (e instanceof Enemy) {
 								((Enemy) e).moveAI();
 							}
 						}
 						gen.handleCollisions();
-						counter=0;
+						counter = 0;
 					}
 
 					// Reduce the players invisibility
-					if (gen.player.invisibleTurns > 0) {
-						gen.player.invisibleTurns--;
+					if (Generator.player.invisibleTurns > 0) {
+						Generator.player.invisibleTurns--;
 					}
-					if (gen.player.invisibleTurns < 1) {
-						gen.player.getImageView().setOpacity(1.0);
+					if (Generator.player.invisibleTurns < 1) {
+						Generator.player.getImageView().setOpacity(1.0);
+					}
+
+					// Kill the player if they phased into a wall with the Ghost
+					// Potion
+					x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
+					y = (gen.getPlayer().getLocation()[1] / Settings.TILESIZE) - 1;
+
+					if (gen.board.getArray()[y][x] >= 10 && Generator.player.invisibleTurns < 1) {
+						System.out.println(x + " " + y + " " + gen.board.getArray()[x][y]);
+						Generator.player.setHP(0);
+						Generator.player.die(Generator.player);
 					}
 				}
 
 				gen.getPlayer().getImageView().setLayoutX(gen.getPlayer().getLocation()[0]);
 				gen.getPlayer().getImageView().setLayoutY(gen.getPlayer().getLocation()[1]);
-				//update the status bar to reflect current player condition
+				// update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
-				//gen.updateInventoryBar();
+				gen.updateInventoryBar();
 
-				// Kill the player if they phased into a wall with the Ghost Potion
-				if (gen.board.getArray()[y][x] >= 10) {
-					System.out.println(gen.board.getArray()[x][y]);
-					gen.player.setHP(0);
-					gen.player.die(gen.player);
-				}
 				clearDead((Group) sc.getRoot());
 			}
 		});
@@ -354,27 +381,81 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			public void handle(MouseEvent event) {
 				gen.getPlayer().getWeapon().getImageView().setVisible(true);
 				gen.getPlayer().attack();
-				//update the status bar to reflect current player condition
+				// update the status bar to reflect current player condition
 				gen.getStatus().updateStatus(672, gen.getStatus().getHealth());
 				gen.handleCollisions();
+				gen.updateInventoryBar();
 				clearDead((Group) sc.getRoot());
-				
+
 			}
 		});
 
 		return sc;
 	}
 
-	
+	/**
+	 * Returns a Scene for when the player has died.
+	 * 
+	 * @return gameOver Scene
+	 */
+	public Scene gameOver() {
+		// Set up menu group
+		Group group = new Group();
+		group.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		group.getStyleClass().add("menu");
+
+		// Display red gameOver text
+		Text gameOver = new Text();
+		gameOver.setText("GAME OVER!");
+		gameOver.setFont(Font.font(null, FontWeight.EXTRA_BOLD, 72));
+		gameOver.setFill(Color.RED);
+		gameOver.xProperty()
+				.bind(mainStage.widthProperty().divide(2).subtract((gameOver.getLayoutBounds().getWidth()) / 2));
+		gameOver.yProperty().bind(mainStage.heightProperty().divide(2));
+		group.getChildren().add(gameOver);
+
+		// Add main menu button
+		Button restart = new Button("Main Menu");
+		restart.setOnAction(e -> mainStage.setScene(getMenu()));
+		group.getChildren().add(restart);
+		restart.layoutXProperty().bind(gameOver.xProperty().add((gameOver.getLayoutBounds().getWidth() / 2) - 57));
+		restart.layoutYProperty().bind(gameOver.yProperty().add(gameOver.getLayoutBounds().getHeight() / 2));
+
+		// Add score text
+		int points;
+		try {
+			points = Generator.player.getPoints() / (Generator.player.getXP() / 100);
+		} catch (Exception e) {
+			points = 0;
+		}
+		Text score = new Text("Score: " + points);
+		score.setFont(Font.font(null, FontWeight.BOLD, 20));
+		score.setFill(Color.GOLDENROD);
+		score.xProperty().bind(mainStage.widthProperty().divide(2).subtract((score.getLayoutBounds().getWidth()) / 2));
+		score.yProperty().bind(mainStage.heightProperty().divide(2)
+				.add(restart.getHeight() + gameOver.getLayoutBounds().getHeight() + 20));
+		group.getChildren().add(score);
+
+		// Set up menu pane
+		Pane pane = new Pane(group);
+		pane.setPrefSize(1000, 562.5);
+		pane.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		pane.getStyleClass().add("gameOver");
+
+		// return scene
+		Scene scene = new Scene(pane);
+		return scene;
+	}
 
 	@Override
 	public void handle(ActionEvent event) {
 		// main menu event handling
-		// because we change scenes the only event being handled here is the button
+		// because we change scenes the only event being handled here is the
+		// button
 		// click on the main menu. Click the button to change the scene.
-		// Game event handling is done in that scene's handle method, located directly above.
-		
-		
+		// Game event handling is done in that scene's handle method, located
+		// directly above.
+
 		// if "Launch" button clicked
 		if (event.getSource() == launchButton) {
 			this.mainStage.setScene(gameLoop());
@@ -390,10 +471,10 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		}
 
 	}
-	
+
 	public static Generator getGenerator() {
 		Generator generator = gen;
-		
+
 		return generator;
 	}
 
@@ -424,4 +505,3 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 }
-

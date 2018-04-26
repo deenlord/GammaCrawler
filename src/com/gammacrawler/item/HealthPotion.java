@@ -1,6 +1,7 @@
 package com.gammacrawler.item;
 
 import com.gammacrawler.Direction;
+import com.gammacrawler.Settings;
 import com.gammacrawler.StatusBar;
 import com.gammacrawler.entity.Character;
 import com.gammacrawler.entity.Entity;
@@ -14,10 +15,9 @@ import com.gammacrawler.entity.Sprite;
 public class HealthPotion extends Potion {
 	private static final String name = "Health Potion";
 	private static final int value = 25;
-	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/smallhealthpotion.png");
 	
 	public HealthPotion() {
-		super(name, sprite, value);
+		super(name, new Sprite("file:src/com/gammacrawler/images/smallhealthpotion.png"), value);
 	}
 
 	@Override

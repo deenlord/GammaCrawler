@@ -2,10 +2,14 @@ package com.gammacrawler.generator.map.connector;
 
 import java.util.ArrayList;
 
+/**
+ * @author WolfieWaffle
+ *
+ */
 public class DungeonConnectorMaker {
 
 	/**
-	 * Returns a list of DungeonConnectors, each with an x and y position and the 2 regiongs they connect.
+	 * <h3>Returns a list of DungeonConnectors, each with an x and y position and the 2 regions they connect.</h3>
 	 * @param regionArray An integer array describing the regionID of each tile.
 	 * @return An ArrayList of DungeonConnectors
 	 */
@@ -27,7 +31,7 @@ public class DungeonConnectorMaker {
 	}
 
 	/**
-	 * Returns a connector with this x and y and proper regions, or null.
+	 * <h3>Returns a connector with this x and y and proper regions, or null.</h3>
 	 * @param x The x coord of the tile that connects 2 regions.
 	 * @param y The y coord of the tile that connects 2 regions.
 	 * @param regionArray The array showing the regions of each tile.

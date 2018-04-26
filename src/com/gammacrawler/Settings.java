@@ -23,4 +23,5 @@ public class Settings {
 	public static final int STONES1_ID = 11;
 	public static final int STONES2_ID = 12;
 	public static final int STONES3_ID = 13;
+	public static final int GOLD_POINT_VALUE = 10;
 }

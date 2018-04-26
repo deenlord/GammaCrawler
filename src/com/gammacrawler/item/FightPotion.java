@@ -11,10 +11,9 @@ public class FightPotion extends Potion {
 	
 	private static final String name = "Fight Potion";
 	private static final int value = 25;
-	private static final Sprite sprite = new Sprite("file:src/com/cammacralwer/images/smallhealthpotion.png");
 
 	public FightPotion() {
-		super(name, sprite, value);
+		super(name, new Sprite("file:src/com/gammacrawler/images/smallfightpotion.png"), value);
 	}
 
 	@Override

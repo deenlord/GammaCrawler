@@ -1,16 +1,18 @@
 package com.gammacrawler.entity;
 
+import com.gammacrawler.Generator;
+
 /**
  * @author jakev
  *
  */
-public abstract class Item extends Entity{
+public abstract class Item extends Entity {
 
 	private String name;
-	protected Sprite sprite;
 	private int value;
 
 	/**
+	 * Creates an Item
 	 * @param name - name of the item
 	 * @param sprite - Item's sprite
 	 */
@@ -20,6 +22,7 @@ public abstract class Item extends Entity{
 	}
 	
 	/**
+	 * Creates an Item
 	 * @param name - name of item
 	 * @param sprite - Item's sprite
 	 * @param val - value of item, a modifier. HealthPotion val = 25, gives user 25 health.
@@ -31,6 +34,7 @@ public abstract class Item extends Entity{
 	}
 	
 	/**
+	 * Called to get this.name
 	 * @return item name
 	 */
 	public String getName() {
@@ -38,17 +42,11 @@ public abstract class Item extends Entity{
 	}
 	
 	/**
-	 * @return item Sprite
-	 */
-	public Sprite getSprite() {
-		return this.sprite;
-	}
-	
-	/**
+	 * Called to add this to User's inventory
 	 * @param richard - will add the item to the player's inventory
 	 */
-	public void addToUser(User richard) {
-			richard.getInventory().add(this);
+	public void addToUser() {
+			Generator.player.inventory.add(this);
 	}
 	
 	/**
