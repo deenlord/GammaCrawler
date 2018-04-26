@@ -398,12 +398,19 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		return sc;
 	}
-
+	
+	/**
+	 * Returns a Scene for when the player has died.
+	 * @return gameOver Scene
+	 */
 	public Scene gameOver()
 	{
+		//Set up menu group
 		Group group=new Group();
 		group.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
 		group.getStyleClass().add("menu");
+		
+		//Display red gameOver text
 		Text gameOver=new Text();
 		gameOver.setText("GAME OVER!");
 		gameOver.setFont(Font.font(null, FontWeight.EXTRA_BOLD, 72));
@@ -411,17 +418,32 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		gameOver.xProperty().bind(mainStage.widthProperty().divide(2).subtract((gameOver.getLayoutBounds().getWidth())/2));
 		gameOver.yProperty().bind(mainStage.heightProperty().divide(2));
 		group.getChildren().add(gameOver);
-
+		
+		//Add main menu button
 		Button restart=new Button("Main Menu");
 		restart.setOnAction(e -> mainStage.setScene(getMenu()));
 		group.getChildren().add(restart);
 		restart.layoutXProperty().bind(gameOver.xProperty().add((gameOver.getLayoutBounds().getWidth()/2)-57));
 		restart.layoutYProperty().bind(gameOver.yProperty().add(gameOver.getLayoutBounds().getHeight()/2));
-
+		
+		//Add score text
+		int points;
+		try {points=Generator.player.getPoints()/(Generator.player.getXP()/100);}
+		catch(Exception e) {points=0;}
+		Text score=new Text("Score: "+points);
+		score.setFont(Font.font(null,FontWeight.BOLD, 20));
+		score.setFill(Color.GOLDENROD);
+		score.xProperty().bind(mainStage.widthProperty().divide(2).subtract((score.getLayoutBounds().getWidth())/2));
+		score.yProperty().bind(mainStage.heightProperty().divide(2).add(restart.getHeight()+gameOver.getLayoutBounds().getHeight()+20));
+		group.getChildren().add(score);
+		
+		//Set up menu pane
 		Pane pane=new Pane(group);
 		pane.setPrefSize(1000, 562.5);
 		pane.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
 		pane.getStyleClass().add("gameOver");
+		
+		//return scene
 		Scene scene=new Scene(pane);
 		return scene;
 	}
