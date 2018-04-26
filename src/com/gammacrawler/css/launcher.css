@@ -67,3 +67,7 @@
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
+
+.gameOver {
+    -fx-background-color: #000;
+}

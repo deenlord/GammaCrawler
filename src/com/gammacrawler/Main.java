@@ -17,8 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -49,7 +51,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		Pane pane = new Pane();
 		pane.getStyleClass().add("menuPane");
 		pane.setPrefSize(Settings.STARTMENUSIZE, Settings.STARTMENUSIZE);
-
 		// create the game name label
 		Text label = new Text();
 		label.setText("GammaCrawler!");
@@ -136,6 +137,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		pane.getChildren().add(label);
 		pane.getChildren().add(launchButton);
 		pane.getChildren().add(authors);
+		//GameOver Test
+		Button kill=new Button();
+		kill.setText("K/O");
+		kill.setOnAction(e -> mainStage.setScene(gameOver()));
+		pane.getChildren().add(kill);
 
 		// add the pane to the group
 		menu.getChildren().add(pane);
@@ -163,7 +169,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				root.getChildren().remove(en.getImageView());
 			}
 			if(en instanceof User) {
-				gameOver();
+				mainStage.setScene(gameOver());
 			}
 		}
 	}
@@ -191,6 +197,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
+		
 		//root.getChildren().add(gen.invBar);
 		return new Scene(root);
 	}
@@ -381,14 +388,27 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene gameOver()
 	{
 		Group group=new Group();
+		group.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		group.getStyleClass().add("menu");
 		Text gameOver=new Text();
-		gameOver.xProperty().bind(mainStage.widthProperty().divide(2));
-		gameOver.yProperty().bind(mainStage.heightProperty().divide(2));
 		gameOver.setText("GAME OVER!");
 		gameOver.setFont(Font.font(null, FontWeight.EXTRA_BOLD, 72));
 		gameOver.setFill(Color.RED);
+		gameOver.xProperty().bind(mainStage.widthProperty().divide(2).subtract((gameOver.getLayoutBounds().getWidth())/2));
+		gameOver.yProperty().bind(mainStage.heightProperty().divide(2));
 		group.getChildren().add(gameOver);
-		Scene scene=new Scene(group);
+
+		Button restart=new Button("Main Menu");
+		restart.setOnAction(e -> mainStage.setScene(getMenu()));
+		group.getChildren().add(restart);
+		restart.layoutXProperty().bind(gameOver.xProperty().add((gameOver.getLayoutBounds().getWidth()/2)-57));
+		restart.layoutYProperty().bind(gameOver.yProperty().add(gameOver.getLayoutBounds().getHeight()/2));
+
+		Pane pane=new Pane(group);
+		pane.setPrefSize(1000, 562.5);
+		pane.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		pane.getStyleClass().add("gameOver");
+		Scene scene=new Scene(pane);
 		return scene;
 	}
 
