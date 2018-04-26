@@ -11,7 +11,6 @@ import com.gammacrawler.Generator;
  */
 public class Chest extends Item{
 	ArrayList<Item> inventory;
-	static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
 	public static String name = "Wooden Chest";
 	
 	
@@ -24,7 +23,7 @@ public class Chest extends Item{
 	 * 
 	 */
 	public Chest() {
-		super(sprite, name);
+		super(new Sprite("file:src/com/gammacrawler/images/chestfull.png"), name);
 		inventory = new ArrayList<>();
 	}
 	

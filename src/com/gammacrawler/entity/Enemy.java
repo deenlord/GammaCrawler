@@ -106,25 +106,25 @@ public abstract class Enemy extends Character implements Moveable{
 			y=(this.getLocation()[1]/Settings.TILESIZE)-1;
 		switch (dir) {
 		case NORTH:
-			if (Generator.ar[y-1][x]<10) {
+			if (Generator.ar[y-1][x]<10 && Generator.ar[y-1][x] != Settings.STAIRS_ID) {
 				this.location[1] -= Settings.TILESIZE;
 				this.sprite.rotateCharacter(Direction.NORTH);
 				break;
 			}
 		case SOUTH:
-			if (Generator.ar[y+1][x]<10) {
+			if (Generator.ar[y+1][x]<10 && Generator.ar[y+1][x] != Settings.STAIRS_ID) {
 				this.location[1] += Settings.TILESIZE;
 				this.sprite.rotateCharacter(Direction.SOUTH);
 				break;
 			}
 		case EAST:
-			if (Generator.ar[y][x+1]<10) {
+			if (Generator.ar[y][x+1]<10 && Generator.ar[y][x+1] != Settings.STAIRS_ID) {
 				this.location[0] += Settings.TILESIZE;
 				this.sprite.rotateCharacter(Direction.EAST);
 				break;
 			}
 		case WEST:
-			if (Generator.ar[y][x-1]<10) {
+			if (Generator.ar[y][x-1]<10 && Generator.ar[y][x-1] != Settings.STAIRS_ID) {
 				this.location[0] -= Settings.TILESIZE;
 				this.sprite.rotateCharacter(Direction.WEST);
 				break;

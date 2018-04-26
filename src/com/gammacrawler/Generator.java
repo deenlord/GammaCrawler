@@ -12,7 +12,6 @@ import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorGoldCoin;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
-import com.gammacrawler.generator.populators.PopulatorStair;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -40,34 +39,32 @@ public class Generator {
 	Image cobbles3;
 
 	public Generator() {
-		makeGenerator(21, 21);
+		makeGenerator(21, 21, 12);
 	}
 
 	public Generator(int xp) {
 		if (xp < 100)
-			makeGenerator(21, 21);
+			makeGenerator(21, 21, 12);
 		else if(xp > 100 && xp < 500)
-			makeGenerator(21, 25);
+			makeGenerator(21, 25, 16);
 		else
-			makeGenerator(25, 31);
+			makeGenerator(25, 31, 20);
 	}
 
-	private void makeGenerator(int width, int height) {
+	private void makeGenerator(int width, int height, int roomMaxSize) {
 		Generator.player = new User("Richard");
-		this.board = new Board(width, height);
+		this.board = new Board(width, height, roomMaxSize);
 		Generator.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
 
 		// Run all the populators, to populate the dungeon with stuff.
-		populate(new PopulatorSkulls(this.board.getArray(), gameEntities));
-		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
+		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 30.0));
+		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 8.5));
+		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 2.0));
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
-		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
-		populate(new PopulatorChests(this.board.getArray(), gameEntities));
-		populate(new PopulatorStair(this.board.getArray(), gameEntities));
-		
+		populate(new PopulatorChests(this.board.getArray(), gameEntities, 5));
 		
 		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
