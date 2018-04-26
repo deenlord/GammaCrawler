@@ -198,7 +198,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	 */
 	public Scene gameLoop() {
 
-		gen = new Generator(); // creates board and user
+		gen = new Generator(600); // creates board and user
 		StatusBar.addStatus("Generator created");
 		// procedurally...
 
