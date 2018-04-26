@@ -13,6 +13,7 @@ import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorGoldCoin;
 import com.gammacrawler.generator.populators.PopulatorGraveyard;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
+import com.gammacrawler.generator.populators.PopulatorStair;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -64,8 +65,9 @@ public class Generator {
 		this.setPlayerInitialLocation();
 
 		// Run all the populators, to populate the dungeon with stuff.
+		populate(new PopulatorStair(this.board.getArray(), gameEntities));
 		populate(new PopulatorGraveyard(this.board.getArray(), gameEntities));
-		populate(new PopulatorSkulls(this.board.getArray(), gameEntities));
+		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 30.0));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 8.5));
 		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 2.0));
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));

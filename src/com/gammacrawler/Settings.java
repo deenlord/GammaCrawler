@@ -15,7 +15,7 @@ public class Settings {
 	public static final int SCENEHEIGHT = 860;
 	public static final int WALL_ID = 99;
 	public static final int FLOOR_ID = 0;
-	public static final int STAIRS_ID = 1;
+	public static final int STAIR_ID = 1;
 	public static final int DOOR_ID = 2;
 	public static final int COBBLES1_ID = 3;
 	public static final int COBBLES2_ID = 4;
@@ -26,5 +26,4 @@ public class Settings {
 	public static final int STONES3_ID = 13;
 	public static final int GOLD_POINT_VALUE = 10;
 	public static final int TOTAL_PLAYER_INVENTORY_SPACE = 7;
-	public static final int STAIR_ID=100;
 }
