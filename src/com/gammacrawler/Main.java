@@ -264,22 +264,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					StatusBar.addStatus("West: " + Generator.ar[y][x - 1]);
 					break;
 				case X:
-					for (Entity e : gen.gameEntities) {
-						if (e instanceof Enemy) {
-							System.out.print(e + ": ");
-							for (Item i : ((Enemy) e).getInventory()) {
-								System.out.print(i.getClass().getSimpleName() + " ");
-							}
-							System.out.println();
-							// StatusBar.addStatus();
-						}
-					}
-					System.out.print("Player: ");
-					for (Item i : Generator.player.getInventory()) {
-						System.out.print(i.getClass().getSimpleName() + " ");
-					}
-					System.out.println();
-					// StatusBar.addStatus();
+					printInventoryDebug();
 					break;
 				case DIGIT1:
 					useItem = 1;
@@ -314,19 +299,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				}
 
 				// Use items
-				if (useItem > 0) {
-					if (gen.getPlayer().getInventory().size() > useItem) {
-
-						// Show the player what item they used
-						StatusBar.addStatus(Generator.player.getInventory().get(useItem).getName().toString());
-						gen.getPlayer().getInventory().get(useItem).use(gen.getPlayer());
-					} else {
-
-						// Or tell them they don't have an item in that slot
-						StatusBar.addStatus("Can't use what you don't have");
-					}
-					useItem = 0;
-				}
+				useItem(useItem);
 
 				// Handle collisions and move if valid key pressed
 				if (validKeyPressed) {
@@ -335,30 +308,16 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					gen.handleCollisions();
 
 					// Move enemies
-					counter++;
-					if (counter > 2) {
-						for (Entity e : gen.gameEntities) {
-							if (e instanceof Enemy) {
-								((Enemy) e).moveAI();
-							}
-						}
-						gen.handleCollisions();
-						counter = 0;
-					}
+					moveEnemies();
 
 					// Reduce the players invisibility
-					if (Generator.player.invisibleTurns > 0) {
-						Generator.player.invisibleTurns--;
-					}
-					if (Generator.player.invisibleTurns < 1) {
-						Generator.player.getImageView().setOpacity(1.0);
-					}
+					reduceInvisibility();
 
-					// Kill the player if they phased into a wall with the Ghost
-					// Potion
 					x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
 					y = (gen.getPlayer().getLocation()[1] / Settings.TILESIZE) - 1;
 
+					// Kill the player if they phased into a wall with the Ghost
+					// Potion
 					if (gen.board.getArray()[y][x] >= 10 && Generator.player.invisibleTurns < 1) {
 						System.out.println(x + " " + y + " " + gen.board.getArray()[x][y]);
 						Generator.player.setHP(0);
@@ -399,6 +358,78 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		});
 
 		return sc;
+	}
+
+	/**
+	 * Just prints out the inventory of all enemies and the player.
+	 */
+	private void printInventoryDebug() {
+		for (Entity e : gen.gameEntities) {
+			if (e instanceof Enemy) {
+				System.out.print(e.getClass().getSimpleName() + ": ");
+				for (Item i : ((Enemy) e).getInventory()) {
+					System.out.print(i.getClass().getSimpleName() + " ");
+				}
+				System.out.println();
+			}
+		}
+		System.out.print("Player: ");
+		for (Item i : Generator.player.getInventory()) {
+			System.out.print(i.getClass().getSimpleName() + " ");
+		}
+		System.out.println();
+	}
+
+	/**
+	 * If useItem is more than 0, it uses the item in the slot useItem, and sets
+	 * useItem to 0.
+	 * 
+	 * @param useItem
+	 *            The slot to attempt to use.
+	 */
+	private void useItem(int useItem) {
+		if (useItem > 0) {
+			if (gen.getPlayer().getInventory().size() > useItem) {
+
+				// Show the player what item they used
+				StatusBar.addStatus(Generator.player.getInventory().get(useItem).getName().toString());
+				gen.getPlayer().getInventory().get(useItem).use(gen.getPlayer());
+			} else {
+
+				// Or tell them they don't have an item in that slot
+				StatusBar.addStatus("Can't use what you don't have");
+			}
+			useItem = 0;
+		}
+	}
+
+	/**
+	 * Reduces the player visibility by one turn, making them visible if it
+	 * reaches 0.
+	 */
+	private void reduceInvisibility() {
+		if (Generator.player.invisibleTurns > 0) {
+			Generator.player.invisibleTurns--;
+		}
+		if (Generator.player.invisibleTurns < 1) {
+			Generator.player.getImageView().setOpacity(1.0);
+		}
+	}
+
+	/**
+	 * Moves all the enemies.
+	 */
+	private void moveEnemies() {
+		counter++;
+		if (counter > 2) {
+			for (Entity e : gen.gameEntities) {
+				if (e instanceof Enemy) {
+					((Enemy) e).moveAI();
+				}
+			}
+			gen.handleCollisions();
+			counter = 0;
+		}
 	}
 
 	/**
