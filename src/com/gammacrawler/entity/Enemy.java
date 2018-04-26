@@ -142,7 +142,7 @@ public abstract class Enemy extends Character implements Moveable{
 
 			// Add items to players inventory on death
 			for (Item i : inventory) {
-				Generator.player.inventory.add(i);
+				i.addToUser();
 			}
 		}
 	}

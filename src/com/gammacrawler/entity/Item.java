@@ -1,6 +1,7 @@
 package com.gammacrawler.entity;
 
 import com.gammacrawler.Generator;
+import com.gammacrawler.Settings;
 
 /**
  * @author jakev
@@ -46,7 +47,9 @@ public abstract class Item extends Entity {
 	 * @param richard - will add the item to the player's inventory
 	 */
 	public void addToUser() {
+		if (Generator.player.inventory.size() < Settings.TOTAL_PLAYER_INVENTORY_SPACE) {
 			Generator.player.inventory.add(this);
+		}
 	}
 	
 	/**
