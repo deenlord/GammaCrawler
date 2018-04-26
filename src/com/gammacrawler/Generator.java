@@ -32,6 +32,7 @@ public class Generator {
 	InventoryBar invBar;
 	Image wall;
 	Image floor;
+	Image stair;
 	Image door;
 	Image skull;
 	Image cobbles1;
@@ -133,6 +134,8 @@ public class Generator {
 					gc.drawImage(stones2, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STONES3_ID) {
 					gc.drawImage(stones3, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STAIR_ID) {
+					gc.drawImage(stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}
 		}
@@ -147,6 +150,7 @@ public class Generator {
 	private void setupImages() {
 		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stair= new Image("file:src/com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
 		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
