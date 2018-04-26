@@ -22,4 +22,5 @@ public class Settings {
 	public static final int SKULL_ID = 6;
 	public static final int GOLD_POINT_VALUE = 10;
 	public static final int TOTAL_PLAYER_INVENTORY_SPACE = 7;
+	public static final int STAIR_ID=100;
 }
