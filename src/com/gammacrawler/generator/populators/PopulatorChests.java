@@ -4,13 +4,10 @@ import java.util.ArrayList;
 
 import com.gammacrawler.entity.Chest;
 import com.gammacrawler.entity.Entity;
-<<<<<<< HEAD
 import com.gammacrawler.item.FightPotion;
 import com.gammacrawler.item.GoldPotion;
-=======
 import com.gammacrawler.item.Chalice;
 import com.gammacrawler.item.GhostPotion;
->>>>>>> 5f9f6d3cf3792c9349b0aed24510f0e646f6778b
 import com.gammacrawler.item.HealthPotion;
 import com.gammacrawler.item.IncreaseMaxHPPotion;
 import com.gammacrawler.item.XPPotion;
@@ -27,13 +24,7 @@ public class PopulatorChests extends Populator {
 		
 		Chest chest = new Chest();
 		int[] p = this.getRandomFreeSpace();
-	
-<<<<<<< HEAD
-		double rand =  Math.random() * 100;
-		System.out.println("Random number for chests: " + rand);
 		
-		if (rand <= 10) {
-=======
 		int rand = (int) Math.random() * 100;
 		if (rand <= 3) {
 			chest.addTo(new Chalice());
@@ -43,7 +34,6 @@ public class PopulatorChests extends Populator {
 			chest.addTo(new IncreaseMaxHPPotion());	
 		} else if (rand <= 10) {
 			chest.addTo(new GhostPotion());
->>>>>>> 5f9f6d3cf3792c9349b0aed24510f0e646f6778b
 			chest.addTo(new HealthPotion());
 			chest.addTo(new IncreaseMaxHPPotion());	
 		}
@@ -69,16 +59,11 @@ public class PopulatorChests extends Populator {
 		else
 			chest.addTo(new GhostPotion());
 			chest.addTo(new IncreaseMaxHPPotion());
-<<<<<<< HEAD
-			chest.addTo(new GoldPotion());
-		
-		chest.moveToTile(p[1] + 1, p[0] + 1);
-=======
+
 		if (p != null) {
 			chest.moveToTile(p[1] + 1, p[0] + 1);
 		}
 
->>>>>>> 5f9f6d3cf3792c9349b0aed24510f0e646f6778b
 		entities.add(chest);
 	}
 

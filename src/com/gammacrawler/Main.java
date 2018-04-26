@@ -206,10 +206,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 			public void handle(KeyEvent event) {
 
 				Item it;
-				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
-				int y = (gen.getPlayer().getLocation()[1] /  Settings.TILESIZE) - 1;
-//				System.out.println(event.getCode());
-
 
 				// Get the tile x and y of the player from the real x and y.
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
@@ -257,23 +253,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					StatusBar.addStatus("East: " + gen.ar[y][x + 1]);
 					StatusBar.addStatus("West: " + gen.ar[y][x - 1]);
 					break;
-
-				case DIGIT1:
-					it = Generator.player.getInventory().get(1);
-					if (it instanceof Potion) {
-						((Potion) it).drink(Generator.player);
-					}
-					Generator.player.getInventory().remove(1);
-					break;	
-//				case DIGIT2:
-//					it = Generator.player.getInventory().get(2);
-//					if (it instanceof Potion) {
-//						((Potion) it).drink(Generator.player);
-//						Generator.player.getInventory().remove(2);
-//		
-//					}
-//					break;	
-
 				case X:
 					for (Entity e : gen.gameEntities) {
 						if (e instanceof Enemy) {
