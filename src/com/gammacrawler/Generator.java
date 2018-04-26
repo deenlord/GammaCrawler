@@ -11,6 +11,7 @@ import com.gammacrawler.generator.populators.PopulatorChests;
 import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorGoldCoin;
+import com.gammacrawler.generator.populators.PopulatorGraveyard;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
 
 import javafx.scene.canvas.Canvas;

@@ -1,10 +1,10 @@
-package com.gammacrawler;
+package com.gammacrawler.generator.populators;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.gammacrawler.Settings;
 import com.gammacrawler.entity.Entity;
-import com.gammacrawler.generator.populators.Populator;
 import com.gammacrawler.util.Point;
 
 public class PopulatorGraveyard extends Populator {
