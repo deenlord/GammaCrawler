@@ -18,7 +18,7 @@ public class PopulatorStair extends Populator {
 		int[] emptySpace=getRandomFreeSpace();
 		if(emptySpace!=null) {
 			Point p = new Point(emptySpace[0], emptySpace[1]);
-			tileArray[p.x][p.y] = Settings.STAIR_ID;
+			tileArray[p.x][p.y] = Settings.STAIRS_ID;
 		}
 	}
 }
