@@ -134,11 +134,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		pane.getChildren().add(label);
 		pane.getChildren().add(launchButton);
 		pane.getChildren().add(authors);
-		// GameOver Test
-		Button kill = new Button();
-		kill.setText("K/O");
-		kill.setOnAction(e -> mainStage.setScene(gameOver()));
-		pane.getChildren().add(kill);
 
 		// add the pane to the group
 		menu.getChildren().add(pane);
