@@ -20,4 +20,5 @@ public class Settings {
 	public static final int COBBLES2_ID = 4;
 	public static final int COBBLES3_ID = 5;
 	public static final int SKULL_ID = 6;
+	public static final int GOLD_POINT_VALUE = 10;
 }

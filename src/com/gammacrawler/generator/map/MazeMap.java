@@ -4,20 +4,27 @@ import java.util.ArrayList;
 
 import com.gammacrawler.Settings;
 
+/**
+ * @author WolfieWaffle
+ *
+ */
 public class MazeMap {
 	private MazeMapVertex[][] tileArray;
 	private ArrayList<MazeMapVertex> tileList = new ArrayList<>();
 
+	/**
+	 * @param array - int[][]
+	 */
 	public MazeMap(int[][] array) {
 		tileArray = new MazeMapVertex[(array.length - 1) / 2][(array[0].length - 1) / 2];
 		intMapToCellMap(array);
 	}
 
 	/**
-	 * Takes an array of 0 or 1 integers and puts the odd ints in a new array.
+	 * <h3>Takes an array of 0 or 1 integers and puts the odd ints in a new array.</h3>
 	 * 
-	 * @param array
-	 *            The array to copy over.
+	 * @param array - 
+	 * 		The array to copy over.
 	 */
 	private void intMapToCellMap(int[][] array) {
 

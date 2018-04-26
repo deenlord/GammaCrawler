@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.gammacrawler.enemies.Ogre;
 import com.gammacrawler.enemies.Slime;
+import com.gammacrawler.enemies.Witch;
+import com.gammacrawler.enemies.ZombieNinja;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.item.RandomItem;
 
@@ -24,8 +26,11 @@ public class PopulatorEnemies extends Populator {
 	public void populate() {
 		Ogre ogre;
 		Slime slime;
+		Witch witch;
+		ZombieNinja zombieninja;
+		
 		int[] empt;
-		for (int i = 0; i <= 4; i++) {
+		for (int i = 0; i <= 3; i++) {
 			empt = getRandomFreeSpace();
 			ogre = new Ogre();
 
@@ -49,10 +54,36 @@ public class PopulatorEnemies extends Populator {
 
 			// Move Slime to random location
 			slime.moveToTile(empt[1] + 1, empt[0] + 1);
+			
+			empt = getRandomFreeSpace();
+			witch = new Witch();
+
+			// Add random items
+			itemCount = (int) ((Math.random() * maxItemsInEnemyInventory) + 1);
+			for (int j = 0; j < itemCount; j++) {
+				witch.addToInventory(new RandomItem().getItem());
+			}
+
+		
+			witch.moveToTile(empt[1] + 1, empt[0] + 1);
+			
+			empt = getRandomFreeSpace();
+			zombieninja = new ZombieNinja();
+
+			
+			itemCount = (int) ((Math.random() * maxItemsInEnemyInventory) + 1);
+			for (int j = 0; j < itemCount; j++) {
+				zombieninja.addToInventory(new RandomItem().getItem());
+			}
+
+			// Move Slime to random location
+			zombieninja.moveToTile(empt[1] + 1, empt[0] + 1);
 
 			// Add the entities to the list
 			entities.add(ogre);
 			entities.add(slime);
+			entities.add(witch);
+			entities.add(zombieninja);
 			
 		}
 	}

@@ -2,11 +2,19 @@ package com.gammacrawler.entity;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
+import com.gammacrawler.Settings;
 import com.gammacrawler.StatusBar;
 
+/**
+ * Collectable gold coins
+ * @author WolfieWaffle
+ *
+ */
 public class GoldCoin extends Entity {
-	public static final int GOLD_POINT_VALUE = 10;
 
+	/**
+	 * Creates a Gold Coin (Value in Settings.GOLD_POINT_VALUE)
+	 */
 	public GoldCoin() {
 		super(new Sprite("file:src/com/gammacrawler/images/goldcoin.png"));
 	}
@@ -14,8 +22,10 @@ public class GoldCoin extends Entity {
 	@Override
 	public void collide(Entity e) {
 		if (e instanceof User) {
+			System.out.println("PICKED UP GOLD!");
+			Generator.player.setPoints(Generator.player.getPoints() + Settings.GOLD_POINT_VALUE);
 			StatusBar.addStatus("PICKED UP GOLD!");
-			Generator.player.setPoints(Generator.player.getPoints() + GOLD_POINT_VALUE);
+			Generator.player.setPoints(Generator.player.getPoints() + Settings.GOLD_POINT_VALUE);
 			die(e);
 		}
 	}

@@ -18,7 +18,6 @@ public abstract class Weapon<T> extends Item {
 
 	public Weapon(String name, Sprite sprite) {
 		super(sprite, name);
-		
 	}
 	
 	public Weapon(String name, Sprite sprite, int regDamage, int maxDamage) {
@@ -76,8 +75,6 @@ public abstract class Weapon<T> extends Item {
 	}
 
 	public abstract void animate();
-	
-	public abstract Sprite getSprite();
 	
 	
 	

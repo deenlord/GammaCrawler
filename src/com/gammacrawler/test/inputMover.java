@@ -5,6 +5,8 @@ package com.gammacrawler.test;
 import java.awt.Point;
 import java.util.Scanner;
 
+import com.gammacrawler.StatusBar;
+
 public class inputMover {
 
 	private int[][] board=new int[4][4];

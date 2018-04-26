@@ -4,6 +4,10 @@ import com.gammacrawler.Settings;
 
 import javafx.scene.image.ImageView;
 
+/**
+ * @author WolfieWaffle
+ *
+ */
 public abstract class Entity implements Moveable {
 	protected int[] location = new int[2];
 	protected Sprite sprite;
@@ -14,6 +18,14 @@ public abstract class Entity implements Moveable {
 	 */
 	public Entity(Sprite sprite) {
 		this.sprite = sprite;
+	}
+
+	/**
+	 * Called to get this.sprite
+	 * @return item Sprite
+	 */
+	public Sprite getSprite() {
+		return this.sprite;
 	}
 
 	/**
@@ -29,6 +41,9 @@ public abstract class Entity implements Moveable {
 		this.setLocation((tileX) * Settings.TILESIZE, (tileY) * Settings.TILESIZE);
 	}
 
+	/**
+	 * @return int[]{x, y} based on this.location
+	 */
 	public int[] getTileLocation() {
 		int x = location[0] / Settings.TILESIZE;
 		int y = location[0] / Settings.TILESIZE;
@@ -51,14 +66,26 @@ public abstract class Entity implements Moveable {
 		return this.location;
 	}
 
+	/**
+	 * Called to set the Sprite
+	 * @param spr - Sprite - Sets the current Sprite to spr
+	 */
 	public void setSprite(Sprite spr) {
 		this.sprite = spr;
 	}
 
+	/**
+	 * Called to get the ImageView
+	 * @return - ImageView of this.sprite
+	 */
 	public ImageView getImageView() {
 		return this.sprite.getImageView();
 	}
 
+	/**
+	 * Called to detect a collision
+	 * @param e - Entity - Collision detection happens at the sub-class level
+	 */
 	public abstract void collide(Entity e); // Test to see if it works...
 
 	/**
@@ -70,6 +97,7 @@ public abstract class Entity implements Moveable {
 	};
 
 	/**
+	 * Called to check this.isDead (HP <= 0)
 	 * @return true or false (can use as exit condition for game state)
 	 */
 	public boolean isDead() {

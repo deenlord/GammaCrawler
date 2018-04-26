@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.gammacrawler.entity.Chest;
 import com.gammacrawler.entity.Entity;
+import com.gammacrawler.item.FightPotion;
+import com.gammacrawler.item.GoldPotion;
 import com.gammacrawler.item.Chalice;
 import com.gammacrawler.item.GhostPotion;
 import com.gammacrawler.item.HealthPotion;
@@ -19,9 +21,10 @@ public class PopulatorChests extends Populator {
 	@Override
 	public void populate() {
 		// TODO Add more chest types based on Math.random()
+		
 		Chest chest = new Chest();
 		int[] p = this.getRandomFreeSpace();
-	
+		
 		int rand = (int) Math.random() * 100;
 		if (rand <= 3) {
 			chest.addTo(new Chalice());
@@ -44,9 +47,19 @@ public class PopulatorChests extends Populator {
 			chest.addTo(new IncreaseMaxHPPotion());
 			chest.addTo(new XPPotion());
 		}
+		else if (rand <= 40) {
+			chest.addTo(new GoldPotion());
+			chest.addTo(new HealthPotion());
+		}
+		else if (rand <=50) {
+			chest.addTo(new FightPotion());
+			chest.addTo(new XPPotion());
+			chest.addTo(new GoldPotion());
+		}
 		else
 			chest.addTo(new GhostPotion());
 			chest.addTo(new IncreaseMaxHPPotion());
+
 		if (p != null) {
 			chest.moveToTile(p[1] + 1, p[0] + 1);
 		}
