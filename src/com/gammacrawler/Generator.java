@@ -12,6 +12,7 @@ import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorGoldCoin;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
+import com.gammacrawler.generator.populators.PopulatorStair;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -65,6 +66,8 @@ public class Generator {
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
 		populate(new PopulatorChests(this.board.getArray(), gameEntities));
+		populate(new PopulatorStair(this.board.getArray(), gameEntities));
+		
 		
 		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
