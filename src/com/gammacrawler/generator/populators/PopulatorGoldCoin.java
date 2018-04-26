@@ -9,8 +9,13 @@ public class PopulatorGoldCoin extends Populator {
 	private int attempts;
 
 	public PopulatorGoldCoin(int[][] tileArray, ArrayList<Entity> entities) {
+		this(tileArray, entities, 1.0);
+	}
+
+	public PopulatorGoldCoin(int[][] tileArray, ArrayList<Entity> entities, double multiplier) {
 		super(tileArray, entities);
-		attempts = (tileArray.length * tileArray[0].length) / 40; 
+		attempts = (tileArray.length * tileArray[0].length) / 40;
+		attempts *= multiplier;
 	}
 
 	@Override

@@ -10,7 +10,14 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.item.RandomItem;
 
 public class PopulatorEnemies extends Populator {
-	private static int maxItemsInEnemyInventory;
+	private int maxItemsInEnemyInventory;
+	private double multiplier;
+	private int attempts = 3;
+
+	public PopulatorEnemies(int[][] tileArray, ArrayList<Entity> entities, double multiplier) {
+		this(tileArray, entities);
+		this.multiplier = multiplier;
+	}
 
 	public PopulatorEnemies(int[][] tileArray, ArrayList<Entity> entities, int maxInventoryItems) {
 		this(tileArray, entities);
@@ -30,7 +37,7 @@ public class PopulatorEnemies extends Populator {
 		ZombieNinja zombieninja;
 		
 		int[] empt;
-		for (int i = 0; i <= 3; i++) {
+		for (int i = 0; i <= (int) (attempts * multiplier); i++) {
 			empt = getRandomFreeSpace();
 			ogre = new Ogre();
 
