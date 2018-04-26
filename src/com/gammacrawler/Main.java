@@ -228,10 +228,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (Generator.ar[y - 1][x] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.NORTH;
 						validKeyPressed = true;
-						if(Generator.ar[y - 1][x]==1)
-						{
-							mainStage.setScene(newLevel());
-						}
 					}
 					break;
 				case S:
@@ -239,10 +235,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (Generator.ar[y + 1][x] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.SOUTH;
 						validKeyPressed = true;
-						if(Generator.ar[y + 1][x]==1)
-						{
-							mainStage.setScene(newLevel());
-						}
 					}
 					break;
 				case A:
@@ -250,10 +242,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (Generator.ar[y][x - 1] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.WEST;
 						validKeyPressed = true;
-						if(Generator.ar[y][x - 1]==1)
-						{
-							mainStage.setScene(newLevel());
-						}
 					}
 					break;
 				case D:
@@ -261,10 +249,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					if (Generator.ar[y][x + 1] < 10 || Generator.player.invisibleTurns > 0) {
 						direction = Direction.EAST;
 						validKeyPressed = true;
-						if(Generator.ar[y][x + 1]==1)
-						{
-							mainStage.setScene(newLevel());
-						}
 					}
 					break;
 				case I:
@@ -374,6 +358,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 						System.out.println(x + " " + y + " " + gen.board.getArray()[x][y]);
 						Generator.player.setHP(0);
 						Generator.player.die(Generator.player);
+					}
+
+					// Check for staircase
+					if(Generator.ar[y][x] == Settings.STAIR_ID) {
+						mainStage.setScene(newLevel());
 					}
 				}
 
