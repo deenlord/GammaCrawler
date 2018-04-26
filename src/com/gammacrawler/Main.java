@@ -196,9 +196,16 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	/**
 	 * @return the game board scene with a character since 4/1
 	 */
-	public Scene gameLoop() {
+	public Scene gameLoop(User player) {
 
-		gen = new Generator(600); // creates board and user
+		// This makes a new generator if the player exists. If not it makes a
+		// new stage with 0 xp
+		if (player != null) {
+			gen = new Generator(player);
+		} else {
+			gen = new Generator();
+		}
+
 		StatusBar.addStatus("Generator created");
 		// procedurally...
 
@@ -362,7 +369,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 					// Check for staircase
 					if(Generator.ar[y][x] == Settings.STAIR_ID) {
-						mainStage.setScene(newLevel());
+						mainStage.setScene(newLevel(gen.getPlayer()));
 					}
 				}
 
@@ -447,9 +454,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		return scene;
 	}
 
-	public Scene newLevel()
+	public Scene newLevel(User player)
 	{
-		Scene newLevel=gameLoop();
+		Scene newLevel=gameLoop(player);
 		return newLevel;
 	}
 	
@@ -464,7 +471,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// if "Launch" button clicked
 		if (event.getSource() == launchButton) {
-			this.mainStage.setScene(gameLoop());
+			this.mainStage.setScene(gameLoop(null));
+			
 			// I think this is where we can update the game animations.
 
 			new AnimationTimer() {
@@ -494,6 +502,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// launch the start menu
 		mainStage.setScene(getMenu());
 		mainStage.show();
+		
 		new AnimationTimer() {
 			@Override
 			public void handle(long now) {

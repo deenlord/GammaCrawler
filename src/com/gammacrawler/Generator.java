@@ -40,20 +40,22 @@ public class Generator {
 	Image cobbles3;
 
 	public Generator() {
-		makeGenerator(21, 21, 12);
+		this(new User("Richard"));
 	}
 
-	public Generator(int xp) {
+	public Generator(User player) {
+		int xp = player.getXP();
+
 		if (xp < 100)
-			makeGenerator(21, 21, 12);
+			makeGenerator(player, 21, 21, 12);
 		else if(xp > 100 && xp < 500)
-			makeGenerator(21, 25, 16);
+			makeGenerator(player, 21, 25, 16);
 		else
-			makeGenerator(25, 31, 20);
+			makeGenerator(player, 25, 31, 20);
 	}
 
-	private void makeGenerator(int width, int height, int roomMaxSize) {
-		Generator.player = new User("Richard");
+	private void makeGenerator(User player, int width, int height, int roomMaxSize) {
+		Generator.player = player;
 		this.board = new Board(width, height, roomMaxSize);
 		Generator.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
@@ -212,6 +214,10 @@ public class Generator {
 				}
 			}			
 		}
+	}
+
+	public void setPlayer(User player) {
+		Generator.player = player;
 	}
 
 }
