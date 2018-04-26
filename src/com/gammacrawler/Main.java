@@ -215,9 +215,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) throws IndexOutOfBoundsException {
-
-				Item it;
+			public void handle(KeyEvent event) {
 
 				// Get the tile x and y of the player from the real x and y.
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
@@ -394,6 +392,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.updateInventoryBar();
 				clearDead((Group) sc.getRoot());
 
+				// Make sure the players sword is not hanging around doing
+				// damage invisibly
+				gen.getPlayer().getWeapon().setDoingDamage(false);
 			}
 		});
 

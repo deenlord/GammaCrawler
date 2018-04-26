@@ -87,11 +87,13 @@ public abstract class Enemy extends Character implements Moveable{
 		StatusBar.addStatus(this.getClass().getSimpleName()+" IS COLLIDING WITH " + e.getClass().getSimpleName());
 		
 		if (e instanceof Weapon) {
-			if (this.getHP() <= 0) {
-				die(Generator.player);
-				
-				for (Item i : this.inventory) {
-					i.addToUser();
+			if (((Weapon) e).isDoingDamage()) {
+				if (this.getHP() <= 0) {
+					die(Generator.player);
+					
+					for (Item i : this.inventory) {
+						i.addToUser();
+					}
 				}
 			}
 		}
