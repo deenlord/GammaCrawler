@@ -190,7 +190,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		//add a status bar
 		root.getChildren().add(gen.getStatus());
-		//root.getChildren().add(gen.invBar);
+		root.getChildren().add(gen.invBar);
 		return new Scene(root);
 	}
 
@@ -209,8 +209,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			
 			@Override
-			public void handle(KeyEvent event) {
-
+			public void handle(KeyEvent event) throws IndexOutOfBoundsException {
+				
 				Item it;
 
 				// Get the tile x and y of the player from the real x and y.
@@ -221,91 +221,113 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				boolean validKeyPressed = false;
 				int useItem = 0;
 				Direction direction = null;
-
-				switch (event.getCode()) {
-				
-				case W:
-					StatusBar.addStatus("North");
-					if (Generator.ar[y - 1][x] < 10 || Generator.player.invisibleTurns > 0) {
-						direction = Direction.NORTH;
-						validKeyPressed = true;
-					}
-					break;
-				case S:
-					StatusBar.addStatus("South");
-					if (Generator.ar[y + 1][x] < 10 || Generator.player.invisibleTurns > 0) {
-						direction = Direction.SOUTH;
-						validKeyPressed = true;
-					}
-					break;
-				case A:
-					StatusBar.addStatus("West");
-					if (Generator.ar[y][x - 1] < 10 || Generator.player.invisibleTurns > 0) {
-						direction = Direction.WEST;
-						validKeyPressed = true;
-					}
-					break;
-				case D:
-					StatusBar.addStatus("East");
-					if (Generator.ar[y][x + 1] < 10 || Generator.player.invisibleTurns > 0) {
-						direction = Direction.EAST;
-						validKeyPressed = true;
-					}
-					break;
-				case I:
-					StatusBar.addStatus(gen.getPlayer().getName());
-					StatusBar.addStatus("North: " + Generator.ar[y - 1][x]);
-					StatusBar.addStatus("South: " + Generator.ar[y + 1][x]);
-					StatusBar.addStatus("East: " + Generator.ar[y][x + 1]);
-					StatusBar.addStatus("West: " + Generator.ar[y][x - 1]);
-					break;
-				case X:
-					for (Entity e : gen.gameEntities) {
-						if (e instanceof Enemy) {
-							System.out.print(e + ": ");
-							for (Item i : ((Enemy) e).getInventory()) {
-								System.out.print(i.getClass().getSimpleName() + " ");
-							}
-							System.out.println();
-//							StatusBar.addStatus();
+				try {
+					switch (event.getCode()) {
+					
+					case W:
+						StatusBar.addStatus("North");
+						if (Generator.ar[y - 1][x] < 10 || Generator.player.invisibleTurns > 0) {
+							direction = Direction.NORTH;
+							validKeyPressed = true;
 						}
+						break;
+					case S:
+						StatusBar.addStatus("South");
+						if (Generator.ar[y + 1][x] < 10 || Generator.player.invisibleTurns > 0) {
+							direction = Direction.SOUTH;
+							validKeyPressed = true;
+						}
+						break;
+					case A:
+						StatusBar.addStatus("West");
+						if (Generator.ar[y][x - 1] < 10 || Generator.player.invisibleTurns > 0) {
+							direction = Direction.WEST;
+							validKeyPressed = true;
+						}
+						break;
+					case D:
+						StatusBar.addStatus("East");
+						if (Generator.ar[y][x + 1] < 10 || Generator.player.invisibleTurns > 0) {
+							direction = Direction.EAST;
+							validKeyPressed = true;
+						}
+						break;
+					case I:
+						StatusBar.addStatus(gen.getPlayer().getName());
+						StatusBar.addStatus("North: " + Generator.ar[y - 1][x]);
+						StatusBar.addStatus("South: " + Generator.ar[y + 1][x]);
+						StatusBar.addStatus("East: " + Generator.ar[y][x + 1]);
+						StatusBar.addStatus("West: " + Generator.ar[y][x - 1]);
+						break;
+					case X:
+						for (Entity e : gen.gameEntities) {
+							if (e instanceof Enemy) {
+								System.out.print(e + ": ");
+								for (Item i : ((Enemy) e).getInventory()) {
+									System.out.print(i.getClass().getSimpleName() + " ");
+								}
+								System.out.println();
+	//							StatusBar.addStatus();
+							}
+						}
+						System.out.print("Player: ");
+						for (Item i : Generator.player.getInventory()) {
+							System.out.print(i.getClass().getSimpleName() + " ");
+						}
+						System.out.println();
+	//					StatusBar.addStatus();
+						break;
+					case DIGIT1:
+						useItem = 1;
+						StatusBar.addStatus(Generator.player.getInventory().get(1).getName().toString());
+						Generator.player.getInventory().remove(1);
+						break;
+					case DIGIT2:
+						useItem = 2;
+						StatusBar.addStatus(Generator.player.getInventory().get(2).getName().toString());
+						Generator.player.getInventory().remove(2);
+						break;
+					case DIGIT3:
+						useItem = 3;
+						StatusBar.addStatus(Generator.player.getInventory().get(3).getName().toString());
+						Generator.player.getInventory().remove(3);
+						break;
+					case DIGIT4:
+						useItem = 4;
+						StatusBar.addStatus(Generator.player.getInventory().get(4).getName().toString());
+						Generator.player.getInventory().remove(4);
+						break;
+					case DIGIT5:
+						useItem = 5;
+						StatusBar.addStatus(Generator.player.getInventory().get(5).getName().toString());
+						Generator.player.getInventory().remove(5);
+						break;
+					case DIGIT6:
+						useItem = 6;
+						StatusBar.addStatus(Generator.player.getInventory().get(6).getName().toString());
+						Generator.player.getInventory().remove(6);
+						break;
+					case DIGIT7:
+						useItem = 7;
+						StatusBar.addStatus(Generator.player.getInventory().get(7).getName().toString());
+						Generator.player.getInventory().remove(7);
+						break;
+					case DIGIT8:
+						useItem = 8;
+						StatusBar.addStatus(Generator.player.getInventory().get(8).getName().toString());
+						Generator.player.getInventory().remove(8);
+						break;
+					case DIGIT9:
+						useItem = 9;
+						StatusBar.addStatus(Generator.player.getInventory().get(9).getName().toString());
+						Generator.player.getInventory().remove(9);
+						break;
+					default:
+						break;
 					}
-					System.out.print("Player: ");
-					for (Item i : Generator.player.getInventory()) {
-						System.out.print(i.getClass().getSimpleName() + " ");
-					}
-					System.out.println();
-//					StatusBar.addStatus();
-					break;
-				case DIGIT1:
-					useItem = 1;
-					break;
-				case DIGIT2:
-					useItem = 2;
-					break;
-				case DIGIT3:
-					useItem = 3;
-					break;
-				case DIGIT4:
-					useItem = 4;
-					break;
-				case DIGIT5:
-					useItem = 5;
-					break;
-				case DIGIT6:
-					useItem = 6;
-					break;
-				case DIGIT7:
-					useItem = 7;
-					break;
-				case DIGIT8:
-					useItem = 8;
-					break;
-				case DIGIT9:
-					useItem = 9;
-					break;
-				default:
-					break;
+				}
+				catch (IndexOutOfBoundsException e) {
+					StatusBar.addStatus("Can't use what you don't have");
 				}
 
 				// Use items

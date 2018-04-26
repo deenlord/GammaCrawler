@@ -121,4 +121,9 @@ public class Sprite {
 		}
 	}
 
+	public ImageView getNewImageView() {
+		ImageView iv = new ImageView(img);
+		return iv;
+	}
+
 }
