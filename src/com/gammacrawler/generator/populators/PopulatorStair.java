@@ -18,7 +18,40 @@ public class PopulatorStair extends Populator {
 		int[] emptySpace=getRandomFreeSpace();
 		if(emptySpace!=null) {
 			Point p = new Point(emptySpace[0], emptySpace[1]);
-			tileArray[p.x][p.y] = Settings.STAIR_ID;
+			if(checkSpace(p,tileArray)) {
+				tileArray[p.x][p.y] = Settings.STAIR_ID;}
+			else populate();
 		}
+	}
+	
+	public boolean checkSpace(Point point, int[][] tileArray)
+	{
+		int direction=0;
+		int[] checkPoint= {point.x,point.y};
+		boolean freeSpace=true;
+		for(int iterator=0;iterator<direction;iterator++) {
+			switch(direction)
+			{
+				case 0:
+					checkPoint[1]--;
+					break;
+				case 1:
+					checkPoint[0]++;
+					break;
+				case 2:
+					checkPoint[1]++;
+					break;
+				case 3:
+					checkPoint[0]--;
+					break;
+				default:
+					break;
+			}
+			if(tileArray[checkPoint[0]][checkPoint[1]] == Settings.WALL_ID) freeSpace=false;
+			checkPoint[0]=point.x;
+			checkPoint[1]=point.y;
+		}
+		return freeSpace;
+			
 	}
 }
