@@ -5,20 +5,19 @@ import com.gammacrawler.entity.Sprite;
 
 public class Witch extends Enemy {
 	protected static final String name = "Witch";
-
-
+	
 	/** 
-	 * <h3> Creates a Witch </h3>
+	 * <h3>Witch - An Enemy</h3>
 	 *  {@code name = "Witch"}
-	 *  {@code damage = 20} 
-	 *  {@code HP = 25}
-	 *  {@code XP = 10}
+	 *  {@code damage = 30} 
+	 *  {@code maxHP = 35}
+	 *  {@code XP = 20}
 	 */
 	public Witch() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/witch.png"), 20);
-		this.setMaxHP(30);
-		this.setHP(35);
-		this.setXP(20);
+		super(name, new Sprite("file:src/com/gammacrawler/images/witch.png"), 30);
+		this.setMaxHP(45);
+		this.setHP(45);
+		this.setXP(45);
 	}
 
 }

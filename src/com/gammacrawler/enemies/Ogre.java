@@ -11,7 +11,7 @@ public class Ogre extends Enemy {
 	protected static final String name = "Ogre";
 
 	/** 
-	 * <h3> Creates an Ogre </h3>
+	 * <h3>Ogre - An Enemy</h3>
 	 *  {@code name = "Ogre"}
 	 *  {@code damage = 20} 
 	 *  {@code HP = 25}
@@ -23,11 +23,6 @@ public class Ogre extends Enemy {
 		this.setHP(25);
 		this.setXP(10);
 	}
-
-//	@Override
-//	public void move(Direction dir) {
-//		this.moveAI();
-//	}
 
 	
 
