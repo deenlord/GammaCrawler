@@ -193,8 +193,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		return new Scene(root);
 	}
 
+
 	/**
 	 * @return the game board scene with a character since 4/1
+	 * @param player - A User
+	 * @return - the main game loop as a Scene
 	 */
 	public Scene gameLoop(User player) {
 

@@ -9,7 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
 /**
- * <h2>Container for Image and ImageView</h2>
+ * <h3>Sprite - A Container for Image and ImageView</h3>
+ * 
  * @author deenlord
  *
  */
@@ -18,7 +19,7 @@ public class Sprite {
 	ImageView imgView;
 	
 	/**
-	 * <h3>Pass in a filepath to an Image, get a Sprite back with an ImageView </h3>
+	 * <h3>Pass in a file path to an Image, get a Sprite back with an ImageView </h3>
 	 * @param pathtofile - String
 	 */
 	public Sprite(String pathtofile) {
@@ -46,7 +47,7 @@ public class Sprite {
 	/**
 	 * <h3>Create a Sprite</h3>
 	 * @param pathtofile - path to file
-	 * @param tileSize - for custom sized sprites
+	 * @param tileSize - for a custom sized spites
 	 */
 	public Sprite(String pathtofile, int tileSize) {
 		this.img = new Image(pathtofile, tileSize, tileSize, false, false);
@@ -94,7 +95,7 @@ public class Sprite {
 	}
 	
 	/**
-	 * <h3> Rotate a user's weapon in the direction last travelled. </h3>
+	 * <h3> Rotate a user's weapon in the direction last traveled. </h3>
 	 * @param dir - A Direction 
 	 */
 	public void rotateWeapon(Direction dir) {

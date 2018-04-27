@@ -13,9 +13,9 @@ public class Chest extends Item{
 	ArrayList<Item> inventory;
 	public static String name = "Wooden Chest";
 	
-	
 	/**
 	 * <h3> Creates a new Chest </h3>
+	 * <p> Adds 200 points and contents of inventory upon User collision.</p>
 	 * 
 	 * {@code sprite = chestfull.png}
 	 * {@code name = Wooden Chest}
@@ -37,8 +37,8 @@ public class Chest extends Item{
 
 	@Override
 	public void collide(Entity e) {
+	
 		if (e instanceof User) {
-			
 			for (Item i : this.inventory) {
 				i.addToUser();
 				Generator.player.points += 200;

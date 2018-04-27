@@ -4,6 +4,7 @@ import com.gammacrawler.Generator;
 import com.gammacrawler.Settings;
 
 /**
+ * <h3>Item - An Entity</h3>
  * @author jakev
  *
  */

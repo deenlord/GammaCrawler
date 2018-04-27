@@ -7,9 +7,12 @@ import com.gammacrawler.item.Weapon;
 import com.gammacrawler.item.WoodenSword;
 
 /**
- * User is the player. 
+ * <h3>User</h3>
+ * <p>maxHP = 100
+ * <br>xp = 0
+ * <br>points = 0
  * 
- * @author deenlord, crathke4
+ * @author deenlord crathke4
  * 3/24
  */
 public class User extends Character implements Moveable {
@@ -18,7 +21,7 @@ public class User extends Character implements Moveable {
 	protected Direction direction;
 	public int invisibleTurns = 0;
 
-	/** init User sets HP to 100 XP to 0, gives them a sword
+	/** sets HP to 100 XP to 0, gives them a sword
 	 * @param name  - name of user
 	 */
 	public User(String name) {
@@ -30,12 +33,14 @@ public class User extends Character implements Moveable {
 		this.setPoints(0);
 		weapon = new WoodenSword();
 		this.getInventory().add(weapon);
-		for (Item i : this.getInventory()) {
-		//	StatusBar.addStatus(i.getName());
-		System.out.println("Error in StatusBar.addStatus(message) \nat com.gammacrawler.item at line 34");
-		}
-		
 		this.direction = Direction.EAST;
+		
+		// uncomment for debugging.
+//		for (Item i : this.getInventory()) {
+//		//	StatusBar.addStatus(i.getName());
+//		System.out.println("Error in StatusBar.addStatus(message) \nat com.gammacrawler.item at line 34");
+		
+//		}
 		
 		
 	}
@@ -71,6 +76,7 @@ public class User extends Character implements Moveable {
 		int y;
 		weapon.setDoingDamage(true);
 
+	// handles weapon sprite display and rotation based on user location
 	switch(this.direction) {
 		case EAST:
 			x = (int) ((this.getLocation()[0]) + 1 + Settings.TILESIZE);
@@ -118,9 +124,7 @@ public class User extends Character implements Moveable {
 		}		
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 */
+	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append("Name: " + this.getName() + "\n");
@@ -131,20 +135,16 @@ public class User extends Character implements Moveable {
 		for (Item item : this.inventory) {
 			str.append("Inventory Item: " + item.getName() + "\n");
 		}
-		
 		return str.toString();
-		
 	}
 
 	@Override
 	public void collide(Entity e) {
-		// TODO Auto-generated method stub)
+		// subtract user's hp and check for death upon collision with enemy.
 		if (e instanceof Enemy && invisibleTurns < 1) {
 			this.setHP(this.getHP() - ((Enemy) e).getDamage());
 			if (this.getHP() <= 0) {
 				this.die(e);
-				
-				// TODO: Change Scene to game over scene!
 			}
 		}
 		

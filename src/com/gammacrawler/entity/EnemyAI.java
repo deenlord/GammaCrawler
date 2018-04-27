@@ -3,10 +3,13 @@ package com.gammacrawler.entity;
 import com.gammacrawler.Direction;
 import com.gammacrawler.generator.Board;
 
-public class EnemyAI {
 /**
+ * <h3> EnemyAI </h3>
+ * handles how the enemies move about the screen. 
  * @author crathke4
  */
+public class EnemyAI {
+
 	Enemy enemy;
 	Board board;
 	int counter = 0;

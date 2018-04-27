@@ -5,6 +5,7 @@ import com.gammacrawler.Settings;
 import javafx.scene.image.ImageView;
 
 /**
+ * <h3>Entity</h3>
  * @author WolfieWaffle
  *
  */

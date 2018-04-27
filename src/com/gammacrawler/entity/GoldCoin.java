@@ -6,7 +6,7 @@ import com.gammacrawler.Settings;
 import com.gammacrawler.StatusBar;
 
 /**
- * Collectable gold coins
+ * <h3> Gold Coin - Serve as points</h3
  * @author WolfieWaffle
  *
  */

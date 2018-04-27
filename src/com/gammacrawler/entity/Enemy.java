@@ -19,7 +19,11 @@ public abstract class Enemy extends Character implements Moveable{
 	private ArrayList<Item> inventory;
 	
 	/**
-	 * 	Passes name and sprite to super to create new Character
+	 * <h3>Enemy - Is A Character </h3>
+	 * <p>Passes name and sprite to super to create new Character.
+	 * <br>Dies if HP <= 0 upon Weapon collision.
+	 * <br>Individual enemy movement is inherited from here.
+	 * 
 	 * @param name - String - name of the enemy
 	 * @param sprite - Sprite - sprite to be used in display
 	 * @param damage - int - amount of damage enemy deals
@@ -68,18 +72,10 @@ public abstract class Enemy extends Character implements Moveable{
 	}
 	
 	/**
-	 * @param item - Item - gets added to this.inventory
+	 * @param item gets added to this.inventory
 	 */
 	public void addToInventory(Item item) {
 		this.inventory.add(item);
-	}
-	
-	
-	/* (non-Javadoc)
-	 * @see com.gammacrawler.entity.Character#getInventory()
-	 */
-	public ArrayList<Item> getInventory() {
-		return this.inventory;
 	}
 	
 	@Override

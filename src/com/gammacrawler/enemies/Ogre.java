@@ -4,18 +4,18 @@ import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Sprite;
 
 /**
- * @author deenlord
- *
- */
+* <h3>Ogre - An Enemy</h3>
+*  <p> name = "Ogre"
+*  <br> damage = 20
+*  <br> HP = 25
+*  <br> XP = 10
+*  @author deenlord
+*/
 public class Ogre extends Enemy {
 	protected static final String name = "Ogre";
 
-	/** 
-	 * <h3>Ogre - An Enemy</h3>
-	 *  {@code name = "Ogre"}
-	 *  {@code damage = 20} 
-	 *  {@code HP = 25}
-	 *  {@code XP = 10}
+	/**
+	 * creates an ogre
 	 */
 	public Ogre() {
 		super(name, new Sprite("file:src/com/gammacrawler/images/ogre.png"), 20);
