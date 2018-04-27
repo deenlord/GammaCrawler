@@ -22,14 +22,14 @@ public class Board {
 	private int extraDoorChance = 100;
 	private int sparseTries = 100000;
 
-	public Board(int width, int height) {
+	public Board(int width, int height, int roomMaxSize) {
 		width = (width % 2 == 0 ? width + 1 : width);
 		height = (height % 2 == 0 ? height + 1 : height);
 		this.tileArray = new int[width][height];
 		regionArray = new int[tileArray.length][tileArray[0].length];
 		fillIntegerArray(tileArray, Settings.WALL_ID);
 		fillIntegerArray(regionArray, Settings.FLOOR_ID);
-		this.addMaze();
+		this.addMaze(roomMaxSize);
 	}
 
 	public int[][] getArray() {
@@ -39,8 +39,8 @@ public class Board {
 	/**
 	 * Adds the Maze structure to the Board, including rooms and hallways.
 	 */
-	public void addMaze() {
-		attemptPlaceRooms(500, 2, 10, 2, 12);
+	public void addMaze(int roomMaxSize) {
+		attemptPlaceRooms(500, 2, roomMaxSize - 2, 2, roomMaxSize);
 
 		mazeMap = new MazeMap(tileArray);
 		mazeMap.makeMaze();

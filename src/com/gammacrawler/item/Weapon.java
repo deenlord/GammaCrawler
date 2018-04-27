@@ -1,5 +1,6 @@
 package com.gammacrawler.item;
 
+import com.gammacrawler.Generator;
 import com.gammacrawler.StatusBar;
 import com.gammacrawler.enemies.Ogre;
 import com.gammacrawler.enemies.Slime;
@@ -53,23 +54,25 @@ public abstract class Weapon<T> extends Item {
 	
 	@Override
 	public void collide(Entity e) {
-		int rand = (int) Math.random() * 100;
-		if (e instanceof Slime) {
-			if (rand <= 8) {
-				((Slime) e).setHP(((Slime) e).getHP() - this.getDamage());
-				StatusBar.addStatus("Slicing Slime");
+		if (isDoingDamage) {
+			int rand = (int) Math.random() * 100;
+			if (e instanceof Slime) {
+				if (rand <= 8) {
+					((Slime) e).setHP(((Slime) e).getHP() - this.getDamage());
+					StatusBar.addStatus("Slicing Slime");
+				}
+				else {
+					((Slime) e).setHP(((Slime) e).getHP() - this.getMaxDamage());
+				}
 			}
-			else {
-				((Slime) e).setHP(((Slime) e).getHP() - this.getMaxDamage());
-			}
-		}
-		else if (e instanceof Ogre) {
-			if (rand <= 8) {
-				((Ogre) e).setHP(((Ogre) e).getHP() - this.getDamage());
-				StatusBar.addStatus("Damaging Ogre");
-			}
-			else {
-				((Ogre) e).setHP(((Ogre) e).getHP() - this.getMaxDamage());
+			else if (e instanceof Ogre) {
+				if (rand <= 8) {
+					((Ogre) e).setHP(((Ogre) e).getHP() - this.getDamage());
+					StatusBar.addStatus("Damaging Ogre");
+				}
+				else {
+					((Ogre) e).setHP(((Ogre) e).getHP() - this.getMaxDamage());
+				}
 			}
 		}
 	}

@@ -12,6 +12,7 @@ import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorGoldCoin;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
+import com.gammacrawler.generator.populators.PopulatorStair;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -31,6 +32,7 @@ public class Generator {
 	InventoryBar invBar;
 	Image wall;
 	Image floor;
+	Image stair;
 	Image door;
 	Image skull;
 	Image cobbles1;
@@ -38,32 +40,35 @@ public class Generator {
 	Image cobbles3;
 
 	public Generator() {
-		makeGenerator(21, 21);
+		this(new User("Richard"));
 	}
 
-	public Generator(int xp) {
+	public Generator(User player) {
+		int xp = player.getXP();
+
 		if (xp < 100)
-			makeGenerator(21, 21);
+			makeGenerator(player, 21, 21, 12);
 		else if(xp > 100 && xp < 500)
-			makeGenerator(21, 25);
+			makeGenerator(player, 21, 25, 16);
 		else
-			makeGenerator(25, 31);
+			makeGenerator(player, 25, 31, 20);
 	}
 
-	private void makeGenerator(int width, int height) {
-		Generator.player = new User("Richard");
-		this.board = new Board(width, height);
+	private void makeGenerator(User player, int width, int height, int roomMaxSize) {
+		Generator.player = player;
+		this.board = new Board(width, height, roomMaxSize);
 		Generator.ar = this.board.getArray();
 		this.enemies = new ArrayList<>();
 		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
 
 		// Run all the populators, to populate the dungeon with stuff.
-		populate(new PopulatorSkulls(this.board.getArray(), gameEntities));
-		populate(new PopulatorEnemies(this.board.getArray(), gameEntities));
+		populate(new PopulatorStair(this.board.getArray(), gameEntities));
+		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 30.0));
+		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 1));
+		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 8.0));
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
-		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities));
-		populate(new PopulatorChests(this.board.getArray(), gameEntities));
+		populate(new PopulatorChests(this.board.getArray(), gameEntities, 5));
 		
 		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
@@ -122,6 +127,8 @@ public class Generator {
 					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.SKULL_ID) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STAIR_ID) {
+					gc.drawImage(stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}
 		}
@@ -136,6 +143,7 @@ public class Generator {
 	private void setupImages() {
 		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stair= new Image("file:src/com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
 		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
@@ -206,6 +214,10 @@ public class Generator {
 				}
 			}			
 		}
+	}
+
+	public void setPlayer(User player) {
+		Generator.player = player;
 	}
 
 }

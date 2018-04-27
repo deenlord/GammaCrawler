@@ -4,6 +4,7 @@ import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
 import com.gammacrawler.entity.Character;
 import com.gammacrawler.entity.Entity;
+import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
 public class Chalice extends Potion {
@@ -37,6 +38,16 @@ public class Chalice extends Potion {
 	public void move(Direction d) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void addToUser() {
+		for (Item i : Generator.player.getInventory()) {
+			if (i instanceof Chalice) {
+				return;
+			}
+		}
+		super.addToUser();
 	}
 
 }

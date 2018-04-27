@@ -196,9 +196,16 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	/**
 	 * @return the game board scene with a character since 4/1
 	 */
-	public Scene gameLoop() {
+	public Scene gameLoop(User player) {
 
-		gen = new Generator(600); // creates board and user
+		// This makes a new generator if the player exists. If not it makes a
+		// new stage with 0 xp
+		if (player != null) {
+			gen = new Generator(player);
+		} else {
+			gen = new Generator();
+		}
+
 		StatusBar.addStatus("Generator created");
 		// procedurally...
 
@@ -208,9 +215,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		sc.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) throws IndexOutOfBoundsException {
-
-				Item it;
+			public void handle(KeyEvent event) {
 
 				// Get the tile x and y of the player from the real x and y.
 				int x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
@@ -259,22 +264,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					StatusBar.addStatus("West: " + Generator.ar[y][x - 1]);
 					break;
 				case X:
-					for (Entity e : gen.gameEntities) {
-						if (e instanceof Enemy) {
-							System.out.print(e + ": ");
-							for (Item i : ((Enemy) e).getInventory()) {
-								System.out.print(i.getClass().getSimpleName() + " ");
-							}
-							System.out.println();
-							// StatusBar.addStatus();
-						}
-					}
-					System.out.print("Player: ");
-					for (Item i : Generator.player.getInventory()) {
-						System.out.print(i.getClass().getSimpleName() + " ");
-					}
-					System.out.println();
-					// StatusBar.addStatus();
+					printInventoryDebug();
 					break;
 				case DIGIT1:
 					useItem = 1;
@@ -309,19 +299,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				}
 
 				// Use items
-				if (useItem > 0) {
-					if (gen.getPlayer().getInventory().size() > useItem) {
-
-						// Show the player what item they used
-						StatusBar.addStatus(Generator.player.getInventory().get(useItem).getName().toString());
-						gen.getPlayer().getInventory().get(useItem).use(gen.getPlayer());
-					} else {
-
-						// Or tell them they don't have an item in that slot
-						StatusBar.addStatus("Can't use what you don't have");
-					}
-					useItem = 0;
-				}
+				useItem(useItem);
 
 				// Handle collisions and move if valid key pressed
 				if (validKeyPressed) {
@@ -330,34 +308,25 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 					gen.handleCollisions();
 
 					// Move enemies
-					counter++;
-					if (counter > 2) {
-						for (Entity e : gen.gameEntities) {
-							if (e instanceof Enemy) {
-								((Enemy) e).moveAI();
-							}
-						}
-						gen.handleCollisions();
-						counter = 0;
-					}
+					moveEnemies();
 
 					// Reduce the players invisibility
-					if (Generator.player.invisibleTurns > 0) {
-						Generator.player.invisibleTurns--;
-					}
-					if (Generator.player.invisibleTurns < 1) {
-						Generator.player.getImageView().setOpacity(1.0);
-					}
+					reduceInvisibility();
 
-					// Kill the player if they phased into a wall with the Ghost
-					// Potion
 					x = (gen.getPlayer().getLocation()[0] / Settings.TILESIZE) - 1;
 					y = (gen.getPlayer().getLocation()[1] / Settings.TILESIZE) - 1;
 
+					// Kill the player if they phased into a wall with the Ghost
+					// Potion
 					if (gen.board.getArray()[y][x] >= 10 && Generator.player.invisibleTurns < 1) {
 						System.out.println(x + " " + y + " " + gen.board.getArray()[x][y]);
 						Generator.player.setHP(0);
 						Generator.player.die(Generator.player);
+					}
+
+					// Check for staircase
+					if(Generator.ar[y][x] == Settings.STAIR_ID) {
+						mainStage.setScene(newLevel(gen.getPlayer()));
 					}
 				}
 
@@ -382,10 +351,85 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 				gen.updateInventoryBar();
 				clearDead((Group) sc.getRoot());
 
+				// Make sure the players sword is not hanging around doing
+				// damage invisibly
+				gen.getPlayer().getWeapon().setDoingDamage(false);
 			}
 		});
 
 		return sc;
+	}
+
+	/**
+	 * Just prints out the inventory of all enemies and the player.
+	 */
+	private void printInventoryDebug() {
+		for (Entity e : gen.gameEntities) {
+			if (e instanceof Enemy) {
+				System.out.print(e.getClass().getSimpleName() + ": ");
+				for (Item i : ((Enemy) e).getInventory()) {
+					System.out.print(i.getClass().getSimpleName() + " ");
+				}
+				System.out.println();
+			}
+		}
+		System.out.print("Player: ");
+		for (Item i : Generator.player.getInventory()) {
+			System.out.print(i.getClass().getSimpleName() + " ");
+		}
+		System.out.println();
+	}
+
+	/**
+	 * If useItem is more than 0, it uses the item in the slot useItem, and sets
+	 * useItem to 0.
+	 * 
+	 * @param useItem
+	 *            The slot to attempt to use.
+	 */
+	private void useItem(int useItem) {
+		if (useItem > 0) {
+			if (gen.getPlayer().getInventory().size() > useItem) {
+
+				// Show the player what item they used
+				StatusBar.addStatus(Generator.player.getInventory().get(useItem).getName().toString());
+				gen.getPlayer().getInventory().get(useItem).use(gen.getPlayer());
+			} else {
+
+				// Or tell them they don't have an item in that slot
+				StatusBar.addStatus("Can't use what you don't have");
+			}
+			useItem = 0;
+		}
+	}
+
+	/**
+	 * Reduces the player visibility by one turn, making them visible if it
+	 * reaches 0.
+	 */
+	private void reduceInvisibility() {
+		if (Generator.player.invisibleTurns > 0) {
+			Generator.player.invisibleTurns--;
+		}
+		if (Generator.player.invisibleTurns < 1) {
+			Generator.player.getImageView().setOpacity(1.0);
+		}
+	}
+
+	/**
+	 * Moves all the enemies.
+	 */
+	private void moveEnemies() {
+		counter++;
+		if (counter > 2) {
+			for (Entity e : gen.gameEntities) {
+				if (e instanceof Enemy) {
+					((Enemy) e).moveAI();
+				}
+			}
+			gen.handleCollisions();
+			counter = 0;
+		}
 	}
 
 	/**
@@ -442,6 +486,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		return scene;
 	}
 
+	public Scene newLevel(User player)
+	{
+		Scene newLevel=gameLoop(player);
+		return newLevel;
+	}
+	
 	@Override
 	public void handle(ActionEvent event) {
 		// main menu event handling
@@ -453,7 +503,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// if "Launch" button clicked
 		if (event.getSource() == launchButton) {
-			this.mainStage.setScene(gameLoop());
+			this.mainStage.setScene(gameLoop(null));
+			
 			// I think this is where we can update the game animations.
 
 			new AnimationTimer() {
@@ -483,6 +534,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// launch the start menu
 		mainStage.setScene(getMenu());
 		mainStage.show();
+		
 		new AnimationTimer() {
 			@Override
 			public void handle(long now) {
