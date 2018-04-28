@@ -5,8 +5,9 @@ import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
 /**
- * @author jakev
- *
+ * <h3>Potion - An Item</h3>
+ *  <p> Abstract base class for all Potions
+ *  @author deenlord
  */
 public abstract class Potion extends Item {
 	int value;
@@ -15,12 +16,4 @@ public abstract class Potion extends Item {
 		this.value = val;
 	}	
 	
-//	/**
-//	 * @param c - a Character, can be User or Enemy
-//	 * 
-//	 * Intended use: apply the Potion's value to the Character's applicable attribute, 
-//	 * and remove the item from their inventory.
-//	 */
-//	public abstract void drink(Character c);
-
 }

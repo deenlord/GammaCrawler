@@ -7,6 +7,13 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 
+/**
+ * <h3>IncreaseMaxHPPotion - a Potion</h3>
+ *  <p> name = "BoostHP Potion"
+ *  <br> value = 25
+ *  <br>Increases User's max HP by 25
+ *  @author deenlord
+ */
 public class IncreaseMaxHPPotion extends Potion {
 
 	private static final String name = "BoostHP Potion";

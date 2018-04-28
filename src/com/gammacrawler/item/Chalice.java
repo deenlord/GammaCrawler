@@ -7,6 +7,14 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
+/**
+ * <h3>Chalice - a Potion</h3>
+ *  <p> name = "Gold Chalice"
+ *  <br> damage = 7
+ *  <br> Gives player 10 gold.
+ * @author wolfiewaffle
+ *
+ */
 public class Chalice extends Potion {
 	private static final String name = "Gold Chalice";
 	private static final int takeHP = 7;
@@ -29,9 +37,13 @@ public class Chalice extends Potion {
 	}
 
 	@Override
-	public void collide(Entity e) {
-		// TODO Auto-generated method stub
-
+	public void addToUser() {
+		for (Item i : Generator.player.getInventory()) {
+			if (i instanceof Chalice) {
+				return;
+			}
+		}
+		super.addToUser();
 	}
 
 	@Override
@@ -41,13 +53,9 @@ public class Chalice extends Potion {
 	}
 
 	@Override
-	public void addToUser() {
-		for (Item i : Generator.player.getInventory()) {
-			if (i instanceof Chalice) {
-				return;
-			}
-		}
-		super.addToUser();
+	public void collide(Entity e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

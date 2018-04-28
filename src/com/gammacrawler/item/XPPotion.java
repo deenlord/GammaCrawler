@@ -7,6 +7,15 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 
+/**
+ * <h3>XPPotion - a Potion</h3>
+ * <p>name = BoostXP Potion
+ * <br> value = 100
+ * <br> increases user XP by 100
+ * 
+ * @author jakev
+ *
+ */
 public class XPPotion extends Potion {
 
 	private static final String name = "BoostXP Potion";

@@ -12,7 +12,7 @@ import com.gammacrawler.item.RandomItem;
 public class PopulatorEnemies extends Populator {
 	private int maxItemsInEnemyInventory;
 	private double multiplier;
-	private int attempts = 3;
+	private int attempts = 1;
 
 	public PopulatorEnemies(int[][] tileArray, ArrayList<Entity> entities, double multiplier) {
 		this(tileArray, entities);

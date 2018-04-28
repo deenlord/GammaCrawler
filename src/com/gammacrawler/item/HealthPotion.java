@@ -9,8 +9,11 @@ import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
 /**
- * @author jakev
- *
+ * <h3>HealthPotion - A Potion</h3>
+ *  <p> name = "Health Potion"
+ *  <br> value = 25
+ *  <br> Increases current HP
+ *  @author deenlord
  */
 public class HealthPotion extends Potion {
 	private static final String name = "Health Potion";

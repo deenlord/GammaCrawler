@@ -2,6 +2,19 @@ package com.gammacrawler.item;
 
 import com.gammacrawler.entity.Item;
 
+/**
+ * <h3>RandomItem - A Random Item Generator</h3>
+ *  <p> Will produce one of the following:
+ *  <br> - Fight Potion
+ *  <br> - Gold Potion
+ *  <br> - Health Potion
+ *  <br> - BoostHP Potion
+ *  <br> - XP Potion
+ *  <br> - Gold Chalice
+ *  <br> - Ghost Potion
+ *  
+ *  @author wolfiewaffle
+ */
 public class RandomItem {
 	private Item[] options;
 	private Item item;

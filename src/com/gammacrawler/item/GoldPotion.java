@@ -7,6 +7,13 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
+/**
+ * <h3>GoldPotion - a Potion</h3>
+ *  <p> name = "Gold Potion"
+ *  <br> value = 25
+ *  <br> Gives user 25 gold/points
+ *  @author deenlord
+ */
 public class GoldPotion extends Potion {
 	private static final String name = "Gold Potion";
 	private static final int value = 25;

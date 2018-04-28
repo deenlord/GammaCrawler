@@ -7,6 +7,13 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 
+/**
+ * <h3>FightPotion - a Potion</h3>
+ *  <p> name = "Fight Potion"
+ *  <br> value = 25
+ *  <br> increases damage weapon deals
+ *  @author deenlord
+ */
 public class FightPotion extends Potion {
 	
 	private static final String name = "Fight Potion";
@@ -16,16 +23,17 @@ public class FightPotion extends Potion {
 		super(name, new Sprite("file:src/com/gammacrawler/images/smallfightpotion.png"), value);
 	}
 
+	// sets weapon damage to 100 for single shot kills, 
+	// removes all gold potions from player's inventory
 	@Override
 	public void use(Character c) {
-		// TODO Auto-generated method stub
 		int index  = 0;
 		
 		Generator.player.getWeapon().setDamage(100);
 		
 		for (int i = 0; i < c.getInventory().size(); i++) {
-			Item in = c.getInventory().get(i);
-			if(in instanceof GoldPotion) {
+			Item item = c.getInventory().get(i);
+			if(item instanceof GoldPotion) {
 				index  = i;
 				c.getInventory().remove(index);
 			}

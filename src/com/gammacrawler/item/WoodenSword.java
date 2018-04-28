@@ -7,12 +7,16 @@ import com.gammacrawler.entity.Sprite;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
+/**
+ * <h3>WoodenSword - A Weapon</h3>
+ * <p> name = Wooden Sword
+ * <br> damage = 5
+ * <br> maxDamage = 10
+ * @author deenlord
+ */
 public class WoodenSword extends Weapon {
 	FadeTransition ft;
 	private static final String name = "Wooden Sword";
-	// protected static Sprite sprite = new
-	// Sprite("file:src/com/gammacrawler/images/woodensword.png",
-	// Settings.HALF_TILESIZE);
 
 	public WoodenSword() {
 		super(name, new Sprite("file:src/com/gammacrawler/images/woodensword.png", Settings.HALF_TILESIZE));
@@ -27,7 +31,7 @@ public class WoodenSword extends Weapon {
 
 	@Override
 	public void animate() {
-
+		// sets opacity from zero to 100 and back, once per click.
 		this.ft.setFromValue(1.0);
 		this.ft.setToValue(0);
 		this.ft.setCycleCount(1);
