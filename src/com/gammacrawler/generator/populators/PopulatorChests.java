@@ -12,21 +12,36 @@ import com.gammacrawler.item.HealthPotion;
 import com.gammacrawler.item.IncreaseMaxHPPotion;
 import com.gammacrawler.item.XPPotion;
 
+/**
+ * <h3>PopulatorChests - A Chest Populator</h3>
+ * <p> populates chests throughout the map
+ * @author deenlord
+ *
+ */
 public class PopulatorChests extends Populator {
 	private int chests = 1;
 
+	/**
+	 * @param tileArray - array representing the board
+	 * @param entities - ArrayList of entities
+	 * @param chests - number of chests to place
+	 */
 	public PopulatorChests(int[][] tileArray, ArrayList<Entity> entities, int chests) {
 		super(tileArray, entities);
 		this.chests = chests;
 	}
 
+	/**
+	 * @param tileArray - array representing the board
+	 * @param entities - ArrayList of entities
+	 */
 	public PopulatorChests(int[][] tileArray, ArrayList<Entity> entities) {
 		super(tileArray, entities);
 	}
 
 	@Override
 	public void populate() {
-		// TODO Add more chest types based on Math.random()
+		// creates a new chest, finds a free space on the board, fills the chest with items, and places it on the free space.
 
 		for (int i = 0; i < chests; i++) {
 			Chest chest = new Chest();
