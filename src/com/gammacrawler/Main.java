@@ -105,10 +105,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		int counter = 0;
 		for (Sprite spr : characters) {
 
-			if (counter >= 10) {
-				spr.getImageView().setLayoutY(i * (counter - 9));
-			} else {
+			if (counter < 10) {
 				spr.getImageView().setLayoutX(i * counter);
+			} else if (counter < 19){
+				spr.getImageView().setLayoutY(i * (counter - 9));
+				
 			}
 			pane.getChildren().add(spr.getImageView());
 			counter++;
@@ -458,7 +459,14 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		// Add main menu button
 		Button restart = new Button("Main Menu");
-		restart.setOnAction(e -> mainStage.setScene(getMenu()));
+		restart.setOnAction(e -> {
+			try {
+				start(mainStage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		group.getChildren().add(restart);
 		restart.layoutXProperty().bind(gameOver.xProperty().add((gameOver.getLayoutBounds().getWidth() / 2) - 57));
 		restart.layoutYProperty().bind(gameOver.yProperty().add(gameOver.getLayoutBounds().getHeight() / 2));
