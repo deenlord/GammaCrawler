@@ -2,6 +2,8 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
+import javax.print.DocFlavor.URL;
+
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
@@ -45,7 +47,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene getMenu() {
 		// a little setup
 		Group menu = new Group();
-		menu.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		menu.getStylesheets().add(getClass().getClassLoader().getResource("com/gammacrawler/css/launcher.css").toString());
 		menu.getStyleClass().add("menu");
 		Pane pane = new Pane();
 		pane.getStyleClass().add("menuPane");
@@ -444,7 +446,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	public Scene gameOver() {
 		// Set up menu group
 		Group group = new Group();
-		group.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		group.getStylesheets().add(getClass().getClassLoader().getResource("com/gammacrawler/css/launcher.css").toString());
 		group.getStyleClass().add("menu");
 
 		// Display red gameOver text
@@ -489,7 +491,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// Set up menu pane
 		Pane pane = new Pane(group);
 		pane.setPrefSize(1000, 562.5);
-		pane.getStylesheets().add("file:src/com/gammacrawler/css/launcher.css");
+		pane.getStylesheets().add(getClass().getClassLoader().getResource("com/gammacrawler/css/launcher.css").toString());
 		pane.getStyleClass().add("gameOver");
 
 		// return scene
