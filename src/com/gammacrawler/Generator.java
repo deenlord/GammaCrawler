@@ -141,14 +141,14 @@ public class Generator {
 	 * 
 	 */
 	private void setupImages() {
-		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stair= new Image("file:src/com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
-		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		wall = new Image("com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		floor = new Image("com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stair= new Image("com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
+		door = new Image("com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		skull = new Image("com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles1 = new Image("com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles2 = new Image("com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles3 = new Image("com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 	}
 
 	/** takes a Populator, then populates the populator

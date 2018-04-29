@@ -23,7 +23,7 @@ public class Chest extends Item{
 	 * 
 	 */
 	public Chest() {
-		super(new Sprite("file:src/com/gammacrawler/images/chestfull.png"), name);
+		super(new Sprite("com/gammacrawler/images/chestfull.png"), name);
 		inventory = new ArrayList<>();
 	}
 	

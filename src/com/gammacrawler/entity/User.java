@@ -16,7 +16,7 @@ import com.gammacrawler.item.WoodenSword;
  * 3/24
  */
 public class User extends Character implements Moveable {
-	protected static Sprite sprite = new Sprite("file:src/com/gammacrawler/images/user2.png");
+	protected static Sprite sprite = new Sprite("com/gammacrawler/images/chad.png");
 	protected Weapon<?> weapon;
 	protected Direction direction;
 	public int invisibleTurns = 0;

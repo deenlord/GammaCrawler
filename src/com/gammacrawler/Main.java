@@ -60,26 +60,26 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 		int i = 32;
 		// border
-		Sprite imgY1 = new Sprite("file:src/com/gammacrawler/images/user.png");
-		Sprite imgY2 = new Sprite("file:src/com/gammacrawler/images/user2.png");
-		Sprite imgY3 = new Sprite("file:src/com/gammacrawler/images/witch.png");
-		Sprite imgY4 = new Sprite("file:src/com/gammacrawler/images/ghostpirate.png");
-		Sprite imgY5 = new Sprite("file:src/com/gammacrawler/images/chad.png");
-		Sprite imgY6 = new Sprite("file:src/com/gammacrawler/images/dogmaskedzombie.png");
-		Sprite imgY7 = new Sprite("file:src/com/gammacrawler/images/zombieviking.png");
-		Sprite imgY8 = new Sprite("file:src/com/gammacrawler/images/bill.png");
-		Sprite imgY9 = new Sprite("file:src/com/gammacrawler/images/blueguy.png");
-		Sprite imgY10 = new Sprite("file:src/com/gammacrawler/images/zombieninja.png");
+		Sprite imgY1 = new Sprite("com/gammacrawler/images/user.png");
+		Sprite imgY2 = new Sprite("com/gammacrawler/images/user2.png");
+		Sprite imgY3 = new Sprite("com/gammacrawler/images/witch.png");
+		Sprite imgY4 = new Sprite("com/gammacrawler/images/ghostpirate.png");
+		Sprite imgY5 = new Sprite("com/gammacrawler/images/chad.png");
+		Sprite imgY6 = new Sprite("com/gammacrawler/images/dogmaskedzombie.png");
+		Sprite imgY7 = new Sprite("com/gammacrawler/images/zombieviking.png");
+		Sprite imgY8 = new Sprite("com/gammacrawler/images/bill.png");
+		Sprite imgY9 = new Sprite("com/gammacrawler/images/blueguy.png");
+		Sprite imgY10 = new Sprite("com/gammacrawler/images/zombieninja.png");
 
-		Sprite imgX1 = new Sprite("file:src/com/gammacrawler/images/babydevil.png");
-		Sprite imgX2 = new Sprite("file:src/com/gammacrawler/images/candle.png");
-		Sprite imgX3 = new Sprite("file:src/com/gammacrawler/images/bigcreep.png");
-		Sprite imgX4 = new Sprite("file:src/com/gammacrawler/images/bomb.png");
-		Sprite imgX5 = new Sprite("file:src/com/gammacrawler/images/bat.png");
-		Sprite imgX6 = new Sprite("file:src/com/gammacrawler/images/ghost.png");
-		Sprite imgX7 = new Sprite("file:src/com/gammacrawler/images/slime.png");
-		Sprite imgX8 = new Sprite("file:src/com/gammacrawler/images/ogre.png");
-		Sprite imgX9 = new Sprite("file:src/com/gammacrawler/images/chestfull.png");
+		Sprite imgX1 = new Sprite("com/gammacrawler/images/babydevil.png");
+		Sprite imgX2 = new Sprite("com/gammacrawler/images/candle.png");
+		Sprite imgX3 = new Sprite("com/gammacrawler/images/bigcreep.png");
+		Sprite imgX4 = new Sprite("com/gammacrawler/images/bomb.png");
+		Sprite imgX5 = new Sprite("com/gammacrawler/images/bat.png");
+		Sprite imgX6 = new Sprite("com/gammacrawler/images/ghost.png");
+		Sprite imgX7 = new Sprite("com/gammacrawler/images/slime.png");
+		Sprite imgX8 = new Sprite("com/gammacrawler/images/ogre.png");
+		Sprite imgX9 = new Sprite("com/gammacrawler/images/chestfull.png");
 
 		characters.add(imgY1);
 		characters.add(imgY2);

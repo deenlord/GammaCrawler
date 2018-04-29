@@ -17,7 +17,7 @@ public class Slime extends Enemy {
 
 	public Slime() {
 		// damage = 5
-		super(name, new Sprite("file:src/com/gammacrawler/images/slime.png"), 5);
+		super(name, new Sprite("com/gammacrawler/images/slime.png"), 5);
 		this.setMaxHP(15);
 		this.setHP(15);
 		this.setXP(5);

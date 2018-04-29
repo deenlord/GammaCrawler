@@ -22,7 +22,7 @@ public class XPPotion extends Potion {
 	private static final int value = 100;
 	
 	public XPPotion() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/smallxppotion.png"), value);
+		super(name, new Sprite("com/gammacrawler/images/smallxppotion.png"), value);
 	}
 
 	

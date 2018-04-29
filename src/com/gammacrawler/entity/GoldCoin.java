@@ -16,7 +16,7 @@ public class GoldCoin extends Entity {
 	 * Creates a Gold Coin (Value in Settings.GOLD_POINT_VALUE)
 	 */
 	public GoldCoin() {
-		super(new Sprite("file:src/com/gammacrawler/images/goldcoin.png"));
+		super(new Sprite("com/gammacrawler/images/goldcoin.png"));
 	}
 
 	@Override

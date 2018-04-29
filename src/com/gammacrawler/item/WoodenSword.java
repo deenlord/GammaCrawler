@@ -19,7 +19,7 @@ public class WoodenSword extends Weapon {
 	private static final String name = "Wooden Sword";
 
 	public WoodenSword() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/woodensword.png", Settings.HALF_TILESIZE));
+		super(name, new Sprite("com/gammacrawler/images/woodensword.png", Settings.HALF_TILESIZE));
 		super.setDamage(5);
 		super.setMaxDamage(10);
 		this.ft = new FadeTransition(Duration.millis(250), sprite.getImageView());

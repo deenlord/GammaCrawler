@@ -1,5 +1,8 @@
 package com.gammacrawler.entity;
 
+import java.io.File;
+import java.net.URL;
+
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
 import com.gammacrawler.StatusBar;
@@ -23,7 +26,10 @@ public class Sprite {
 	 * @param pathtofile - String
 	 */
 	public Sprite(String pathtofile) {
-		this.img = new Image(pathtofile, Settings.TILESIZE, Settings.TILESIZE, false, false);
+		// uncomment for debugging.
+//		System.out.println(pathtofile);
+//		System.out.println(getClass().getClassLoader().getResourceAsStream(pathtofile));
+		this.img = new Image(getClass().getClassLoader().getResourceAsStream(pathtofile), Settings.TILESIZE, Settings.TILESIZE, false, false);
 		this.imgView = new ImageView(this.img);
 	}
 	
@@ -34,10 +40,10 @@ public class Sprite {
 	 */
 	public Sprite(String pathtofile, boolean half) {
 		if (half == true)  {
-			this.img = new Image(pathtofile, Settings.HALF_TILESIZE, Settings.HALF_TILESIZE, false, false);
+			this.img = new Image(getClass().getClassLoader().getResourceAsStream(pathtofile), Settings.HALF_TILESIZE, Settings.HALF_TILESIZE, false, false);
 		}
 		else {
-			this.img = new Image(pathtofile, Settings.TILESIZE, Settings.TILESIZE, false, false);
+			this.img = new Image(getClass().getClassLoader().getResourceAsStream(pathtofile), Settings.TILESIZE, Settings.TILESIZE, false, false);
 		}
 		
 		this.imgView = new ImageView(this.img);
@@ -50,7 +56,7 @@ public class Sprite {
 	 * @param tileSize - for a custom sized spites
 	 */
 	public Sprite(String pathtofile, int tileSize) {
-		this.img = new Image(pathtofile, tileSize, tileSize, false, false);
+		this.img = new Image(getClass().getClassLoader().getResourceAsStream(pathtofile), tileSize, tileSize, false, false);
 		this.imgView = new ImageView(this.img);
 		
 	}

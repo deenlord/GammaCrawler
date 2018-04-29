@@ -18,7 +18,7 @@ public class Ogre extends Enemy {
 	 * creates an ogre
 	 */
 	public Ogre() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/ogre.png"), 20);
+		super(name, new Sprite("com/gammacrawler/images/ogre.png"), 20);
 		this.setMaxHP(25);
 		this.setHP(25);
 		this.setXP(10);

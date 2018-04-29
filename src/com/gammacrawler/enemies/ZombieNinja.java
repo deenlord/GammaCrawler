@@ -16,7 +16,7 @@ public class ZombieNinja extends Enemy {
 
 
 	public ZombieNinja() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/zombieninja.png"), 30);
+		super(name, new Sprite("com/gammacrawler/images/zombieninja.png"), 30);
 		this.setMaxHP(35);
 		this.setHP(35);
 		this.setXP(20);

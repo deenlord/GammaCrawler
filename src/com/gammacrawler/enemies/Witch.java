@@ -16,7 +16,7 @@ public class Witch extends Enemy {
 	
 	
 	public Witch() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/witch.png"), 30);
+		super(name, new Sprite("com/gammacrawler/images/witch.png"), 30);
 		this.setMaxHP(45);
 		this.setHP(45);
 		this.setXP(45);

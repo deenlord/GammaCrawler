@@ -20,7 +20,7 @@ public class FightPotion extends Potion {
 	private static final int value = 25;
 
 	public FightPotion() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/smallfightpotion.png"), value);
+		super(name, new Sprite("com/gammacrawler/images/smallfightpotion.png"), value);
 	}
 
 	// sets weapon damage to 100 for single shot kills, 

@@ -21,7 +21,7 @@ public class Chalice extends Potion {
 	private static final int giveGold = 10;
 	
 	public Chalice() {
-		super(name, new Sprite("file:src/com/gammacrawler/images/chalice.png"), 0);
+		super(name, new Sprite("com/gammacrawler/images/chalice.png"), 0);
 	}
 
 	@Override
