@@ -9,7 +9,7 @@ import com.gammacrawler.entity.Sprite;
  *  <br> damage = 30
  *  <br> maxHP = 35
  *  <br> XP = 10
- *  @author deenlord
+ *  @author deenlord, crathke4
  */
 public class ZombieNinja extends Enemy {
 	

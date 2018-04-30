@@ -6,7 +6,7 @@ import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
 
 /**
- * @author jakev
+ * @author jakev, crathke4
  *
  */
 public class Chest extends Item{

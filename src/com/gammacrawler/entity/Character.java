@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 // import java.util.ArrayList;
 
 /**
- * @author deenlord
+ * @author deenlord, crathke4
  *
  */
 public abstract class Character extends Entity {
@@ -22,14 +22,16 @@ public abstract class Character extends Entity {
 	protected int points;
 	
 	/**
-	 * @return number of points the player has
+	 * Getter for the Characters points
+	 * @return Current value of Character.points
 	 */
 	public int getPoints() {
 		return points;
 	}
 
 	/**
-	 * @param points - what poitns will be set to
+	 * Setter for Character.points
+	 * @param points - Value to which Character.points will be set
 	 */
 	public void setPoints(int points) {
 		this.points = points;
@@ -38,8 +40,9 @@ public abstract class Character extends Entity {
 	protected ArrayList<Item> inventory = new ArrayList<>();
 
 	/**
-	 * @param name - name of character
-	 * @param sprite - character's sprite
+	 * Creates a Character
+	 * @param name - String to which Character.name will be set
+	 * @param sprite - Sprite to be used for Character, passed to super (Entity)
 	 */
 	public Character(String name, Sprite sprite) {
 		super(sprite);
@@ -47,6 +50,7 @@ public abstract class Character extends Entity {
 	}
 
 	/**
+	 * Getter for the name of the Character
 	 * @return name of Character
 	 */
 	public String getName() {
@@ -54,23 +58,23 @@ public abstract class Character extends Entity {
 	}
 
 	/**
-	 * @param newName
-	 *            - name your Character
+	 * Setter for Character.name
+	 * @param newName - String value to which Character.name will be changed
 	 */
 	public void setName(String newName) {
 		name = newName;
 	}
 
 	/**
-	 * @return current HP
+	 * @return The current value of Character.curHP
 	 */
 	public int getHP() {
 		return curHP;
 	}
 
-	/** set current HP to hitpoints value
-	 * @param hitpoints
-	 *            - 
+	/** Setter for Character.curHP
+	 * @param hitpoints - Value to which Character.curHP will be set.
+	 * Throws exception if hitpoints id more than the maxHP of the Character
 	 */
 	public void setHP(int hitpoints) {
 		
@@ -79,6 +83,7 @@ public abstract class Character extends Entity {
 	}
 
 	/**
+	 * Getter for Character.maxHP
 	 * @return max HP
 	 */
 	public int getMaxHP() {
@@ -86,40 +91,41 @@ public abstract class Character extends Entity {
 	}
 
 	/**
-	 * @param hitpoints
-	 *            - set max HP to hitpoints value
+	 * Setter for Character.maxHP
+	 * @param hitpoints - Value to which maxHP will be set
 	 */
 	public void setMaxHP(int hitpoints) {
 		maxHP = hitpoints;
 	}
 
 	/**
-	 * @return current XP
+	 * Getter for Character.XP
+	 * @return current value of Character.XP
 	 */
 	public int getXP() {
 		return this.XP;
 	}
 
 	/**
-	 * @param xp
-	 *            - sets this.XP to xp
+	 * Setter for Character.XP
+	 * @param xp - Value to which Character.XP will be set
 	 */
 	public void setXP(int xp) {
 		this.XP = xp;
 	}
 
 	/**
-	 * @return current location
+	 * Getter for Character.location
+	 * @return Current int[] value of Character.location
 	 */
 	public int[] getLocation() {
 		return this.location;
 	}
 
 	/**
-	 * @param x
-	 *            - x coordinate
-	 * @param y
-	 *            - y coordinate
+	 * Setter for Character.location
+	 * @param x - Value to which the first array value will be set
+	 * @param y - Value to which the second array value will be set
 	 */
 	public void setLocation(int x, int y) {
 		location[0] = x;
@@ -128,25 +134,25 @@ public abstract class Character extends Entity {
 	
 
 	/**
-	 * @param inventory - what inventory will be set to
+	 * Setter for Character.inventory
+	 * @param inventory - ArrayList value to which Character.inventory will be set
 	 */
 	public void setInventory(ArrayList<Item> inventory) {
 		this.inventory = inventory;
 	}
 
 	/**
-	 * @return the character's inventory.
+	 * Getter for Character.inventory
+	 * @return Current ArrayList value of Character.inventory
 	 */
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}
 
 	/**
-	 * This will take a tile coordinate (0 - (length - 1)) and convert it into
-	 * pixel coordinates, then move the entity to that location.
-	 * 
-	 * @param tileX - x coordinate
-	 * @param tileY - y coordinate
+	 * Moves the Character's location on the map to a given tile
+	 * @param tileX - Tile to which the x location will be set
+	 * @param tileY - Tile to which the y location will be set
 	 */
 	public void moveToTile(int tileX, int tileY) {
 		getImageView().setX((tileX) * Settings.TILESIZE);
@@ -154,16 +160,25 @@ public abstract class Character extends Entity {
 		this.setLocation((tileX) * Settings.TILESIZE, (tileY) * Settings.TILESIZE);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setSprite(Sprite spr) {
 		this.sprite = spr;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ImageView getImageView() {
 		return this.sprite.getImageView();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void move(Direction dir) {
 		StatusBar.addStatus("Trying to move");
