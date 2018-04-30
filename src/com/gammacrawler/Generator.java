@@ -39,10 +39,17 @@ public class Generator {
 	Image cobbles2;
 	Image cobbles3;
 
+	/**
+	 * Creates a generator
+	 */
 	public Generator() {
 		this(new User("Richard"));
 	}
 
+	/**
+	 * Creates a generator
+	 * @param player - player who's scores and inventory will be passed
+	 */
 	public Generator(User player) {
 		int xp = player.getXP();
 
@@ -54,6 +61,13 @@ public class Generator {
 			makeGenerator(player, 25, 31, 20);
 	}
 
+	/**
+	 * Creates a generator
+	 * @param player - player who's scores and inventory will be passed
+	 * @param width - width of the board
+	 * @param height - height of the board
+	 * @param roomMaxSize - Maximum size of individual rooms in the board
+	 */
 	private void makeGenerator(User player, int width, int height, int roomMaxSize) {
 		Generator.player = player;
 		this.board = new Board(width, height, roomMaxSize);
@@ -74,24 +88,41 @@ public class Generator {
 		this.status = new StatusBar(this, 20, 672);
 		this.invBar = new InventoryBar();
 	}
-
+	
+	/**
+	 * Getter for this.player
+	 * @return this.player
+	 */
 	public User getPlayer() {
 		return Generator.player;
 	}
 	
+	/**
+	 * Getter for this.board
+	 * @return this.board
+	 */
 	public Board getBoard() {
 		return this.board;
 	}
 	
+	/**
+	 * Getter for this.status
+	 * @return this.status
+	 */
 	public StatusBar getStatus() {
 		return this.status;
 	}
-	
+	 /**
+	  * Updates the inventory bar 
+	  */
 	public void updateInventoryBar() {
 		this.invBar.update();
 	}
 
-
+	/**
+	 * Creates a canvas representation of the board
+	 * @return the board canvas
+	 */
 	public Canvas getDungeon() {
 		setupImages();
 
@@ -137,8 +168,8 @@ public class Generator {
 	}
 
 	
-	/** Setup our dungeon images, this is for non-interactive sprites.
-	 * 
+	/** 
+	 * Sets up non entity sprites.
 	 */
 	private void setupImages() {
 		wall = new Image("com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
@@ -151,16 +182,15 @@ public class Generator {
 		cobbles3 = new Image("com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 	}
 
-	/** takes a Populator, then populates the populator
-	 * @param p - populator to be populated
+	/** Populates the board based on a populator
+	 * @param p - populator who's function will be used
 	 */
 	public void populate(Populator p) {
 		p.populate();
 	}
 
 	/**
-	 * iterate through the array to find the first zero location (top left),
-	 * draw the User there. ... only once.
+	 * Sets the initial location of the player in the first open tile
 	 */
 	private void setPlayerInitialLocation() {
 		int counter = 0;
@@ -189,7 +219,7 @@ public class Generator {
 	}
 
 	/**
-	 * TODO: Javadoc
+	 * Checks every entity against every other entity to determine if they are colliding
 	 */
 	public void handleCollisions() {
 
@@ -216,6 +246,10 @@ public class Generator {
 		}
 	}
 
+	/**
+	 * Sets the player to a given value
+	 * @param player - Value to which player will be set
+	 */
 	public void setPlayer(User player) {
 		Generator.player = player;
 	}
