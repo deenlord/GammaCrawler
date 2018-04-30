@@ -9,9 +9,10 @@ import com.gammacrawler.entity.Sprite;
 *  <br> damage = 20
 *  <br> HP = 25
 *  <br> XP = 10
-*  @author deenlord
+*  @author deenlord, crathke4
 */
 public class Ogre extends Enemy {
+	//Defines a reference-able unchangeable name for the Enemy
 	protected static final String name = "Ogre";
 
 	/**
