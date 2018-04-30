@@ -106,6 +106,10 @@ public class inputMover {
 	}
 	
 	//TEST CODE
+	/**
+	 * tests all code
+	 * @param args - arguments which to launch
+	 */
 	public static void main(String[] args)
 	{
 		inputMover move=new inputMover();
