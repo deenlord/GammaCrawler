@@ -23,6 +23,7 @@ public class StatusBar extends Pane{
 	private Text health, exp, points;
 	private static Text gameStatus;
 	private int coordX=32, coordY=14;
+	
 	/**
 	 * Generates graphic and text representations of health and XP formatted into a single node
 	 * @param gen-Generator used to read player Health
@@ -38,6 +39,7 @@ public class StatusBar extends Pane{
 		generateGameStatusLabel();
 		updateStatus(length, health);
 	}
+	
 	/**
 	 * Generates graphic and text representations of players health
 	 * @param height - inherit from Constructor
@@ -93,6 +95,9 @@ public class StatusBar extends Pane{
 		this.getChildren().add(points);
 	}
 	
+	/**
+	 * Generates a text representation of game information
+	 */
 	public void generateGameStatusLabel()
 	{
 		gameStatus=new Text();
@@ -103,6 +108,10 @@ public class StatusBar extends Pane{
 		
 	}
 	
+	/**
+	 * Adds a message to the statusLabel
+	 * @param message - Non Null String to be added to statusLabel
+	 */
 	public static void addStatus(String message)
 	{
 		if(message!=null&&message.length()>1) {
