@@ -10,23 +10,23 @@ import com.gammacrawler.entity.User;
 public class UserTest {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// User deen = new User(); // not calling other constructor...
-		
+		//Create a user
 		User deen = new User("Deenski");
 		
+		//create a status bar for the user
 		StatusBar.addStatus(deen.toString());
 		
+		//set userName
 		deen.setName("Deenlord");
 		
+		//set user health
 		deen.setHP(65);
 		
-		//deen.increaseExp(10);
-		
+		//move user
+		deen.move(Direction.NORTH);
 		deen.move(Direction.NORTH);
 		
-		deen.move(Direction.NORTH);
-		
+		//add the status of the user
 		StatusBar.addStatus(deen.toString());
 		
 		// direction is not incrementing location coordinates for some reason

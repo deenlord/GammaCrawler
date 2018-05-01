@@ -6,7 +6,7 @@ import com.gammacrawler.Direction;
 import com.gammacrawler.Generator;
 
 /**
- * @author jakev
+ * @author jakev, crathke4
  *
  */
 public class Chest extends Item{
@@ -29,12 +29,15 @@ public class Chest extends Item{
 	
 	/**
 	 * Adds an Item to this.inventory
-	 * @param i - An Item
+	 * @param i - Item to be added
 	 */
 	public void addTo(Item i) {
 		this.inventory.add(i);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void collide(Entity e) {
 	
@@ -48,12 +51,18 @@ public class Chest extends Item{
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void move(Direction d) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

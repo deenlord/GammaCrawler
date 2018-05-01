@@ -14,11 +14,17 @@ import javafx.scene.layout.Pane;
  */
 public class InventoryBar extends Pane {
 
+	/**
+	 * Creates an inventory bar
+	 */
 	public InventoryBar() {
 		this.setupInventoryBar();
 		this.setPrefSize(Settings.TILESIZE * 9, Settings.TILESIZE);
 	}
 
+	/**
+	 * updates the inventory bar to reflect the players inventory
+	 */
 	public void setupInventoryBar() {
 		this.getChildren().clear();
 		ArrayList<Item> inv = Generator.player.getInventory();
@@ -39,6 +45,9 @@ public class InventoryBar extends Pane {
 			}
 		}
 
+	/**
+	 * updates the inventory bar to reflect the players inventory
+	 */
 	public void update() {
 		this.setupInventoryBar();
 	}

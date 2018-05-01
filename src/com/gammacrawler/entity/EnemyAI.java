@@ -35,11 +35,11 @@ public class EnemyAI {
 	}
 	
 	/**
-	 * if the player is in the same room as the enemy, the enemy reduces the distance to player until it either hits 0 or goes above the size of the room
+	 * makes enemy chase player until player leaves the room in which enemy is
 	 */
 	public void chase()
 	{
-		
+		//Method stub
 	}
 	
 	/**
@@ -75,6 +75,6 @@ public class EnemyAI {
 	 */
 	public void returnToSpawn()
 	{
-		
+		//method stub
 	}
 }

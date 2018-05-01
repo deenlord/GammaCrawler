@@ -60,11 +60,18 @@ public class inputMover2 extends Application
 		});
 	}
 	
+	/**
+	 * Exits the window
+	 */
 	public void stop()
 	{
 		MainStage.close();
 	}
 	
+	/**
+	 * Adds objects to the given stage
+	 * @param stage - Stage for which to add objects
+	 */
 	public void start(Stage stage)
 	{
 		HBox hb=new HBox();
@@ -77,6 +84,10 @@ public class inputMover2 extends Application
 		stage.show();
 	}
 	
+	/**
+	 * Launches the application
+	 * @param args- String arguments which to launch
+	 */
 	public static void main(String[] args) 
 	{
 		launch(args);

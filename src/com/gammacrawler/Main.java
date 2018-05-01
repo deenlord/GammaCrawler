@@ -151,7 +151,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 	/**
-	 * This removes dead entities from the map
+	 * Removes dead entities from the map
 	 */
 	private void clearDead(Group root) {
 		ArrayList<Entity> deadEntities = new ArrayList<>();
@@ -174,8 +174,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 	/**
-	 * This sets up the Scene for the game
-	 * 
+	 * Sets up the Scene for the game
 	 * @return The game Scene
 	 */
 	private Scene setupScene() {
@@ -202,9 +201,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 
 	/**
-	 * @return the game board scene with a character since 4/1
+	 * Sets up a game loop that runs until either the player dies or reaches a staircase
 	 * @param player - A User
-	 * @return - the main game loop as a Scene
+	 * @return the gameLoop in Scene format
 	 */
 	public Scene gameLoop(User player) {
 
@@ -391,11 +390,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 	/**
-	 * If useItem is more than 0, it uses the item in the slot useItem, and sets
-	 * useItem to 0.
-	 * 
-	 * @param useItem
-	 *            The slot to attempt to use.
+	 * Applies the effect of the designated item on the player
+	 * @param useItem - The slot to attempt to use.
 	 */
 	private void useItem(int useItem) {
 		if (useItem > 0) {
@@ -414,8 +410,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 	}
 
 	/**
-	 * Reduces the player visibility by one turn, making them visible if it
-	 * reaches 0.
+	 * Makes the player opacity solid if invisibilyTurns runs out
 	 */
 	private void reduceInvisibility() {
 		if (Generator.player.invisibleTurns > 0) {
@@ -444,7 +439,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	/**
 	 * Returns a Scene for when the player has died.
-	 * 
 	 * @return gameOver Scene
 	 */
 	public Scene gameOver() {
@@ -503,12 +497,20 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		return scene;
 	}
 
+	/**
+	 * Returns a new gameLoop scene using the same player
+	 * @param player - player to be used in new game loop
+	 * @return the new scene to be used
+	 */
 	public Scene newLevel(User player)
 	{
 		Scene newLevel=gameLoop(player);
 		return newLevel;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void handle(ActionEvent event) {
 		// main menu event handling
@@ -534,13 +536,20 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		}
 
 	}
-
+	
+	/**
+	 * Gets the current generator
+	 * @return this.generator
+	 */
 	public static Generator getGenerator() {
 		Generator generator = gen;
 
 		return generator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void start(Stage mainStage) throws Exception {
 		// make the Stage usable throughout the Class
@@ -561,10 +570,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
 	}
 
+	/**
+	 * Launches the application
+	 * @param args - string arguments which to launch
+	 */
 	public static void main(String[] args) {
-		// Don't add anything else here, create a method that returns a Scene
-		// and add an event handler in the handle method to call it.
-		// Nothing else can go here!
 		launch(args);
 	}
 

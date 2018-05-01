@@ -33,25 +33,7 @@ public abstract class Enemy extends Character implements Moveable{
 		this.damage = damage;
 		this.inventory = new ArrayList<>();
 	}
-	
-	
-	// Deprecated attack method since 0.4 - not using.
 
-//	/**
-//	 * reduces player health when called
-//	 * @param p - User from which to take health
-//	 */
-//	public void attack(User p)
-//	{
-//		boolean successful = false;
-//		int rand = (int) Math.random() * 10;
-//		if ( rand <=5 )
-//			successful=true;
-//		
-//		if(successful) {
-//			p.setHP(p.getHP()- damage); 
-//		}
-//	}
 	
 	/**
 	 * moves the enemy using EnemyAI
@@ -65,6 +47,7 @@ public abstract class Enemy extends Character implements Moveable{
 	}
 	
 	/**
+	 * Getter for this.damage
 	 * @return the damage the enemy deals
 	 */
 	public int getDamage() {
@@ -72,12 +55,16 @@ public abstract class Enemy extends Character implements Moveable{
 	}
 	
 	/**
-	 * @param item gets added to this.inventory
+	 * Adds an item to this.inventory
+	 * @param item - item to be added
 	 */
 	public void addToInventory(Item item) {
 		this.inventory.add(item);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void collide(Entity e) {
 		StatusBar.addStatus(this.getClass().getSimpleName()+" IS COLLIDING WITH " + e.getClass().getSimpleName());
@@ -91,6 +78,9 @@ public abstract class Enemy extends Character implements Moveable{
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void move(Direction dir)
 	{
@@ -126,6 +116,9 @@ public abstract class Enemy extends Character implements Moveable{
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void die(Entity killer) {
 		super.die(killer);

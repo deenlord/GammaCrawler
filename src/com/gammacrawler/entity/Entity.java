@@ -15,6 +15,7 @@ public abstract class Entity implements Moveable {
 	public boolean isDead = false;
 
 	/**
+	 * Creates an Entity
 	 * @param sprite - Entity's sprite
 	 */
 	public Entity(Sprite sprite) {
