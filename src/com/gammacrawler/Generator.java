@@ -2,7 +2,6 @@ package com.gammacrawler;
 
 import java.util.ArrayList;
 
-import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
@@ -17,7 +16,6 @@ import com.gammacrawler.generator.populators.PopulatorStair;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 
 /** This class is used for procedural generation.
  * @author deenlord, crathke4, wolfiewaffle
@@ -27,21 +25,9 @@ public class Generator {
 	public static User player;
 	Board board;
 	public static int[][] ar;
-	ArrayList<Enemy> enemies;
 	ArrayList<Entity> gameEntities;
 	StatusBar status;
 	InventoryBar invBar;
-	Image wall;
-	Image floor;
-	Image stair;
-	Image door;
-	Image skull;
-	Image cobbles1;
-	Image cobbles2;
-	Image cobbles3;
-	Image stones1;
-	Image stones2;
-	Image stones3;
 
 	/**
 	 * Creates a generator
@@ -77,7 +63,6 @@ public class Generator {
 		this.board = new Board(width, height, roomMaxSize);
 		int modifier = player.getXP() +1;
 		Generator.ar = this.board.getArray();
-		this.enemies = new ArrayList<>();
 		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
 
@@ -137,7 +122,7 @@ public class Generator {
 	 * @return the board canvas
 	 */
 	public Canvas getDungeon() {
-		setupImages();
+		Images.setupImages();
 
 		// to use as coordinates
 		double x;
@@ -157,51 +142,33 @@ public class Generator {
 
 				if (ar[i][j] == Settings.FLOOR_ID) {
 					// draw floor tile where you find a 0 in the array
-					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.WALL_ID) {
 					// draw wall tile where you find a 1 in the array
-					gc.drawImage(wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.DOOR_ID) {
-					gc.drawImage(door, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.door, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.COBBLES1_ID) {
-					gc.drawImage(cobbles1, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.cobbles1, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.COBBLES2_ID) {
-					gc.drawImage(cobbles2, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.cobbles2, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.COBBLES3_ID) {
-					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.SKULL_ID) {
-					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STONES1_ID) {
-					gc.drawImage(stones1, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.stones1, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STONES2_ID) {
-					gc.drawImage(stones2, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.stones2, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STONES3_ID) {
-					gc.drawImage(stones3, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.stones3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STAIR_ID) {
-					gc.drawImage(stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(Images.stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}
 		}
 
 		return cv;
-	}
-
-	
-	/** 
-	 * Sets up non entity sprites.
-	 */
-	private void setupImages() {
-		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stair= new Image("file:src/com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
-		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stones1 = new Image("file:src/com/gammacrawler/images/stones1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stones2 = new Image("file:src/com/gammacrawler/images/stones2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stones3 = new Image("file:src/com/gammacrawler/images/stones3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 	}
 
 	/** Populates the board based on a populator
