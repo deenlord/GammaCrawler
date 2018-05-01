@@ -81,8 +81,8 @@ public class Generator {
 		this.setPlayerInitialLocation();
 
 		// Run all the populators, to populate the dungeon with stuff.
-		populate(new PopulatorStair(this.board.getArray(), gameEntities));
 		populate(new PopulatorGraveyard(this.board.getArray(), gameEntities));
+		populate(new PopulatorStair(this.board.getArray(), gameEntities));
 		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 1.0));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 1));
 		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, (width * height) / 10));
