@@ -17,7 +17,9 @@ import com.gammacrawler.generator.populators.PopulatorStair;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
-/** This class is used for procedural generation.
+/**
+ * This class is used for procedural generation.
+ * 
  * @author deenlord, crathke4, wolfiewaffle
  *
  */
@@ -38,6 +40,7 @@ public class Generator {
 
 	/**
 	 * Creates a generator
+	 * 
 	 * @param player - player who's scores and inventory will be passed
 	 */
 	public Generator(User player) {
@@ -45,7 +48,7 @@ public class Generator {
 
 		if (xp < 100)
 			makeGenerator(player, 15, 15, 12);
-		else if(xp > 100 && xp < 500)
+		else if (xp > 100 && xp < 500)
 			makeGenerator(player, 21, 25, 16);
 		else
 			makeGenerator(player, 21, 31, 20);
@@ -53,6 +56,7 @@ public class Generator {
 
 	/**
 	 * Creates a generator
+	 * 
 	 * @param player - player who's scores and inventory will be passed
 	 * @param width - width of the board
 	 * @param height - height of the board
@@ -61,7 +65,7 @@ public class Generator {
 	private void makeGenerator(User player, int width, int height, int roomMaxSize) {
 		Generator.player = player;
 		this.board = new Board(width, height, roomMaxSize);
-		int modifier = player.getXP() +1;
+		int modifier = player.getXP() + 1;
 		Generator.ar = this.board.getArray();
 		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
@@ -71,54 +75,61 @@ public class Generator {
 		populate(new PopulatorStair(this.board.getArray(), gameEntities));
 		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 1.0));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 1));
+
+		// Populate the enemies and chests depending on XP.
 		if (modifier > 10) {
 			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, modifier / 10));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, modifier / 100));
-		}
-		else {
+		} else {
 			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 10));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 1));
 		}
+
+		// Cobbles run last as they are just floor decorations.
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
-		
-		
+
 		// Show user their health, experience, gold, etc...
 		this.status = new StatusBar(this, 20, 672);
 		this.invBar = new InventoryBar();
 	}
-	
+
 	/**
 	 * Getter for this.player
+	 * 
 	 * @return this.player
 	 */
 	public User getPlayer() {
 		return Generator.player;
 	}
-	
+
 	/**
 	 * Getter for this.board
+	 * 
 	 * @return this.board
 	 */
 	public Board getBoard() {
 		return this.board;
 	}
-	
+
 	/**
 	 * Getter for this.status
+	 * 
 	 * @return this.status
 	 */
 	public StatusBar getStatus() {
 		return this.status;
 	}
-	 /**
-	  * Updates the inventory bar 
-	  */
+
+	/**
+	 * Updates the inventory bar
+	 */
 	public void updateInventoryBar() {
 		this.invBar.update();
 	}
 
 	/**
 	 * Creates a canvas representation of the board
+	 * 
 	 * @return the board canvas
 	 */
 	public Canvas getDungeon() {
@@ -137,7 +148,8 @@ public class Generator {
 		for (int i = 0; i < (ar.length); i++) {
 			for (int j = 0; j < ar[i].length; j++) {
 				// for each j set x and y
-				y = (i + 1) * Settings.TILESIZE; // plus one to avoid dividing by zero
+				y = (i + 1) * Settings.TILESIZE; // plus one to avoid dividing
+													// by zero
 				x = (j + 1) * Settings.TILESIZE;
 
 				if (ar[i][j] == Settings.FLOOR_ID) {
@@ -171,7 +183,9 @@ public class Generator {
 		return cv;
 	}
 
-	/** Populates the board based on a populator
+	/**
+	 * Populates the board based on a populator
+	 * 
 	 * @param p - populator who's function will be used
 	 */
 	public void populate(Populator p) {
@@ -183,7 +197,7 @@ public class Generator {
 	 */
 	private void setPlayerInitialLocation() {
 		int counter = 0;
-		// 
+		//
 		for (int z = 0; z < (ar.length); z++) {
 			for (int j = 0; j < (ar[z].length); j++) {
 				if (ar[z][j] == 0 & counter == 0) {
@@ -208,7 +222,8 @@ public class Generator {
 	}
 
 	/**
-	 * Checks every entity against every other entity to determine if they are colliding
+	 * Checks every entity against every other entity to determine if they are
+	 * colliding
 	 */
 	public void handleCollisions() {
 
@@ -223,7 +238,7 @@ public class Generator {
 				if (entity1.getLocation()[0] == entity2.getLocation()[0]) {
 					if (entity1.getLocation()[1] == entity2.getLocation()[1]) {
 						areColliding = true;
-					}					
+					}
 				}
 
 				// If the entities occupy the same space we collide them.
@@ -231,12 +246,13 @@ public class Generator {
 					entity1.collide(entity2);
 					entity2.collide(entity1);
 				}
-			}			
+			}
 		}
 	}
 
 	/**
 	 * Sets the player to a given value
+	 * 
 	 * @param player - Value to which player will be set
 	 */
 	public void setPlayer(User player) {

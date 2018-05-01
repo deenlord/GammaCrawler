@@ -112,10 +112,9 @@ public abstract class Populator {
 	 * This checks if placing a solid thing in this tile will block off any
 	 * routes. Always check for this if you are making a solid tile populator.
 	 * 
-	 * @param point
-	 *            The point you are checking.
-	 * @param routeTile
-	 *            The number that corresponds to the path or non solid tile.
+	 * @param point The point you are checking.
+	 * @param routeTile The number that corresponds to the path or non solid
+	 *            tile.
 	 * @return If placing a tile here would block off routes.
 	 */
 	protected boolean doesBlockRoute(Point point, int routeTile) {
