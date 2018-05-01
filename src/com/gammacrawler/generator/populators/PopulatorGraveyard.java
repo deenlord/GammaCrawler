@@ -8,9 +8,9 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.util.Point;
 
 public class PopulatorGraveyard extends Populator {
-	private static int attempts = 20;
 	private static int height = 7;
 	private static int width = 8;
+
 	private static int[] wallOptions = new int[]{
 		Settings.FLOOR_ID,
 		Settings.STONES1_ID,
@@ -62,7 +62,13 @@ public class PopulatorGraveyard extends Populator {
 		System.out.println("L " + sites);
 
 		for (GraveSite site : sites) {
-			makeGraveyard(site.minX, site.maxX, site.minY, site.maxY);
+
+			// Make the site if it is big enough
+			if (site.maxX - site.minX > 3) {
+				if (site.maxY - site.minY > 3) {
+					makeGraveyard(site.minX, site.maxX, site.minY, site.maxY);
+				}
+			}
 		}
 	}
 
@@ -96,13 +102,7 @@ public class PopulatorGraveyard extends Populator {
 						tY ++;
 					}
 
-//					if (lenX < 5 || lenY < 5) {
-//						break Check;
-//					} else {
-					if (x < 6) {
-						sites.add(new GraveSite(x + 1, x + lenX - 2, y + 1, y + lenY - 2));
-					}
-//					}
+					sites.add(new GraveSite(x + 1, x + lenX - 2, y + 1, y + lenY - 2));
 				}
 			}
 		}
