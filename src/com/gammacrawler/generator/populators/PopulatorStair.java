@@ -63,7 +63,7 @@ public class PopulatorStair extends Populator {
 				default:
 					break;
 			}
-			if(tileArray[checkPoint[0]][checkPoint[1]]==Settings.WALL_ID) freeSpace=false;
+			if(tileArray[checkPoint[0]][checkPoint[1]]==Settings.WALL_ID||(tileArray[checkPoint[0]][checkPoint[1]]<14&&tileArray[checkPoint[0]][checkPoint[1]]>10)) freeSpace=false;
 			checkPoint[0]=point.x;
 			checkPoint[1]=point.y;
 		}
