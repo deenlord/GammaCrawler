@@ -8,8 +8,8 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.util.Point;
 
 public class PopulatorGraveyard extends Populator {
-	private static int height = 7;
-	private static int width = 8;
+	private static int height = 3;
+	private static int width = 3;
 
 	private static int[] wallOptions = new int[]{
 		Settings.FLOOR_ID,
@@ -59,13 +59,12 @@ public class PopulatorGraveyard extends Populator {
 	@Override
 	public void populate() {
 		ArrayList<GraveSite> sites = getLocations();
-		System.out.println("L " + sites);
 
 		for (GraveSite site : sites) {
 
 			// Make the site if it is big enough
-			if (site.maxX - site.minX > 3) {
-				if (site.maxY - site.minY > 3) {
+			if (site.maxX - site.minX > width) {
+				if (site.maxY - site.minY > height) {
 					makeGraveyard(site.minX, site.maxX, site.minY, site.maxY);
 				}
 			}
@@ -76,7 +75,6 @@ public class PopulatorGraveyard extends Populator {
 		ArrayList<GraveSite> sites = new ArrayList<>();
 
 		// Iterate through each square
-		Check:
 		for (int x = 1; x < tileArray.length - 1; x++) {
 			for (int y = 1; y < tileArray[0].length - 1; y++) {
 
@@ -113,7 +111,6 @@ public class PopulatorGraveyard extends Populator {
 	private void makeGraveyard(int minX, int maxX, int minY, int maxY) {
 		makeWalls(minX, maxX, minY, maxY);
 		makeSkulls(minX, maxX, minY, maxY);
-//		tileArray[minX][minY] = Settings.STONES1_ID;
 	}
 
 	private void makeSkulls(int minX, int maxX, int minY, int maxY) {
@@ -162,19 +159,6 @@ public class PopulatorGraveyard extends Populator {
 			tileArray[minX][y] = wallOptions[random];
 			tileArray[maxX][y] = wallOptions[random];
 		}
-	}
-
-	private boolean isRoom(int minX, int maxX, int minY, int maxY) {
-
-		// Test to see if there is room
-		for (int x = minX; x < maxX; x++) {
-			for (int y = minY; y < maxY; y++) {
-				if (getOctNeighborCount(new Point(x, y), 0, true) < 8) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 
 }
