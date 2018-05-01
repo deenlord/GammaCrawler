@@ -11,6 +11,7 @@ import com.gammacrawler.generator.populators.PopulatorChests;
 import com.gammacrawler.generator.populators.PopulatorCobbles;
 import com.gammacrawler.generator.populators.PopulatorEnemies;
 import com.gammacrawler.generator.populators.PopulatorGoldCoin;
+import com.gammacrawler.generator.populators.PopulatorGraveyard;
 import com.gammacrawler.generator.populators.PopulatorSkulls;
 import com.gammacrawler.generator.populators.PopulatorStair;
 
@@ -38,6 +39,9 @@ public class Generator {
 	Image cobbles1;
 	Image cobbles2;
 	Image cobbles3;
+	Image stones1;
+	Image stones2;
+	Image stones3;
 
 	/**
 	 * Creates a generator
@@ -78,6 +82,7 @@ public class Generator {
 
 		// Run all the populators, to populate the dungeon with stuff.
 		populate(new PopulatorStair(this.board.getArray(), gameEntities));
+		populate(new PopulatorGraveyard(this.board.getArray(), gameEntities));
 		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 30.0));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 1));
 		populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 8.0));
@@ -158,6 +163,12 @@ public class Generator {
 					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.SKULL_ID) {
 					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STONES1_ID) {
+					gc.drawImage(stones1, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STONES2_ID) {
+					gc.drawImage(stones2, x, y, Settings.TILESIZE, Settings.TILESIZE);
+				} else if (ar[i][j] == Settings.STONES3_ID) {
+					gc.drawImage(stones3, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STAIR_ID) {
 					gc.drawImage(stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
@@ -172,14 +183,17 @@ public class Generator {
 	 * Sets up non entity sprites.
 	 */
 	private void setupImages() {
-		wall = new Image("com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		floor = new Image("com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stair= new Image("com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
-		door = new Image("com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		skull = new Image("com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles1 = new Image("com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles2 = new Image("com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles3 = new Image("com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stair= new Image("file:src/com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
+		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stones1 = new Image("file:src/com/gammacrawler/images/stones1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stones2 = new Image("file:src/com/gammacrawler/images/stones2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		stones3 = new Image("file:src/com/gammacrawler/images/stones3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
 	}
 
 	/** Populates the board based on a populator
