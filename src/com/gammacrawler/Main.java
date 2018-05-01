@@ -1,9 +1,6 @@
 package com.gammacrawler;
 
 import java.util.ArrayList;
-
-import javax.print.DocFlavor.URL;
-
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
@@ -18,10 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -34,6 +29,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application implements EventHandler<ActionEvent> {
 	Button launchButton;
+//	Button settingsButton;
 	Stage mainStage;
 	private ArrayList<Sprite> characters = new ArrayList<>();
 	public static Generator gen;
@@ -59,6 +55,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		label.setLayoutX(45);
 		label.setFill(Color.RED);
 		label.getStyleClass().add("menuLabel");
+		
 
 		int i = 32;
 		// border
@@ -123,6 +120,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		launchButton.setOnAction(this);
 		launchButton.setLayoutY(125);
 		launchButton.setLayoutX(70);
+		
+//		settingsButton = new Button();
+//		settingsButton.setText("Settings");
+//		settingsButton.setOnAction(this);
+//		settingsButton.setLayoutX(125);
+//		settingsButton.setLayoutY(175);
 
 		// create authors label
 		Text authors = new Text();
@@ -136,6 +139,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		// add the label and launchButton to a Pane
 		pane.getChildren().add(label);
 		pane.getChildren().add(launchButton);
+//		pane.getChildren().add(settingsButton);
 		pane.getChildren().add(authors);
 
 		// add the pane to the group

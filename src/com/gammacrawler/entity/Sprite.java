@@ -1,8 +1,5 @@
 package com.gammacrawler.entity;
 
-import java.io.File;
-import java.net.URL;
-
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
 import com.gammacrawler.StatusBar;
