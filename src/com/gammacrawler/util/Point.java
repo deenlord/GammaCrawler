@@ -8,6 +8,7 @@ public class Point {
 
 	/**
 	 * Creates a point with a given coordinate
+	 * 
 	 * @param x - x coordinate
 	 * @param y - y coordinate
 	 */
@@ -15,9 +16,10 @@ public class Point {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	/**
 	 * Returns the point if moved in a given direction
+	 * 
 	 * @param direction - direction for which to move point
 	 * @return new point based on the movement of the current point
 	 */
@@ -34,9 +36,7 @@ public class Point {
 		}
 		return this;
 	}
- /**
-  * {@inheritDoc}
-  */
+
 	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ")";
