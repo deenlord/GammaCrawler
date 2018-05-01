@@ -29,7 +29,7 @@ public class PopulatorStair extends Populator {
 		int direction=0;
 		int[] checkPoint= {point.x,point.y};
 		boolean freeSpace=true;
-		for(int iterator=0;iterator<direction;iterator++) {
+		for(;direction<7;direction++) {
 			switch(direction)
 			{
 				case 0:
@@ -63,7 +63,7 @@ public class PopulatorStair extends Populator {
 				default:
 					break;
 			}
-			if(tileArray[checkPoint[0]][checkPoint[1]] == Settings.WALL_ID) freeSpace=false;
+			if(tileArray[checkPoint[0]][checkPoint[1]]==Settings.WALL_ID) freeSpace=false;
 			checkPoint[0]=point.x;
 			checkPoint[1]=point.y;
 		}
