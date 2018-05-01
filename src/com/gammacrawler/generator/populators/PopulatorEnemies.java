@@ -35,63 +35,70 @@ public class PopulatorEnemies extends Populator {
 		Slime slime;
 		Witch witch;
 		ZombieNinja zombieninja;
-		
+
 		int[] empt;
 		for (int i = 0; i <= (int) (attempts * multiplier); i++) {
-			empt = getRandomFreeSpace();
-			ogre = new Ogre();
-
-			// Add random items
-			int itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
-			for (int j = 0; j < itemCount; j++) {
-				ogre.addToInventory(new RandomItem().getItem());
-			}
-
-			// Move Ogre to random location
-			ogre.moveToTile(empt[1] + 1, empt[0] + 1); // TODO: Fix entity coordinates
+			int itemCount;
 
 			empt = getRandomFreeSpace();
-			slime = new Slime();
+			if (empt != null) {
+				ogre = new Ogre();
 
-			// Add random items
-			itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
-			for (int j = 0; j < itemCount; j++) {
-				slime.addToInventory(new RandomItem().getItem());
+				// Add random items
+				itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
+				for (int j = 0; j < itemCount; j++) {
+					ogre.addToInventory(new RandomItem().getItem());
+				}
+
+				// Move Ogre to random location
+				ogre.moveToTile(empt[1] + 1, empt[0] + 1); // TODO: Fix entity
+															// coordinates
+				entities.add(ogre);
 			}
 
-			// Move Slime to random location
-			slime.moveToTile(empt[1] + 1, empt[0] + 1);
-			
 			empt = getRandomFreeSpace();
-			witch = new Witch();
+			if (empt != null) {
+				slime = new Slime();
 
-			// Add random items
-			itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
-			for (int j = 0; j < itemCount; j++) {
-				witch.addToInventory(new RandomItem().getItem());
+				// Add random items
+				itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
+				for (int j = 0; j < itemCount; j++) {
+					slime.addToInventory(new RandomItem().getItem());
+				}
+
+				// Move Slime to random location
+				slime.moveToTile(empt[1] + 1, empt[0] + 1);
+				entities.add(slime);
 			}
 
-		
-			witch.moveToTile(empt[1] + 1, empt[0] + 1);
-			
+			if (empt != null) {
+				empt = getRandomFreeSpace();
+				witch = new Witch();
+
+				// Add random items
+				itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
+				for (int j = 0; j < itemCount; j++) {
+					witch.addToInventory(new RandomItem().getItem());
+				}
+
+				witch.moveToTile(empt[1] + 1, empt[0] + 1);
+				entities.add(witch);
+
+			}
+
 			empt = getRandomFreeSpace();
-			zombieninja = new ZombieNinja();
+			if (empt != null) {
+				zombieninja = new ZombieNinja();
 
-			
-			itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
-			for (int j = 0; j < itemCount; j++) {
-				zombieninja.addToInventory(new RandomItem().getItem());
+				itemCount = (int) (Math.random() * maxItemsInEnemyInventory) + 1;
+				for (int j = 0; j < itemCount; j++) {
+					zombieninja.addToInventory(new RandomItem().getItem());
+				}
+
+				// Move Slime to random location
+				zombieninja.moveToTile(empt[1] + 1, empt[0] + 1);
+				entities.add(zombieninja);
 			}
-
-			// Move Slime to random location
-			zombieninja.moveToTile(empt[1] + 1, empt[0] + 1);
-
-			// Add the entities to the list
-			entities.add(ogre);
-			entities.add(slime);
-			entities.add(witch);
-			entities.add(zombieninja);
-			
 		}
 	}
 
