@@ -49,21 +49,20 @@ public class PopulatorGraveyard extends Populator {
 			this.minY = minY;
 			this.maxY = maxY;
 		}
+
+		@Override
+		public String toString() {
+			return "(" + minX + " " + minY + " " + maxX + " " + maxY + ")";
+		}
 	}
 
 	@Override
 	public void populate() {
-		for (int i = 0; i < attempts; i++) {
+		ArrayList<GraveSite> sites = getLocations();
+		System.out.println("L " + sites);
 
-			// Choose a random point
-			int x = (int) (Math.random() * ((tileArray.length - 2) - width)) + 1;
-			int y = (int) (Math.random() * ((tileArray[0].length - 2) - height)) + 1;
-
-			ArrayList<GraveSite> sites = getLocations();
-
-			for (GraveSite site : sites) {
-				makeGraveyard(site.minX, site.maxX, site.minY, site.maxY);
-			}
+		for (GraveSite site : sites) {
+			makeGraveyard(site.minX, site.maxX, site.minY, site.maxY);
 		}
 	}
 
@@ -97,11 +96,13 @@ public class PopulatorGraveyard extends Populator {
 						tY ++;
 					}
 
-					if (lenX < 5 || lenY < 5) {
-						break Check;
-					} else {
+//					if (lenX < 5 || lenY < 5) {
+//						break Check;
+//					} else {
+					if (x < 6) {
 						sites.add(new GraveSite(x + 1, x + lenX - 2, y + 1, y + lenY - 2));
 					}
+//					}
 				}
 			}
 		}
@@ -112,6 +113,7 @@ public class PopulatorGraveyard extends Populator {
 	private void makeGraveyard(int minX, int maxX, int minY, int maxY) {
 		makeWalls(minX, maxX, minY, maxY);
 		makeSkulls(minX, maxX, minY, maxY);
+//		tileArray[minX][minY] = Settings.STONES1_ID;
 	}
 
 	private void makeSkulls(int minX, int maxX, int minY, int maxY) {
