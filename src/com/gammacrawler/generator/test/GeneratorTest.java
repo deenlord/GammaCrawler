@@ -11,8 +11,8 @@ public class GeneratorTest {
 //	public static GamePanel panel;
 
 	public static void main(String[] args) {
-		board = new Board(51, 51);
-		board.addMaze();
+		board = new Board(51, 51, 21);
+		board.addMaze(0);
 //		panel = new GamePanel(board);
 
 		int[][] iArray = board.getArray();

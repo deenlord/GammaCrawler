@@ -47,7 +47,8 @@ public class PopulatorChests extends Populator {
 			Chest chest = new Chest();
 			int[] p = this.getRandomFreeSpace();
 			
-			int rand = (int) Math.random() * 100;
+			int rand = (int) (Math.random() * 100);
+			System.out.println("Chest " + rand);
 			if (rand <= 10) {
 				chest.addTo(new Chalice());
 				chest.addTo(new HealthPotion());

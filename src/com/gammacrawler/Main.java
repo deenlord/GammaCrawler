@@ -6,6 +6,7 @@ import com.gammacrawler.entity.Entity;
 import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
