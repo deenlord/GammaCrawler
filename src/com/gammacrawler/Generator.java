@@ -57,7 +57,8 @@ public class Generator {
 	 * @param player - player who's scores and inventory will be passed
 	 */
 	public Generator(User player) {
-		player.setXP(1200);
+		// uncomment to test specific XP ranges.
+		// player.setXP(1200);
 		int xp = player.getXP();
 
 		if (xp < 100)
