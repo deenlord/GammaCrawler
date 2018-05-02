@@ -58,7 +58,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 		label.getStyleClass().add("menuLabel");
 		
 
-		int i = 32;
+		int i = Settings.TILESIZE;
 		// border
 		Sprite imgY1 = new Sprite("com/gammacrawler/images/user.png");
 		Sprite imgY2 = new Sprite("com/gammacrawler/images/user2.png");

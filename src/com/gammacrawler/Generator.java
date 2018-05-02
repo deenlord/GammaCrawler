@@ -82,6 +82,7 @@ public class Generator {
 		Generator.ar = this.board.getArray();
 		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
+		this.setupImages();
 
 		// Run all the populators, to populate the dungeon with stuff.
 		populate(new PopulatorGraveyard(this.board.getArray(), gameEntities));
@@ -95,7 +96,7 @@ public class Generator {
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 1));
 		}
 		else if (modifier <= 250) {
-			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, modifier / 10));
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, modifier / 25));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 3));
 		}
 		else {
@@ -173,7 +174,6 @@ public class Generator {
 
 				if (ar[i][j] == Settings.FLOOR_ID) {
 					// draw floor tile where you find a 0 in the array
-
 					gc.drawImage(floor.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.WALL_ID) {
 					// draw wall tile where you find a 1 in the array
