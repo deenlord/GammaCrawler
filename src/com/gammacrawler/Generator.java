@@ -57,14 +57,17 @@ public class Generator {
 	 * @param player - player who's scores and inventory will be passed
 	 */
 	public Generator(User player) {
+		player.setXP(1200);
 		int xp = player.getXP();
 
 		if (xp < 100)
 			makeGenerator(player, 15, 15, 12);
 		else if (xp > 100 && xp < 500)
 			makeGenerator(player, 21, 25, 16);
-		else
+		else if (xp > 500 && xp < 1000)
 			makeGenerator(player, 21, 31, 20);
+		else
+			makeGenerator(player, 21, 35, 20);
 	}
 
 	/**
@@ -77,7 +80,7 @@ public class Generator {
 	 */
 	private void makeGenerator(User player, int width, int height, int roomMaxSize) {
 		Generator.player = player;
-//		Generator.player.setXP(250);
+		
 		this.board = new Board(width, height, roomMaxSize);
 		
 		Generator.ar = this.board.getArray();
@@ -98,13 +101,17 @@ public class Generator {
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 1));
 		}
 		else if (player.getXP() <= 500) {
-			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 15.0));
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 5.0));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 3));
 		}
-		else {
-			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 20.0));
+		else if (player.getXP() <= 1000){
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 10.0));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 5));
 			
+		}
+		else {
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 19.0));
+			populate(new PopulatorChests(this.board.getArray(), gameEntities, 1));
 		}
 
 		// Cobbles run last as they are just floor decorations.
