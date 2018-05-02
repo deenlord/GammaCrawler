@@ -11,6 +11,11 @@ import com.gammacrawler.generator.map.connector.DungeonConnector;
 import com.gammacrawler.generator.map.connector.DungeonConnectorMaker;
 import com.gammacrawler.util.Point;
 
+/**
+ * This class creates a multidimensional array used as the game board/map
+ * @author wolfiewaffle
+ *
+ */
 public class Board {
 	ArrayList<ConnectorBucket> connectors;
 	private int[][] tileArray;

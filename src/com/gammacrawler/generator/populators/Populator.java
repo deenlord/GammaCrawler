@@ -7,6 +7,11 @@ import com.gammacrawler.Settings;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.util.Point;
 
+/**
+ * Abstract Base class for specific entity populators
+ * @author wolfiewaffle
+ *
+ */
 public abstract class Populator {
 
 	protected int[][] tileArray;
