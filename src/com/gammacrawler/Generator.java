@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
+import com.gammacrawler.entity.Sprite;
 import com.gammacrawler.entity.User;
 import com.gammacrawler.generator.Board;
 import com.gammacrawler.generator.populators.Populator;
@@ -31,17 +32,17 @@ public class Generator {
 	ArrayList<Entity> gameEntities;
 	StatusBar status;
 	InventoryBar invBar;
-	Image wall;
-	Image floor;
-	Image stair;
-	Image door;
-	Image skull;
-	Image cobbles1;
-	Image cobbles2;
-	Image cobbles3;
-	Image stones1;
-	Image stones2;
-	Image stones3;
+	Sprite wall;
+	Sprite floor;
+	Sprite stair;
+	Sprite door;
+	Sprite skull;
+	Sprite cobbles1;
+	Sprite cobbles2;
+	Sprite cobbles3;
+	Sprite stones1;
+	Sprite stones2;
+	Sprite stones3;
 
 	/**
 	 * Creates a generator
@@ -86,14 +87,22 @@ public class Generator {
 		populate(new PopulatorStair(this.board.getArray(), gameEntities));
 		populate(new PopulatorSkulls(this.board.getArray(), gameEntities, 1.0));
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 1));
-		if (modifier > 10) {
-			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, modifier / 10));
-			populate(new PopulatorChests(this.board.getArray(), gameEntities, modifier / 100));
-		}
-		else {
+		
+		// based on enemy xp, populate chests and enemies
+		if (modifier <= 100) {
 			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 10));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 1));
 		}
+		else if (modifier <= 250) {
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, modifier / 10));
+			populate(new PopulatorChests(this.board.getArray(), gameEntities, 3));
+		}
+		else {
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 25.0));
+			populate(new PopulatorChests(this.board.getArray(), gameEntities, 5));
+			
+		}
+		
 		populate(new PopulatorCobbles(this.board.getArray(), gameEntities));
 		
 		
@@ -157,28 +166,28 @@ public class Generator {
 
 				if (ar[i][j] == Settings.FLOOR_ID) {
 					// draw floor tile where you find a 0 in the array
-					gc.drawImage(floor, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(floor.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.WALL_ID) {
 					// draw wall tile where you find a 1 in the array
-					gc.drawImage(wall, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(wall.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.DOOR_ID) {
-					gc.drawImage(door, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(door.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.COBBLES1_ID) {
-					gc.drawImage(cobbles1, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(cobbles1.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.COBBLES2_ID) {
-					gc.drawImage(cobbles2, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(cobbles2.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.COBBLES3_ID) {
-					gc.drawImage(cobbles3, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(cobbles3.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.SKULL_ID) {
-					gc.drawImage(skull, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(skull.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STONES1_ID) {
-					gc.drawImage(stones1, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(stones1.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STONES2_ID) {
-					gc.drawImage(stones2, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(stones2.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STONES3_ID) {
-					gc.drawImage(stones3, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(stones3.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				} else if (ar[i][j] == Settings.STAIR_ID) {
-					gc.drawImage(stair, x, y, Settings.TILESIZE, Settings.TILESIZE);
+					gc.drawImage(stair.getImageView().getImage(), x, y, Settings.TILESIZE, Settings.TILESIZE);
 				}
 			}
 		}
@@ -191,17 +200,17 @@ public class Generator {
 	 * Sets up non entity sprites.
 	 */
 	private void setupImages() {
-		wall = new Image("file:src/com/gammacrawler/images/wall.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		floor = new Image("file:src/com/gammacrawler/images/floor.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stair= new Image("file:src/com/gammacrawler/images/stair.png", Settings.TILESIZE, Settings.TILESIZE,false,false);
-		door = new Image("file:src/com/gammacrawler/images/door.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		skull = new Image("file:src/com/gammacrawler/images/skull.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles1 = new Image("file:src/com/gammacrawler/images/cobbles1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles2 = new Image("file:src/com/gammacrawler/images/cobbles2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		cobbles3 = new Image("file:src/com/gammacrawler/images/cobbles3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stones1 = new Image("file:src/com/gammacrawler/images/stones1.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stones2 = new Image("file:src/com/gammacrawler/images/stones2.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
-		stones3 = new Image("file:src/com/gammacrawler/images/stones3.png", Settings.TILESIZE, Settings.TILESIZE, false, false);
+		wall = new Sprite("com/gammacrawler/images/wall.png");
+		floor = new Sprite("com/gammacrawler/images/floor.png");
+		stair= new Sprite("com/gammacrawler/images/stair.png");
+		door = new Sprite("com/gammacrawler/images/door.png");
+		skull = new Sprite("com/gammacrawler/images/skull.png");
+		cobbles1 = new Sprite("com/gammacrawler/images/cobbles1.png");
+		cobbles2 = new Sprite("com/gammacrawler/images/cobbles2.png");
+		cobbles3 = new Sprite("com/gammacrawler/images/cobbles3.png");
+		stones1 = new Sprite("com/gammacrawler/images/stones1.png");
+		stones2 = new Sprite("com/gammacrawler/images/stones2.png");
+		stones3 = new Sprite("com/gammacrawler/images/stones3.png");
 	}
 
 	/** Populates the board based on a populator
