@@ -77,12 +77,14 @@ public class Generator {
 	 */
 	private void makeGenerator(User player, int width, int height, int roomMaxSize) {
 		Generator.player = player;
+//		Generator.player.setXP(250);
 		this.board = new Board(width, height, roomMaxSize);
-		int modifier = player.getXP() + 1;
+		
 		Generator.ar = this.board.getArray();
 		this.gameEntities = new ArrayList<>();
 		this.setPlayerInitialLocation();
 		this.setupImages();
+		
 
 		// Run all the populators, to populate the dungeon with stuff.
 		populate(new PopulatorGraveyard(this.board.getArray(), gameEntities));
@@ -91,16 +93,16 @@ public class Generator {
 		populate(new PopulatorGoldCoin(this.board.getArray(), gameEntities, 1));
 		
 		// based on enemy xp, populate chests and enemies
-		if (modifier <= 100) {
-			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 10));
+		if (player.getXP() <= 100) {
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 2.0));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 1));
 		}
-		else if (modifier <= 250) {
-			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, modifier / 25));
+		else if (player.getXP() <= 500) {
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 15.0));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 3));
 		}
 		else {
-			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 25.0));
+			populate(new PopulatorEnemies(this.board.getArray(), gameEntities, 20.0));
 			populate(new PopulatorChests(this.board.getArray(), gameEntities, 5));
 			
 		}
