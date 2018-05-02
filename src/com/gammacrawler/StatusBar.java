@@ -1,11 +1,7 @@
 package com.gammacrawler;
 
-import com.gammacrawler.entity.Item;
 import com.gammacrawler.entity.User;
-import com.gammacrawler.item.Weapon;
 
-import javafx.scene.Group;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

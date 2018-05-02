@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.gammacrawler.Direction;
 import com.gammacrawler.Settings;
-import com.gammacrawler.entity.Enemy;
 import com.gammacrawler.entity.Entity;
 import com.gammacrawler.util.Point;
 
@@ -18,22 +17,28 @@ public abstract class Populator {
 		this.entities = entities;
 	}
 
+	/**
+	 * The abstract method that is used to generate features.
+	 */
 	public abstract void populate();
 
+	/**
+	 * Gets the ID of the tile at the specified location.
+	 * 
+	 * @param point
+	 *            The x and y point of the tile to check.
+	 * @return The ID of the tile.
+	 */
 	protected int getTile(Point point) {
 		return tileArray[point.x][point.y];
 	}
 
-	// TODO: Make this work
-	protected Enemy getEnemy(Point point) {
-//		for (Enemy e : enemies) {
-//			if (e.getLocation()) {
-//				
-//			}
-//		}
-		return null;
-	}
-
+	/**
+	 * Gets a location for a random tile that is a floor tile.
+	 * 
+	 * @return An int[][] containing x and y of the tile, or null if no free
+	 *         space can be found.
+	 */
 	protected int[] getRandomFreeSpace() {
 		int tries = 1000;
 
@@ -41,15 +46,10 @@ public abstract class Populator {
 			int x = (int) (Math.random() * tileArray.length);
 			int y = (int) (Math.random() * tileArray[0].length);
 
-//			StatusBar.addStatus("Attempting " + x + " " + y);
-//			StatusBar.addStatus("BLOCK: " + tileArray[x][y]);
-			if (tileArray[x][y] == Settings.FLOOR_ID ||
-					tileArray[x][y] == Settings.COBBLES1_ID ||
-					tileArray[x][y] == Settings.COBBLES2_ID ||
-					tileArray[x][y] == Settings.COBBLES3_ID) {
+			if (tileArray[x][y] == Settings.FLOOR_ID || tileArray[x][y] == Settings.COBBLES1_ID
+					|| tileArray[x][y] == Settings.COBBLES2_ID || tileArray[x][y] == Settings.COBBLES3_ID) {
 				if (noEntitiesHere(x, y)) {
-//					StatusBar.addStatus("MAKING POINT " + x + " " + y);
-					return new int[]{x, y};
+					return new int[] { x, y };
 				}
 			}
 		}
@@ -57,6 +57,13 @@ public abstract class Populator {
 		return null;
 	}
 
+	/**
+	 * Called to determine that no entities exist in this location.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return If an no entities occupy this location.
+	 */
 	private boolean noEntitiesHere(int x, int y) {
 		for (Entity e : entities) {
 			if ((e.getLocation()[1] / Settings.TILESIZE) - 1 == x) {
@@ -69,6 +76,18 @@ public abstract class Populator {
 		return true;
 	}
 
+	/**
+	 * Returns the count of neighbors of a specific tile. For example you can
+	 * get how many of the 8 surrounding tiles are ID 1.
+	 * 
+	 * @param point
+	 *            The point to count the surrounding tiles of.
+	 * @param testForTile
+	 *            The tile ID you want to count.
+	 * @param outOfBoundsCounts
+	 *            If out of bounds locations count towards the total.
+	 * @return An integer of how many surrounding tiles of the specified ID.
+	 */
 	protected int getOctNeighborCount(Point point, int testForTile, boolean outOfBoundsCounts) {
 		int count = 0;
 
@@ -94,7 +113,8 @@ public abstract class Populator {
 	 * routes. Always check for this if you are making a solid tile populator.
 	 * 
 	 * @param point The point you are checking.
-	 * @param routeTile The number that corresponds to the path or non solid tile.
+	 * @param routeTile The number that corresponds to the path or non solid
+	 *            tile.
 	 * @return If placing a tile here would block off routes.
 	 */
 	protected boolean doesBlockRoute(Point point, int routeTile) {
@@ -112,11 +132,8 @@ public abstract class Populator {
 
 		// Replace non solid tiles with route
 		for (int i = 0; i < tiles.length; i++) {
-			if (tiles[i] == Settings.FLOOR_ID ||
-					tiles[i] == Settings.DOOR_ID ||
-					tiles[i] == Settings.COBBLES1_ID ||
-					tiles[i] == Settings.COBBLES2_ID ||
-					tiles[i] == Settings.COBBLES3_ID) {
+			if (tiles[i] == Settings.FLOOR_ID || tiles[i] == Settings.DOOR_ID || tiles[i] == Settings.COBBLES1_ID
+					|| tiles[i] == Settings.COBBLES2_ID || tiles[i] == Settings.COBBLES3_ID) {
 				tiles[i] = routeTile;
 			}
 		}
